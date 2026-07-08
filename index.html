@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammed Afnan — Senior UX Designer</title>
+<meta name="description" content="Senior UX designer, 8+ years in enterprise products. Winner, UX Hack April 2021. Open to Dubai.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     HOW TO EDIT THIS SITE
+     1. Your details: edit the CONFIG object in the script at the
+        bottom of this file.
+     2. Add a project: copy one object inside the PROJECTS array,
+        change the text, save. The index, numbering, progress and
+        skim mode all update themselves.
+     3. Images: put your image files next to this file and set
+        "image": "filename.png" in the project block.
+     No build tools. Open the file in any browser.
+============================================================ -->
+
+<style>
+:root{
+  --paper:#faf6f0;
+  --ink:#1c1a17;
+  --ink-soft:#57534c;
+  --ink-faint:#8a857c;
+  --line:#e2dcd2;
+  --accent:#a4441c;
+  --accent-soft:#f3e4da;
+  --max:1120px;
+  --serif:"Fraunces",Georgia,serif;
+  --body:"Newsreader",Georgia,serif;
+  --mono:"IBM Plex Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+
+/* ---------- reading progress ---------- */
+#progress{position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:50}
+#progress b{display:block;height:100%;width:0;background:var(--accent);transition:width .1s linear}
+#readout{position:fixed;top:10px;right:14px;font-family:var(--mono);font-size:11px;color:var(--ink-faint);z-index:50;background:var(--paper);padding:2px 8px;border:1px solid var(--line);border-radius:20px}
+@media(max-width:520px){#readout{display:none}}
+
+/* ---------- layout ---------- */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px;width:100%}
+.grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:64px}
+.grid>*{min-width:0}
+@media(max-width:900px){.grid{grid-template-columns:minmax(0,1fr);gap:0}}
+img{max-width:100%;height:auto}
+
+/* ---------- masthead ---------- */
+header{padding:72px 0 48px;border-bottom:1px solid var(--ink)}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+h1.name{font-family:var(--serif);font-weight:500;font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.01em}
+.name em{font-style:italic;font-weight:400;color:var(--accent)}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:28px;flex-wrap:wrap}
+.standfirst{font-size:20px;max-width:560px;color:var(--ink-soft)}
+.standfirst b{color:var(--ink);font-weight:500}
+.meta{font-family:var(--mono);font-size:12px;line-height:2;color:var(--ink-soft);text-align:right;overflow-wrap:anywhere}
+@media(max-width:900px){.meta{text-align:left}}
+.meta a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.meta a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- toolbar ---------- */
+.toolbar{position:sticky;top:0;background:var(--paper);border-bottom:1px solid var(--line);z-index:40;padding:10px 0}
+.toolbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.toolbar nav{display:flex;gap:18px;overflow-x:auto}
+.toolbar nav a{font-family:var(--mono);font-size:12px;color:var(--ink-soft);text-decoration:none;white-space:nowrap}
+.toolbar nav a:hover{color:var(--accent)}
+#skim{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;border-radius:20px;cursor:pointer;white-space:nowrap}
+#skim[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+/* ---------- index (dossier contents) ---------- */
+aside.index{padding-top:56px}
+@media(min-width:901px){aside.index{position:sticky;top:64px;align-self:start;height:fit-content}}
+.index h2{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:500;margin-bottom:16px}
+.index ol{list-style:none}
+.index li{border-bottom:1px solid var(--line)}
+.index a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;text-decoration:none;color:var(--ink-soft);font-size:15px}
+.index a:hover{color:var(--accent)}
+.index .no{font-family:var(--mono);font-size:11px;color:var(--ink-faint);min-width:24px}
+.index .tick{font-family:var(--mono);font-size:12px;color:var(--line);transition:color .4s}
+.index li.done .tick{color:var(--accent)}
+.index li.done a{color:var(--ink)}
+@media(max-width:900px){aside.index{display:none}}
+
+/* ---------- sections ---------- */
+main{padding:56px 0 0}
+section{padding:0 0 88px;scroll-margin-top:72px}
+.sec-label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.sec-label::after{content:"";flex:1;height:1px;background:var(--line)}
+h2.sec-title{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4vw,44px);line-height:1.1;margin-bottom:24px;letter-spacing:-.01em}
+
+/* the skim spine: gist lines survive skim mode */
+.gist{font-family:var(--serif);font-size:22px;line-height:1.4;font-weight:500;margin:28px 0 12px;letter-spacing:-.005em}
+.gist::before{content:"→ ";color:var(--accent)}
+p.body-t{color:var(--ink-soft);max-width:640px;margin-bottom:14px}
+p.body-t b{color:var(--ink);font-weight:500}
+body.skim p.body-t,body.skim .detail{display:none}
+body.skim .gist{margin:18px 0}
+
+/* ---------- counters ---------- */
+.counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:32px 0}
+.counter{background:var(--paper);padding:20px}
+.counter .n{font-family:var(--serif);font-size:40px;font-weight:500;line-height:1}
+.counter .l{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-top:8px}
+
+/* ---------- project cards ---------- */
+article.project{border:1px solid var(--ink);margin-bottom:40px;background:#fffdf9}
+.proj-head{padding:28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap}
+.proj-no{font-family:var(--mono);font-size:12px;color:var(--accent)}
+h3.proj-title{font-family:var(--serif);font-size:clamp(24px,3vw,34px);font-weight:500;line-height:1.15;max-width:620px;letter-spacing:-.01em}
+.badge{font-family:var(--mono);font-size:11px;background:var(--accent-soft);color:var(--accent);padding:4px 10px;border-radius:3px;white-space:nowrap}
+.proj-body{padding:28px}
+.proj-meta{font-family:var(--mono);font-size:12px;color:var(--ink-soft);margin-bottom:20px}
+.proj-img{background:var(--accent-soft);border:1px dashed var(--accent);padding:48px 20px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--accent);margin:20px 0}
+.proj-img img{max-width:100%;display:block;margin:0 auto}
+.proj-cta{display:inline-block;font-family:var(--mono);font-size:13px;color:var(--paper);background:var(--ink);text-decoration:none;padding:10px 20px;margin-top:16px;border-radius:3px}
+.proj-cta:hover{background:var(--accent)}
+article.project.soon{border-style:dashed;border-color:var(--ink-faint);background:transparent}
+article.project.soon .proj-head{border-bottom:none}
+
+/* ---------- margin notes ---------- */
+.note{font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--ink-faint);border-left:2px solid var(--accent);padding-left:12px;max-width:340px;margin:20px 0}
+
+/* ---------- completion ---------- */
+#complete{border:1px solid var(--ink);padding:40px;text-align:center;margin-bottom:88px;opacity:.35;transition:opacity .6s}
+#complete.on{opacity:1}
+#complete .big{font-family:var(--serif);font-size:clamp(24px,3.5vw,36px);font-weight:500;line-height:1.2;margin-bottom:12px}
+#complete p{color:var(--ink-soft);max-width:480px;margin:0 auto 20px}
+.contact-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.contact-row a{font-family:var(--mono);font-size:13px;text-decoration:none;padding:10px 20px;border-radius:3px;border:1px solid var(--ink);color:var(--ink)}
+.contact-row a.primary{background:var(--ink);color:var(--paper)}
+.contact-row a:hover{border-color:var(--accent);color:var(--accent)}
+.contact-row a.primary:hover{background:var(--accent);color:var(--paper)}
+
+footer{border-top:1px solid var(--line);padding:24px 0 48px;font-family:var(--mono);font-size:11px;color:var(--ink-faint);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* ---------- reveal on scroll ---------- */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div id="progress"><b></b></div>
+<div id="readout">read 0%</div>
+
+<div class="wrap">
+  <header>
+    <p class="kicker" id="cfg-kicker"></p>
+    <h1 class="name" id="cfg-name"></h1>
+    <div class="masthead-row">
+      <p class="standfirst" id="cfg-standfirst"></p>
+      <p class="meta" id="cfg-meta"></p>
+    </div>
+  </header>
+</div>
+
+<div class="toolbar">
+  <div class="wrap">
+    <nav id="toolbar-nav"></nav>
+    <button id="skim" aria-pressed="false" title="Show only the key lines">skim mode</button>
+  </div>
+</div>
+
+<div class="wrap grid">
+  <aside class="index">
+    <h2>Contents</h2>
+    <ol id="index-list"></ol>
+    <p class="note">This index checks itself off as you read. Skim mode strips the page to its key lines if you have thirty seconds, not ten minutes.</p>
+  </aside>
+
+  <main id="main"></main>
+</div>
+
+<div class="wrap">
+  <div id="complete">
+    <p class="big">You read the whole file. Most visitors don't.</p>
+    <p>That kind of attention is exactly what I bring to enterprise products. Let's talk.</p>
+    <div class="contact-row" id="contact-row"></div>
+  </div>
+  <footer>
+    <span id="cfg-footer"></span>
+    <span>Set in Fraunces &amp; Newsreader · No template used</span>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   1. YOUR DETAILS — edit freely
+============================================================ */
+const CONFIG = {
+  kicker: "Senior UX designer · Enterprise products · Open to Dubai",
+  nameHTML: "Mohammed <em>Afnan</em>",
+  standfirst: "Eight years designing enterprise tools people are forced to use, until the design makes them <b>want</b> to. Winner, UX Hack 2021.",
+  email: "mails2afnan@gmail.com",
+  phone: "+91 7200152092",
+  linkedin: "https://www.linkedin.com/in/mohammed-afnan-44a187a3/",
+  location: "India · relocating to Dubai",
+  footer: "© 2026 Mohammed Afnan"
+};
+
+/* ============================================================
+   2. SECTIONS — the page builds itself from this list.
+      Each section: { id, label, title, blocks }
+      Block types:
+        {gist:"key line"}                — survives skim mode
+        {p:"paragraph"}                  — hidden in skim mode
+        {counters:[{n,label},...]}       — animated numbers
+        {note:"margin note"}             — mono annotation
+        {project:{...}}                  — a case study card
+      TO ADD A PROJECT: copy the project block in section
+      "work" and edit its fields.
+============================================================ */
+const SECTIONS = [
+  {
+    id:"approach", label:"01 — How I work", title:"Judgment first, pixels second.",
+    blocks:[
+      {gist:"Enterprise products fail quietly: users can't leave, so nobody hears them."},
+      {p:"Consumer apps lose users when the design fails. Enterprise tools keep them, because the users have no choice. The cost hides in slow work, workarounds and training bills. I've spent eight years finding that hidden cost and designing it out."},
+      {gist:"My method is boring on purpose: find the real user, find the real cost, fix the decision that caused both."},
+      {p:"No process theatre. Research goes as deep as the decision needs and no deeper. The WhatsApp case below shows what that looks like under time pressure: a crisis, four ignored user groups, and a fix aimed at the actual failure, which was the message, never the product."},
+      {counters:[
+        {n:"8+",label:"years in UX"},
+        {n:"1st",label:"UX Hack, April 2021"},
+        {n:"2nd",label:"runner-up, UX hackathon"},
+        {n:"3×",label:"faster with AI in my workflow"}
+      ]},
+      {note:"The 3× is measured on my own case-study production, not a vendor claim."}
+    ]
+  },
+  {
+    id:"work", label:"02 — Selected work", title:"Case files.",
+    blocks:[
+      {gist:"One finished case file below. Two more are being declassified from NDA work."},
+      {project:{
+        no:"File 01",
+        badge:"Winner · UX Hack, April 2021",
+        title:"When WhatsApp lost the trust of 2 billion users, I redesigned the message, not the product.",
+        meta:"Solo designer · Hackathon sprint · Research, strategy, UI",
+        summary:"In January 2021 WhatsApp asked users to accept a policy that mostly affected business chats. The announcement made no distinction between its four very different audiences, so the least affected users panicked the most, and millions left. My winning entry separated the audiences, said what wasn't changing first, and made business messaging opt-in with privacy on by default. WhatsApp's own fix, shipped between February and May 2021, converged on the same calls. Mine went further on segmentation and user control.",
+        image:"",
+        imagePlaceholder:"Hero image: side-by-side comparison board — my April 2021 screens next to WhatsApp's shipped flow",
+        link:"#",
+        linkText:"Read the full case file"
+      }},
+      {project:{
+        soon:true,
+        no:"File 02",
+        badge:"Declassifying",
+        title:"Runner-up hackathon entry. Full case file in preparation.",
+        meta:"",
+        summary:"",
+        image:"",imagePlaceholder:"",link:"",linkText:""
+      }},
+      {project:{
+        soon:true,
+        no:"File 03",
+        badge:"Declassifying",
+        title:"Eight years of enterprise B2B work, rebuilt NDA-safe. In preparation.",
+        meta:"",
+        summary:"",
+        image:"",imagePlaceholder:"",link:"",linkText:""
+      }}
+    ]
+  },
+  {
+    id:"about", label:"03 — About", title:"The short version.",
+    blocks:[
+      {gist:"Senior UX designer. Enterprise B2B tools. I ask more than I talk."},
+      {p:"I came to UX from architecture school, where I placed first in a semester by thinking about the people in the building instead of the drawing on the sheet. The sheet was incomplete. The thinking wasn't. That trade has defined my work since."},
+      {gist:"I work with AI daily, and I design faster because of it, not instead of it."},
+      {p:"Research synthesis, copy variants, prototype logic: the machine drafts, I decide. Judgment is the part that doesn't automate, and it's the part I sell."},
+      {note:"Based in India, relocating to Dubai. Passport ready, family on board, notice period zero."}
+    ]
+  }
+];
+
+/* ============================================================
+   3. RENDERING — no need to edit below this line
+============================================================ */
+const esc = s => s;
+function renderBlocks(blocks){
+  return blocks.map(b=>{
+    if(b.gist) return `<p class="gist reveal">${esc(b.gist)}</p>`;
+    if(b.p) return `<p class="body-t reveal">${esc(b.p)}</p>`;
+    if(b.note) return `<p class="note reveal detail">${esc(b.note)}</p>`;
+    if(b.counters) return `<div class="counters reveal">`+b.counters.map(c=>
+      `<div class="counter"><div class="n" data-count="${esc(c.n)}">0</div><div class="l">${esc(c.label)}</div></div>`).join("")+`</div>`;
+    if(b.project){
+      const p=b.project;
+      if(p.soon) return `<article class="project soon reveal"><div class="proj-head"><div><p class="proj-no">${esc(p.no)}</p><h3 class="proj-title">${esc(p.title)}</h3></div><span class="badge">${esc(p.badge)}</span></div></article>`;
+      const img = p.image ? `<div class="proj-img"><img src="${esc(p.image)}" alt=""></div>`
+                          : `<div class="proj-img detail">${esc(p.imagePlaceholder)}</div>`;
+      return `<article class="project reveal">
+        <div class="proj-head"><div><p class="proj-no">${esc(p.no)}</p><h3 class="proj-title">${esc(p.title)}</h3></div><span class="badge">${esc(p.badge)}</span></div>
+        <div class="proj-body">
+          <p class="proj-meta">${esc(p.meta)}</p>
+          <p class="body-t">${esc(p.summary)}</p>
+          ${img}
+          <a class="proj-cta" href="${esc(p.link)}">${esc(p.linkText)} →</a>
+        </div></article>`;
+    }
+    return "";
+  }).join("");
+}
+
+document.getElementById("cfg-kicker").textContent = CONFIG.kicker;
+document.getElementById("cfg-name").innerHTML = CONFIG.nameHTML;
+document.getElementById("cfg-standfirst").innerHTML = CONFIG.standfirst;
+document.getElementById("cfg-meta").innerHTML =
+  `<a href="mailto:${CONFIG.email}">${CONFIG.email}</a><br>`+
+  `<a href="tel:${CONFIG.phone.replace(/ /g,"")}">${CONFIG.phone}</a><br>`+
+  `<a href="${CONFIG.linkedin}" target="_blank" rel="noopener">LinkedIn</a><br>${CONFIG.location}`;
+document.getElementById("cfg-footer").textContent = CONFIG.footer;
+
+document.getElementById("main").innerHTML = SECTIONS.map(s=>
+  `<section id="${s.id}">
+    <p class="sec-label">${s.label}</p>
+    <h2 class="sec-title reveal">${s.title}</h2>
+    ${renderBlocks(s.blocks)}
+  </section>`).join("");
+
+document.getElementById("index-list").innerHTML = SECTIONS.map(s=>
+  `<li data-sec="${s.id}"><a href="#${s.id}"><span class="no">${s.label.split(" ")[0]}</span><span style="flex:1">${s.title}</span><span class="tick">✓</span></a></li>`).join("");
+
+document.getElementById("toolbar-nav").innerHTML = SECTIONS.map(s=>
+  `<a href="#${s.id}">${s.label}</a>`).join("");
+
+document.getElementById("contact-row").innerHTML =
+  `<a class="primary" href="mailto:${CONFIG.email}">Email me</a>`+
+  `<a href="${CONFIG.linkedin}" target="_blank" rel="noopener">LinkedIn</a>`+
+  `<a href="https://wa.me/${CONFIG.phone.replace(/[^0-9]/g,"")}" target="_blank" rel="noopener">WhatsApp</a>`;
+
+/* skim mode */
+const skimBtn=document.getElementById("skim");
+skimBtn.addEventListener("click",()=>{
+  const on=document.body.classList.toggle("skim");
+  skimBtn.setAttribute("aria-pressed",on);
+  skimBtn.textContent=on?"full mode":"skim mode";
+});
+
+/* reading progress + completion */
+const bar=document.querySelector("#progress b"),readout=document.getElementById("readout"),complete=document.getElementById("complete");
+addEventListener("scroll",()=>{
+  const h=document.documentElement,max=h.scrollHeight-h.clientHeight,
+        pc=max>0?Math.min(100,Math.round(h.scrollTop/max*100)):100;
+  bar.style.width=pc+"%";readout.textContent="read "+pc+"%";
+  if(pc>=96)complete.classList.add("on");
+},{passive:true});
+
+/* reveal + index ticks */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("in")}),{threshold:.15});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+const secIO=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    const li=document.querySelector(`.index li[data-sec="${e.target.id}"]`);
+    if(li)li.classList.add("done");
+  }}),{threshold:.4});
+document.querySelectorAll("section").forEach(s=>secIO.observe(s));
+
+/* animated counters */
+const cIO=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const el=e.target,target=el.dataset.count,num=parseInt(target)||0,suffix=target.replace(/^[0-9]+/,"");
+  let cur=0;const step=()=>{cur++;el.textContent=(num?cur:target.charAt(0))+ (cur>=num?suffix:"");
+    if(cur<num)requestAnimationFrame(step);else el.textContent=target;};
+  num?step():el.textContent=target;
+  cIO.unobserve(el);
+}),{threshold:.6});
+document.querySelectorAll("[data-count]").forEach(el=>cIO.observe(el));
+</script>
+</body>
+</html>
