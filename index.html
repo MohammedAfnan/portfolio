@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mohammed Afnan — Senior UX Designer</title>
-<meta name="description" content="Senior UX designer, 8+ years in enterprise products. Winner, UX Hack April 2021. Open to Dubai.">
+<meta name="description" content="Senior UX designer, 8+ years in enterprise products. Winner, UX Hack April 2021.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -71,8 +71,24 @@ h1.name{font-family:var(--serif);font-weight:500;font-size:clamp(40px,7vw,76px);
 .toolbar nav{display:flex;gap:18px;overflow-x:auto}
 .toolbar nav a{font-family:var(--mono);font-size:12px;color:var(--ink-soft);text-decoration:none;white-space:nowrap}
 .toolbar nav a:hover{color:var(--accent)}
-#skim{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;border-radius:20px;cursor:pointer;white-space:nowrap}
+#skim{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;border-radius:20px;cursor:pointer;white-space:nowrap;position:relative}
 #skim[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+/* ---------- skim button attention animation (shimmer sweep) ---------- */
+#skim.attn{overflow:hidden}
+#skim.attn::after{
+  content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(120deg,transparent,rgba(164,68,28,.35),transparent);
+  animation:skim-shimmer 1.4s ease-in-out 1.1s 2;
+  pointer-events:none;
+}
+@keyframes skim-shimmer{
+  0%{left:-60%}
+  100%{left:120%}
+}
+@media(prefers-reduced-motion:reduce){
+  #skim.attn::after{animation:none}
+}
 
 /* ---------- index (dossier contents) ---------- */
 aside.index{padding-top:56px}
@@ -123,6 +139,7 @@ h3.proj-title{font-family:var(--serif);font-size:clamp(24px,3vw,34px);font-weigh
 .proj-cta:hover{background:var(--accent)}
 article.project.soon{border-style:dashed;border-color:var(--ink-faint);background:transparent}
 article.project.soon .proj-head{border-bottom:none}
+article.project.soon.has-note .proj-head{border-bottom:1px solid var(--line)}
 
 /* ---------- margin notes ---------- */
 .note{font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--ink-faint);border-left:2px solid var(--accent);padding-left:12px;max-width:340px;margin:20px 0}
@@ -196,13 +213,13 @@ footer{border-top:1px solid var(--line);padding:24px 0 48px;font-family:var(--mo
    1. YOUR DETAILS — edit freely
 ============================================================ */
 const CONFIG = {
-  kicker: "Senior UX designer · Enterprise products · Open to Dubai",
+  kicker: "Senior UX designer · Enterprise and consumer products",
   nameHTML: "Mohammed <em>Afnan</em>",
   standfirst: "Eight years designing enterprise tools people are forced to use, until the design makes them <b>want</b> to. Winner, UX Hack 2021.",
   email: "mails2afnan@gmail.com",
   phone: "+91 7200152092",
   linkedin: "https://www.linkedin.com/in/mohammed-afnan-44a187a3/",
-  location: "India · relocating to Dubai",
+  location: "India",
   footer: "© 2026 Mohammed Afnan"
 };
 
@@ -238,7 +255,6 @@ const SECTIONS = [
   {
     id:"work", label:"02 — Selected work", title:"Case files.",
     blocks:[
-      {gist:"One finished case file below. Two more are being declassified from NDA work."},
       {project:{
         no:"File 01",
         badge:"Winner · UX Hack, April 2021",
@@ -247,24 +263,37 @@ const SECTIONS = [
         summary:"In January 2021 WhatsApp asked users to accept a policy that mostly affected business chats. The announcement made no distinction between its four very different audiences, so the least affected users panicked the most, and millions left. My winning entry separated the audiences, said what wasn't changing first, and made business messaging opt-in with privacy on by default. WhatsApp's own fix, shipped between February and May 2021, converged on the same calls. Mine went further on segmentation and user control.",
         image:"",
         imagePlaceholder:"Hero image: side-by-side comparison board — my April 2021 screens next to WhatsApp's shipped flow",
-        link:"#",
+        link:"case-study-1-whatsapp-privacy.html",
+        linkText:"Read the full case file"
+      }},
+      {project:{
+        no:"File 02",
+        badge:"Runner-up · UX Hack, April 2021",
+        title:"Meesho hands new sellers to WhatsApp mid-flow and doesn't always let them back. I audited why, and rebuilt the flow around the process sellers already know.",
+        meta:"Solo auditor · Hackathon weekend, separate round from File 01 · Heuristic audit, flow redesign proposal",
+        summary:"The brief let me audit any flow on Meesho, a reselling platform. I picked onboarding through a seller's first order: her own first experience decides whether she trusts a product enough to stay, refers it, or tries something else. I built the audit around her goals, sharing products easily topped the list, and her biggest named frustration, keeping track of customers and orders across channels. Five screens held up. Three broke one of her goals each: a forced hand-off to WhatsApp, a sign-up dialog that ambushes users mid-flow, and a checkout step with no link to which customer it's for. I mapped her six-step offline process down to three steps in the app.",
+        image:"",
+        imagePlaceholder:"Flowchart of the audited flow, issues marked at the points they occur",
+        link:"case-study-2-meesho-audit.html",
+        linkText:"Read the full case file"
+      }},
+      {project:{
+        no:"File 03",
+        badge:"2 years · contributor → design lead",
+        title:"A manual, multi-role process for assessing student learning became one connected system, and I went from contributor to design lead on it.",
+        meta:"Contributor → design lead · 2 years, NDA product · Research, IA, wireframes, visual design, user testing",
+        summary:"DigiAssess lets institutions assess student learning outcomes and map them to program and course outcomes. Before the redesign, the process behind scheduling, conducting, and publishing assessments lived in people's heads, split across subject-matter experts, item authors, proctors, and reviewers, with no shared model connecting them. I mapped the hidden handoffs between roles into flowcharts, which became the actual requirements, and over two years grew from a contributor on individual modules into design lead for the system that had to hold all of it together at once. Screens are recreated for this case study to stay NDA-safe.",
+        image:"",
+        imagePlaceholder:"Hero image: swimlane flow of student, system and proctor roles converging on one assessment flow",
+        link:"case-study-3-digiassess.html",
         linkText:"Read the full case file"
       }},
       {project:{
         soon:true,
-        no:"File 02",
+        no:"File 04",
         badge:"Declassifying",
-        title:"Runner-up hackathon entry. Full case file in preparation.",
-        meta:"",
-        summary:"",
-        image:"",imagePlaceholder:"",link:"",linkText:""
-      }},
-      {project:{
-        soon:true,
-        no:"File 03",
-        badge:"Declassifying",
-        title:"Eight years of enterprise B2B work, rebuilt NDA-safe. In preparation.",
-        meta:"",
+        title:"Almost 5 years of enterprise B2B work, rebuilt NDA-safe. In preparation.",
+        meta:"Happy to walk through this in the interview. The high-fidelity screens and flow charts exist, I just can't post them here.",
         summary:"",
         image:"",imagePlaceholder:"",link:"",linkText:""
       }}
@@ -277,7 +306,7 @@ const SECTIONS = [
       {p:"I came to UX from architecture school, where I placed first in a semester by thinking about the people in the building instead of the drawing on the sheet. The sheet was incomplete. The thinking wasn't. That trade has defined my work since."},
       {gist:"I work with AI daily, and I design faster because of it, not instead of it."},
       {p:"Research synthesis, copy variants, prototype logic: the machine drafts, I decide. Judgment is the part that doesn't automate, and it's the part I sell."},
-      {note:"Based in India, relocating to Dubai. Passport ready, family on board, notice period zero."}
+      {note:"Based in India. Passport ready, family on board, notice period zero."}
     ]
   }
 ];
@@ -295,7 +324,10 @@ function renderBlocks(blocks){
       `<div class="counter"><div class="n" data-count="${esc(c.n)}">0</div><div class="l">${esc(c.label)}</div></div>`).join("")+`</div>`;
     if(b.project){
       const p=b.project;
-      if(p.soon) return `<article class="project soon reveal"><div class="proj-head"><div><p class="proj-no">${esc(p.no)}</p><h3 class="proj-title">${esc(p.title)}</h3></div><span class="badge">${esc(p.badge)}</span></div></article>`;
+      if(p.soon){
+        const note = p.meta ? `<div class="proj-body"><p class="body-t">${esc(p.meta)}</p></div>` : "";
+        return `<article class="project soon${p.meta?" has-note":""} reveal"><div class="proj-head"><div><p class="proj-no">${esc(p.no)}</p><h3 class="proj-title">${esc(p.title)}</h3></div><span class="badge">${esc(p.badge)}</span></div>${note}</article>`;
+      }
       const img = p.image ? `<div class="proj-img"><img src="${esc(p.image)}" alt=""></div>`
                           : `<div class="proj-img detail">${esc(p.imagePlaceholder)}</div>`;
       return `<article class="project reveal">
@@ -345,6 +377,14 @@ skimBtn.addEventListener("click",()=>{
   skimBtn.setAttribute("aria-pressed",on);
   skimBtn.textContent=on?"full mode":"skim mode";
 });
+
+/* draw attention to skim button on load, stop once noticed */
+requestAnimationFrame(()=>skimBtn.classList.add("attn"));
+const clearAttn=()=>skimBtn.classList.remove("attn");
+skimBtn.addEventListener("click",clearAttn,{once:true});
+skimBtn.addEventListener("mouseenter",clearAttn,{once:true});
+skimBtn.addEventListener("focus",clearAttn,{once:true});
+setTimeout(clearAttn,7000);
 
 /* reading progress + completion */
 const bar=document.querySelector("#progress b"),readout=document.getElementById("readout"),complete=document.getElementById("complete");
