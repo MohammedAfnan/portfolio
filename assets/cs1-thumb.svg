@@ -1,0 +1,89 @@
+<svg viewBox="0 0 1200 640" xmlns="http://www.w3.org/2000/svg" role="img" font-family="'IBM Plex Mono', ui-monospace, monospace">
+  <title>Case File 01 — WhatsApp privacy update: before and after comparison board</title>
+  <desc>Two stylized phone screens. Left: the original panic-inducing legal wall with one Accept button. Right: the redesign that reassures first, separates business chats, and makes them opt-in. Split by an accent divider knob.</desc>
+
+  <!-- background -->
+  <rect x="0" y="0" width="1200" height="640" fill="#fffdf9"/>
+  <rect x="0.5" y="0.5" width="1199" height="639" fill="none" stroke="#1c1a17" stroke-width="1"/>
+
+  <!-- top label strip -->
+  <text x="40" y="52" font-size="17" letter-spacing="2" fill="#a4441c">FILE 01 · WHATSAPP PRIVACY UPDATE</text>
+  <text x="1160" y="52" font-size="17" letter-spacing="1" fill="#8a857c" text-anchor="end">REDESIGN THE MESSAGE, NOT THE PRODUCT</text>
+  <line x1="40" y1="72" x2="1160" y2="72" stroke="#e2dcd2" stroke-width="1"/>
+
+  <!-- ================= LEFT PHONE — BEFORE ================= -->
+  <g>
+    <!-- caption -->
+    <text x="330" y="118" font-size="16" letter-spacing="1.5" fill="#8a857c" text-anchor="middle">BEFORE — ONE MESSAGE, FOUR AUDIENCES</text>
+    <!-- phone frame -->
+    <rect x="190" y="140" width="280" height="430" rx="26" fill="#faf6f0" stroke="#1c1a17" stroke-width="2"/>
+    <rect x="290" y="152" width="80" height="9" rx="4.5" fill="#1c1a17" opacity="0.25"/>
+    <!-- header bar (alarming) -->
+    <rect x="206" y="176" width="248" height="60" rx="8" fill="#f3e4da"/>
+    <circle cx="232" cy="206" r="11" fill="#a4441c"/>
+    <text x="232" y="212" font-size="15" fill="#fffdf9" text-anchor="middle" font-weight="700">!</text>
+    <text x="254" y="203" font-size="13.5" fill="#1c1a17" font-family="Georgia, serif">Privacy Policy Update</text>
+    <text x="254" y="221" font-size="11" fill="#8a857c">Accept to keep using WhatsApp</text>
+    <!-- legal wall of text -->
+    <g fill="#c9c2b6">
+      <rect x="206" y="256" width="248" height="7" rx="3.5"/>
+      <rect x="206" y="272" width="248" height="7" rx="3.5"/>
+      <rect x="206" y="288" width="230" height="7" rx="3.5"/>
+      <rect x="206" y="304" width="248" height="7" rx="3.5"/>
+      <rect x="206" y="320" width="240" height="7" rx="3.5"/>
+      <rect x="206" y="336" width="248" height="7" rx="3.5"/>
+      <rect x="206" y="352" width="218" height="7" rx="3.5"/>
+      <rect x="206" y="368" width="248" height="7" rx="3.5"/>
+      <rect x="206" y="384" width="234" height="7" rx="3.5"/>
+      <rect x="206" y="400" width="248" height="7" rx="3.5"/>
+      <rect x="206" y="416" width="200" height="7" rx="3.5"/>
+    </g>
+    <!-- single accept button -->
+    <rect x="206" y="500" width="248" height="46" rx="8" fill="#1c1a17"/>
+    <text x="330" y="529" font-size="15" fill="#fffdf9" text-anchor="middle" letter-spacing="1">ACCEPT</text>
+  </g>
+
+  <!-- ================= CENTER DIVIDER (compare knob) ================= -->
+  <line x1="600" y1="150" x2="600" y2="560" stroke="#a4441c" stroke-width="2" stroke-dasharray="2 7"/>
+  <circle cx="600" cy="355" r="26" fill="#a4441c"/>
+  <text x="600" y="363" font-size="22" fill="#fffdf9" text-anchor="middle">↔</text>
+
+  <!-- ================= RIGHT PHONE — AFTER ================= -->
+  <g>
+    <text x="870" y="118" font-size="16" letter-spacing="1.5" fill="#a4441c" text-anchor="middle">AFTER — SEGMENTED, OPT-IN BY DEFAULT</text>
+    <rect x="730" y="140" width="280" height="430" rx="26" fill="#fffdf9" stroke="#1c1a17" stroke-width="2"/>
+    <rect x="830" y="152" width="80" height="9" rx="4.5" fill="#1c1a17" opacity="0.25"/>
+
+    <!-- reassurance first -->
+    <rect x="746" y="176" width="248" height="66" rx="8" fill="#f3e4da"/>
+    <circle cx="772" cy="209" r="12" fill="#a4441c"/>
+    <path d="M766 209 l4 4 l8 -8" fill="none" stroke="#fffdf9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="794" y="203" font-size="13.5" fill="#1c1a17" font-family="Georgia, serif" font-weight="600">Your personal chats</text>
+    <text x="794" y="222" font-size="13.5" fill="#1c1a17" font-family="Georgia, serif" font-weight="600">stay end-to-end encrypted</text>
+
+    <!-- short plain lines -->
+    <g fill="#57534c">
+      <rect x="746" y="262" width="210" height="7" rx="3.5"/>
+      <rect x="746" y="278" width="170" height="7" rx="3.5"/>
+    </g>
+
+    <!-- separated business chats card with toggle -->
+    <rect x="746" y="308" width="248" height="86" rx="10" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="762" y="337" font-size="13" fill="#1c1a17" font-family="Georgia, serif" font-weight="600">Business chats</text>
+    <text x="762" y="356" font-size="10.5" fill="#8a857c">Optional · off unless you choose</text>
+    <!-- toggle OFF -->
+    <rect x="762" y="366" width="46" height="22" rx="11" fill="#e2dcd2"/>
+    <circle cx="773" cy="377" r="8.5" fill="#fffdf9" stroke="#8a857c" stroke-width="1"/>
+    <text x="820" y="381" font-size="11" fill="#8a857c">off</text>
+
+    <!-- ownership choice buttons -->
+    <rect x="746" y="500" width="120" height="46" rx="8" fill="#fffdf9" stroke="#1c1a17" stroke-width="1.5"/>
+    <text x="806" y="529" font-size="13" fill="#1c1a17" text-anchor="middle">Not now</text>
+    <rect x="874" y="500" width="120" height="46" rx="8" fill="#1c1a17"/>
+    <text x="934" y="529" font-size="13" fill="#fffdf9" text-anchor="middle">Turn on</text>
+  </g>
+
+  <!-- bottom footnote -->
+  <line x1="40" y1="596" x2="1160" y2="596" stroke="#e2dcd2" stroke-width="1"/>
+  <text x="600" y="624" font-size="14.5" fill="#57534c" text-anchor="middle" font-family="Georgia, serif" font-style="italic">Winner · UX Hack, April 2021 — drag-to-compare against WhatsApp's shipped flow inside</text>
+</svg>

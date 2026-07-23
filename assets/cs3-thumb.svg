@@ -1,0 +1,136 @@
+<svg viewBox="0 0 1200 640" xmlns="http://www.w3.org/2000/svg" role="img" font-family="'IBM Plex Mono', ui-monospace, monospace">
+  <title>Case File 03 — DigiAssess: a manual multi-role process with hidden handoffs, resolved into one connected status board</title>
+  <desc>Left: six roles — subject expert, scheduler, reviewer, item author, proctor, student — scattered and tangled by hidden dependency lines. Right: one connected status board with four columns — Not started, Ongoing, With author, Fulfilled — where each assessment sits with whichever role is holding it.</desc>
+
+  <!-- background -->
+  <rect x="0" y="0" width="1200" height="640" fill="#fffdf9"/>
+  <rect x="0.5" y="0.5" width="1199" height="639" fill="none" stroke="#1c1a17" stroke-width="1"/>
+
+  <!-- top label strip -->
+  <text x="40" y="52" font-size="17" letter-spacing="2" fill="#a4441c">FILE 03 · DIGIASSESS ASSESSMENT PLATFORM</text>
+  <text x="1160" y="52" font-size="17" letter-spacing="1" fill="#8a857c" text-anchor="end">STATUS, NOT NAVIGATION, IS THE INTERFACE</text>
+  <line x1="40" y1="72" x2="1160" y2="72" stroke="#e2dcd2" stroke-width="1"/>
+
+  <!-- ================= LEFT — TANGLED MULTI-ROLE PROCESS ================= -->
+  <text x="290" y="118" font-size="16" letter-spacing="1.5" fill="#8a857c" text-anchor="middle">MANUAL — ROLES, HIDDEN HANDOFFS</text>
+
+  <!-- tangled dependency lines (drawn first, behind chips) -->
+  <g stroke="#a4441c" stroke-width="1.4" stroke-dasharray="2 6" opacity="0.5" fill="none">
+    <path d="M150 188 L440 321"/>
+    <path d="M425 181 L170 323"/>
+    <path d="M170 323 L415 471"/>
+    <path d="M440 321 L130 465"/>
+    <path d="M150 188 L415 471"/>
+    <path d="M425 181 L130 465"/>
+  </g>
+  <!-- node connection dots -->
+  <g fill="#a4441c">
+    <circle cx="150" cy="188" r="3"/>
+    <circle cx="425" cy="181" r="3"/>
+    <circle cx="170" cy="323" r="3"/>
+    <circle cx="440" cy="321" r="3"/>
+    <circle cx="130" cy="465" r="3"/>
+    <circle cx="415" cy="471" r="3"/>
+  </g>
+
+  <!-- role chips -->
+  <g font-family="Georgia, serif" font-size="14" fill="#1c1a17">
+    <rect x="70" y="165" width="160" height="46" rx="8" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="150" y="193" text-anchor="middle">Subject expert</text>
+
+    <rect x="350" y="158" width="150" height="46" rx="8" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="425" y="186" text-anchor="middle">Scheduler</text>
+
+    <rect x="95" y="300" width="150" height="46" rx="8" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="170" y="328" text-anchor="middle">Reviewer</text>
+
+    <rect x="360" y="298" width="160" height="46" rx="8" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="440" y="326" text-anchor="middle">Item author</text>
+
+    <rect x="60" y="442" width="140" height="46" rx="8" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="130" y="470" text-anchor="middle">Proctor</text>
+
+    <rect x="340" y="448" width="150" height="46" rx="8" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="415" y="476" text-anchor="middle">Student</text>
+  </g>
+  <!-- "who depends on whom?" tag -->
+  <text x="290" y="530" font-size="12.5" fill="#a4441c" text-anchor="middle" font-family="Georgia, serif" font-style="italic">who depends on whom — unmapped</text>
+
+  <!-- ================= CENTER TRANSFORM ================= -->
+  <line x1="600" y1="150" x2="600" y2="516" stroke="#a4441c" stroke-width="2" stroke-dasharray="2 7"/>
+  <circle cx="600" cy="333" r="27" fill="#a4441c"/>
+  <text x="600" y="342" font-size="24" fill="#fffdf9" text-anchor="middle">&#8594;</text>
+
+  <!-- ================= RIGHT — CONNECTED STATUS BOARD ================= -->
+  <text x="898" y="118" font-size="16" letter-spacing="1.5" fill="#a4441c" text-anchor="middle">ONE SYSTEM — GROUPED BY WHO HOLDS IT</text>
+
+  <!-- COLUMN 1: Not started -->
+  <g>
+    <rect x="640" y="150" width="118" height="386" rx="8" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="699" y="176" font-size="10" letter-spacing="0.5" fill="#57534c" text-anchor="middle">NOT STARTED</text>
+    <line x1="652" y1="186" x2="746" y2="186" stroke="#e2dcd2" stroke-width="1"/>
+    <!-- card -->
+    <rect x="652" y="200" width="94" height="46" rx="6" fill="#fffdf9" stroke="#e2dcd2" stroke-width="1"/>
+    <circle cx="666" cy="216" r="5" fill="#8a857c"/>
+    <text x="678" y="220" font-size="11" fill="#1c1a17" font-family="Georgia, serif">CS 101</text>
+    <rect x="662" y="230" width="74" height="5" rx="2.5" fill="#e2dcd2"/>
+    <rect x="652" y="256" width="94" height="46" rx="6" fill="#fffdf9" stroke="#e2dcd2" stroke-width="1"/>
+    <circle cx="666" cy="272" r="5" fill="#8a857c"/>
+    <text x="678" y="276" font-size="11" fill="#1c1a17" font-family="Georgia, serif">MA 201</text>
+    <rect x="662" y="286" width="74" height="5" rx="2.5" fill="#e2dcd2"/>
+  </g>
+
+  <!-- COLUMN 2: Ongoing -->
+  <g>
+    <rect x="772" y="150" width="118" height="386" rx="8" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="831" y="176" font-size="10" letter-spacing="0.5" fill="#57534c" text-anchor="middle">ONGOING</text>
+    <line x1="784" y1="186" x2="878" y2="186" stroke="#e2dcd2" stroke-width="1"/>
+    <!-- live card highlighted -->
+    <rect x="784" y="200" width="94" height="46" rx="6" fill="#f3e4da" stroke="#a4441c" stroke-width="1.5"/>
+    <circle cx="798" cy="216" r="5" fill="#a4441c"/>
+    <text x="810" y="220" font-size="11" fill="#1c1a17" font-family="Georgia, serif">PH 110</text>
+    <rect x="794" y="230" width="74" height="5" rx="2.5" fill="#e2dcd2"/>
+    <rect x="794" y="230" width="46" height="5" rx="2.5" fill="#a4441c"/>
+    <rect x="784" y="256" width="94" height="46" rx="6" fill="#fffdf9" stroke="#e2dcd2" stroke-width="1"/>
+    <circle cx="798" cy="272" r="5" fill="#a4441c"/>
+    <text x="810" y="276" font-size="11" fill="#1c1a17" font-family="Georgia, serif">EN 105</text>
+    <rect x="794" y="286" width="74" height="5" rx="2.5" fill="#e2dcd2"/>
+    <rect x="794" y="286" width="30" height="5" rx="2.5" fill="#a4441c"/>
+  </g>
+
+  <!-- COLUMN 3: With author -->
+  <g>
+    <rect x="904" y="150" width="118" height="386" rx="8" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="963" y="176" font-size="10" letter-spacing="0.5" fill="#57534c" text-anchor="middle">WITH AUTHOR</text>
+    <line x1="916" y1="186" x2="1010" y2="186" stroke="#e2dcd2" stroke-width="1"/>
+    <rect x="916" y="200" width="94" height="46" rx="6" fill="#fffdf9" stroke="#e2dcd2" stroke-width="1"/>
+    <circle cx="930" cy="216" r="5" fill="#1c1a17"/>
+    <text x="942" y="220" font-size="11" fill="#1c1a17" font-family="Georgia, serif">BI 210</text>
+    <rect x="926" y="230" width="74" height="5" rx="2.5" fill="#e2dcd2"/>
+    <rect x="926" y="230" width="58" height="5" rx="2.5" fill="#1c1a17"/>
+  </g>
+
+  <!-- COLUMN 4: Fulfilled -->
+  <g>
+    <rect x="1036" y="150" width="118" height="386" rx="8" fill="#faf6f0" stroke="#e2dcd2" stroke-width="1.5"/>
+    <text x="1095" y="176" font-size="10" letter-spacing="0.5" fill="#57534c" text-anchor="middle">FULFILLED</text>
+    <line x1="1048" y1="186" x2="1142" y2="186" stroke="#e2dcd2" stroke-width="1"/>
+    <rect x="1048" y="200" width="94" height="46" rx="6" fill="#fffdf9" stroke="#e2dcd2" stroke-width="1"/>
+    <circle cx="1062" cy="216" r="7" fill="#a4441c"/>
+    <path d="M1058 216 l3 3 l5 -6" fill="none" stroke="#fffdf9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1076" y="220" font-size="11" fill="#1c1a17" font-family="Georgia, serif">CH 100</text>
+    <rect x="1058" y="230" width="74" height="5" rx="2.5" fill="#a4441c"/>
+    <rect x="1048" y="256" width="94" height="46" rx="6" fill="#fffdf9" stroke="#e2dcd2" stroke-width="1"/>
+    <circle cx="1062" cy="272" r="7" fill="#a4441c"/>
+    <path d="M1058 272 l3 3 l5 -6" fill="none" stroke="#fffdf9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1076" y="276" font-size="11" fill="#1c1a17" font-family="Georgia, serif">EC 150</text>
+    <rect x="1058" y="286" width="74" height="5" rx="2.5" fill="#a4441c"/>
+  </g>
+
+  <!-- board note -->
+  <text x="898" y="524" font-size="12.5" fill="#57534c" text-anchor="middle" font-family="Georgia, serif" font-style="italic">the board doubles as a live map of who's blocking what</text>
+
+  <!-- bottom footnote -->
+  <line x1="40" y1="596" x2="1160" y2="596" stroke="#e2dcd2" stroke-width="1"/>
+  <text x="600" y="624" font-size="14.5" fill="#57534c" text-anchor="middle" font-family="Georgia, serif" font-style="italic">2 years · contributor &#8594; design lead — swimlanes, dashboards &amp; outcome mapping inside</text>
+</svg>
