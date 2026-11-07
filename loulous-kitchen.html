@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20122%20122%22%3E%3Crect%20width%3D%22122%22%20height%3D%22122%22%20rx%3D%2226%22%20fill%3D%22%23111312%22/%3E%3Cg%20transform%3D%22translate%280%209%29%22%20fill%3D%22%2376FBC8%22%3E%3Cpath%20d%3D%22M48.2%2011L53.2%2020L26%2077.2L31%2082.6H15.4Z%22/%3E%3Cpath%20d%3D%22M74%2011L106.4%2082.2H90.4L96.6%2076.8L74%2028L51%2077L56%2082.6H40.6Z%22/%3E%3Ccircle%20cx%3D%2274.6%22%20cy%3D%2263.6%22%20r%3D%226.6%22/%3E%3Crect%20x%3D%2211%22%20y%3D%2290.4%22%20width%3D%22100.4%22%20height%3D%225.2%22/%3E%3C/g%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Case study: class booking for kids and adults, in English and Arabic, for Loulou’s Kitchen in Jeddah. Afnan, product designer.">
+<title>Loulou’s Kitchen: booking a class for kids and adults | Afnan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Great+Vibes&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<style>
+/* ---------- Portfolio shell tokens ---------- */
+:root{
+  --bg:#F6F4F4; --surface:#FFFFFF; --sunk:#EFEAEB; --ink:#1E1416; --ink-2:#56494C; --ink-3:#7E7275; --line:#E4DCDE;
+  --brand:#B5173A; --brand-ink:#FFFFFF; --brand-soft:#FBE9EC;
+  --annot:#0B7285; --annot-halo:rgba(255,255,255,.92);
+  --stage-a:#8E1229; --stage-b:#C41E3A;
+  --shadow:0 30px 70px -20px rgba(60,10,20,.30), 0 2px 6px rgba(60,10,20,.08);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#140D0F; --surface:#1E1517; --sunk:#271C1F; --ink:#F2EAEC; --ink-2:#C3B4B8; --ink-3:#9A8B8F; --line:#3A2B2F;
+    --brand:#FF8A9F; --brand-ink:#140D0F; --brand-soft:#3A1820;
+    --annot:#5FD0DE; --annot-halo:rgba(20,13,15,0);
+    --stage-a:#5E0C1C; --stage-b:#9B1430;
+    --shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#140D0F; --surface:#1E1517; --sunk:#271C1F; --ink:#F2EAEC; --ink-2:#C3B4B8; --ink-3:#9A8B8F; --line:#3A2B2F;
+  --brand:#FF8A9F; --brand-ink:#140D0F; --brand-soft:#3A1820;
+  --annot:#5FD0DE; --annot-halo:rgba(20,13,15,0);
+  --stage-a:#5E0C1C; --stage-b:#9B1430;
+  --shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Geist,"IBM Plex Sans Arabic",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:clamp(16px,.35vw + 12px,19px);line-height:1.65;-webkit-font-smoothing:antialiased}
+html[lang="ar"] body{font-family:"IBM Plex Sans Arabic",Geist,ui-sans-serif,system-ui,sans-serif;line-height:1.8}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+img{max-width:100%}
+a{color:var(--brand)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* language switching for the case study text (phones are never switched) */
+html[lang="en"] [data-l="ar"]{display:none!important}
+html[lang="ar"] [data-l="en"]{display:none!important}
+
+/* ---------- Header ---------- */
+.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.site-in{max-width:1920px;margin:0 auto;padding:14px clamp(24px,4.2vw,80px);display:flex;align-items:center;gap:16px}
+.site b.me{font-weight:600;font-size:16px}
+.site nav.links{display:flex;gap:20px;margin-inline-start:auto;font-size:15px}
+.site nav.links a{color:var(--ink-2);text-decoration:none}
+.site nav.links a:hover{color:var(--ink)}
+.mode{display:inline-flex;background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:3px}
+.mode button{font:inherit;font-size:14px;font-weight:500;border:0;background:transparent;color:var(--ink-2);padding:5px 14px;border-radius:999px;cursor:pointer}
+.mode button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.mode .arb{font-family:"IBM Plex Sans Arabic",sans-serif}
+.prog{position:absolute;left:0;right:0;bottom:-1px;height:3px}
+.prog i{display:block;height:100%;width:100%;background:var(--brand);transform-origin:0 50%;transform:scaleX(0)}
+html[dir="rtl"] .prog i{transform-origin:100% 50%}
+.now{display:none;font-size:14px;color:var(--ink-2);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now b{font-weight:600;color:var(--ink)}
+.wrap{max-width:1920px;margin:0 auto;padding:0 clamp(24px,4.2vw,80px)}
+
+/* ---------- Hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(40px,5vw,112px);padding:clamp(56px,6vw,112px) 0 clamp(72px,7vw,140px);align-items:center}
+.kicker{font-size:15px;color:var(--ink-2);margin:0 0 20px}
+.kicker a{color:var(--ink-2)}
+h1{font-size:clamp(34px,3.3vw,64px);line-height:1.1;letter-spacing:-.025em;font-weight:500;margin:0 0 24px}
+html[lang="ar"] h1{letter-spacing:0;line-height:1.3}
+.lede{font-size:clamp(18px,1.05vw + 4px,24px);line-height:1.5;color:var(--ink-2);margin:0 0 36px}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin:0 0 36px;padding:0}
+.meta div{display:flex;flex-direction:column}
+.meta dt{font-size:13px;color:var(--ink-3)}
+.meta dd{margin:2px 0 0;font-size:15px;font-weight:500}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi strong{display:block;font-size:clamp(22px,2vw,28px);white-space:nowrap;line-height:1.1;letter-spacing:-.02em;color:var(--brand);font-weight:600;direction:ltr;text-align:start;unicode-bidi:isolate}
+html[dir="rtl"] .kpi strong{text-align:right}
+.kpi span{display:block;font-size:13px;line-height:1.45;color:var(--ink-2);margin-top:8px}
+.nda{font-size:13px;color:var(--ink-3);margin-top:20px}
+.how{margin-top:28px;font-size:15px;color:var(--ink-2)}
+.how summary{cursor:pointer;font-weight:500;color:var(--brand)}
+.how b{color:var(--ink);font-weight:600}
+
+.stage{background:linear-gradient(160deg,var(--stage-b),var(--stage-a));border-radius:24px;padding:clamp(24px,3vw,48px) 12px;position:relative;overflow:hidden;min-height:560px;display:grid;place-items:center}
+.stage::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:rgba(255,255,255,.08);right:-160px;top:-180px}
+.stage::after{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:rgba(0,0,0,.12);left:-140px;bottom:-160px}
+.hp-wrap{position:relative;z-index:1;width:520px;height:560px;transform-origin:50% 50%}
+.hp-wrap .phone{position:absolute;top:0;transform-origin:0 0}
+.hp-wrap .p1{left:0;transform:scale(.72) translateY(70px)}
+.hp-wrap .p2{right:0;transform-origin:100% 0;transform:scale(.72)}
+.hp-lbl{position:absolute;z-index:2;font-size:13px;font-weight:600;color:#fff;background:rgba(0,0,0,.28);border-radius:999px;padding:4px 12px}
+
+/* ---------- Content column ---------- */
+.body{border-top:1px solid var(--line);padding:clamp(72px,7vw,140px) 0 160px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:clamp(48px,5vw,120px)}
+.toc{position:sticky;top:112px;align-self:start;font-size:14.5px}
+.toc p{margin:0 0 16px;font-size:13px;color:var(--ink-3)}
+.toc ol{list-style:none;margin:0;padding:0;position:relative}
+.toc ol::before{content:"";position:absolute;inset-inline-start:9px;top:12px;bottom:12px;width:2px;background:var(--line)}
+.toc li{position:relative}
+.toc a{display:flex;align-items:center;gap:12px;padding:7px 0;color:var(--ink-3);text-decoration:none;border-radius:8px;transition:color .15s}
+.toc a:hover{color:var(--ink)}
+.ck{position:relative;z-index:1;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);background:var(--bg);display:grid;place-items:center;flex:none;transition:background .2s,border-color .2s}
+.ck svg{width:12px;height:12px;color:var(--brand-ink);opacity:0;transition:opacity .2s}
+.toc a.done{color:var(--ink-2)}
+.toc a.done .ck{background:var(--brand);border-color:var(--brand)}
+.toc a.done .ck svg{opacity:1}
+.toc a[aria-current="true"]{color:var(--ink);font-weight:600}
+.toc a[aria-current="true"] .ck{border-color:var(--brand)}
+.toc a[aria-current="true"] .ck::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.toc .tt{margin:20px 0 0;font-size:13px;color:var(--ink-3)}
+section{padding:0 0 clamp(120px,10vw,200px)}
+.txt{margin-bottom:clamp(36px,3vw,56px);max-width:62ch}
+section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spacing:-.012em;font-weight:400;color:var(--ink);margin:0}
+html[lang="ar"] section h2{letter-spacing:0;line-height:1.55}
+.sec-name{font-size:15px;font-weight:600;color:var(--brand);margin:0 0 14px}
+.p{color:var(--ink-2);margin:16px 0 0}
+.skim .full{display:none}
+.skim-only{display:none}
+.skim .skim-only{display:inline}
+
+.pains{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pain{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(22px,2vw,32px)}
+.pain h3{font-size:18px;margin:0 0 8px;font-weight:600}
+.pain p{margin:0;font-size:15px;color:var(--ink-2);line-height:1.6}
+.users{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;align-items:center;font-size:15px}
+.tag{background:var(--brand-soft);color:var(--brand);font-weight:500;border-radius:999px;padding:6px 14px;font-size:14px}
+
+.rules{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line)}
+.rule{padding-block:22px 0;padding-inline:0 28px}
+.rule b{display:block;font-size:16px;font-weight:600;margin-bottom:4px}
+.rule span{font-size:14px;color:var(--ink-2);line-height:1.55}
+
+/* references */
+.refs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2vw,32px)}
+.ref h3{font-size:17px;margin:14px 0 2px;font-weight:600}
+.ref .src{font-size:13px;color:var(--ink-3);margin:0 0 10px}
+.ref .src a{color:var(--ink-3)}
+.ref dl{margin:0;display:grid;gap:6px}
+.ref dt{font-size:12.5px;color:var(--ink-3)}
+.ref dt.t{color:var(--annot)}
+.ref dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.wf{height:200px;border:1px solid var(--line);border-radius:14px;background:var(--sunk);display:grid;place-items:center;overflow:hidden}
+.wf .ph{width:96px;height:176px;border-radius:16px;background:#fff;border:5px solid #2A2124;padding:10px 7px;display:flex;flex-direction:column;gap:6px;margin-top:30px}
+.wf i{display:block;height:6px;border-radius:3px;background:#E4DCDE}
+.wf i.r{background:#C41E3A}
+.wf i.k{background:#E8A317}
+.wf .row{display:flex;gap:4px;align-items:center}
+.wf .bx{border:1.5px solid #E4DCDE;border-radius:5px;height:18px;display:flex;align-items:center;gap:4px;padding:0 4px}
+.wf .dot{width:7px;height:7px;border-radius:50%;background:#E4DCDE;flex:none}
+
+.cap{font-size:13px;color:var(--ink-3);margin:18px 0 0;text-align:center}
+.sub-h{font-size:15px;font-weight:600;color:var(--ink-2);margin:88px 0 24px}
+.txt + .sub-h{margin-top:0}
+
+/* ---------- Annotated figure ---------- */
+.anno{margin:0;position:relative}
+.anno-stage{position:relative;width:1180px;display:grid;grid-template-columns:160px 820px 160px;column-gap:20px;align-items:start;transform-origin:0 0}
+.anno:not(.stacked) .anno-stage{direction:ltr}
+.anno-col{position:relative}
+.an{position:absolute;left:0;right:0;font-size:13px;line-height:1.45;cursor:default;outline:none}
+.anno-col.l .an{text-align:right}
+.anno-col.r .an{text-align:left}
+.an [data-l="ar"]{direction:rtl}
+.an b{display:block;font-size:14px;font-weight:600;color:var(--ink);line-height:1.3}
+.an b span{display:block}
+.an p{margin:4px 0 0;color:var(--ink-2)}
+.skim .an p{display:none}
+.an:hover b,.an:focus-visible b,.an.on b{color:var(--annot)}
+.anno-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:5;color:var(--annot)}
+.anno-svg .halo{stroke:var(--annot-halo);stroke-width:5;fill:none;stroke-linecap:round}
+.anno-svg .ln{stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;transition:stroke-width .15s}
+.anno-svg .ln.on{stroke-width:2.6}
+.anno-svg .st{fill:currentColor}
+.anno-hit{outline:2px solid var(--annot)!important;outline-offset:3px;border-radius:8px}
+.shot-fit{position:relative}
+.anno.stacked .anno-stage{width:100%;display:flex;flex-direction:column}
+.anno.stacked .shot-fit{order:-1;overflow:hidden;width:100%;min-width:0}
+.anno.stacked .anno-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px;height:auto!important;margin-top:18px}
+.anno.stacked .anno-col.r{margin-top:14px}
+.anno.stacked .an{position:relative;text-align:start!important;padding-inline-start:22px}
+.anno.stacked .an::before{content:"";position:absolute;inset-inline-start:2px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--annot)}
+.anno.stacked .anno-svg{display:none}
+.anno.stacked .colh{display:block}
+.colh{display:none;grid-column:1/-1;font-size:13px;font-weight:600;color:var(--ink-3)}
+
+/* the two-phone shot */
+.shot{width:820px;display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1;transform-origin:0 0;direction:ltr}
+.anno.stacked .shot{width:372px;flex-direction:column;gap:40px}
+.dev{display:flex;flex-direction:column;align-items:center;gap:14px}
+.dev figcaption{font-size:13px;font-weight:600;color:var(--ink-3)}
+
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,44px)}
+.opt h3{font-size:19px;margin:14px 0 8px;font-weight:600}
+.opt dl{margin:0;display:grid;gap:8px}
+.opt dt{font-size:12.5px;color:var(--ink-3)}
+.opt dt.t{color:var(--annot)}
+.opt dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.opt.pick .wf{border:2px solid var(--brand)}
+.decision{margin-top:40px;background:var(--brand-soft);color:var(--brand);border-radius:14px;padding:22px 26px;font-weight:500}
+
+.flip-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.fg{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(22px,2vw,32px)}
+.fg h3{font-size:18px;margin:0 0 14px;font-weight:600}
+.fg ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.fg li{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;font-size:15px;color:var(--ink-2);line-height:1.5}
+.fg .pair{display:flex;gap:6px;direction:ltr;justify-content:flex-start}
+.fg .pair span{width:32px;height:32px;border-radius:8px;background:var(--sunk);display:grid;place-items:center;color:var(--ink)}
+.fg .pair svg{width:18px;height:18px}
+.fg .pair small{font-size:11px;font-weight:600}
+
+.hind{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,56px)}
+.hind h3{font-size:clamp(18px,.6vw + 12px,22px);line-height:1.4;letter-spacing:-.01em;margin:0 0 8px;font-weight:500}
+.hind p{margin:0;font-size:15px;color:var(--ink-2)}
+.next{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:24px;margin:0;border-top:1px solid color-mix(in srgb,var(--ink) 14%,transparent);padding:28px 0 0;font-family:Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.4;color:var(--ink-2)}
+.next > span{color:var(--ink-2);font-weight:400}
+.next a{font-size:22px;font-weight:600;letter-spacing:-.01em;text-decoration:none;color:var(--ink);white-space:nowrap}
+.next a:hover{color:var(--brand)}
+@media (max-width:720px){.next{flex-direction:column;align-items:flex-start;gap:8px}.next a{white-space:normal}}
+
+/* =========================================================
+   Product UI: Loulou’s Kitchen app. Fixed light theme, like a real screenshot.
+   ========================================================= */
+.phone{
+  --a-red:#C41E3A; --a-red-d:#9B1430; --a-blush:#FBE9EC; --a-ink:#1E1416; --a-ink2:#5E5256; --a-ink3:#8F8487;
+  --a-line:#EEE6E7; --a-bg:#F7F4F4; --a-saff:#E8A317; --a-saff-ink:#8A5A00; --a-saff-soft:#FFF4DB; --a-green:#2F8A4C; --a-green-soft:#E6F4EA;
+  width:360px;height:740px;border-radius:48px;padding:9px;background:#141012;box-shadow:var(--shadow);flex:none;
+  font-family:Poppins,"IBM Plex Sans Arabic",ui-sans-serif,system-ui,sans-serif;font-size:12.5px;line-height:1.45;color:var(--a-ink);-webkit-font-smoothing:antialiased;text-align:start;
+}
+.phone[dir="rtl"]{font-family:"IBM Plex Sans Arabic",Poppins,ui-sans-serif,system-ui,sans-serif;line-height:1.55}
+.phone svg{width:18px;height:18px;flex:none}
+.scr{height:100%;border-radius:40px;overflow:hidden;background:var(--a-bg);display:flex;flex-direction:column;position:relative}
+.sbar{height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font-family:Poppins,sans-serif;font-weight:600;font-size:13px;flex:none;direction:ltr}
+.sbar .ic{display:flex;gap:5px;align-items:center}
+.sbar .ic svg{width:15px;height:15px}
+.sbar.on-red{color:#fff}
+.notch{position:absolute;top:10px;left:50%;width:96px;height:26px;margin-left:-48px;background:#141012;border-radius:16px;z-index:4}
+.app{flex:1;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+.flip{transform:scaleX(1)}
+.phone[dir="rtl"] .flip{transform:scaleX(-1)}
+
+/* top bars */
+.top{display:flex;align-items:center;gap:10px;padding:6px 18px 12px}
+.top .sp{flex:1}
+.lw{display:inline-flex;flex-direction:column;align-items:center;line-height:1;color:var(--a-red);direction:ltr}
+.lw i{font-family:"Great Vibes",cursive;font-style:normal;font-size:24px;line-height:.9}
+.lw b{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:10px;letter-spacing:.32em;color:var(--a-ink);margin-top:1px;padding-left:.32em}
+.lpill{font-size:12px;font-weight:600;border:1px solid var(--a-line);background:#fff;border-radius:999px;padding:4px 11px;display:inline-flex;align-items:center;gap:5px;color:var(--a-ink)}
+.lpill svg{width:14px;height:14px;color:var(--a-ink2)}
+.lpill .ar{font-family:"IBM Plex Sans Arabic",sans-serif}
+.lpill .en{font-family:Poppins,sans-serif}
+.rhead{background:linear-gradient(170deg,var(--a-red),var(--a-red-d));color:#fff;padding:0 0 16px}
+.rhead .bar{display:flex;align-items:center;gap:10px;padding:4px 18px 0}
+.rhead h4{margin:10px 18px 0;font-size:21px;font-weight:600;letter-spacing:-.01em}
+.phone[dir="rtl"] .rhead h4{letter-spacing:0}
+.chipfor{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:4px 10px 4px 4px;font-size:12px;font-weight:500;margin:10px 18px 0}
+.phone[dir="rtl"] .chipfor{padding:4px 4px 4px 10px}
+.chipfor svg{width:14px;height:14px}
+.ava{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:600;flex:none}
+.ava.k{background:var(--a-saff);color:#fff}
+.ava.a{background:var(--a-red);color:#fff}
+.ava.lg{width:42px;height:42px;font-size:16px}
+.chipfor .ava{background:#fff;color:var(--a-red-d)}
+
+/* screen 1 */
+.who{padding:8px 18px 0}
+.chef{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--a-line);border-radius:16px;padding:10px 12px;margin-bottom:18px}
+.chef .photo{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#F2C9A0 0 30%,transparent 31%),radial-gradient(circle at 50% 120%,#2A2124 0 52%,transparent 53%),var(--a-blush);flex:none;position:relative;overflow:hidden}
+.chef .photo::after{content:"";position:absolute;left:12px;right:12px;top:4px;height:16px;border-radius:12px 12px 6px 6px;background:#E3C27A}
+.chef b{display:block;font-size:13px;font-weight:600}
+.chef small{display:block;font-size:11.5px;color:var(--a-ink3)}
+.who h4{font-size:22px;font-weight:600;margin:0;letter-spacing:-.01em}
+.phone[dir="rtl"] .who h4{letter-spacing:0}
+.who .sub{color:var(--a-ink2);margin:2px 0 16px;font-size:12.5px}
+.pr{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--a-line);border-radius:16px;padding:12px 14px;margin-bottom:10px}
+.pr .tx{flex:1;min-width:0}
+.pr b{display:block;font-size:14px;font-weight:600}
+.pr small{display:block;font-size:11.5px;color:var(--a-ink2)}
+.pr .al{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:var(--a-red-d);background:var(--a-blush);border-radius:6px;padding:1px 7px;margin-top:5px}
+.pr .al svg{width:11px;height:11px}
+.pr.on{border:2px solid var(--a-saff);background:var(--a-saff-soft);padding:11px 13px}
+.pr .go{color:var(--a-ink3)}
+.pr.on .go{color:var(--a-saff-ink)}
+.pr.add{border:1.5px dashed #D9CDD0;background:transparent;color:var(--a-red);font-weight:600;font-size:13px;justify-content:center;gap:6px}
+.pr.add svg{width:16px;height:16px}
+.hint{font-size:11.5px;color:var(--a-ink3);text-align:center;margin-top:8px}
+
+/* week strip */
+.mo{display:flex;align-items:baseline;justify-content:space-between;padding:14px 18px 6px}
+.mo b{font-size:14px;font-weight:600}
+.mo small{font-size:11px;color:var(--a-ink3)}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:0 12px 10px}
+.wk div{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0 7px;border-radius:12px;font-size:10px;color:var(--a-ink3);position:relative}
+.wk div b{font-size:15px;font-weight:600;color:var(--a-ink)}
+.wk div i{width:5px;height:5px;border-radius:50%;background:transparent}
+.wk div.d i{background:var(--a-saff)}
+.wk div.on{background:var(--a-red);color:rgba(255,255,255,.85)}
+.wk div.on b{color:#fff}
+.wk div.on i{background:#fff}
+.wk div.wkend b{color:var(--a-ink3)}
+.dayh{padding:4px 18px 8px;font-size:12px;font-weight:600;color:var(--a-ink2)}
+.cls{margin:0 14px 10px;background:#fff;border:1px solid var(--a-line);border-radius:16px;padding:10px;display:grid;grid-template-columns:76px 1fr;gap:12px}
+.th{width:76px;height:76px;border-radius:12px;display:grid;place-items:center}
+.th svg{width:56px;height:56px}
+.th.k1{background:var(--a-saff-soft)}
+.th.k2{background:#F3E9DE}
+.cls h5{margin:0;font-size:13.5px;font-weight:600;line-height:1.3}
+.cls .tm{font-size:11.5px;color:var(--a-ink2);margin-top:2px;display:flex;align-items:center;gap:4px}
+.cls .tm svg{width:12px;height:12px;color:var(--a-ink3)}
+.bdg{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.bdg span{font-size:10.5px;font-weight:600;border-radius:6px;padding:1px 7px}
+.bdg .age{background:var(--a-saff-soft);color:var(--a-saff-ink)}
+.bdg .seat{background:var(--a-blush);color:var(--a-red-d)}
+.bdg .fl{background:#EFEAEB;color:var(--a-ink2)}
+.cls .ft{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--a-line);padding-top:8px;margin-top:-2px}
+.price{font-weight:600;font-size:13.5px}
+.price small{font-weight:400;font-size:10.5px;color:var(--a-ink3);margin-inline-start:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;font-weight:600;font-size:12.5px;padding:7px 18px;background:var(--a-red);color:#fff}
+.btn.ghost{background:#fff;color:var(--a-red);border:1.5px solid var(--a-red);padding:5.5px 14px}
+.btn.blk{background:#111;color:#fff;width:100%;padding:12px;font-size:14px}
+.btn.wide{width:100%;padding:12px;font-size:14px}
+.hid{margin:4px 18px 0;font-size:11.5px;color:var(--a-ink3);display:flex;align-items:center;gap:6px}
+.hid u{color:var(--a-red);font-weight:600;text-decoration:none}
+.hid svg{width:13px;height:13px}
+
+/* tab bar */
+.tabs{margin-top:auto;height:68px;background:#fff;border-top:1px solid var(--a-line);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 6px 0;flex:none}
+.tabs span{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;color:var(--a-ink3);font-weight:500;white-space:nowrap}
+.tabs span svg{width:20px;height:20px}
+.tabs span.on{color:var(--a-red);font-weight:600}
+.homebar{height:5px;width:120px;border-radius:3px;background:#1E1416;margin:6px auto 8px;flex:none;opacity:.85}
+.tabs + .homebar{margin-top:0}
+
+/* screen 3 */
+.rv{padding:12px 16px 0;display:flex;flex-direction:column;gap:10px;flex:1;min-height:0}
+.card{background:#fff;border:1px solid var(--a-line);border-radius:16px;padding:12px}
+.card h6{margin:0 0 8px;font-size:12px;font-weight:600;color:var(--a-ink2);display:flex;align-items:center;gap:6px}
+.card h6 .ava{width:20px;height:20px;font-size:10px}
+.sum{display:flex;gap:10px;align-items:center}
+.sum .th{width:52px;height:52px;border-radius:10px}
+.sum .th svg{width:40px;height:40px}
+.sum b{display:block;font-size:13px;font-weight:600}
+.sum small{display:block;font-size:11px;color:var(--a-ink2)}
+.alg{display:flex;gap:6px;flex-wrap:wrap}
+.alg span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;border-radius:999px;padding:4px 10px;background:var(--a-blush);color:var(--a-red-d)}
+.alg span svg{width:12px;height:12px}
+.alg span.add{background:#fff;border:1.5px dashed #D9CDD0;color:var(--a-ink2);font-weight:500}
+.note{font-size:11px;color:var(--a-ink3);margin-top:7px}
+.rad{display:flex;align-items:center;gap:9px;font-size:12px;padding:5px 0}
+.rad i{width:16px;height:16px;border-radius:50%;border:1.5px solid #CFC3C6;flex:none}
+.rad.on i{border:5px solid var(--a-red)}
+.ln{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--a-ink2)}
+.ln.tot{color:var(--a-ink);font-weight:600;font-size:14px;margin-top:2px}
+.ln small{font-size:10.5px;color:var(--a-ink3);font-weight:400}
+.cxl{display:flex;gap:6px;align-items:center;font-size:11px;color:var(--a-green);background:var(--a-green-soft);border-radius:8px;padding:5px 8px;margin-top:8px}
+.cxl svg{width:13px;height:13px}
+.pay{padding:10px 16px 6px;background:#fff;border-top:1px solid var(--a-line);display:grid;gap:7px;flex:none}
+.pay .alt{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:600;color:var(--a-ink);border:1px solid var(--a-line);border-radius:999px;padding:9px}
+.mada{font-family:Poppins,sans-serif;font-weight:700;font-size:11px;background:#1E1416;color:#fff;border-radius:4px;padding:0 5px;letter-spacing:.02em}
+.hdr2{display:flex;align-items:center;gap:10px;padding:6px 16px 6px;background:#fff;border-bottom:1px solid var(--a-line)}
+.hdr2 b{font-size:16px;font-weight:600;flex:1}
+
+/* confirmed */
+.ok{padding:4px 18px 0;display:flex;flex-direction:column;gap:12px;flex:1}
+.okb{background:linear-gradient(170deg,var(--a-red),var(--a-red-d));color:#fff;border-radius:20px;padding:18px 16px;position:relative;overflow:hidden}
+.okb::after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.08);inset-inline-end:-50px;top:-60px}
+.okb .tick{width:34px;height:34px;border-radius:50%;background:#fff;color:var(--a-red);display:grid;place-items:center;margin-bottom:10px}
+.okb h4{margin:0;font-size:19px;font-weight:600}
+.okb p{margin:4px 0 0;font-size:12px;opacity:.9}
+.lst{display:grid;gap:0}
+.lst div{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--a-line);font-size:12px}
+.lst div:last-child{border-bottom:0}
+.lst svg{width:16px;height:16px;color:var(--a-red)}
+.lst b{font-weight:600}
+.lock{display:flex;gap:10px;align-items:center;background:var(--a-saff-soft);border-radius:14px;padding:10px 12px;font-size:11.5px;color:var(--a-saff-ink)}
+.lock svg{color:var(--a-saff-ink)}
+
+@media (max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .body{grid-template-columns:minmax(0,1fr)}
+  .toc{display:none}
+  .now{display:block}
+  .rules{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .refs{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .site nav.links{display:none}
+  .mode button{padding:5px 10px}
+  .meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pains,.opts,.hind,.flip-grid,.refs{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rules{grid-template-columns:1fr}
+  .anno.stacked .anno-col{grid-template-columns:1fr}
+  .stage{padding:16px 8px;border-radius:18px;min-height:0}
+}
+
+/* ---------- One desktop breakpoint: annotations and index collapse together below 1366px ---------- */
+@media (max-width:1365px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.now{display:block}}
+
+/* ---------- Brand mark ---------- */
+.site .brand{display:inline-flex;align-items:center;color:#76FBC8;flex:none}
+.site .brand svg{height:28px;width:auto;filter:drop-shadow(0 0 6px rgba(118,251,200,.3))}
+
+/* ---------- Case study tags ---------- */
+.cs-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 28px;padding:0}
+.cs-tags li{font-size:13.5px;line-height:1;color:var(--ink-2);border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:999px;padding:7px 12px}
+.cs-tags li.win{color:var(--brand);border-color:color-mix(in srgb,var(--brand) 45%,transparent)}
+</style>
+</head>
+<body class="skim">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5m6-6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.6 2.6 14.4 0 17M12 3.5c-2.6 2.6-2.6 14.4 0 17"/></g></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v5M12 16v.5"/></g></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="5.5" width="16" height="14.5" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></g></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-6.5 8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-3.5v-6h-6v6H5.5A1.5 1.5 0 0 1 4 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-fork" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 3.5v6.5a2.5 2.5 0 0 0 5 0V3.5M9.5 3.5v17M17 20.5V3.5c-2.2 1.2-3.2 3.8-3.2 7.3 0 1.4.8 2.2 3.2 2.2"/></g></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 4l2.4 5 5.4.6-4 3.7 1.1 5.4L12 16l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 3.5V17.5H5A1.5 1.5 0 0 1 3.5 16V7A1.5 1.5 0 0 1 5 5.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-hat" viewBox="0 0 24 24"><path d="M7 14.5a4 4 0 0 1-.8-7.9 5 5 0 0 1 9.6-1 4 4 0 0 1 2 7.6V18H7zM7 18h11v2.5H7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7zM9 8a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></g></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></symbol>
+  <symbol id="i-sig" viewBox="0 0 24 24"><path d="M3 18h2.5v-3H3zM8 18h2.5v-6H8zM13 18h2.5V9H13zM18 18h2.5V6H18z" fill="currentColor"/></symbol>
+  <symbol id="i-bat" viewBox="0 0 24 24"><rect x="2.5" y="7.5" width="17" height="9" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="4.3" y="9.3" width="13.4" height="5.4" rx="1.2" fill="currentColor"/><path d="M21 10.5v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <!-- food -->
+  <symbol id="f-pizza" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24" fill="#E9B872"/><circle cx="32" cy="32" r="19.5" fill="#D4412F"/><circle cx="32" cy="32" r="17" fill="#F6D776"/><circle cx="25" cy="25" r="3.4" fill="#B72A2A"/><circle cx="39" cy="28" r="3.4" fill="#B72A2A"/><circle cx="30" cy="39" r="3.4" fill="#B72A2A"/><path d="M38 38l3 2M24 32l2 3M35 22l2-2" stroke="#4E8A3A" stroke-width="2.6" stroke-linecap="round"/></symbol>
+  <symbol id="f-cookie" viewBox="0 0 64 64"><circle cx="32" cy="32" r="22" fill="#C88A4C"/><circle cx="32" cy="32" r="22" fill="none" stroke="#A86C33" stroke-width="2"/><ellipse cx="24" cy="25" rx="3.5" ry="2.4" fill="#5A2E14" transform="rotate(-20 24 25)"/><ellipse cx="38" cy="22" rx="3.5" ry="2.4" fill="#5A2E14"/><ellipse cx="40" cy="37" rx="3.5" ry="2.4" fill="#5A2E14" transform="rotate(25 40 37)"/><ellipse cx="27" cy="40" rx="3.5" ry="2.4" fill="#5A2E14"/><circle cx="33" cy="31" r="1.6" fill="#EAD2A8"/><circle cx="20" cy="33" r="1.4" fill="#EAD2A8"/><circle cx="45" cy="29" r="1.4" fill="#EAD2A8"/></symbol>
+</svg>
+
+<header class="site">
+  <div class="site-in" style="position:relative">
+    <a class="brand" href="index.html" aria-label="Mohammed Afnan, home"><svg viewBox="8 8 106 90" fill="currentColor" aria-hidden="true"><path d="M48.2 11L53.2 20L26 77.2L31 82.6H15.4Z"/><path d="M74 11L106.4 82.2H90.4L96.6 76.8L74 28L51 77L56 82.6H40.6Z"/><circle cx="74.6" cy="63.6" r="6.6"/><rect x="11" y="90.4" width="100.4" height="5.2"/></svg></a>
+    <div class="mode" role="group" aria-label="Reading mode">
+      <button type="button" data-mode="skim" aria-pressed="true"><span data-l="en">Skim</span><span data-l="ar">لمحة</span></button>
+      <button type="button" data-mode="full" aria-pressed="false"><span data-l="en">Full story</span><span data-l="ar">القصة كاملة</span></button>
+    </div>
+    <div class="mode" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ar" class="arb" aria-pressed="false">عربي</button>
+    </div>
+    <span class="now" aria-live="polite"><b id="now-label">Introduction</b></span>
+    <nav class="links" aria-label="Site"><a href="index.html#work"><span data-l="en">Work</span><span data-l="ar">الأعمال</span></a><a href="index.html#approach"><span data-l="en">About</span><span data-l="ar">نبذة</span></a><a href="mailto:mails2afnan@gmail.com"><span data-l="en">Contact</span><span data-l="ar">تواصل</span></a></nav>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="prog-fill"></i></div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <p class="kicker"><a href="index.html#work"><span data-l="en">Work</span><span data-l="ar">الأعمال</span></a> / <span data-l="en">Cooking school app, Jeddah</span><span data-l="ar">تطبيق مدرسة طبخ، جدة</span></p>
+      <h1><span data-l="en">Parents were booking kids’ classes on a screen built for adults.</span><span data-l="ar">كان الأهل يحجزون حصص أطفالهم من شاشة صُمّمت للكبار.</span></h1>
+      <p class="lede"><span data-l="en">I reworked the class booking journey for Loulou’s Kitchen, a cooking school in Jeddah. A parent booking for an 8 year old and an adult booking for herself now get different classes, different questions and the same four taps. In English and in Arabic.</span><span data-l="ar">أعدت تصميم رحلة حجز الحصص لمطبخ لولو، مدرسة طبخ في جدة. الأم التي تحجز لابنتها ذات الثماني سنوات والمتعلّمة التي تحجز لنفسها تحصل كل منهما على حصص مختلفة وأسئلة مختلفة، بنفس الضغطات الأربع. بالعربية والإنجليزية.</span></p>
+      <ul class="cs-tags" aria-label="Tags"><li><span data-l="en">B2C</span><span data-l="ar">B2C</span></li><li><span data-l="en">Booking flow</span><span data-l="ar">مسار الحجز</span></li><li><span data-l="en">Arabic and RTL</span><span data-l="ar">العربية والكتابة من اليمين</span></li><li><span data-l="en">Conversion</span><span data-l="ar">معدل التحويل</span></li></ul>
+      <dl class="meta">
+        <div><dt><span data-l="en">Role</span><span data-l="ar">الدور</span></dt><dd><span data-l="en">Product designer</span><span data-l="ar">مصمم منتجات</span></dd></div>
+        <div><dt><span data-l="en">Journey</span><span data-l="ar">الرحلة</span></dt><dd><span data-l="en">Book a class, kids and adults</span><span data-l="ar">حجز حصة، للأطفال والكبار</span></dd></div>
+        <div><dt><span data-l="en">Platform</span><span data-l="ar">المنصة</span></dt><dd><span data-l="en">iOS and Android, EN and AR</span><span data-l="ar">iOS وأندرويد، عربي وإنجليزي</span></dd></div>
+        <div><dt><span data-l="en">Client</span><span data-l="ar">العميل</span></dt><dd><span data-l="en">Proof of concept, Jeddah</span><span data-l="ar">نموذج أولي، جدة</span></dd></div>
+      </dl>
+      <div class="kpis">
+        <div class="kpi"><strong>2 → 5</strong><span data-l="en">Facts on a class card besides its name</span><span data-l="ar">معلومات على بطاقة الحصة غير اسمها</span></div>
+        <div class="kpi"><strong>0 → 1</strong><span data-l="en">Allergy check before a child’s seat is paid</span><span data-l="ar">فحص حساسية قبل دفع مقعد الطفل</span></div>
+        <div class="kpi"><strong>4</strong><span data-l="en">Taps from the tab bar to a paid seat</span><span data-l="ar">ضغطات من شريط التبويب حتى مقعد مدفوع</span></div>
+        <div class="kpi"><strong>1 → 2</strong><span data-l="en">Reading directions, each laid out by hand</span><span data-l="ar">اتجاها قراءة، كل منهما مصمم يدويًا</span></div>
+      </div>
+      <p class="nda"><span class="skim-only"><span data-l="en">Skim shows headlines, numbers and screens. Switch to Full story for the detail. </span><span data-l="ar">وضع اللمحة يعرض العناوين والأرقام والشاشات. انتقل إلى القصة كاملة للتفاصيل. </span><br></span><span data-l="en">The name, logo and chef belong to the client. The logo here is a type stand-in. Classes, prices and profiles are mock data. Not tested with users yet.</span><span data-l="ar">الاسم والشعار والشيف ملك للعميل. الشعار هنا بديل مكتوب. الحصص والأسعار والملفات بيانات تجريبية. لم يُختبر مع مستخدمين بعد.</span></p>
+    </div>
+
+    <div class="stage" id="hero-stage">
+      <div class="hp-wrap" id="hp-wrap">
+        <!-- English confirmed -->
+        <div class="phone p1" dir="ltr" lang="en" role="img" aria-label="English booking confirmation for Sara’s pizza class">
+          <div class="scr">
+            <div class="notch"></div>
+            <div class="sbar"><span>9:41</span><span class="ic"><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+            <div class="app">
+              <div class="top"><svg class="flip"><use href="#i-back"/></svg><span class="sp"></span><span class="lw"><i>Loulou’s</i><b>KITCHEN</b></span><span class="sp"></span><span style="width:18px"></span></div>
+              <div class="ok">
+                <div class="okb"><div class="tick"><svg><use href="#i-check"/></svg></div><h4>Sara’s seat is booked</h4><p>Mini pizzas from scratch, Thu 19 Nov, 4:00 pm</p></div>
+                <div class="card lst">
+                  <div><svg><use href="#i-cal"/></svg><span>Add to calendar</span></div>
+                  <div><svg><use href="#i-bag"/></svg><span><b>Bring</b> an apron and a hair tie</span></div>
+                  <div><svg><use href="#i-pin"/></svg><span>Jeddah studio, directions</span></div>
+                </div>
+                <div class="lock"><svg><use href="#i-lock"/></svg><span>The recipe card unlocks after class, so Sara can cook it again at home.</span></div>
+              </div>
+              <div class="tabs"><span><svg><use href="#i-home"/></svg>Home</span><span><svg><use href="#i-fork"/></svg>Recipes</span><span><svg><use href="#i-star"/></svg>Season</span><span><svg><use href="#i-chat"/></svg>Ask Loulou</span><span class="on"><svg><use href="#i-hat"/></svg>Book a class</span></div>
+              <div class="homebar"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Arabic confirmed -->
+        <div class="phone p2" dir="rtl" lang="ar" role="img" aria-label="تأكيد الحجز بالعربية لحصة سارة">
+          <div class="scr">
+            <div class="notch"></div>
+            <div class="sbar"><span>9:41</span><span class="ic"><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+            <div class="app">
+              <div class="top"><svg class="flip"><use href="#i-back"/></svg><span class="sp"></span><span class="lw"><i>Loulou’s</i><b>KITCHEN</b></span><span class="sp"></span><span style="width:18px"></span></div>
+              <div class="ok">
+                <div class="okb"><div class="tick"><svg><use href="#i-check"/></svg></div><h4>تم حجز مقعد سارة</h4><p>ميني بيتزا بعجينة منزلية، الخميس 19 نوفمبر، 4:00 م</p></div>
+                <div class="card lst">
+                  <div><svg><use href="#i-cal"/></svg><span>أضف إلى التقويم</span></div>
+                  <div><svg><use href="#i-bag"/></svg><span><b>أحضري</b> مريلة وربطة شعر</span></div>
+                  <div><svg><use href="#i-pin"/></svg><span>استوديو جدة، الاتجاهات</span></div>
+                </div>
+                <div class="lock"><svg><use href="#i-lock"/></svg><span>تُفتح بطاقة الوصفة بعد الحصة، لتطبخها سارة مرة أخرى في البيت.</span></div>
+              </div>
+              <div class="tabs"><span><svg><use href="#i-home"/></svg>الرئيسية</span><span><svg><use href="#i-fork"/></svg>الوصفات</span><span><svg><use href="#i-star"/></svg>الموسم</span><span><svg><use href="#i-chat"/></svg>اسأل لولو</span><span class="on"><svg><use href="#i-hat"/></svg>احجز حصة</span></div>
+              <div class="homebar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="flowc">
+
+      <section id="problem">
+        <div class="txt">
+          <p class="sec-name"><span data-l="en">Problem</span><span data-l="ar">المشكلة</span></p>
+          <h2><span data-l="en">In the first POC, “Kid’s session” was a radio button. Nothing else on the screen changed when you picked it.</span><span data-l="ar">في النموذج الأول كانت «حصة الأطفال» زر اختيار واحد. لا شيء آخر في الشاشة يتغيّر عند اختياره.</span></h2>
+          <p class="p full"><span data-l="en">The brief asked for one app where people book Loulou’s classes and find her recipes, for adults and for kids. My first version looked right and booked badly. I picked the booking journey to fix, because it is where the money is and where the kids challenge is hardest.</span><span data-l="ar">طلب العميل تطبيقًا واحدًا لحجز حصص لولو والوصول إلى وصفاتها، للكبار والأطفال. نسختي الأولى بدت جميلة لكن الحجز فيها ضعيف. اخترت رحلة الحجز لأنها مصدر الدخل، ولأن تحدي الأطفال فيها هو الأصعب.</span></p>
+        </div>
+        <div class="pains full">
+          <div class="pain"><h3><span data-l="en">The app never asked who was coming</span><span data-l="ar">التطبيق لا يسأل من سيحضر</span></h3><p><span data-l="en">A parent booked for a child, but the app had no child. No name, no age, no allergies. The studio would find out at the door.</span><span data-l="ar">الأم تحجز لطفلها، والتطبيق لا يعرف الطفل. لا اسم ولا عمر ولا حساسية. الاستوديو يكتشف ذلك عند الباب.</span></p></div>
+          <div class="pain"><h3><span data-l="en">Cards hid what decides a booking</span><span data-l="ar">البطاقة تخفي ما يحسم القرار</span></h3><p><span data-l="en">Each class showed a date and a time. Age band, length, seats left and price came later, or never.</span><span data-l="ar">كل حصة تعرض التاريخ والوقت فقط. الفئة العمرية والمدة والمقاعد المتبقية والسعر تأتي لاحقًا أو لا تأتي.</span></p></div>
+          <div class="pain"><h3><span data-l="en">Arabic stopped at the splash screen</span><span data-l="ar">العربية توقفت عند شاشة البداية</span></h3><p><span data-l="en">The splash offered English or عربي. Every screen behind it was drawn left to right, with a Monday start to the week.</span><span data-l="ar">شاشة البداية تعرض English أو عربي. كل الشاشات بعدها مرسومة من اليسار لليمين، والأسبوع يبدأ يوم الاثنين.</span></p></div>
+        </div>
+        <div class="users"><span data-l="en">Two people, one journey:</span><span data-l="ar">شخصان ورحلة واحدة:</span><span class="tag"><span data-l="en">Noura books Sara, 8, for a weekday class</span><span data-l="ar">نورة تحجز لسارة، 8 سنوات، حصة في أيام الأسبوع</span></span><span class="tag"><span data-l="en">An adult books herself for an evening class</span><span data-l="ar">متعلّمة تحجز لنفسها حصة مسائية</span></span></div>
+      </section>
+
+      <section id="research">
+        <div class="txt">
+          <p class="sec-name"><span data-l="en">Apps I studied</span><span data-l="ar">تطبيقات درستها</span></p>
+          <h2><span data-l="en">Four apps that already solve part of this. I took one idea from each and left the rest.</span><span data-l="ar">أربعة تطبيقات تحل جزءًا من المشكلة. أخذت فكرة واحدة من كل منها وتركت الباقي.</span></h2>
+          <p class="p full"><span data-l="en">I studied how other apps handle class schedules, booking by age, kid profiles and switching to Arabic. No cooking school app did all of it, so for each job I picked the app that came closest and judged what to keep.</span><span data-l="ar">درست كيف تتعامل تطبيقات أخرى مع جداول الحصص والحجز حسب العمر وملفات الأطفال والتبديل للعربية. لم يجمع تطبيق طبخ كل ذلك، فاخترت لكل مهمة أقرب تطبيق لها وقررت ما آخذه منه.</span></p>
+        </div>
+        <div class="refs">
+          <div class="ref">
+            <div class="wf" aria-hidden="true"><div class="ph"><div class="row" style="gap:3px"><i style="flex:1"></i><i style="flex:1"></i><i class="r" style="flex:1"></i><i style="flex:1"></i><i style="flex:1"></i></div><div class="row"><span class="dot"></span><i style="flex:1"></i></div><div class="row"><span class="dot"></span><i style="flex:1"></i></div><div class="row"><span class="dot"></span><i style="flex:.7"></i></div><div class="row"><span class="dot"></span><i style="flex:1"></i></div></div></div>
+            <h3>Open</h3>
+            <p class="src"><span data-l="en">Class schedule</span><span data-l="ar">جدول الحصص</span></p>
+            <dl><dt><span data-l="en">Took</span><span data-l="ar">أخذت</span></dt><dd><span data-l="en">A week strip on top and one day of classes below. Cancellation rules written as a date and time.</span><span data-l="ar">شريط الأسبوع في الأعلى وحصص يوم واحد تحته. شروط الإلغاء مكتوبة كتاريخ ووقت.</span></dd><dt class="t"><span data-l="en">Left</span><span data-l="ar">تركت</span></dt><dd><span data-l="en">Instructor photos on every row. Here there is one chef, so the dish gets the photo.</span><span data-l="ar">صورة المدرب في كل صف. هنا شيف واحدة، فصورة الطبق أهم.</span></dd></dl>
+          </div>
+          <div class="ref">
+            <div class="wf" aria-hidden="true"><div class="ph"><i style="width:60%"></i><div class="row" style="justify-content:space-between"><i style="width:40%"></i><span class="row"><span class="dot"></span><i style="width:6px"></i><span class="dot" style="background:#C41E3A"></span></span></div><div class="row" style="justify-content:space-between"><i style="width:44%"></i><span class="row"><span class="dot"></span><i style="width:6px"></i><span class="dot" style="background:#C41E3A"></span></span></div><div style="flex:1"></div><i class="r" style="height:14px;border-radius:7px"></i></div></div>
+            <h3>GetYourGuide</h3>
+            <p class="src"><span data-l="en">Checking availability</span><span data-l="ar">التحقق من التوفر</span></p>
+            <dl><dt><span data-l="en">Took</span><span data-l="ar">أخذت</span></dt><dd><span data-l="en">Age bands named in the label, like “Children, age 4 to 13”. Total price shown before payment.</span><span data-l="ar">الفئة العمرية مكتوبة في التسمية نفسها. السعر الإجمالي ظاهر قبل الدفع.</span></dd><dt class="t"><span data-l="en">Left</span><span data-l="ar">تركت</span></dt><dd><span data-l="en">Plus and minus counters. A cooking seat belongs to a named child with allergies.</span><span data-l="ar">عدّادات الزائد والناقص. مقعد الطبخ لطفل باسمه وحساسيته.</span></dd></dl>
+          </div>
+          <div class="ref">
+            <div class="wf" aria-hidden="true"><div class="ph"><i style="width:70%;height:8px"></i><i style="width:50%"></i><div class="bx"></div><div class="bx"></div><div class="bx"><i class="k" style="width:30%"></i></div><div style="flex:1"></div><i style="height:14px;border-radius:7px"></i></div></div>
+            <h3>Kit, GoHenry</h3>
+            <p class="src"><span data-l="en">Adding a child</span><span data-l="ar">إضافة طفل</span></p>
+            <dl><dt><span data-l="en">Took</span><span data-l="ar">أخذت</span></dt><dd><span data-l="en">A child as a saved profile, and “Add another child” right in the list.</span><span data-l="ar">الطفل كملف محفوظ، وزر «إضافة طفل آخر» داخل القائمة نفسها.</span></dd><dt class="t"><span data-l="en">Left</span><span data-l="ar">تركت</span></dt><dd><span data-l="en">Last name and full birth date. Age and allergies are all the studio needs.</span><span data-l="ar">اسم العائلة وتاريخ الميلاد الكامل. يكفي الاستوديو العمر والحساسية.</span></dd></dl>
+          </div>
+          <div class="ref">
+            <div class="wf" aria-hidden="true"><div class="ph"><div class="row" style="justify-content:flex-end"><i style="width:30%;height:10px;border-radius:5px;background:#C41E3A"></i></div><i style="width:80%;height:9px"></i><div class="bx"><span class="dot"></span><i style="flex:1"></i></div><div class="bx"><span class="dot"></span><i style="flex:1"></i></div><div class="bx"><span class="dot"></span><i style="flex:1"></i></div></div></div>
+            <h3>Tabby</h3>
+            <p class="src"><span data-l="en">Choosing a country and language</span><span data-l="ar">اختيار الدولة واللغة</span></p>
+            <dl><dt><span data-l="en">Took</span><span data-l="ar">أخذت</span></dt><dd><span data-l="en">The other language as a small pill in the top corner, written in that language.</span><span data-l="ar">اللغة الأخرى كزر صغير في الزاوية العلوية، مكتوب بتلك اللغة.</span></dd><dt class="t"><span data-l="en">Left</span><span data-l="ar">تركت</span></dt><dd><span data-l="en">Burying the choice in settings, as Keeta does. Many families here switch per person on one phone.</span><span data-l="ar">إخفاء الخيار في الإعدادات كما في Keeta. كثير من العائلات هنا تبدّل اللغة حسب من يمسك الجوال.</span></dd></dl>
+          </div>
+        </div>
+      </section>
+
+      <section id="rules">
+        <div class="txt">
+          <p class="sec-name"><span data-l="en">Rules I set</span><span data-l="ar">قواعد وضعتها</span></p>
+          <h2><span data-l="en">Five rules every booking screen had to pass, in both languages.</span><span data-l="ar">خمس قواعد يجب أن تجتازها كل شاشة حجز، باللغتين.</span></h2>
+        </div>
+        <div class="rules">
+          <div class="rule"><b><span data-l="en">Who, then when</span><span data-l="ar">من، ثم متى</span></b><span><span data-l="en">The first question decides the classes, the form and the copy.</span><span data-l="ar">السؤال الأول يحدد الحصص والنموذج والنص.</span></span></div>
+          <div class="rule"><b><span data-l="en">Age on every card</span><span data-l="ar">العمر على كل بطاقة</span></b><span><span data-l="en">A parent should never open a class to learn it is for teens.</span><span data-l="ar">لا يجب أن تفتح الأم حصة لتكتشف أنها للمراهقين.</span></span></div>
+          <div class="rule"><b><span data-l="en">Allergies before payment</span><span data-l="ar">الحساسية قبل الدفع</span></b><span><span data-l="en">Asked once, saved to the child, shown at every booking.</span><span data-l="ar">تُسأل مرة، تُحفظ للطفل، وتظهر في كل حجز.</span></span></div>
+          <div class="rule"><b><span data-l="en">Sunday starts the week</span><span data-l="ar">الأسبوع يبدأ الأحد</span></b><span><span data-l="en">The Saudi work week runs Sunday to Thursday. Friday and Saturday look like a weekend.</span><span data-l="ar">أسبوع العمل في السعودية من الأحد إلى الخميس. الجمعة والسبت يظهران كعطلة.</span></span></div>
+          <div class="rule"><b><span data-l="en">Mirror with care</span><span data-l="ar">اعكس بحذر</span></b><span><span data-l="en">Arrows and order flip. Numbers, the logo and the clock stay.</span><span data-l="ar">الأسهم والترتيب تنعكس. الأرقام والشعار والساعة تبقى.</span></span></div>
+        </div>
+      </section>
+
+      <!-- ===================== SCREEN 1 ===================== -->
+      <section id="who">
+        <div class="txt">
+          <p class="sec-name"><span data-l="en">Step one: who’s cooking</span><span data-l="ar">الخطوة الأولى: من سيطبخ</span></p>
+          <h2><span data-l="en">One question before the calendar. Tap a name and the app knows the age band and the allergies.</span><span data-l="ar">سؤال واحد قبل التقويم. اضغط على الاسم فيعرف التطبيق الفئة العمرية والحساسية.</span></h2>
+          <p class="p full"><span data-l="en">The kids challenge was never about a cartoon skin. Kids don’t hold the phone. A parent does, booking for one or two children with different ages. So the child becomes a profile the parent picks, and the rest of the journey adapts to it.</span><span data-l="ar">تحدي الأطفال لم يكن في الرسوم الكرتونية. الطفل لا يمسك الجوال، الأم هي من تحجز، لطفل أو طفلين بأعمار مختلفة. لذلك صار الطفل ملفًا تختاره الأم، وتتكيّف بقية الرحلة معه.</span></p>
+        </div>
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <p class="colh"><span data-l="en">English, left to right</span><span data-l="ar">الإنجليزية، من اليسار لليمين</span></p>
+              <div class="an" tabindex="0" data-for="s1-lang-en" data-at="top"><b><span data-l="en">Language in the corner</span><span data-l="ar">اللغة في الزاوية</span></b><p><span data-l="en">One tap from any screen, written in the other language. I took this from Tabby.</span><span data-l="ar">ضغطة واحدة من أي شاشة، مكتوبة باللغة الأخرى. أخذت الفكرة من Tabby.</span></p></div>
+              <div class="an" tabindex="0" data-for="s1-chef"><b><span data-l="en">Loulou above the question</span><span data-l="ar">لولو فوق السؤال</span></b><p><span data-l="en">People book her. Her face sits above the question. Photo slot for the client’s portrait.</span><span data-l="ar">الناس يحجزون معها هي. صورتها فوق السؤال. مكان مخصص لصورة الشيف.</span></p></div>
+              <div class="an" tabindex="0" data-for="s1-kid"><b><span data-l="en">A child is a profile</span><span data-l="ar">الطفل ملف محفوظ</span></b><p><span data-l="en">Name, age and allergies saved once. The age band shows under the name.</span><span data-l="ar">الاسم والعمر والحساسية تُحفظ مرة. الفئة العمرية تحت الاسم.</span></p></div>
+              <div class="an" tabindex="0" data-for="s1-add"><b><span data-l="en">Add a child in place</span><span data-l="ar">إضافة طفل في مكانه</span></b><p><span data-l="en">No trip to settings. I took this from Kit and GoHenry and dropped the birth date.</span><span data-l="ar">بدون الذهاب للإعدادات. أخذتها من Kit وGoHenry وحذفت تاريخ الميلاد.</span></p></div>
+            </div>
+            <div class="shot-fit">
+              <div class="shot">
+                <figure class="dev" style="margin:0">
+                  <div class="phone" dir="ltr" lang="en" role="img" aria-label="Who’s cooking screen in English with Sara selected">
+                    <div class="scr">
+                      <div class="notch"></div>
+                      <div class="sbar"><span>9:41</span><span class="ic"><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+                      <div class="app">
+                        <div class="top"><span class="lw"><i>Loulou’s</i><b>KITCHEN</b></span><span class="sp"></span><span class="lpill" data-a="s1-lang-en"><svg><use href="#i-globe"/></svg><span class="ar">عربي</span></span></div>
+                        <div class="who">
+                          <div class="chef" data-a="s1-chef"><span class="photo" aria-hidden="true"></span><div><b>Cook with Loulou</b><small>Classes in her Jeddah kitchen</small></div></div>
+                          <h4>Who’s cooking?</h4>
+                          <p class="sub">We’ll show classes that fit their age.</p>
+                          <div class="pr"><span class="ava a lg">N</span><div class="tx"><b>Me, Noura</b><small>Adult classes, 16 and over</small></div><svg class="go flip"><use href="#i-chev"/></svg></div>
+                          <div class="pr on" data-a="s1-kid"><span class="ava k lg">S</span><div class="tx"><b>Sara, 8</b><small>Kids classes, ages 6 to 12</small><span class="al"><svg><use href="#i-alert"/></svg>Tree nut allergy</span></div><svg class="go flip"><use href="#i-chev"/></svg></div>
+                          <div class="pr add" data-a="s1-add"><svg><use href="#i-plus"/></svg>Add a child</div>
+                          <p class="hint">Tap a name to see their classes</p>
+                        </div>
+                        <div class="tabs"><span><svg><use href="#i-home"/></svg>Home</span><span><svg><use href="#i-fork"/></svg>Recipes</span><span><svg><use href="#i-star"/></svg>Season</span><span><svg><use href="#i-chat"/></svg>Ask Loulou</span><span class="on"><svg><use href="#i-hat"/></svg>Book a class</span></div>
+                        <div class="homebar"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <figcaption>English</figcaption>
+                </figure>
+                <figure class="dev" style="margin:0">
+                  <div class="phone" dir="rtl" lang="ar" role="img" aria-label="شاشة من سيطبخ بالعربية مع اختيار سارة">
+                    <div class="scr">
+                      <div class="notch"></div>
+                      <div class="sbar"><span>9:41</span><span class="ic"><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+                      <div class="app">
+                        <div class="top"><span class="lw" data-a="a1-logo"><i>Loulou’s</i><b>KITCHEN</b></span><span class="sp"></span><span class="lpill" data-a="a1-lang"><svg><use href="#i-globe"/></svg><span class="en">EN</span></span></div>
+                        <div class="who">
+                          <div class="chef"><span class="photo" aria-hidden="true"></span><div><b>اطبخ مع لولو</b><small>حصص في مطبخها في جدة</small></div></div>
+                          <h4>من سيطبخ؟</h4>
+                          <p class="sub">نعرض الحصص المناسبة للعمر.</p>
+                          <div class="pr"><span class="ava a lg">ن</span><div class="tx"><b>أنا، نورة</b><small>حصص الكبار، 16 سنة فأكثر</small></div><svg class="go flip"><use href="#i-chev"/></svg></div>
+                          <div class="pr on" data-a="a1-row"><span class="ava k lg">س</span><div class="tx"><b>سارة، 8 سنوات</b><small data-a="a1-num">حصص الأطفال، من 6 إلى 12 سنة</small><span class="al"><svg><use href="#i-alert"/></svg>حساسية المكسرات</span></div><svg class="go flip"><use href="#i-chev"/></svg></div>
+                          <div class="pr add"><svg><use href="#i-plus"/></svg>إضافة طفل</div>
+                          <p class="hint">اضغط على الاسم لعرض الحصص</p>
+                        </div>
+                        <div class="tabs"><span><svg><use href="#i-home"/></svg>الرئيسية</span><span><svg><use href="#i-fork"/></svg>الوصفات</span><span><svg><use href="#i-star"/></svg>الموسم</span><span><svg><use href="#i-chat"/></svg>اسأل لولو</span><span class="on"><svg><use href="#i-hat"/></svg>احجز حصة</span></div>
+                        <div class="homebar"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <figcaption>العربية</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="anno-col r">
+              <p class="colh"><span data-l="en">Arabic, right to left</span><span data-l="ar">العربية، من اليمين لليسار</span></p>
+              <div class="an" tabindex="0" data-for="a1-logo"><b><span data-l="en">The logo stays put</span><span data-l="ar">الشعار لا يتغير</span></b><p><span data-l="en">It moves to the start edge and keeps its Latin letters.</span><span data-l="ar">ينتقل لبداية السطر ويحتفظ بحروفه اللاتينية.</span></p></div>
+              <div class="an" tabindex="0" data-for="a1-row"><b><span data-l="en">Rows mirror</span><span data-l="ar">الصفوف تنعكس</span></b><p><span data-l="en">Avatar on the right, chevron on the left, pointing the way you read.</span><span data-l="ar">الصورة يمينًا والسهم يسارًا، باتجاه القراءة.</span></p></div>
+              <div class="an" tabindex="0" data-for="a1-num" data-at="bottom"><b><span data-l="en">Digits stay 0 to 9</span><span data-l="ar">الأرقام تبقى 0 إلى 9</span></b><p><span data-l="en">Ages and prices use Western digits, as most Saudi apps and receipts do.</span><span data-l="ar">الأعمار والأسعار بالأرقام الغربية، كما في أغلب التطبيقات والفواتير السعودية.</span></p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+      </section>
+
+      <!-- ===================== SCREEN 2 ===================== -->
+      <section id="classes">
+        <div class="txt">
+          <p class="sec-name"><span data-l="en">Step two: pick a class</span><span data-l="ar">الخطوة الثانية: اختر الحصة</span></p>
+          <h2><span data-l="en">Only classes Sara can join. Every card answers the five questions a parent asks before tapping.</span><span data-l="ar">فقط الحصص التي تناسب سارة. كل بطاقة تجيب عن الأسئلة الخمسة التي تسألها الأم قبل الضغط.</span></h2>
+          <p class="p full"><span data-l="en">When, how long, what age, how many seats, how much. The POC answered two of those. The list also says what it filtered out, so an adult browsing on Sara’s profile is never confused.</span><span data-l="ar">متى، كم المدة، لأي عمر، كم مقعدًا بقي، وبكم. النموذج الأول أجاب عن اثنين فقط. والقائمة تذكر ما أخفته، حتى لا يرتبك من يتصفح من ملف سارة.</span></p>
+        </div>
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <p class="colh"><span data-l="en">English, left to right</span><span data-l="ar">الإنجليزية، من اليسار لليمين</span></p>
+              <div class="an" tabindex="0" data-for="s2-for"><b><span data-l="en">Who it’s for, always on</span><span data-l="ar">لمن الحجز، ظاهر دائمًا</span></b><p><span data-l="en">Tap the chip to switch to yourself without leaving the list.</span><span data-l="ar">اضغط عليه للتبديل لنفسك دون مغادرة القائمة.</span></p></div>
+              <div class="an" tabindex="0" data-for="s2-week"><b><span data-l="en">Sunday first</span><span data-l="ar">الأحد أولًا</span></b><p><span data-l="en">Dots mark days with a class that fits Sara. Friday and Saturday are greyed as the weekend.</span><span data-l="ar">النقاط تحدد الأيام التي فيها حصة تناسب سارة. الجمعة والسبت باللون الرمادي كعطلة.</span></p></div>
+              <div class="an" tabindex="0" data-for="s2-card"><b><span data-l="en">Five facts before the tap</span><span data-l="ar">خمس معلومات قبل الضغط</span></b><p><span data-l="en">Time, length, age band, seats left and price, plus the dish.</span><span data-l="ar">الوقت والمدة والفئة العمرية والمقاعد والسعر، مع صورة الطبق.</span></p></div>
+              <div class="an" tabindex="0" data-for="s2-full"><b><span data-l="en">A full class still has a next step</span><span data-l="ar">الحصة الممتلئة لها خطوة تالية</span></b><p><span data-l="en">Join waitlist takes the place of Book.</span><span data-l="ar">زر قائمة الانتظار يأخذ مكان زر الحجز.</span></p></div>
+            </div>
+            <div class="shot-fit">
+              <div class="shot">
+                <figure class="dev" style="margin:0">
+                  <div class="phone" dir="ltr" lang="en" role="img" aria-label="Class list for Sara in English">
+                    <div class="scr">
+                      <div class="notch"></div>
+                      <div class="rhead"><div class="sbar on-red" style="padding:0 8px"><span>9:41</span><span class="ic"><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+                        <div class="bar"><svg class="flip"><use href="#i-back"/></svg></div>
+                        <h4>Book a class</h4>
+                        <span class="chipfor" data-a="s2-for"><span class="ava">S</span>For Sara, 8<svg><use href="#i-down"/></svg></span>
+                      </div>
+                      <div class="app">
+                        <div class="mo"><b>November 2026</b><small>Jumada al-Akhirah 1448</small></div>
+                        <div class="wk" data-a="s2-week">
+                          <div><span>Sun</span><b>15</b><i></i></div><div><span>Mon</span><b>16</b><i></i></div><div class="d"><span>Tue</span><b>17</b><i></i></div><div><span>Wed</span><b>18</b><i></i></div><div class="d on"><span>Thu</span><b>19</b><i></i></div><div class="wkend"><span>Fri</span><b>20</b><i></i></div><div class="d wkend"><span>Sat</span><b>21</b><i></i></div>
+                        </div>
+                        <div class="dayh">Thursday 19 November</div>
+                        <div class="cls" data-a="s2-card">
+                          <div class="th k1"><svg><use href="#f-pizza"/></svg></div>
+                          <div><h5>Mini pizzas from scratch</h5><div class="tm"><svg><use href="#i-clock"/></svg>4:00 to 5:30 pm, 90 min</div><div class="bdg"><span class="age">Ages 6 to 10</span><span class="seat">4 seats left</span></div></div>
+                          <div class="ft"><span class="price">SAR 220<small>incl. VAT</small></span><span class="btn">Book</span></div>
+                        </div>
+                        <div class="cls" data-a="s2-full">
+                          <div class="th k2"><svg><use href="#f-cookie"/></svg></div>
+                          <div><h5>Date and oat cookies</h5><div class="tm"><svg><use href="#i-clock"/></svg>6:00 to 7:00 pm, 60 min</div><div class="bdg"><span class="age">Ages 8 to 12</span><span class="fl">Full</span></div></div>
+                          <div class="ft"><span class="price">SAR 180<small>incl. VAT</small></span><span class="btn ghost">Join waitlist</span></div>
+                        </div>
+                        <div class="hid" data-a="s2-hidden-en"><svg><use href="#i-alert"/></svg>2 adult classes hidden. <u>Show</u></div>
+                        <div class="tabs"><span><svg><use href="#i-home"/></svg>Home</span><span><svg><use href="#i-fork"/></svg>Recipes</span><span><svg><use href="#i-star"/></svg>Season</span><span><svg><use href="#i-chat"/></svg>Ask Loulou</span><span class="on"><svg><use href="#i-hat"/></svg>Book a class</span></div>
+                        <div class="homebar"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <figcaption>English</figcaption>
+                </figure>
+                <figure class="dev" style="margin:0">
+                  <div class="phone" dir="rtl" lang="ar" role="img" aria-label="قائمة الحصص لسارة بالعربية">
+                    <div class="scr">
+                      <div class="notch"></div>
+                      <div class="rhead"><div class="sbar on-red" style="padding:0 8px"><span>9:41</span><span class="ic"><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+                        <div class="bar"><svg class="flip"><use href="#i-back"/></svg></div>
+                        <h4>احجز حصة</h4>
+                        <span class="chipfor"><span class="ava">س</span>لسارة، 8 سنوات<svg><use href="#i-down"/></svg></span>
+                      </div>
+                      <div class="app">
+                        <div class="mo" data-a="a2-hijri"><b>نوفمبر 2026</b><small>جمادى الآخرة 1448</small></div>
+                        <div class="wk" data-a="a2-week">
+                          <div><span>أحد</span><b>15</b><i></i></div><div><span>إثنين</span><b>16</b><i></i></div><div class="d"><span>ثلاثاء</span><b>17</b><i></i></div><div><span>أربعاء</span><b>18</b><i></i></div><div class="d on"><span>خميس</span><b>19</b><i></i></div><div class="wkend"><span>جمعة</span><b>20</b><i></i></div><div class="d wkend"><span>سبت</span><b>21</b><i></i></div>
+                        </div>
+                        <div class="dayh">الخميس 19 نوفمبر</div>
+                        <div class="cls">
+                          <div class="th k1"><svg><use href="#f-pizza"/></svg></div>
+                          <div><h5>ميني بيتزا بعجينة منزلية</h5><div class="tm"><svg><use href="#i-clock"/></svg>4:00 إلى 5:30 م، 90 دقيقة</div><div class="bdg"><span class="age">من 6 إلى 10 سنوات</span><span class="seat">بقي 4 مقاعد</span></div></div>
+                          <div class="ft"><span class="price">220 ر.س<small>شامل الضريبة</small></span><span class="btn">احجز</span></div>
+                        </div>
+                        <div class="cls">
+                          <div class="th k2"><svg><use href="#f-cookie"/></svg></div>
+                          <div><h5>كوكيز التمر والشوفان</h5><div class="tm"><svg><use href="#i-clock"/></svg>6:00 إلى 7:00 م، 60 دقيقة</div><div class="bdg"><span class="age">من 8 إلى 12 سنة</span><span class="fl">ممتلئة</span></div></div>
+                          <div class="ft"><span class="price">180 ر.س<small>شامل الضريبة</small></span><span class="btn ghost">قائمة الانتظار</span></div>
+                        </div>
+                        <div class="hid" data-a="a2-hidden"><svg><use href="#i-alert"/></svg>أخفينا حصتين للكبار. <u>عرض</u></div>
+                        <div class="tabs"><span><svg><use href="#i-home"/></svg>الرئيسية</span><span><svg><use href="#i-fork"/></svg>الوصفات</span><span><svg><use href="#i-star"/></svg>الموسم</span><span><svg><use href="#i-chat"/></svg>اسأل لولو</span><span class="on"><svg><use href="#i-hat"/></svg>احجز حصة</span></div>
+                        <div class="homebar"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <figcaption>العربية</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="anno-col r">
+              <p class="colh"><span data-l="en">Arabic, right to left</span><span data-l="ar">العربية، من اليمين لليسار</span></p>
+              <div class="an" tabindex="0" data-for="a2-hijri"><b><span data-l="en">Two calendars</span><span data-l="ar">تقويمان</span></b><p><span data-l="en">Gregorian month with the Hijri month under it. Dates checked against Umm al-Qura.</span><span data-l="ar">الشهر الميلادي وتحته الشهر الهجري. التواريخ مطابقة لتقويم أم القرى.</span></p></div>
+              <div class="an" tabindex="0" data-for="a2-week"><b><span data-l="en">The strip runs right to left</span><span data-l="ar">الشريط من اليمين لليسار</span></b><p><span data-l="en">Sunday sits on the right. The next week is a swipe toward the left.</span><span data-l="ar">الأحد في أقصى اليمين. الأسبوع التالي بالسحب نحو اليسار.</span></p></div>
+              <div class="an" tabindex="0" data-for="a2-hidden"><b><span data-l="en">Says what it hid</span><span data-l="ar">يذكر ما أخفاه</span></b><p><span data-l="en">Adult classes are filtered out. One link brings them back.</span><span data-l="ar">حصص الكبار مفلترة. رابط واحد يعيدها.</span></p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+      </section>
+
+      <!-- ===================== SCREEN 3 ===================== -->
+      <section id="review">
+        <div class="txt">
+          <p class="sec-name"><span data-l="en">Step three: review and pay</span><span data-l="ar">الخطوة الثالثة: المراجعة والدفع</span></p>
+          <h2><span data-l="en">The questions a studio would ask at the door, answered before payment.</span><span data-l="ar">الأسئلة التي يسألها الاستوديو عند الباب، تُجاب قبل الدفع.</span></h2>
+          <p class="p full"><span data-l="en">For an adult this screen is a summary and a pay button. For a child it adds two cards: allergies and drop-off. Same screen, same order, more questions only when they matter.</span><span data-l="ar">للكبار هذه الشاشة ملخص وزر دفع. للطفل تضاف بطاقتان: الحساسية والتوصيل. نفس الشاشة ونفس الترتيب، والأسئلة الإضافية فقط عند الحاجة.</span></p>
+        </div>
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <p class="colh"><span data-l="en">English, left to right</span><span data-l="ar">الإنجليزية، من اليسار لليمين</span></p>
+              <div class="an" tabindex="0" data-for="s3-alg"><b><span data-l="en">Allergies before payment</span><span data-l="ar">الحساسية قبل الدفع</span></b><p><span data-l="en">Pre-filled from Sara’s profile. Loulou gets it before she preps.</span><span data-l="ar">معبأة من ملف سارة. تصل للولو قبل التحضير.</span></p></div>
+              <div class="an" tabindex="0" data-for="s3-pick"><b><span data-l="en">Stay or drop off</span><span data-l="ar">البقاء أو التوصيل</span></b><p><span data-l="en">Every kids class raises it. The answer goes to the studio with the booking.</span><span data-l="ar">سؤال يتكرر مع كل حصة أطفال. الجواب يصل للاستوديو مع الحجز.</span></p></div>
+              <div class="an" tabindex="0" data-for="s3-cxl"><b><span data-l="en">Cancellation as a date</span><span data-l="ar">الإلغاء كتاريخ</span></b><p><span data-l="en">A day and a time on the screen. I took this from Open.</span><span data-l="ar">يوم وساعة على الشاشة. أخذت الفكرة من Open.</span></p></div>
+            </div>
+            <div class="shot-fit">
+              <div class="shot">
+                <figure class="dev" style="margin:0">
+                  <div class="phone" dir="ltr" lang="en" role="img" aria-label="Review booking screen in English">
+                    <div class="scr">
+                      <div class="notch"></div>
+                      <div class="sbar" style="background:#fff"><span>9:41</span><span class="ic"><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+                      <div class="app">
+                        <div class="hdr2"><svg class="flip"><use href="#i-back"/></svg><b>Review booking</b></div>
+                        <div class="rv">
+                          <div class="card"><div class="sum"><div class="th k1"><svg><use href="#f-pizza"/></svg></div><div><b>Mini pizzas from scratch</b><small>Thu 19 Nov, 4:00 to 5:30 pm</small><small>Jeddah studio</small></div></div></div>
+                          <div class="card" data-a="s3-alg"><h6><span class="ava k">S</span>Sara’s allergies</h6><div class="alg"><span>Tree nuts<svg><use href="#i-x"/></svg></span><span class="add"><svg><use href="#i-plus"/></svg>Add</span></div><p class="note">Loulou sees this before class and preps a swap if needed.</p></div>
+                          <div class="card" data-a="s3-pick"><h6>Pickup</h6><div class="rad"><i></i>I’ll stay in the studio</div><div class="rad on"><i></i>Drop off, pick up at 5:30 pm</div></div>
+                          <div class="card"><div class="ln"><span>1 child</span><span>SAR 220</span></div><div class="ln tot"><span>Total <small>incl. 15% VAT</small></span><span>SAR 220</span></div><div class="cxl" data-a="s3-cxl"><svg><use href="#i-check"/></svg>Free cancellation until Wed 18 Nov, 4:00 pm</div></div>
+                        </div>
+                        <div class="pay"><span class="btn blk">Pay with Apple Pay</span><span class="alt"><span class="mada">mada</span>Pay by card</span></div>
+                        <div class="homebar"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <figcaption>English</figcaption>
+                </figure>
+                <figure class="dev" style="margin:0">
+                  <div class="phone" dir="rtl" lang="ar" role="img" aria-label="شاشة مراجعة الحجز بالعربية">
+                    <div class="scr">
+                      <div class="notch"></div>
+                      <div class="sbar" style="background:#fff"><span>9:41</span><span class="ic"><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+                      <div class="app">
+                        <div class="hdr2"><svg class="flip" data-a="a3-back"><use href="#i-back"/></svg><b>مراجعة الحجز</b></div>
+                        <div class="rv">
+                          <div class="card"><div class="sum"><div class="th k1"><svg><use href="#f-pizza"/></svg></div><div><b>ميني بيتزا بعجينة منزلية</b><small>الخميس 19 نوفمبر، 4:00 إلى 5:30 م</small><small>استوديو جدة</small></div></div></div>
+                          <div class="card"><h6><span class="ava k">س</span>حساسية سارة</h6><div class="alg"><span>المكسرات<svg><use href="#i-x"/></svg></span><span class="add"><svg><use href="#i-plus"/></svg>إضافة</span></div><p class="note">تصل المعلومة للولو قبل الحصة لتجهّز بديلًا عند الحاجة.</p></div>
+                          <div class="card"><h6>الاستلام</h6><div class="rad"><i></i>سأبقى في الاستوديو</div><div class="rad on"><i></i>توصيل واستلام الساعة 5:30 م</div></div>
+                          <div class="card" data-a="a3-total"><div class="ln"><span>طفل واحد</span><span>220 ر.س</span></div><div class="ln tot"><span>الإجمالي <small>شامل ضريبة 15%</small></span><span>220 ر.س</span></div><div class="cxl"><svg><use href="#i-check"/></svg>إلغاء مجاني حتى الأربعاء 18 نوفمبر، 4:00 م</div></div>
+                        </div>
+                        <div class="pay" data-a="a3-pay"><span class="btn blk">الدفع عبر Apple Pay</span><span class="alt"><span class="mada">mada</span>الدفع ببطاقة مدى</span></div>
+                        <div class="homebar"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <figcaption>العربية</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="anno-col r">
+              <p class="colh"><span data-l="en">Arabic, right to left</span><span data-l="ar">العربية، من اليمين لليسار</span></p>
+              <div class="an" tabindex="0" data-for="a3-back"><b><span data-l="en">Back points right</span><span data-l="ar">سهم الرجوع لليمين</span></b><p><span data-l="en">Navigation arrows flip. A play icon on a recipe video does not.</span><span data-l="ar">أسهم التنقل تنعكس. أيقونة تشغيل الفيديو لا تنعكس.</span></p></div>
+              <div class="an" tabindex="0" data-for="a3-total"><b><span data-l="en">VAT inside the price</span><span data-l="ar">الضريبة ضمن السعر</span></b><p><span data-l="en">Saudi shoppers see 15% VAT included. ر.س sits after the number.</span><span data-l="ar">يرى المشتري السعر شاملًا ضريبة 15%. ر.س بعد الرقم.</span></p></div>
+              <div class="an" tabindex="0" data-for="a3-pay"><b><span data-l="en">Local cards first</span><span data-l="ar">البطاقات المحلية أولًا</span></b><p><span data-l="en">mada, the Saudi debit network, sits right under Apple Pay.</span><span data-l="ar">مدى، شبكة البطاقات السعودية، مباشرة تحت Apple Pay.</span></p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+      </section>
+
+      <section id="rtl">
+        <div class="txt">
+          <p class="sec-name"><span data-l="en">Designing right to left</span><span data-l="ar">التصميم من اليمين لليسار</span></p>
+          <h2><span data-l="en">Flipping the direction in code is the easy part. Here is what I flipped and what I kept.</span><span data-l="ar">عكس الاتجاه في الكود هو الجزء السهل. هذا ما عكسته وما أبقيته.</span></h2>
+          <p class="p full"><span data-l="en">Setting the direction to RTL mirrors the whole layout. Most of that is right. The rest breaks meaning, so I checked every icon and number by hand in both screens.</span><span data-l="ar">تغيير الاتجاه يعكس التخطيط كله. أغلب ذلك صحيح، والباقي يكسر المعنى. لذلك راجعت كل أيقونة ورقم يدويًا في الشاشتين.</span></p>
+        </div>
+        <div class="flip-grid">
+          <div class="fg">
+            <h3><span data-l="en">Flips</span><span data-l="ar">ينعكس</span></h3>
+            <ul>
+              <li><span class="pair"><span><svg><use href="#i-back"/></svg></span><span><svg style="transform:scaleX(-1)"><use href="#i-back"/></svg></span></span><span><span data-l="en">Back and forward arrows, and the chevron on every row</span><span data-l="ar">أسهم الرجوع والتقدم، والسهم في نهاية كل صف</span></span></li>
+              <li><span class="pair"><span><small>S M T</small></span><span><small>T M S</small></span></span><span><span data-l="en">The week strip and the swipe between weeks</span><span data-l="ar">شريط الأسبوع والسحب بين الأسابيع</span></span></li>
+              <li><span class="pair"><span><span class="ava k" style="width:18px;height:18px;font-size:9px">S</span></span><span><svg style="transform:scaleX(-1)"><use href="#i-chev"/></svg></span></span><span><span data-l="en">Row order: avatar, text, then action</span><span data-l="ar">ترتيب الصف: الصورة، النص، ثم الإجراء</span></span></li>
+            </ul>
+          </div>
+          <div class="fg">
+            <h3><span data-l="en">Stays</span><span data-l="ar">يبقى كما هو</span></h3>
+            <ul>
+              <li><span class="pair"><span><svg><use href="#i-play"/></svg></span><span><svg><use href="#i-clock"/></svg></span></span><span><span data-l="en">Play on recipe videos and the clock. They follow time</span><span data-l="ar">تشغيل فيديو الوصفة والساعة. تتبع الزمن</span></span></li>
+              <li><span class="pair"><span><small>220</small></span><span><small>5:30</small></span></span><span><span data-l="en">Prices, times, ages and phone numbers, kept as Western digits</span><span data-l="ar">الأسعار والأوقات والأعمار وأرقام الجوال، بالأرقام الغربية</span></span></li>
+              <li><span class="pair"><span><svg><use href="#i-check"/></svg></span><span><svg><use href="#i-hat"/></svg></span></span><span><span data-l="en">The check mark, the chef hat and the Loulou’s logo</span><span data-l="ar">علامة الصح، قبعة الشيف وشعار لولو</span></span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="decision">
+        <div class="txt">
+          <p class="sec-name"><span data-l="en">Decision</span><span data-l="ar">القرار</span></p>
+          <h2><span data-l="en">Three ways to fit kids into one app. I picked the one that asks first.</span><span data-l="ar">ثلاث طرق لإدخال الأطفال في تطبيق واحد. اخترت الطريقة التي تسأل أولًا.</span></h2>
+        </div>
+        <div class="opts">
+          <div class="opt">
+            <div class="wf" aria-hidden="true"><div class="ph"><div class="row"><span class="dot" style="background:#C41E3A"></span><i style="width:30%"></i><span class="dot"></span><i style="width:30%"></i></div><div class="row" style="gap:3px"><i style="flex:1"></i><i style="flex:1"></i><i class="r" style="flex:1"></i><i style="flex:1"></i></div><div class="bx" style="height:30px"></div><div class="bx" style="height:30px"></div></div></div>
+            <h3><span data-l="en">A toggle on the list</span><span data-l="ar">مفتاح على القائمة</span></h3>
+            <dl><dt><span data-l="en">Best for</span><span data-l="ar">الأنسب لـ</span></dt><dd><span data-l="en">Shipping fast. This was my POC.</span><span data-l="ar">الإطلاق السريع. هذا كان نموذجي الأول.</span></dd><dt class="t"><span data-l="en">Trade-off</span><span data-l="ar">المقابل</span></dt><dd><span data-l="en">Knows the session type, never the child. Allergies and age fit stay offline.</span><span data-l="ar">يعرف نوع الحصة لا الطفل. الحساسية ومناسبة العمر تبقى خارج التطبيق.</span></dd></dl>
+          </div>
+          <div class="opt">
+            <div class="wf" aria-hidden="true"><div class="ph" style="background:#FFF4DB"><i class="k" style="width:60%;height:10px"></i><div class="row"><span class="dot" style="background:#E8A317;width:22px;height:22px"></span><span class="dot" style="background:#E8A317;width:22px;height:22px"></span><span class="dot" style="background:#E8A317;width:22px;height:22px"></span></div><div class="bx" style="height:30px;background:#fff"></div><div class="bx" style="height:30px;background:#fff"></div></div></div>
+            <h3><span data-l="en">A separate kids mode</span><span data-l="ar">وضع منفصل للأطفال</span></h3>
+            <dl><dt><span data-l="en">Best for</span><span data-l="ar">الأنسب لـ</span></dt><dd><span data-l="en">Apps a child uses alone, like games or reading.</span><span data-l="ar">تطبيقات يستخدمها الطفل وحده، كالألعاب والقراءة.</span></dd><dt class="t"><span data-l="en">Trade-off</span><span data-l="ar">المقابل</span></dt><dd><span data-l="en">Here the parent pays. Two modes means two of every screen to build and keep in Arabic.</span><span data-l="ar">هنا الأم من يدفع. وضعان يعني نسختين من كل شاشة للبناء والصيانة بالعربية.</span></dd></dl>
+          </div>
+          <div class="opt pick">
+            <div class="wf" aria-hidden="true"><div class="ph"><i style="width:70%;height:9px"></i><div class="bx" style="height:28px"><span class="dot" style="background:#C41E3A;width:14px;height:14px"></span><i style="flex:1"></i></div><div class="bx" style="height:28px;border-color:#E8A317;background:#FFF4DB"><span class="dot" style="background:#E8A317;width:14px;height:14px"></span><i style="flex:1"></i></div><div class="bx" style="height:22px;border-style:dashed;justify-content:center"><i class="r" style="width:40%"></i></div></div></div>
+            <h3><span data-l="en">Ask who first</span><span data-l="ar">اسأل من أولًا</span></h3>
+            <dl><dt><span data-l="en">Best for</span><span data-l="ar">الأنسب لـ</span></dt><dd><span data-l="en">One adult booking for several people of different ages.</span><span data-l="ar">شخص بالغ يحجز لعدة أشخاص بأعمار مختلفة.</span></dd><dt class="t"><span data-l="en">Trade-off</span><span data-l="ar">المقابل</span></dt><dd><span data-l="en">One more screen for adults. It remembers the last person, so repeat bookings skip it.</span><span data-l="ar">شاشة إضافية للكبار. تتذكر آخر شخص، فتتجاوزها الحجوزات المتكررة.</span></dd></dl>
+          </div>
+        </div>
+        <p class="decision"><span data-l="en">Ask who is cooking, then show only their classes. One set of screens serves both personas, and the kids path gets its extra questions without a second app.</span><span data-l="ar">اسأل من سيطبخ، ثم اعرض حصصه فقط. مجموعة شاشات واحدة تخدم الشخصيتين، ومسار الأطفال يحصل على أسئلته الإضافية بدون تطبيق ثانٍ.</span></p>
+      </section>
+
+      <section id="outcome">
+        <div class="txt">
+          <p class="sec-name"><span data-l="en">Outcome</span><span data-l="ar">النتيجة</span></p>
+          <h2><span data-l="en">From a booking form to a booking that knows who is coming.</span><span data-l="ar">من نموذج حجز إلى حجز يعرف من سيحضر.</span></h2>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><strong>2 → 5</strong><span data-l="en">Facts on a class card besides its name</span><span data-l="ar">معلومات على بطاقة الحصة غير اسمها</span></div>
+          <div class="kpi"><strong>0 → 1</strong><span data-l="en">Allergy check before a child’s seat is paid</span><span data-l="ar">فحص حساسية قبل دفع مقعد الطفل</span></div>
+          <div class="kpi"><strong>4</strong><span data-l="en">Taps from the tab bar to a paid seat</span><span data-l="ar">ضغطات من شريط التبويب حتى مقعد مدفوع</span></div>
+          <div class="kpi"><strong>1 → 2</strong><span data-l="en">Reading directions, each laid out by hand</span><span data-l="ar">اتجاها قراءة، كل منهما مصمم يدويًا</span></div>
+        </div>
+        <details class="how full">
+          <summary><span data-l="en">How I counted</span><span data-l="ar">كيف حسبت</span></summary>
+          <p><span data-l="en"><b>Card facts:</b> the POC card showed a date and a time. The new card shows time, length, age band, seats left and price. The date moved to the week strip.</span><span data-l="ar"><b>معلومات البطاقة:</b> بطاقة النموذج الأول عرضت التاريخ والوقت. البطاقة الجديدة تعرض الوقت والمدة والفئة العمرية والمقاعد المتبقية والسعر. التاريخ انتقل لشريط الأسبوع.</span></p>
+          <p><span data-l="en"><b>Taps:</b> Book a class, Sara, Book on the card, Pay with Apple Pay. This is a returning parent with Sara saved. A first booking adds the child profile.</span><span data-l="ar"><b>الضغطات:</b> احجز حصة، سارة، احجز على البطاقة، الدفع عبر Apple Pay. هذا لأم عائدة وملف سارة محفوظ. الحجز الأول يضيف خطوة ملف الطفل.</span></p>
+          <p><span data-l="en"><b>Not measured:</b> these are counts taken from the screens. No users have tried them yet, and the POC was never shipped.</span><span data-l="ar"><b>لم يُقس:</b> هذه أرقام مأخوذة من الشاشات. لم يجربها مستخدمون بعد، والنموذج لم يُطلق.</span></p>
+        </details>
+      </section>
+
+      <section id="hindsight">
+        <div class="txt">
+          <p class="sec-name"><span data-l="en">What I’d do differently</span><span data-l="ar">ما كنت سأفعله بشكل مختلف</span></p>
+          <h2><span data-l="en">Three things I’d change next time.</span><span data-l="ar">ثلاثة أشياء سأغيرها في المرة القادمة.</span></h2>
+        </div>
+        <div class="hind">
+          <div><h3><span data-l="en">Design the flow before the splash screen</span><span data-l="ar">صمّم الرحلة قبل شاشة البداية</span></h3><p class="full"><span data-l="en">My first POC sold the look. The booking flow came last and showed it. I’d start with the booking flow and style it after.</span><span data-l="ar">نموذجي الأول باع الشكل، ورحلة الحجز جاءت أخيرًا وظهر ذلك عليها. سأبدأ بالحجز ثم أصمم الشكل.</span></p></div>
+          <div><h3><span data-l="en">Write the Arabic first</span><span data-l="ar">اكتب العربية أولًا</span></h3><p class="full"><span data-l="en">Some labels here started in English. A Saudi copywriter on day one would catch tone, like how a parent in Jeddah talks about drop-off.</span><span data-l="ar">بعض التسميات هنا بدأت بالإنجليزية. كاتب محتوى سعودي من اليوم الأول سيلتقط النبرة، مثل طريقة حديث أم في جدة عن التوصيل.</span></p></div>
+          <div><h3><span data-l="en">Sit with five Jeddah parents</span><span data-l="ar">اجلس مع خمس أمهات في جدة</span></h3><p class="full"><span data-l="en">Every kids decision here comes from reasoning. None of it is tested yet. I’d run the three screens with parents before building, in both languages.</span><span data-l="ar">كل قرار للأطفال هنا مبني على المنطق، ولم يُختبر بعد. سأختبر الشاشات الثلاث مع أمهات قبل البناء، باللغتين.</span></p></div>
+        </div>
+      </section>
+
+    </div>
+    <aside class="toc" aria-label="Case study sections">
+      <p><span data-l="en">In this case study</span><span data-l="ar">في هذه الدراسة</span></p>
+      <ol>
+        <li><a href="#problem"><span class="ck"><svg><use href="#i-check"/></svg></span><span data-l="en">Problem</span><span data-l="ar">المشكلة</span></a></li>
+        <li><a href="#research"><span class="ck"><svg><use href="#i-check"/></svg></span><span data-l="en">References</span><span data-l="ar">المراجع</span></a></li>
+        <li><a href="#rules"><span class="ck"><svg><use href="#i-check"/></svg></span><span data-l="en">Rules I set</span><span data-l="ar">القواعد</span></a></li>
+        <li><a href="#who"><span class="ck"><svg><use href="#i-check"/></svg></span><span data-l="en">Who’s cooking</span><span data-l="ar">من سيطبخ</span></a></li>
+        <li><a href="#classes"><span class="ck"><svg><use href="#i-check"/></svg></span><span data-l="en">Pick a class</span><span data-l="ar">اختر الحصة</span></a></li>
+        <li><a href="#review"><span class="ck"><svg><use href="#i-check"/></svg></span><span data-l="en">Review and pay</span><span data-l="ar">المراجعة والدفع</span></a></li>
+        <li><a href="#rtl"><span class="ck"><svg><use href="#i-check"/></svg></span><span data-l="en">Right to left</span><span data-l="ar">من اليمين لليسار</span></a></li>
+        <li><a href="#decision"><span class="ck"><svg><use href="#i-check"/></svg></span><span data-l="en">Decision</span><span data-l="ar">القرار</span></a></li>
+        <li><a href="#outcome"><span class="ck"><svg><use href="#i-check"/></svg></span><span data-l="en">Outcome</span><span data-l="ar">النتيجة</span></a></li>
+        <li><a href="#hindsight"><span class="ck"><svg><use href="#i-check"/></svg></span><span data-l="en">Hindsight</span><span data-l="ar">مراجعة ذاتية</span></a></li>
+      </ol>
+      <p class="tt"><span data-l="en">About 3 minutes in Skim</span><span data-l="ar">حوالي 3 دقائق في وضع اللمحة</span></p>
+    </aside>
+    <div class="next"><span><span data-l="en">Next case study</span><span data-l="ar">الدراسة التالية</span></span><a href="sieve.html">Sieve ↗</a></div>
+  </div>
+</main>
+
+<script>
+(function(){
+  var SVGNS='http://www.w3.org/2000/svg';
+  var root=document.documentElement;
+
+  /* ---------- Hero phones fit ---------- */
+  var hs=document.getElementById('hero-stage'), hw=document.getElementById('hp-wrap');
+  function fitHero(){
+    var avail=hs.clientWidth-24, s=Math.min(1,avail/520);
+    hw.style.transform='scale('+s+')';
+    hw.style.margin=((560*s-560)/2)+'px '+((520*s-520)/2)+'px';
+  }
+
+  /* ---------- Annotated figures ---------- */
+  var figs=[].slice.call(document.querySelectorAll('[data-anno]'));
+  var DESIGN_W=1180, MIN_GUTTER_W=960;
+
+  function layout(fig, idx){
+    var stage=fig.querySelector('.anno-stage');
+    var fit=fig.querySelector('.shot-fit');
+    var shot=fig.querySelector('.shot');
+    var svg=fig.querySelector('.anno-svg');
+    var avail=fig.clientWidth;
+    var stacked=avail<MIN_GUTTER_W||window.matchMedia('(max-width:1365px)').matches;
+    fig.classList.toggle('stacked',stacked);
+    var notes=[].slice.call(fig.querySelectorAll('.an'));
+
+    if(stacked){
+      stage.style.transform=''; fig.style.height='';
+      notes.forEach(function(n){n.style.top='';});
+      shot.style.transform='';
+      var w=shot.offsetWidth;
+      var s=Math.min(1,avail/w);
+      var off=Math.max(0,(avail-w*s)/2);
+      shot.style.transform='translateX('+off+'px) scale('+s+')';
+      fit.style.height=(shot.offsetHeight*s)+'px';
+      return;
+    }
+    shot.style.transform=''; fit.style.height='';
+    var sc=Math.min(1.25,avail/DESIGN_W);
+    var off2=Math.max(0,(avail-DESIGN_W*sc)/2);
+    var rtl=root.getAttribute('dir')==='rtl';
+    stage.style.transformOrigin=rtl?'100% 0':'0 0';
+    stage.style.transform=rtl?('translateX('+(-off2)+'px) scale('+sc+')'):('translateX('+off2+'px) scale('+sc+')');
+    var sr=stage.getBoundingClientRect();
+    function rel(el){
+      var r=el.getBoundingClientRect();
+      return {l:(r.left-sr.left)/sc,t:(r.top-sr.top)/sc,r:(r.right-sr.left)/sc,b:(r.bottom-sr.top)/sc,w:r.width/sc,h:r.height/sc};
+    }
+    ['.anno-col.l','.anno-col.r'].forEach(function(sel){
+      var col=fig.querySelector(sel); if(!col) return;
+      var colTop=rel(col).t;
+      var items=[].slice.call(col.querySelectorAll('.an')).map(function(n){
+        var t=fig.querySelector('[data-a="'+n.dataset.for+'"]');
+        var p=t?rel(t):{t:0,h:0};
+        return {n:n,y:p.t+Math.min(p.h/2,14)-colTop};
+      }).sort(function(a,b){return a.y-b.y;});
+      var cursor=0;
+      items.forEach(function(it){
+        var top=Math.max(it.y-9,cursor);
+        it.n.style.top=top+'px';
+        cursor=top+it.n.offsetHeight+22;
+      });
+      col.style.height=cursor+'px';
+    });
+    var W=DESIGN_W, H=stage.offsetHeight;
+    svg.setAttribute('width',W); svg.setAttribute('height',H);
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var mid='ah'+idx;
+    var defs=document.createElementNS(SVGNS,'defs');
+    defs.innerHTML='<marker id="'+mid+'" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L8.5 5 1 8.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>';
+    svg.appendChild(defs);
+    notes.forEach(function(n){
+      var t=fig.querySelector('[data-a="'+n.dataset.for+'"]'); if(!t) return;
+      var left=!!n.closest('.anno-col.l');
+      var bEl=[].slice.call(n.querySelectorAll('b > span')).filter(function(x){return x.offsetParent!==null;})[0]||n.querySelector('b');
+      var b=rel(bEl), p=rel(t);
+      var bb=rel(n.querySelector('b'));
+      var sx=left? bb.r+8 : bb.l-8, sy=b.t+b.h/2;
+      var at=n.dataset.at||(left?'left':'right');
+      var ex,ey,c2x,c2y;
+      if(at==='top'){ex=p.l+p.w/2;ey=p.t-5;c2x=ex;c2y=ey-46;}
+      else if(at==='bottom'){ex=p.l+p.w/2;ey=p.b+5;c2x=ex;c2y=ey+46;}
+      else if(at==='left'){ex=p.l-6;ey=p.t+Math.min(p.h/2,14);c2x=ex-56;c2y=ey;}
+      else {ex=p.r+6;ey=p.t+Math.min(p.h/2,14);c2x=ex+56;c2y=ey;}
+      var dx=Math.max(36,Math.abs(ex-sx)*.35);
+      var c1x=left? sx+dx : sx-dx;
+      var d='M'+sx+' '+sy+' C'+c1x+' '+sy+' '+c2x+' '+c2y+' '+ex+' '+ey;
+      var halo=document.createElementNS(SVGNS,'path'); halo.setAttribute('d',d); halo.setAttribute('class','halo');
+      var ln=document.createElementNS(SVGNS,'path'); ln.setAttribute('d',d); ln.setAttribute('class','ln'); ln.setAttribute('marker-end','url(#'+mid+')');
+      var dot=document.createElementNS(SVGNS,'circle'); dot.setAttribute('cx',sx); dot.setAttribute('cy',sy); dot.setAttribute('r',2.6); dot.setAttribute('class','st');
+      svg.appendChild(halo); svg.appendChild(ln); svg.appendChild(dot);
+      n._ln=ln;
+    });
+    fig.style.height=(H*sc)+'px';
+  }
+  function layoutAll(){fitHero(); figs.forEach(layout);}
+
+  figs.forEach(function(fig){
+    fig.querySelectorAll('.an').forEach(function(n){
+      function on(v){
+        var t=fig.querySelector('[data-a="'+n.dataset.for+'"]');
+        if(t) t.classList.toggle('anno-hit',v);
+        n.classList.toggle('on',v);
+        if(n._ln) n._ln.classList.toggle('on',v);
+      }
+      n.addEventListener('mouseenter',function(){on(true);});
+      n.addEventListener('mouseleave',function(){on(false);});
+      n.addEventListener('focus',function(){on(true);});
+      n.addEventListener('blur',function(){on(false);});
+    });
+  });
+
+  var rafL=0;
+  function schedule(){cancelAnimationFrame(rafL); rafL=requestAnimationFrame(function(){layoutAll(); updateIndex();});}
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(schedule); figs.forEach(function(f){ro.observe(f.parentElement);}); ro.observe(hs); }
+  window.addEventListener('resize',schedule);
+  window.addEventListener('load',schedule);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(schedule);
+
+  /* ---------- Reading mode ---------- */
+  var btns=document.querySelectorAll('[data-mode]');
+  function setMode(m){
+    document.body.classList.toggle('skim',m==='skim');
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.mode===m));});
+    try{localStorage.setItem('ll-mode',m);}catch(e){}
+    schedule();
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.mode);});});
+
+  /* ---------- Language ---------- */
+  var lbtns=document.querySelectorAll('[data-lang]');
+  function setLang(l){
+    root.setAttribute('lang',l);
+    root.setAttribute('dir',l==='ar'?'rtl':'ltr');
+    lbtns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===l));});
+    try{localStorage.setItem('ll-lang',l);}catch(e){}
+    schedule();
+  }
+  lbtns.forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang);});});
+
+  /* ---------- Index and progress ---------- */
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  var bar=document.getElementById('prog-fill'), nowLabel=document.getElementById('now-label');
+  function label(a){
+    var l=root.getAttribute('lang')||'en';
+    var s=a.querySelector('[data-l="'+l+'"]'); return s?s.textContent:a.textContent;
+  }
+  function updateIndex(){
+    var doc=document.documentElement;
+    var max=doc.scrollHeight-window.innerHeight;
+    var p=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
+    bar.style.transform='scaleX('+p+')';
+    var line=window.scrollY+window.innerHeight*0.35;
+    var atEnd=window.scrollY>=max-4;
+    var active=-1;
+    secs.forEach(function(s,i){
+      var top=s.getBoundingClientRect().top+window.scrollY, h=s.offsetHeight;
+      if(line>=top&&line<top+h) active=i;
+      links[i].classList.toggle('done',atEnd||line>=top+h);
+    });
+    if(atEnd) active=-1;
+    links.forEach(function(a,i){ if(i===active) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+    var ar=root.getAttribute('lang')==='ar';
+    nowLabel.textContent=active>=0?label(links[active]):(atEnd?(ar?'انتهيت':'Done'):(ar?'المقدمة':'Introduction'));
+  }
+  var rafS=0;
+  window.addEventListener('scroll',function(){cancelAnimationFrame(rafS); rafS=requestAnimationFrame(updateIndex);},{passive:true});
+
+  var sm=null, sl=null; try{sm=localStorage.getItem('ll-mode'); sl=localStorage.getItem('ll-lang');}catch(e){}
+  setLang(sl==='ar'?'ar':'en');
+  setMode(sm==='full'?'full':'skim');
+})();
+</script>
+</body>
+</html>

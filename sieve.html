@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Case study: hiring funnel and filters for a mobile recruiter app. Afnan, senior product designer.">
+<meta property="og:title" content="Recruiters had every count. They couldn’t see where candidates stopped.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20122%20122%22%3E%3Crect%20width%3D%22122%22%20height%3D%22122%22%20rx%3D%2226%22%20fill%3D%22%23111312%22/%3E%3Cg%20transform%3D%22translate%280%209%29%22%20fill%3D%22%2376FBC8%22%3E%3Cpath%20d%3D%22M48.2%2011L53.2%2020L26%2077.2L31%2082.6H15.4Z%22/%3E%3Cpath%20d%3D%22M74%2011L106.4%2082.2H90.4L96.6%2076.8L74%2028L51%2077L56%2082.6H40.6Z%22/%3E%3Ccircle%20cx%3D%2274.6%22%20cy%3D%2263.6%22%20r%3D%226.6%22/%3E%3Crect%20x%3D%2211%22%20y%3D%2290.4%22%20width%3D%22100.4%22%20height%3D%225.2%22/%3E%3C/g%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sieve: hiring funnel for recruiters | Afnan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ---------- Portfolio shell tokens ---------- */
+:root{
+  --bg:#F3F5F4; --surface:#FFFFFF; --sunk:#E7ECEA; --ink:#13201D; --ink-2:#4A5754; --ink-3:#6B7874; --line:#D9E0DD;
+  --brand:#0E6655; --brand-ink:#FFFFFF; --brand-soft:#E1F0EB;
+  --annot:#D4127A; --annot-halo:rgba(255,255,255,.92);
+  --navy:#0B2622;
+  --shadow:0 30px 70px -20px rgba(10,40,34,.30), 0 2px 6px rgba(10,40,34,.06);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1311; --surface:#111D1A; --sunk:#16241F; --ink:#E6EEEB; --ink-2:#A9B8B3; --ink-3:#86958F; --line:#22332E;
+    --brand:#6CD3B9; --brand-ink:#0A1311; --brand-soft:#123029;
+    --annot:#FF5CAD; --annot-halo:rgba(10,19,17,0);
+    --navy:#0D2A25;
+    --shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1311; --surface:#111D1A; --sunk:#16241F; --ink:#E6EEEB; --ink-2:#A9B8B3; --ink-3:#86958F; --line:#22332E;
+    --brand:#6CD3B9; --brand-ink:#0A1311; --brand-soft:#123029;
+    --annot:#FF5CAD; --annot-halo:rgba(10,19,17,0);
+    --navy:#0D2A25;
+    --shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:clamp(16px,.35vw + 12px,19px);line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+img{max-width:100%}
+a{color:var(--brand)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* ---------- Header with progress index ---------- */
+.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.site-in{max-width:1920px;margin:0 auto;padding:14px clamp(24px,4.2vw,80px);display:flex;align-items:center;gap:24px}
+.site b{font-weight:600;font-size:16px}
+.site nav.links{display:flex;gap:20px;margin-left:auto;font-size:15px}
+.site nav.links a{color:var(--ink-2);text-decoration:none}
+.site nav.links a:hover{color:var(--ink)}
+.mode{display:inline-flex;background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:3px}
+.mode button{font:inherit;font-size:14px;font-weight:500;border:0;background:transparent;color:var(--ink-2);padding:5px 14px;border-radius:999px;cursor:pointer}
+.mode button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+.prog{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:transparent}
+.prog i{display:block;height:100%;width:100%;background:var(--brand);transform-origin:0 50%;transform:scaleX(0)}
+.now{display:none;font-size:14px;color:var(--ink-2);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now b{font-weight:600;color:var(--ink)}
+.wrap{max-width:1920px;margin:0 auto;padding:0 clamp(24px,4.2vw,80px)}
+
+/* ---------- Hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(40px,5vw,112px);padding:clamp(56px,6vw,112px) 0 clamp(72px,7vw,140px);align-items:center}
+.kicker{font-size:15px;color:var(--ink-2);margin:0 0 20px}
+.kicker a{color:var(--ink-2)}
+h1{font-size:clamp(34px,3.3vw,64px);line-height:1.1;letter-spacing:-.025em;font-weight:500;margin:0 0 24px}
+.lede{font-size:clamp(18px,1.05vw + 4px,24px);line-height:1.5;color:var(--ink-2);margin:0 0 36px}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin:0 0 36px;padding:0}
+.meta div{display:flex;flex-direction:column}
+.meta dt{font-size:13px;color:var(--ink-3)}
+.meta dd{margin:2px 0 0;font-size:15px;font-weight:500}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi strong{display:block;font-size:clamp(22px,2vw,28px);white-space:nowrap;line-height:1.1;letter-spacing:-.02em;color:var(--brand);font-weight:600}
+.kpi span{display:block;font-size:13px;line-height:1.4;color:var(--ink-2);margin-top:8px}
+.nda{font-size:13px;color:var(--ink-3);margin-top:20px}
+.how{margin-top:28px;font-size:15px;color:var(--ink-2)}
+.how summary{cursor:pointer;font-weight:500;color:var(--brand)}
+.how b{color:var(--ink);font-weight:600}
+
+.stage{background:var(--navy);border-radius:24px;padding:clamp(24px,3vw,56px);position:relative;overflow:hidden}
+.stage .hpn{max-width:560px;margin:0 auto}
+.stage::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 90% -10%,rgba(108,211,185,.18),transparent 60%),radial-gradient(500px 300px at -10% 110%,rgba(229,154,43,.16),transparent 60%);pointer-events:none}
+
+/* ---------- Content column ---------- */
+.body{border-top:1px solid var(--line);padding:clamp(72px,7vw,140px) 0 160px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:clamp(48px,5vw,120px)}
+.toc{position:sticky;top:112px;align-self:start;font-size:14.5px}
+.toc p{margin:0 0 16px;font-size:13px;color:var(--ink-3)}
+.toc ol{list-style:none;margin:0;padding:0;position:relative}
+.toc ol::before{content:"";position:absolute;left:9px;top:12px;bottom:12px;width:2px;background:var(--line)}
+.toc li{position:relative}
+.toc a{display:flex;align-items:center;gap:12px;padding:7px 8px 7px 0;color:var(--ink-3);text-decoration:none;border-radius:8px;transition:color .15s}
+.toc a:hover{color:var(--ink)}
+.ck{position:relative;z-index:1;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);background:var(--bg);display:grid;place-items:center;flex:none;transition:background .2s,border-color .2s}
+.ck svg{width:12px;height:12px;color:var(--brand-ink);opacity:0;transition:opacity .2s}
+.toc a.done{color:var(--ink-2)}
+.toc a.done .ck{background:var(--brand);border-color:var(--brand)}
+.toc a.done .ck svg{opacity:1}
+.toc a[aria-current="true"]{color:var(--ink);font-weight:600}
+.toc a[aria-current="true"] .ck{border-color:var(--brand)}
+.toc a[aria-current="true"] .ck::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.toc .tt{margin:20px 0 0;font-size:13px;color:var(--ink-3)}
+section{padding:0 0 clamp(120px,10vw,200px)}
+.txt{margin-bottom:clamp(36px,3vw,56px)}
+section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spacing:-.012em;font-weight:400;color:var(--ink);margin:0}
+.sec-name{font-size:15px;font-weight:600;color:var(--brand);margin:0 0 14px}
+.p{font-size:inherit;color:var(--ink-2);margin:16px 0 0}
+.skim .full{display:none}
+.skim-only{display:none}
+.skim .skim-only{display:inline}
+
+.pains{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:0}
+.pain{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(22px,2vw,32px)}
+.pain h3{font-size:18px;margin:0 0 8px;font-weight:600}
+.pain p{margin:0;font-size:15px;color:var(--ink-2);line-height:1.55}
+.users{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;align-items:center;font-size:15px}
+.tag{background:var(--brand-soft);color:var(--brand);font-weight:500;border-radius:999px;padding:6px 14px;font-size:14px}
+
+.rules{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.rule{padding:22px 28px 0 0}
+.rule b{display:block;font-size:16px;font-weight:600;margin-bottom:4px}
+.rule span{font-size:14px;color:var(--ink-2);line-height:1.5}
+
+.cap{font-size:13px;color:var(--ink-3);margin:18px 0 0;text-align:center}
+.sub-h{font-size:15px;font-weight:600;color:var(--ink-2);margin:88px 0 24px}
+.txt + .sub-h{margin-top:0}
+
+/* ---------- Annotated figure ---------- */
+.anno{margin:0;position:relative}
+.anno-stage{position:relative;width:1180px;display:grid;grid-template-columns:160px 820px 160px;column-gap:20px;align-items:start;transform-origin:0 0}
+.anno-col{position:relative}
+.an{position:absolute;left:0;right:0;font-size:13px;line-height:1.45;cursor:default;outline:none}
+.anno-col.l .an{text-align:right}
+.an b{display:block;font-size:14px;font-weight:600;color:var(--ink);line-height:1.3}
+.an p{margin:4px 0 0;color:var(--ink-2)}
+.skim .an p{display:none}
+.an:hover b,.an:focus-visible b,.an.on b{color:var(--annot)}
+.anno-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:5;color:var(--annot)}
+.anno-svg .halo{stroke:var(--annot-halo);stroke-width:5;fill:none;stroke-linecap:round}
+.anno-svg .ln{stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;transition:stroke-width .15s}
+.anno-svg .ln.on{stroke-width:2.6}
+.anno-svg .st{fill:currentColor}
+.anno-hit{outline:2px solid var(--annot)!important;outline-offset:3px;border-radius:6px}
+.shot-fit{position:relative}
+.anno.stacked .anno-stage{width:100%;display:flex;flex-direction:column}
+.anno.stacked .shot-fit{order:-1;overflow:hidden;width:100%;min-width:0}
+.anno.stacked .anno-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px;height:auto!important;margin-top:18px}
+.anno.stacked .anno-col.r{margin-top:14px}
+.anno.stacked .an{position:static;text-align:left!important;padding-left:22px;position:relative}
+.anno.stacked .an::before{content:"";position:absolute;left:2px;top:4px;width:11px;height:11px;border-left:2px solid var(--annot);border-top:2px solid var(--annot);transform:rotate(0deg)}
+.anno.stacked .an::after{content:"";position:absolute;left:3px;top:5px;width:14px;height:2px;background:var(--annot);transform-origin:0 0;transform:rotate(45deg)}
+.anno.stacked .anno-svg{display:none}
+
+/* ---------- Options ---------- */
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,44px)}
+.opt h3{font-size:19px;margin:14px 0 8px;font-weight:600}
+.opt dl{margin:0;display:grid;gap:8px}
+.opt dt{font-size:12.5px;color:var(--ink-3)}
+.opt dt.t{color:var(--annot)}
+.opt dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.thumb{height:clamp(170px,12vw,230px);border:1px solid var(--line);border-radius:12px;background:#F3F5F9;overflow:hidden;display:grid;grid-template-rows:18px 1fr}
+.thumb .tb0{background:#0C1426}
+.thumb .tin{display:grid;grid-template-columns:22px 1fr}
+.thumb .tr{background:#fff;border-right:1px solid #E3E7EF}
+.thumb .sk{display:block;height:8px;border-radius:4px;background:#DDE2EB}
+.thumb .skrow{display:flex;gap:8px;margin-top:8px}
+.decision{margin-top:40px;background:var(--brand-soft);color:var(--brand);border-radius:14px;padding:22px 26px;font-weight:500;font-size:inherit}
+
+.hind{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,56px)}
+.hind h3{font-size:clamp(18px,.6vw + 12px,22px);line-height:1.35;letter-spacing:-.01em;margin:0 0 8px;font-weight:500}
+.hind p{margin:0;font-size:15px;color:var(--ink-2)}
+.next{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:24px;margin:0;border-top:1px solid color-mix(in srgb,var(--ink) 14%,transparent);padding:28px 0 0;font-family:Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.4;color:var(--ink-2)}
+.next > span{color:var(--ink-2);font-weight:400}
+.next a{font-size:22px;font-weight:600;letter-spacing:-.01em;text-decoration:none;color:var(--ink);white-space:nowrap}
+.next a:hover{color:var(--brand)}
+@media (max-width:720px){.next{flex-direction:column;align-items:flex-start;gap:8px}.next a{white-space:normal}}
+
+/* ---------- Sieve additions to the shell ---------- */
+.pains.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+.hind.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+.fitbox{position:relative;width:100%}
+.fitbox > .fit-in{transform-origin:0 0;position:absolute;left:0;top:0}
+.stage .fitbox{max-width:420px;margin:0 auto}
+.lede b{color:var(--ink);font-weight:600}
+
+/* Annotated phone figures: same arrow system as Vigil, narrower stage */
+.anno-stage.ph{width:980px;grid-template-columns:270px 378px 270px;column-gap:31px}
+.anno.stacked .anno-stage.ph{width:100%}
+.try{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;margin:0 0 22px}
+.try i{width:8px;height:8px;border-radius:50%;background:var(--annot)}
+
+/* Before figure */
+.before-w{width:1180px;height:700px;position:relative}
+.bnote{position:absolute;font-size:13px;line-height:1.4;color:var(--ink-2);max-width:230px}
+.bnote b{display:block;color:var(--annot);font-size:14px;font-weight:600}
+.bnote::before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--annot);box-shadow:0 0 0 3px var(--annot-halo)}
+.bnote.l::before{left:-16px;top:5px}
+.bracket{position:absolute;left:12px;right:20px;bottom:18px;height:14px;border:2px solid var(--annot);border-top:0;border-radius:0 0 6px 6px}
+.bracket span{position:absolute;left:50%;top:18px;transform:translateX(-50%);font-size:13px;font-weight:600;color:var(--annot);white-space:nowrap;background:var(--bg);padding:0 8px}
+.pbr{position:absolute;left:0;width:312px;bottom:40px;height:14px;border:2px solid var(--brand);border-top:0;border-radius:0 0 6px 6px}
+.pbr span{position:absolute;left:50%;top:18px;transform:translateX(-50%);font-size:13px;font-weight:600;color:var(--brand);white-space:nowrap}
+
+/* Brand */
+.brand-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px}
+.bcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(22px,2.4vw,40px)}
+.bcard h3{font-size:15px;font-weight:600;color:var(--ink-2);margin:0 0 20px}
+.lockup{display:flex;align-items:center;gap:16px}
+.lockup svg{width:72px;height:72px}
+.lockup b{font-family:Figtree,Geist,sans-serif;font-size:56px;font-weight:700;letter-spacing:-.04em;color:var(--ink);line-height:1}
+.lk-row{display:flex;gap:18px;align-items:center;margin-top:30px;flex-wrap:wrap}
+.appicon{width:76px;height:76px;border-radius:20px;background:#0E6655;display:grid;place-items:center;box-shadow:0 10px 24px -10px rgba(14,102,85,.6)}
+.appicon svg{width:52px;height:52px}
+.sizes{display:flex;gap:16px;align-items:flex-end;color:var(--ink-3);font-size:12px}
+.sizes span{display:flex;flex-direction:column;align-items:center;gap:6px}
+.dark-chip{background:#0B2622;border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:10px}
+.dark-chip b{font-family:Figtree,Geist,sans-serif;font-size:26px;font-weight:700;letter-spacing:-.04em;color:#F2F5F4}
+.build{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center}
+.build .from{display:flex;gap:5px;align-items:flex-end;height:92px}
+.build .from i{flex:1;background:#0E6655;border-radius:3px 3px 0 0;opacity:.85}
+.build .from i.d{background:#E59A2B}
+.build .arr{font-size:13px;color:var(--ink-3);text-align:center}
+.build .to{display:grid;place-items:center}
+.build .to svg{width:96px;height:96px}
+.build-cap{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;font-size:13px;color:var(--ink-2);margin-top:12px}
+.build-cap span:last-child{text-align:center}
+.swatches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:20px}
+.sw-c{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.sw-c .chip-c{height:92px;position:relative;display:flex;align-items:flex-end;padding:10px 12px;font-family:Figtree,sans-serif;font-weight:600;font-size:22px}
+.sw-c .meta2{padding:12px 12px 14px;font-size:13px;line-height:1.45;color:var(--ink-2)}
+.sw-c .meta2 b{display:block;color:var(--ink);font-size:14px}
+.sw-c .meta2 code{font:500 12.5px Geist,ui-sans-serif,sans-serif;color:var(--ink-3)}
+.sw-c .meta2 em{display:block;font-style:normal;margin-top:6px;color:var(--ink-3);font-size:12.5px}
+
+/* References */
+.refs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.ref{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit}
+.ref:hover{border-color:var(--brand)}
+.ref small{font-size:12.5px;color:var(--ink-3)}
+.ref b{font-size:16px;font-weight:600}
+.ref p{margin:0;font-size:14px;line-height:1.5;color:var(--ink-2)}
+.ref .took{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);font-size:13.5px;color:var(--brand);font-weight:500}
+
+/* Decision thumbs, Sieve flavour */
+.thumb2{height:clamp(170px,12vw,230px);border:1px solid var(--line);border-radius:12px;background:#F2F5F4;overflow:hidden;position:relative;padding:14px}
+.thumb2 .tw{display:grid;grid-template-columns:repeat(10,46px);gap:3px}
+.thumb2 .tw i{height:18px;background:#DCE3E0;border-radius:3px}
+.thumb2 .tw i.h{background:#C6D0CC}
+.thumb2 .tphone{position:absolute;left:10px;top:8px;bottom:8px;width:86px;border:2px solid #13201D;border-radius:12px}
+.thumb2 .card{background:#fff;border-radius:8px;padding:10px;margin-bottom:8px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.thumb2 .sk2{display:block;height:7px;border-radius:4px;background:#DCE3E0;margin-bottom:6px}
+.thumb2 .segs{display:flex;gap:3px;margin:8px 0 6px}
+.thumb2 .segs i{flex:1;height:5px;border-radius:2px;background:#0E6655}
+.thumb2 .segs i.o{background:#DCE3E0}
+.thumb2 .fr{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.thumb2 .fr i{height:9px;border-radius:3px;background:#0E6655}
+.thumb2 .fr i.w{background:#E59A2B}
+.thumb2 .fr span{width:22px;height:6px;border-radius:3px;background:#C6D0CC;flex:none}
+
+/* =========================================================
+   Product UI: Sieve. Fixed light theme, like a real screenshot.
+   ========================================================= */
+.ui{
+  --p-bg:#F2F5F4; --p-card:#FFFFFF; --p-line:#E2E8E6; --p-line2:#EEF2F0;
+  --p-ink:#13201D; --p-ink2:#4F5D59; --p-ink3:#66736F;
+  --p-pine:#0E6655; --p-pine-d:#0A4A3E; --p-pine-soft:#E1F0EB;
+  --p-mari:#E59A2B; --p-mari-soft:#FDF1DC; --p-mari-ink:#8A5300;
+  --p-brick:#B4433A;
+  font-family:Figtree,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:13px;line-height:1.4;color:var(--p-ink);-webkit-font-smoothing:antialiased;text-align:left;
+  font-variant-numeric:tabular-nums;
+}
+.ui svg{width:18px;height:18px;flex:none}
+.phone{width:378px;padding:9px;border-radius:42px;background:#0F1715;box-shadow:var(--shadow), inset 0 0 0 1.5px #2A3633;position:relative;z-index:1}
+.scr{position:relative;width:360px;height:780px;border-radius:33px;overflow:hidden;background:var(--p-bg);display:flex;flex-direction:column}
+.stb{height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:4px 22px 0;font-size:12.5px;font-weight:600;color:var(--p-ink)}
+.stb .sti{display:flex;gap:5px;align-items:center}
+.stb .sti svg{width:15px;height:15px}
+.abar{height:54px;flex:none;display:flex;align-items:center;gap:10px;padding:0 14px 0 16px}
+.abar .t{font-size:19px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.abar .mk{width:28px;height:28px}
+.abar .ib{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--p-ink2);position:relative}
+.abar .ib b{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--p-mari);border:2px solid var(--p-bg)}
+.avt{width:32px;height:32px;border-radius:50%;background:#C9DED7;color:var(--p-pine-d);font-size:12px;font-weight:700;display:grid;place-items:center}
+.px{padding:0 16px}
+.sum{margin:2px 0 12px;font-size:14.5px;color:var(--p-ink2)}
+.sum b{color:var(--p-ink);font-weight:700}
+.srch{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--p-line);border-radius:12px;padding:10px 12px;color:var(--p-ink3);font-size:14px}
+.srch svg{width:17px;height:17px}
+.chips{display:flex;gap:7px;margin:12px -16px 4px 0;overflow:hidden;white-space:nowrap;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+.chp{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--p-line);background:#fff;border-radius:999px;padding:6px 11px;font-size:13px;font-weight:600;color:var(--p-ink2);flex:none}
+.chp i{font-style:normal;font-weight:600;color:var(--p-ink3);font-size:12.5px}
+.chp.on{background:var(--p-pine);border-color:var(--p-pine);color:#fff}
+.chp.on i{color:#BFE3D8}
+.chp.warn i{color:var(--p-mari-ink)}
+.chp .x{width:14px;height:14px;color:var(--p-ink3)}
+.chp.ap{background:var(--p-pine-soft);border-color:#BFDCD2;color:var(--p-pine-d)}
+.chp.ap .x{color:var(--p-pine)}
+.lst{flex:1;overflow:hidden;padding:8px 12px 0;display:flex;flex-direction:column;gap:10px}
+.vc{flex:none;background:#fff;border:1px solid var(--p-line);border-radius:16px;padding:13px 14px 12px;position:relative;overflow:hidden}
+.vc.warn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--p-mari)}
+.vh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.vh b{display:block;font-size:15.5px;font-weight:700;letter-spacing:-.01em}
+.vh small{display:block;font-size:12.5px;color:var(--p-ink3);margin-top:1px}
+.age{font-size:12px;color:var(--p-ink3);white-space:nowrap;margin-top:2px}
+.spk{display:flex;align-items:flex-end;gap:4px;height:38px;margin:12px 0 4px}
+.spk i{flex:1;background:var(--p-pine);border-radius:3px 3px 1px 1px;min-height:2px}
+.spk i.z{background:#DCE3E0}
+.spk i.d{background:var(--p-mari)}
+.spk-l{display:flex;justify-content:space-between;font-size:11.5px;color:var(--p-ink3)}
+.spk-l b{color:var(--p-ink);font-weight:700}
+.stk{display:flex;align-items:center;gap:9px;margin-top:10px;padding-top:10px;border-top:1px solid var(--p-line2);font-size:13px;color:var(--p-ink2)}
+.stk .dt{width:8px;height:8px;border-radius:50%;background:var(--p-mari);flex:none}
+.stk .dt.ok{background:var(--p-pine)}
+.stk .tx{flex:1;min-width:0}
+.stk .tx b{color:var(--p-ink);font-weight:700}
+.act{font-size:13px;font-weight:700;color:var(--p-pine);background:var(--p-pine-soft);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.bnav{height:64px;flex:none;background:#fff;border-top:1px solid var(--p-line);display:grid;grid-template-columns:repeat(3,1fr);padding:7px 0 0}
+.bnav span{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11.5px;font-weight:600;color:var(--p-ink3)}
+.bnav span svg{width:22px;height:22px;padding:2px 14px;box-sizing:content-box;border-radius:999px}
+.bnav span.on{color:var(--p-pine-d)}
+.bnav span.on svg{background:var(--p-pine-soft);color:var(--p-pine)}
+.fab{position:absolute;right:16px;bottom:80px;height:48px;border-radius:16px;background:var(--p-pine);color:#fff;display:flex;align-items:center;gap:8px;padding:0 16px 0 14px;font-weight:700;font-size:14px;box-shadow:0 8px 18px -6px rgba(14,102,85,.55)}
+.fab svg{width:20px;height:20px}
+
+/* funnel */
+.vmeta{padding:0 16px 8px;font-size:13px;color:var(--p-ink3)}
+.vmeta b{color:var(--p-ink);font-weight:700}
+.tabs2{display:flex;gap:22px;padding:0 16px;border-bottom:1px solid var(--p-line);flex:none}
+.tabs2 span{padding:10px 0 11px;font-size:14px;font-weight:600;color:var(--p-ink3);position:relative}
+.tabs2 span i{font-style:normal;color:var(--p-ink3);font-weight:500;margin-left:4px}
+.tabs2 span.on{color:var(--p-pine-d)}
+.tabs2 span.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--p-pine)}
+.ban{margin:8px 12px 4px;background:var(--p-mari-soft);border:1px solid #F3D9A8;border-radius:14px;padding:9px 12px;display:flex;gap:10px;align-items:center}
+.ban svg{color:var(--p-mari-ink);width:18px;height:18px}
+.ban p{margin:0;flex:1;font-size:13px;color:#5E3A00;line-height:1.4}
+.ban p b{font-weight:700}
+.ban .bt{font-size:13px;font-weight:700;color:#fff;background:var(--p-pine);border-radius:999px;padding:7px 12px;white-space:nowrap}
+.fun{padding:4px 12px 0;flex:1}
+.fr2{background:#fff;border:1px solid var(--p-line);border-radius:12px;padding:6px 10px 7px 12px}
+.fr2 .top{display:flex;align-items:center;gap:8px}
+.fr2 .nm{font-size:14px;font-weight:700;flex:1}
+.fr2 .nm small{font-weight:500;color:var(--p-ink3);font-size:12px;margin-left:6px}
+.fr2 .ct{font-size:16px;font-weight:700;letter-spacing:-.01em}
+.fr2 .top svg{width:16px;height:16px;color:var(--p-ink3)}
+.fr2 .br{height:5px;border-radius:3px;background:var(--p-line2);margin-top:4px;overflow:hidden}
+.fr2 .br i{display:block;height:100%;border-radius:3px;background:var(--p-pine)}
+.fr2.flag{border-color:#F1CF92;box-shadow:0 0 0 3px rgba(229,154,43,.12)}
+.fr2.flag .br i{background:var(--p-mari)}
+.rt{display:flex;align-items:center;gap:6px;height:16px;padding-left:14px;font-size:11.5px;color:var(--p-ink3)}
+.rt svg{width:12px;height:12px}
+.rt.flag{color:var(--p-mari-ink);font-weight:700}
+.closebar{margin:8px 12px 12px;display:flex;justify-content:space-between;align-items:center;border:1px dashed #C9D3CF;border-radius:12px;padding:10px 12px;font-size:13px;color:var(--p-ink3)}
+.closebar b{color:var(--p-ink2);font-weight:700}
+
+/* candidate list */
+.stabs{display:flex;gap:7px;padding:2px 16px 10px;overflow:hidden;white-space:nowrap;flex:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.frow{display:flex;gap:7px;align-items:center;padding:0 16px;flex:none;white-space:nowrap;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.fbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--p-ink);border-radius:999px;padding:6px 11px;font-size:13px;font-weight:700}
+.fbtn svg{width:15px;height:15px}
+.fbtn i{font-style:normal;background:var(--p-ink);color:#fff;border-radius:999px;font-size:11px;padding:0 6px;line-height:17px}
+.cnt{display:flex;justify-content:space-between;align-items:center;padding:12px 16px 8px;font-size:13px;color:var(--p-ink2);flex:none}
+.cnt b{color:var(--p-ink);font-weight:700}
+.cnt .clr{color:var(--p-pine);font-weight:700}
+.cnt .so{display:inline-flex;align-items:center;gap:4px;color:var(--p-ink2);font-weight:600}
+.cnt .so svg{width:14px;height:14px}
+.crows{flex:1;overflow:hidden;background:#fff;border-top:1px solid var(--p-line)}
+.cr{display:flex;align-items:center;gap:11px;padding:10px 16px;border-bottom:1px solid var(--p-line2)}
+.cb{width:20px;height:20px;border-radius:6px;border:2px solid #B9C4C0;flex:none}
+.cb.on{background:var(--p-pine);border-color:var(--p-pine);display:grid;place-items:center}
+.cb.on svg{width:13px;height:13px;color:#fff}
+.ini{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:700;flex:none}
+.cr .who{flex:1;min-width:0}
+.cr .who b{display:block;font-size:14.5px;font-weight:700}
+.cr .who small{display:block;font-size:12.5px;color:var(--p-ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc{font-size:14px;font-weight:700;color:var(--p-pine-d);background:var(--p-pine-soft);border-radius:8px;padding:4px 7px;min-width:34px;text-align:center}
+.bbar{flex:none;background:#fff;border-top:1px solid var(--p-line);padding:10px 14px 18px;display:flex;align-items:center;gap:10px}
+.bbar .ghost{flex:1;font-size:14px;font-weight:700;color:var(--p-ink2);display:flex;align-items:center;gap:8px}
+.pbtn{background:var(--p-pine);color:#fff;font-weight:700;font-size:14.5px;border-radius:999px;padding:12px 18px;white-space:nowrap;border:0;font-family:inherit;cursor:pointer}
+.pbtn:disabled{background:#B9C4C0;cursor:not-allowed}
+
+/* sheet */
+.scrim2{position:absolute;inset:0;background:rgba(10,24,21,.45);z-index:2}
+.sheet{position:absolute;left:0;right:0;bottom:0;height:716px;background:#fff;border-radius:24px 24px 0 0;z-index:3;display:flex;flex-direction:column}
+.sheet .hdl{width:36px;height:4px;border-radius:2px;background:#CBD4D0;margin:9px auto 4px}
+.sh-h{display:flex;align-items:baseline;justify-content:space-between;padding:6px 18px 6px}
+.sh-h b{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.sh-h small{font-size:13px;color:var(--p-ink3)}
+.sh-b{flex:1;overflow:auto;padding:0 18px 6px;scrollbar-width:none}
+.sh-b::-webkit-scrollbar{display:none}
+.grp{padding:10px 0 2px;border-top:1px solid var(--p-line2)}
+.grp:first-child{border-top:0}
+.grp h5{margin:0 0 8px;font-size:13.5px;font-weight:700;color:var(--p-ink)}
+.grp h5 small{font-weight:500;color:var(--p-ink3);margin-left:6px;font-size:12px}
+.opts2{display:flex;flex-wrap:wrap;gap:7px}
+.op{font-family:inherit;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--p-line);background:#fff;border-radius:10px;padding:7px 10px;font-size:13.5px;font-weight:600;color:var(--p-ink);cursor:pointer;font-variant-numeric:tabular-nums}
+.op i{font-style:normal;font-weight:600;color:var(--p-ink3);font-size:12.5px}
+.op[aria-pressed="true"]{background:var(--p-pine-soft);border-color:var(--p-pine);color:var(--p-pine-d);box-shadow:inset 0 0 0 1px var(--p-pine)}
+.op[aria-pressed="true"] i{color:var(--p-pine)}
+.op:disabled{color:#B5BFBB;background:#F7F9F8;cursor:not-allowed;border-style:dashed}
+.op:disabled i{color:#B5BFBB}
+.op:not(:disabled):hover{border-color:var(--p-pine)}
+.op:focus-visible{outline:2px solid var(--p-pine);outline-offset:2px}
+.sh-f{flex:none;border-top:1px solid var(--p-line);padding:12px 16px 20px;display:flex;align-items:center;gap:12px}
+.sh-f .lk{font-family:inherit;background:none;border:0;font-size:14.5px;font-weight:700;color:var(--p-ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:8px 4px}
+.sh-f .pbtn{flex:1;padding:14px 16px;font-size:15px}
+.hint{font-size:12.5px;color:var(--p-mari-ink);padding:6px 18px 0;min-height:20px}
+
+.old{font-family:Roboto,"Segoe UI",system-ui,sans-serif;color:#222;font-size:12px}
+.otable{position:absolute;left:12px;top:150px;width:1150px;background:#DEDEDE;border-radius:2px;height:330px}
+.orow{display:grid;grid-template-columns:200px repeat(9,1fr);background:#fff;border-bottom:1px solid #D6D6D6}
+.orow.oh{background:#DEDEDE;height:60px}
+.oc{padding:10px 10px;border-right:1px solid #CFCFCF;position:relative;line-height:1.3}
+.orow.oh .oc{font-size:12.5px;color:#222}
+.oc b{display:block;font-weight:500;font-size:13px}
+.oc span{display:block;color:#666;font-size:11.5px}
+.oc em{position:absolute;right:8px;top:10px;font-style:normal;color:#999;font-size:10.5px}
+.oc.first{display:block}
+.oh .oc.first{display:flex;justify-content:space-between}
+.oh .pin{font-size:16px}
+.ofade{position:absolute;left:324px;top:0;right:0;bottom:0;background:linear-gradient(90deg,rgba(243,245,244,.25),rgba(243,245,244,.72) 30%);pointer-events:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ofade{background:linear-gradient(90deg,rgba(10,19,17,.35),rgba(10,19,17,.8) 30%)}}
+:root[data-theme="dark"] .ofade{background:linear-gradient(90deg,rgba(10,19,17,.35),rgba(10,19,17,.8) 30%)}
+.ophone{position:absolute;left:0;top:0;width:324px;height:520px;border:9px solid #0F1715;border-radius:30px;box-shadow:var(--shadow);overflow:hidden;background:transparent;z-index:2;pointer-events:none}
+.ophone-bg{position:absolute;left:0;top:0;width:324px;height:520px;border-radius:30px;background:#EBEBEB;overflow:hidden}
+.ohd{background:#424242;color:#fff;height:78px;padding:26px 14px 0;display:flex;align-items:center;gap:12px;font-weight:600;font-size:15px}
+.ohd i{font-style:normal;font-size:18px}
+.otabs{display:flex;gap:30px;padding:12px 16px 0;font-size:11.5px;font-weight:500}
+.otabs span{padding-bottom:8px}
+.otabs .on{border-bottom:2px solid #6A2BD9}
+.osearch{margin:10px 12px 0;background:#fff;border-radius:20px;height:32px;width:240px;color:#AAA;font-size:12px;padding:8px 14px}
+.cell46-ring{position:absolute;border:2px solid var(--annot);border-radius:6px;pointer-events:none}
+
+.anno-stage.ph .shot-fit{position:relative}
+@media (max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .body{grid-template-columns:minmax(0,1fr)}
+  .toc{display:none}
+  .now{display:block}
+  .rules{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .site nav.links{display:none}
+  .mode button{padding:5px 10px}
+  .meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pains,.opts,.hind{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rules{grid-template-columns:1fr}
+  .anno.stacked .anno-col{grid-template-columns:1fr}
+  .stage{padding:16px;border-radius:18px}
+}
+
+@media (max-width:1100px){.refs{grid-template-columns:repeat(2,minmax(0,1fr))}.swatches{grid-template-columns:repeat(2,minmax(0,1fr))}.brand-grid{grid-template-columns:1fr}}
+@media (max-width:720px){.pains.four,.hind.four,.refs,.opts{grid-template-columns:minmax(0,1fr)}.lockup b{font-size:44px}}
+
+/* ---------- One desktop breakpoint: annotations and index collapse together below 1366px ---------- */
+@media (max-width:1365px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.now{display:block}}
+
+/* ---------- Brand mark ---------- */
+.site .brand{display:inline-flex;align-items:center;color:#76FBC8;flex:none}
+.site .brand svg{height:28px;width:auto;filter:drop-shadow(0 0 6px rgba(118,251,200,.3))}
+
+/* ---------- Case study tags ---------- */
+.cs-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 28px;padding:0}
+.cs-tags li{font-size:13.5px;line-height:1;color:var(--ink-2);border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:999px;padding:7px 12px}
+.cs-tags li.win{color:var(--brand);border-color:color-mix(in srgb,var(--brand) 45%,transparent)}
+</style>
+</head>
+<body class="skim">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="sv-mark" viewBox="0 0 48 48"><rect x="9" y="9" width="30" height="6.5" rx="3.25" fill="#0E6655"/><rect x="14" y="19" width="20" height="6.5" rx="3.25" fill="#0E6655"/><rect x="19" y="29" width="10" height="6.5" rx="3.25" fill="#0E6655"/><circle cx="24" cy="41.5" r="3.6" fill="#E59A2B"/></symbol>
+<symbol id="sv-mark-w" viewBox="0 0 48 48"><rect x="9" y="9" width="30" height="6.5" rx="3.25" fill="#F2F5F4"/><rect x="14" y="19" width="20" height="6.5" rx="3.25" fill="#F2F5F4"/><rect x="19" y="29" width="10" height="6.5" rx="3.25" fill="#F2F5F4"/><circle cx="24" cy="41.5" r="3.6" fill="#E59A2B"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></g></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 1 1 12 0v5l1.5 2h-15L6 16zM10 20.5a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="5.5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="18.5" r="1.7"/></g></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-sort" viewBox="0 0 24 24"><path d="M8 5v14M4 15l4 4 4-4M16 19V5M12 9l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M16 4.5v5M8 14.5v5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5.5M12 16.3v.2"/></g></symbol>
+<symbol id="i-brief" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3.5" y="7" width="17" height="12.5" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3.5 12.5h17"/></g></symbol>
+<symbol id="i-people" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="8.5" r="3.5"/><path d="M3 19.5c.6-3.3 3-5 6-5s5.4 1.7 6 5M16 5.2a3.4 3.4 0 0 1 0 6.6M17.5 14.6c2 .6 3.2 2.2 3.5 4.9"/></g></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 5 12 2.5-6h4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-wifi" viewBox="0 0 24 24"><path d="M12 19.5L2.5 9.2a13.5 13.5 0 0 1 19 0L12 19.5z" fill="currentColor"/></symbol>
+<symbol id="i-sig" viewBox="0 0 24 24"><path d="M21 3v18H3L21 3z" fill="currentColor"/></symbol>
+<symbol id="i-bat" viewBox="0 0 24 24"><rect x="7.5" y="3" width="9" height="18" rx="2" fill="currentColor"/><rect x="10" y="1.5" width="4" height="2" rx=".8" fill="currentColor"/></symbol>
+<symbol id="i-ck" viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-8.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+<header class="site">
+  <div class="site-in" style="position:relative">
+    <a class="brand" href="index.html" aria-label="Mohammed Afnan, home"><svg viewBox="8 8 106 90" fill="currentColor" aria-hidden="true"><path d="M48.2 11L53.2 20L26 77.2L31 82.6H15.4Z"/><path d="M74 11L106.4 82.2H90.4L96.6 76.8L74 28L51 77L56 82.6H40.6Z"/><circle cx="74.6" cy="63.6" r="6.6"/><rect x="11" y="90.4" width="100.4" height="5.2"/></svg></a>
+    <div class="mode" role="group" aria-label="Reading mode">
+      <button type="button" data-mode="skim" aria-pressed="true">Skim</button>
+      <button type="button" data-mode="full" aria-pressed="false">Full story</button>
+    </div>
+    <span class="now" aria-live="polite"><b id="now-label">Introduction</b></span>
+    <nav class="links" aria-label="Site"><a href="index.html#work">Work</a><a href="index.html#approach">About</a><a href="mailto:mails2afnan@gmail.com">Contact</a></nav>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="prog-fill"></i></div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <p class="kicker"><a href="index.html#work">Work</a> / Hiring funnel for a recruiter app</p>
+      <h1>Recruiters had every count. They couldn’t see where candidates stopped.</h1>
+      <p class="lede">I redesigned the vacancy table in Sieve, a mobile app for recruiters. Ten columns became a funnel you read top to bottom, and every count opens the people behind it, already filtered.</p>
+      <ul class="cs-tags" aria-label="Tags"><li>B2B</li><li>HR tech</li><li>Mobile (Android)</li><li>Funnel clarity</li></ul>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>Senior product designer</dd></div>
+        <div><dt>Scope</dt><dd>Vacancy list, funnel, filters</dd></div>
+        <div><dt>Platform</dt><dd>Android app for recruiters</dd></div>
+        <div><dt>Year</dt><dd>2019, reworked 2026</dd></div>
+      </dl>
+      <div class="kpis"><div class="kpi"><strong>4 → 1</strong><span>Phone widths to see one vacancy’s whole funnel</span></div><div class="kpi"><strong>0 → 7</strong><span>Rates shown between stages</span></div><div class="kpi"><strong>2 → 1</strong><span>Names per stage. Header and cell now agree.</span></div><div class="kpi"><strong>0 → 8</strong><span>Counts you can tap to see the people</span></div></div>
+      <p class="nda"><span class="skim-only">Skim mode shows headlines, numbers and screens. Switch to Full story for the detail.<br></span>Under NDA. Product name, brand, clients and data are changed. Screens are rebuilt with mock data.</p>
+    </div>
+    <div class="stage"><div class="fitbox" data-fit data-max="0.9"><div class="fit-in" role="img" aria-label="Sieve funnel screen: eight hiring stages from 256 sourced to 2 hired, with the drop at interview flagged"><div class="phone ui"><div class="scr"><div class="stb"><span>12:30</span><span class="sti"><svg><use href="#i-wifi"/></svg><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+<div class="abar"><span class="ib"><svg><use href="#i-back"/></svg></span><span class="t">C++ Developer</span><span class="ib"><svg><use href="#i-more"/></svg></span></div>
+<div class="vmeta">Kaveri Systems, Siruseri. Open 18 days. <b>Hires 2 of 3</b></div>
+<div class="tabs2"><span class="on">Funnel</span><span>Candidates<i>256</i></span><span>Activity</span></div>
+<div class="ban" data-a="f-ban"><svg><use href="#i-alert"/></svg><p><b>26 of 36 shortlisted</b> are waiting for an interview. Oldest 9 days.</p><span class="bt">Schedule 26</span></div>
+<div class="fun"><div class="fr2" data-a="f-names"><div class="top"><span class="nm">Sourced<small>1 d avg</small></span><span class="ct">256</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:100.0%"></i></div></div><div class="rt" data-a="f-rate0"><svg><use href="#i-down"/></svg>54% moved on</div><div class="fr2"><div class="top"><span class="nm">Screened<small>2 d avg</small></span><span class="ct">138</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:53.9%"></i></div></div><div class="rt"><svg><use href="#i-down"/></svg>41% moved on</div><div class="fr2" data-a="f-row"><div class="top"><span class="nm">Eligible<small>3 d avg</small></span><span class="ct">56</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:21.9%"></i></div></div><div class="rt"><svg><use href="#i-down"/></svg>82% moved on</div><div class="fr2"><div class="top"><span class="nm">Recommended<small>2 d avg</small></span><span class="ct">46</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:18.0%"></i></div></div><div class="rt"><svg><use href="#i-down"/></svg>78% moved on</div><div class="fr2 flag" data-a="f-flagrow"><div class="top"><span class="nm">Shortlisted<small>6 d avg</small></span><span class="ct">36</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:14.1%"></i></div></div><div class="rt flag" data-a="f-rate"><svg><use href="#i-down"/></svg>28% moved on. Biggest drop</div><div class="fr2"><div class="top"><span class="nm">Interviewed<small>4 d avg</small></span><span class="ct">10</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:3.9%"></i></div></div><div class="rt"><svg><use href="#i-down"/></svg>40% moved on</div><div class="fr2"><div class="top"><span class="nm">Offered<small>3 d avg</small></span><span class="ct">4</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:1.6%"></i></div></div><div class="rt"><svg><use href="#i-down"/></svg>50% moved on</div><div class="fr2"><div class="top"><span class="nm">Hired<small>joined</small></span><span class="ct">2</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:1.2%"></i></div></div></div>
+<div class="closebar" data-a="f-close"><span>Close hiring</span><b>1 hire to go</b></div>
+</div></div></div></div></div>
+  </div>
+
+  <div class="body">
+    <div class="flowc">
+
+      <section id="problem">
+        <div class="txt">
+          <p class="sec-name">Problem</p>
+          <h2>A recruiter runs a dozen vacancies from a phone. The vacancy table is four phones wide.</h2>
+          <p class="p full">The table had one row per vacancy and one column per hiring step, from Define vacancy to Close hiring. It held the right numbers. On a 360 px screen it showed the vacancy name and one column.</p>
+        </div>
+        <div class="pains four">
+          <div class="pain"><h3>Wider than the screen</h3><p>Ten columns. In the original file the table is 3.8 times the width of the phone beside it. Everything past the second column is a sideways swipe.</p></div>
+          <div class="pain"><h3>Counts without the drop</h3><p>256, 138, 56, 46, 36, 10, 4, 2. Where people stop is a sum the recruiter does in their head, per vacancy, every morning.</p></div>
+          <div class="pain"><h3>Header and cell disagree</h3><p>Headers name the next task. Cells name the current result. “Shortlist recommended” sits over “46 Recommended”, so 46 reads as shortlisted.</p></div>
+          <div class="pain"><h3>A number is a dead end</h3><p>No count is marked as tappable. Seeing the 56 eligible people means leaving the table and building a search by hand.</p></div>
+        </div>
+        <div class="users"><span>Two users, one screen:</span><span class="tag">Recruiter needs the stuck vacancy and its people</span><span class="tag">Hiring manager asks how many are left</span></div>
+        <p class="sub-h">The table as it was, rebuilt with mock data</p>
+        <div class="fitbox" data-fit data-max="1"><div class="fit-in"><div class="before-w old">
+<div class="ophone-bg" style="top:70px"><div class="ohd"><i>☰</i>Recruiter Dashboard</div><div class="otabs"><span style="color:#3A2BD9">LIVE UPDATES</span><span class="on">VACANCIES</span></div><div class="osearch">Search</div></div>
+<div class="otable" style="top:232px"><div class="orow oh"><div class="oc first"><span class="pin">⌖</span><span>↑ Updated</span></div><div class="oc">Define<br>Vacancy</div><div class="oc">Source<br>Candidates</div><div class="oc">Manage<br>Screener</div><div class="oc">Recommend<br>Screened</div><div class="oc">Shortlist<br>Recommended</div><div class="oc">Conduct<br>Interview</div><div class="oc">Offer<br>Interviewed</div><div class="oc">Hire<br>Offered</div><div class="oc">Close<br>Hiring</div></div><div class="orow"><div class="oc first"><b>C++ Dev</b><span>Kaveri Systems, Siruseri</span><em>5 m</em></div><div class="oc"><b>Edit</b><span></span></div><div class="oc"><b>256</b><span>Sourced</span><em>5 m</em></div><div class="oc"><b>138</b><span>Total Screened</span><em>5 m</em></div><div class="oc"><b>56</b><span>Eligible</span><em>5 m</em></div><div class="oc" data-x="cell46"><b>46</b><span>Recommended</span><em>5 m</em></div><div class="oc"><b>36</b><span>Shortlisted</span><em>5 m</em></div><div class="oc"><b>10</b><span>Interviewed</span><em>5 m</em></div><div class="oc"><b>4</b><span>Offered</span><em>5 m</em></div><div class="oc"><b>2</b><span>Hired</span><em>5 m</em></div></div><div class="orow"><div class="oc first"><b>Java Dev</b><span>Kaveri Systems, Siruseri</span><em>5 m</em></div><div class="oc"><b>Edit</b><span></span></div><div class="oc"><b>256</b><span>Sourced</span><em>5 m</em></div><div class="oc"><b>138</b><span>Total Screened</span><em>5 m</em></div><div class="oc"><b>56</b><span>Eligible</span><em>5 m</em></div><div class="oc" data-x="cell46"><b>46</b><span>Recommended</span><em>5 m</em></div><div class="oc"><b>36</b><span>Shortlisted</span><em>5 m</em></div><div class="oc"><b>10</b><span>Interviewed</span><em>5 m</em></div><div class="oc"><b>4</b><span>Offered</span><em>5 m</em></div><div class="oc"><b>2</b><span>Hired</span><em>5 m</em></div></div></div>
+<div class="ofade" style="top:70px;bottom:auto;height:520px"></div>
+<div class="ophone" style="top:70px"></div>
+<span class="cell46-ring" style="left:630px;top:226px;width:114px;height:174px"></span>
+<div class="bnote l" style="left:352px;top:0"><b>Off the screen</b>Everything right of the phone needs a sideways swipe.</div>
+<div class="bnote l" style="left:636px;top:0"><b>Header and cell disagree</b>“Shortlist recommended” sits over “46 Recommended”.</div>
+<div class="bnote l" style="left:352px;top:430px"><b>No rate between counts</b>256, 138, 56, 46, 36, 10, 4, 2. The drop is mental maths.</div>
+<div class="bnote l" style="left:780px;top:430px"><b>The same stamp, 9 times a row</b>Every count carries “5 m”. None says how long people waited.</div>
+<div class="pbr" style="top:604px;bottom:auto"><span>The phone</span></div>
+<div class="bracket" style="top:654px;bottom:auto;left:0;right:6px"><span>The table: 3.8 phone widths</span></div>
+</div></div></div>
+      </section>
+
+      <section id="rules">
+        <div class="txt">
+          <p class="sec-name">Rules I set for the numbers</p>
+          <h2>Five rules every count on screen had to pass.</h2>
+        </div>
+        <div class="rules">
+          <div class="rule"><b>Every count opens</b><span>Tap a number, get the people behind it, already filtered.</span></div>
+          <div class="rule"><b>Show the drop</b><span>A rate between every pair of stages. The worst one gets a flag.</span></div>
+          <div class="rule"><b>One name per stage</b><span>Stages are results. Tasks become buttons on the stage.</span></div>
+          <div class="rule"><b>Count before Apply</b><span>Each filter option says how many it leaves. So does the button.</span></div>
+          <div class="rule"><b>No dead ends</b><span>An option that would leave nobody shows its zero and greys out.</span></div>
+        </div>
+      </section>
+
+      <section id="list">
+        <div class="txt">
+          <p class="sec-name">Screen one: vacancies</p>
+          <h2>Twelve vacancies, sorted by what needs the recruiter.</h2>
+          <p class="p full">Each card carries a small funnel and one line that says where the vacancy is stuck. The chips on top filter the list and show their counts before anyone taps.</p>
+        </div>
+        <figure class="anno" data-anno><div class="anno-stage ph">
+<div class="anno-col l"><div class="an" tabindex="0" data-for="v-sum"><b>Size of the day, first</b><p>Twelve open, three need action. Read before any scrolling.</p></div><div class="an" tabindex="0" data-for="v-chips"><b>Counts on the chips</b><p>Needs action 3. The recruiter knows how big the job is before tapping.</p></div><div class="an" tabindex="0" data-for="v-edge"><b>Colour only where needed</b><p>Marigold edge on the cards that need action. A calm list means a calm day.</p></div></div>
+<div class="shot-fit"><div class="shot-ph" role="img" aria-label="Sieve vacancies screen with three vacancy cards, each with a funnel sparkline and a status line"><div class="phone ui"><div class="scr"><div class="stb"><span>12:30</span><span class="sti"><svg><use href="#i-wifi"/></svg><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+<div class="abar"><svg class="mk"><use href="#sv-mark"/></svg><span class="t">Vacancies</span><span class="ib"><svg><use href="#i-search"/></svg></span><span class="ib"><svg><use href="#i-bell"/></svg><b></b></span><span class="avt">AF</span></div>
+<div class="px"><p class="sum" data-a="v-sum"><b>12 open vacancies.</b> 3 need action today.</p>
+<div class="chips" data-a="v-chips"><span class="chp on">All <i>12</i></span><span class="chp warn">Needs action <i>3</i></span><span class="chp">On track <i>7</i></span><span class="chp">Closing <i>2</i></span></div></div>
+<div class="lst">
+<article class="vc warn" data-a="v-edge"><div class="vh"><div><b>C++ Developer</b><small>Kaveri Systems, Siruseri</small></div><span class="age">Day 18</span></div><div class="spk" data-a="v-spark" aria-hidden="true"><i style="height:38px"></i><i style="height:28px"></i><i style="height:18px"></i><i style="height:16px"></i><i class=d style="height:14px"></i><i style="height:8px"></i><i style="height:5px"></i><i style="height:3px"></i></div><div class="spk-l"><span><b>256</b> sourced</span><span><b>2</b> hired</span></div><div class="stk" data-a="v-stuck"><i class="dt"></i><span class="tx"><b>26 shortlisted</b> waiting for an interview. Oldest 9 days.</span><span class="act" data-a=v-act>Schedule</span></div></article>
+<article class="vc warn"><div class="vh"><div><b>QA Engineer</b><small>Kaveri Systems, Guindy</small></div><span class="age">Day 6</span></div><div class="spk" aria-hidden="true"><i style="height:38px"></i><i style="height:29px"></i><i class=d style="height:17px"></i><i class="z" style="height:2px"></i><i class="z" style="height:2px"></i><i class="z" style="height:2px"></i><i class="z" style="height:2px"></i><i class="z" style="height:2px"></i></div><div class="spk-l"><span><b>210</b> sourced</span><span><b>0</b> hired</span></div><div class="stk"><i class="dt"></i><span class="tx"><b>41 eligible</b> not reviewed in 5 days.</span><span class="act">Review</span></div></article>
+<article class="vc"><div class="vh"><div><b>Java Developer</b><small>Tidal Labs, Taramani</small></div><span class="age">Day 11</span></div><div class="spk" aria-hidden="true"><i style="height:38px"></i><i style="height:30px"></i><i style="height:20px"></i><i style="height:18px"></i><i style="height:16px"></i><i style="height:12px"></i><i style="height:7px"></i><i class="z" style="height:2px"></i></div><div class="spk-l"><span><b>180</b> sourced</span><span><b>0</b> hired</span></div><div class="stk"><i class="dt ok"></i><span class="tx">On track. <b>6 offers</b> out, replies due Friday.</span></div></article>
+</div>
+<span class="fab"><svg><use href="#i-plus"/></svg>Vacancy</span>
+<nav class="bnav"><span class="on"><svg><use href="#i-brief"/></svg>Vacancies</span><span><svg><use href="#i-people"/></svg>Candidates</span><span><svg><use href="#i-pulse"/></svg>Updates</span></nav>
+</div></div></div></div>
+<div class="anno-col r"><div class="an" tabindex="0" data-for="v-spark"><b>Eight bars, same order</b><p>The whole funnel as a sparkline. The drop shows as a step in the shape.</p></div><div class="an" tabindex="0" data-for="v-stuck"><b>One line, the stuck stage</b><p>Written from the worst wait: count, stage and the oldest wait in days.</p></div><div class="an" tabindex="0" data-for="v-act"><b>Act from the card</b><p>Schedule opens the 26 shortlisted people, filtered.</p></div></div>
+<svg class="anno-svg" aria-hidden="true"></svg></div></figure>
+      </section>
+
+      <section id="funnel">
+        <div class="txt">
+          <p class="sec-name">Screen two: the funnel</p>
+          <h2>The table, turned on its side.</h2>
+          <p class="p full">Columns became rows, so a phone shows all eight stages without a swipe. Bars give the shape. The rate between rows shows where people stop, and the lowest rate gets the flag.</p>
+        </div>
+        <figure class="anno" data-anno><div class="anno-stage ph">
+<div class="anno-col l"><div class="an" tabindex="0" data-for="f-names"><b>Result names only</b><p>Rows say Screened, Eligible, Shortlisted. The old task names became the stage actions.</p></div><div class="an" tabindex="0" data-for="f-rate0"><b>A rate between every pair</b><p>54% moved from sourced to screened. Seven rates, no maths.</p></div><div class="an" tabindex="0" data-for="f-flagrow"><b>Time in stage</b><p>Average days per stage. It replaces the “5 m” stamp in every cell.</p></div></div>
+<div class="shot-fit"><div class="shot-ph" role="img" aria-label="Sieve funnel screen for the C++ Developer vacancy, eight stages top to bottom with rates between them"><div class="phone ui"><div class="scr"><div class="stb"><span>12:30</span><span class="sti"><svg><use href="#i-wifi"/></svg><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+<div class="abar"><span class="ib"><svg><use href="#i-back"/></svg></span><span class="t">C++ Developer</span><span class="ib"><svg><use href="#i-more"/></svg></span></div>
+<div class="vmeta">Kaveri Systems, Siruseri. Open 18 days. <b>Hires 2 of 3</b></div>
+<div class="tabs2"><span class="on">Funnel</span><span>Candidates<i>256</i></span><span>Activity</span></div>
+<div class="ban" data-a="f-ban"><svg><use href="#i-alert"/></svg><p><b>26 of 36 shortlisted</b> are waiting for an interview. Oldest 9 days.</p><span class="bt">Schedule 26</span></div>
+<div class="fun"><div class="fr2" data-a="f-names"><div class="top"><span class="nm">Sourced<small>1 d avg</small></span><span class="ct">256</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:100.0%"></i></div></div><div class="rt" data-a="f-rate0"><svg><use href="#i-down"/></svg>54% moved on</div><div class="fr2"><div class="top"><span class="nm">Screened<small>2 d avg</small></span><span class="ct">138</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:53.9%"></i></div></div><div class="rt"><svg><use href="#i-down"/></svg>41% moved on</div><div class="fr2" data-a="f-row"><div class="top"><span class="nm">Eligible<small>3 d avg</small></span><span class="ct">56</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:21.9%"></i></div></div><div class="rt"><svg><use href="#i-down"/></svg>82% moved on</div><div class="fr2"><div class="top"><span class="nm">Recommended<small>2 d avg</small></span><span class="ct">46</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:18.0%"></i></div></div><div class="rt"><svg><use href="#i-down"/></svg>78% moved on</div><div class="fr2 flag" data-a="f-flagrow"><div class="top"><span class="nm">Shortlisted<small>6 d avg</small></span><span class="ct">36</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:14.1%"></i></div></div><div class="rt flag" data-a="f-rate"><svg><use href="#i-down"/></svg>28% moved on. Biggest drop</div><div class="fr2"><div class="top"><span class="nm">Interviewed<small>4 d avg</small></span><span class="ct">10</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:3.9%"></i></div></div><div class="rt"><svg><use href="#i-down"/></svg>40% moved on</div><div class="fr2"><div class="top"><span class="nm">Offered<small>3 d avg</small></span><span class="ct">4</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:1.6%"></i></div></div><div class="rt"><svg><use href="#i-down"/></svg>50% moved on</div><div class="fr2"><div class="top"><span class="nm">Hired<small>joined</small></span><span class="ct">2</span><svg><use href="#i-chev-r"/></svg></div><div class="br"><i style="width:1.2%"></i></div></div></div>
+<div class="closebar" data-a="f-close"><span>Close hiring</span><b>1 hire to go</b></div>
+</div></div></div></div>
+<div class="anno-col r"><div class="an" tabindex="0" data-for="f-ban"><b>Banner from the worst wait</b><p>Same sentence as the card, with the action beside it.</p></div><div class="an" tabindex="0" data-for="f-row"><b>Every row opens</b><p>Tap Eligible and get the 56 people, already filtered to that stage.</p></div><div class="an" tabindex="0" data-for="f-rate"><b>The worst rate gets the flag</b><p>28% moved from shortlist to interview. Lowest of the seven, so it is marigold.</p></div><div class="an" tabindex="0" data-for="f-close"><b>Close stays, at the end</b><p>Close hiring unlocks when hires meet the target. Edit vacancy moved to the menu.</p></div></div>
+<svg class="anno-svg" aria-hidden="true"></svg></div></figure>
+      </section>
+
+      <section id="filters">
+        <div class="txt">
+          <p class="sec-name">Screen three: filtering</p>
+          <h2>Filters that say how many people they leave.</h2>
+          <p class="p full">Tapping Eligible opens the 56 people in that stage. Stage tabs keep their counts, applied filters stay on screen as chips, and the sheet shows a count next to every option.</p>
+        </div>
+        <figure class="anno" data-anno><div class="anno-stage ph">
+<div class="anno-col l"><div class="an" tabindex="0" data-for="l-tabs"><b>Stage tabs keep their counts</b><p>Switch stage without going back. The number travels with the name.</p></div><div class="an" tabindex="0" data-for="l-chips"><b>Filters you can see</b><p>Each applied filter is a chip with its own ×. No hidden state.</p></div></div>
+<div class="shot-fit"><div class="shot-ph" role="img" aria-label="Sieve candidate list for the Eligible stage, filtered to 18 of 56 with two filter chips"><div class="phone ui"><div class="scr"><div class="stb"><span>12:30</span><span class="sti"><svg><use href="#i-wifi"/></svg><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+<div class="abar"><span class="ib"><svg><use href="#i-back"/></svg></span><span class="t">C++ Developer</span><span class="ib"><svg><use href="#i-search"/></svg></span></div>
+<div class="stabs" data-a="l-tabs"><span class="chp">Screened <i>138</i></span><span class="chp on">Eligible <i>56</i></span><span class="chp">Recommended <i>46</i></span><span class="chp">Shortlisted <i>36</i></span></div>
+<div class="frow" data-a="l-chips"><span class="fbtn"><svg><use href="#i-filter"/></svg>Filters <i>2</i></span><span class="chp ap">Score 70+ <svg class=x><use href="#i-x"/></svg></span><span class="chp ap">Notice ≤ 30 d <svg class=x><use href="#i-x"/></svg></span></div>
+<div class="cnt" data-a="l-count"><span><b>18 of 56</b> eligible</span><span class="so"><svg><use href="#i-sort"/></svg>Score</span></div>
+<div class="crows"><div class="cr" data-a="l-row"><span class="cb on"><svg><use href="#i-ck"/></svg></span><span class="ini" style="background:#D9EEE7;color:#0A4A3E">AR</span><span class="who"><b>Aditya Raman</b><small>3 yrs, Remote, 30 d notice</small></span><span class="sc">98</span></div><div class="cr"><span class="cb on"><svg><use href="#i-ck"/></svg></span><span class="ini" style="background:#FDEBD0;color:#7A4A00">MN</span><span class="who"><b>Meera Nair</b><small>7 yrs, Chennai, 30 d notice</small></span><span class="sc">91</span></div><div class="cr"><span class="cb"></span><span class="ini" style="background:#E3E8F6;color:#2C3E7A">MN</span><span class="who"><b>Manoj Nair</b><small>6 yrs, Remote, 30 d notice</small></span><span class="sc">90</span></div><div class="cr"><span class="cb"></span><span class="ini" style="background:#F4E1E6;color:#7A2C42">VB</span><span class="who"><b>Vikram Bose</b><small>3 yrs, Chennai, 15 d notice</small></span><span class="sc">89</span></div><div class="cr"><span class="cb"></span><span class="ini" style="background:#E6F0D9;color:#3E5A1A">JR</span><span class="who"><b>Janani Rao</b><small>4 yrs, Bengaluru, 30 d notice</small></span><span class="sc">89</span></div><div class="cr"><span class="cb"></span><span class="ini" style="background:#E9E3F5;color:#4A2C7A">VK</span><span class="who"><b>Vijay Kumar</b><small>11 yrs, Remote, 15 d notice</small></span><span class="sc">87</span></div></div>
+<div class="bbar" data-a="l-bulk"><span class="ghost"><span class="cb on"><svg><use href="#i-ck"/></svg></span>2 selected</span><span class="pbtn">Recommend 2</span></div>
+</div></div></div></div>
+<div class="anno-col r"><div class="an" tabindex="0" data-for="l-count"><b>The count, in words</b><p>18 of 56 eligible. The recruiter always sees what the filters removed.</p></div><div class="an" tabindex="0" data-for="l-row"><b>Score first</b><p>Rows sort by screening score, with experience, city and notice on one line.</p></div><div class="an" tabindex="0" data-for="l-bulk"><b>The button names the number</b><p>Recommend 2. The action says how many people it moves.</p></div></div>
+<svg class="anno-svg" aria-hidden="true"></svg></div></figure>
+        <p class="sub-h">The filter sheet, live</p>
+        <p class="try"><i></i>Tap the options. Counts and the button update from 56 mock candidates.</p>
+        <figure class="anno" data-anno><div class="anno-stage ph">
+<div class="anno-col l"><div class="an" tabindex="0" data-for="s-opt"><b>A count on every option</b><p>Each number is what you get with that option and your other filters.</p></div></div>
+<div class="shot-fit"><div class="shot-ph" role="img" aria-label="Interactive filter sheet. Tap options to see counts and the result update"><div class="phone ui"><div class="scr"><div class="stb"><span>12:30</span><span class="sti"><svg><use href="#i-wifi"/></svg><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+<div class="abar"><span class="ib"><svg><use href="#i-back"/></svg></span><span class="t">C++ Developer</span><span class="ib"><svg><use href="#i-search"/></svg></span></div>
+<div class="stabs"><span class="chp">Screened <i>138</i></span><span class="chp on">Eligible <i>56</i></span><span class="chp">Recommended <i>46</i></span><span class="chp">Shortlisted <i>36</i></span></div>
+<div class="crows" style="flex:1"><div class="cr" data-a="l-row"><span class="cb on"><svg><use href="#i-ck"/></svg></span><span class="ini" style="background:#D9EEE7;color:#0A4A3E">AR</span><span class="who"><b>Aditya Raman</b><small>3 yrs, Remote, 30 d notice</small></span><span class="sc">98</span></div><div class="cr"><span class="cb on"><svg><use href="#i-ck"/></svg></span><span class="ini" style="background:#FDEBD0;color:#7A4A00">MN</span><span class="who"><b>Meera Nair</b><small>7 yrs, Chennai, 30 d notice</small></span><span class="sc">91</span></div><div class="cr"><span class="cb"></span><span class="ini" style="background:#E3E8F6;color:#2C3E7A">MN</span><span class="who"><b>Manoj Nair</b><small>6 yrs, Remote, 30 d notice</small></span><span class="sc">90</span></div><div class="cr"><span class="cb"></span><span class="ini" style="background:#F4E1E6;color:#7A2C42">VB</span><span class="who"><b>Vikram Bose</b><small>3 yrs, Chennai, 15 d notice</small></span><span class="sc">89</span></div><div class="cr"><span class="cb"></span><span class="ini" style="background:#E6F0D9;color:#3E5A1A">JR</span><span class="who"><b>Janani Rao</b><small>4 yrs, Bengaluru, 30 d notice</small></span><span class="sc">89</span></div></div>
+<div class="scrim2"></div>
+<div class="sheet" id="fs" role="dialog" aria-label="Filter eligible candidates">
+<div class="hdl"></div>
+<div class="sh-h"><b>Filter eligible</b><small>56 people</small></div>
+<div class="sh-b" id="fs-body"></div>
+<div class="hint" id="fs-hint" aria-live="polite"></div>
+<div class="sh-f" data-a="s-foot"><button type="button" class="lk" id="fs-clear">Clear all</button><button type="button" class="pbtn" id="fs-go" data-a="s-btn">Show 18 candidates</button></div>
+</div>
+</div></div></div></div>
+<div class="anno-col r"><div class="an" tabindex="0" data-for="s-zero"><b>Zero shows, then greys out</b><p>Options that would empty the list stay visible but cannot be picked.</p></div><div class="an" tabindex="0" data-for="s-btn"><b>The button says the total</b><p>Show 18 candidates. No surprise after Apply.</p></div><div class="an" tabindex="0" data-for="s-foot"><b>Clear all next to the result</b><p>Always in reach, never at the top of a long sheet.</p></div></div>
+<svg class="anno-svg" aria-hidden="true"></svg></div></figure>
+      </section>
+
+      <section id="decision">
+        <div class="txt">
+          <p class="sec-name">Decision</p>
+          <h2>Three ways to fit a ten-column table on a phone.</h2>
+          <p class="p full">The original file had two directions: the wide table and a card with a progress bar. I added a third and checked each against one question. How many people are stuck, and where?</p>
+        </div>
+        <div class="opts">
+          <div class="opt"><div class="thumb2"><div class="tw"><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="tphone"></span></div>
+            <h3>Wide table, first column frozen</h3>
+            <dl><dt>Best for</dt><dd>Tablets and web, where all ten columns fit.</dd><dt class="t">Trade-off</dt><dd>On a phone it is still four screens wide. Rates need an extra row.</dd></dl></div>
+          <div class="opt"><div class="thumb2"><div class="card"><span class="sk2" style="width:50%"></span><span class="sk2" style="width:70%"></span><div class="segs"><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i class="o"></i><i class="o"></i></div><span class="sk2" style="width:40%;background:#B8D6CC"></span></div><div class="card"><span class="sk2" style="width:45%"></span><span class="sk2" style="width:65%"></span><div class="segs"><i></i><i></i><i></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i></div></div></div>
+            <h3>Progress card, from the file</h3>
+            <dl><dt>Best for</dt><dd>A quick look at whether a vacancy is moving.</dd><dt class="t">Trade-off</dt><dd>The bar hides every count. “Status: Ongoing” does not say what to do.</dd></dl></div>
+          <div class="opt"><div class="thumb2"><div class="fr"><span></span><i class="" style="width:86%"></i></div><div class="fr"><span></span><i class="" style="width:62%"></i></div><div class="fr"><span></span><i class="" style="width:40%"></i></div><div class="fr"><span></span><i class="" style="width:36%"></i></div><div class="fr"><span></span><i class="w" style="width:32%"></i></div><div class="fr"><span></span><i class="" style="width:18%"></i></div><div class="fr"><span></span><i class="" style="width:10%"></i></div><div class="fr"><span></span><i class="" style="width:6%"></i></div></div>
+            <h3>Vertical funnel</h3>
+            <dl><dt>Best for</dt><dd>Phones. Eight stages top to bottom, with a rate between each.</dd><dt class="t">Trade-off</dt><dd>One vacancy per screen, so the list needs a smaller version.</dd></dl></div>
+        </div>
+        <p class="decision">Funnel on the detail screen, an eight-bar sparkline on the list card, and the table kept for tablet and web. All three use the same stage names and the same counts.</p>
+      </section>
+
+      <section id="outcome">
+        <div class="txt">
+          <p class="sec-name">Outcome</p>
+          <h2>From reading a table to acting on a stage.</h2>
+        </div>
+        <div class="kpis"><div class="kpi"><strong>4 → 1</strong><span>Phone widths to see one vacancy’s whole funnel</span></div><div class="kpi"><strong>0 → 7</strong><span>Rates shown between stages</span></div><div class="kpi"><strong>2 → 1</strong><span>Names per stage. Header and cell now agree.</span></div><div class="kpi"><strong>0 → 8</strong><span>Counts you can tap to see the people</span></div></div>
+        <details class="how" open>
+          <summary>How I counted</summary>
+          <p><b>Phone widths:</b> in the file’s reference frame the table is 1,094 px wide beside a 285 px phone, 3.8 widths. The funnel fits all eight stages on a 360 by 780 screen.</p>
+          <p><b>Rates:</b> the table showed eight counts and no rates. The funnel shows one for each of the seven steps between stages.</p>
+          <p><b>Names:</b> every column had a task header and a result cell. Each stage now has one result name, and the task is its button.</p>
+          <p><b>Taps:</b> no count in the table had a tap target. In the funnel all eight counts open a filtered list in one tap.</p>
+          <p>These are counted from the screens, not measured with users. Usage numbers would come after launch.</p>
+        </details>
+      </section>
+
+      <section id="hindsight">
+        <div class="txt">
+          <p class="sec-name">What I’d do differently</p>
+          <h2>Four things I’d change next time.</h2>
+        </div>
+        <div class="hind four">
+          <div><h3>Start from real vacancy data</h3><p class="full">Some roles skip stages, like campus hires with no screening. I’d count how many before fixing the funnel at eight rows.</p></div>
+          <div><h3>Confirm stage dates exist</h3><p class="full">Time in stage needs the date each person entered it. The old table only had “5 m”. I’d ask engineering in week one.</p></div>
+          <div><h3>Plan for very large funnels</h3><p class="full">A role with 2,000 sourced squashes the lower bars to slivers. I’d test a capped scale before the layout was final.</p></div>
+          <div><h3>Ship saved filters on day one</h3><p class="full">A recruiter who wants score 70+ and notice under 30 days sets both again on every vacancy. I’d let them save the pair once.</p></div>
+        </div>
+      </section>
+
+    </div>
+    <aside class="toc" aria-label="Case study sections">
+      <p>In this case study</p>
+      <ol><li><a href="#problem"><span class="ck"><svg><use href="#i-ck"/></svg></span>Problem</a></li><li><a href="#rules"><span class="ck"><svg><use href="#i-ck"/></svg></span>Rules I set</a></li><li><a href="#list"><span class="ck"><svg><use href="#i-ck"/></svg></span>Vacancies</a></li><li><a href="#funnel"><span class="ck"><svg><use href="#i-ck"/></svg></span>The funnel</a></li><li><a href="#filters"><span class="ck"><svg><use href="#i-ck"/></svg></span>Filtering</a></li><li><a href="#decision"><span class="ck"><svg><use href="#i-ck"/></svg></span>Decision</a></li><li><a href="#outcome"><span class="ck"><svg><use href="#i-ck"/></svg></span>Outcome</a></li><li><a href="#hindsight"><span class="ck"><svg><use href="#i-ck"/></svg></span>Hindsight</a></li></ol>
+      <p class="tt">About 2 minutes in Skim</p>
+    </aside>
+    <div class="next"><span>Next case study</span><a href="whatsapp-privacy.html">WhatsApp privacy update ↗</a></div>
+  </div>
+</main>
+<script>
+(function(){
+  var SVGNS='http://www.w3.org/2000/svg';
+
+  /* ---------- Filter sheet (interactive) ---------- */
+  var C=[[98,90,4,"Chennai","Career site"],[86,30,6,"Chennai","Screening bot"],[67,15,4,"Chennai","Referral"],[74,60,12,"Coimbatore","Screening bot"],[58,90,8,"Bengaluru","Job board"],[56,90,11,"Chennai","Career site"],[90,30,6,"Remote","Job board"],[89,60,2,"Bengaluru","Job board"],[85,15,6,"Chennai","Screening bot"],[67,60,2,"Chennai","Referral"],[89,15,3,"Chennai","Screening bot"],[60,60,9,"Remote","Screening bot"],[62,30,4,"Chennai","Screening bot"],[89,30,4,"Bengaluru","Job board"],[76,90,4,"Bengaluru","Referral"],[62,60,2,"Bengaluru","Job board"],[84,30,5,"Chennai","Job board"],[93,60,8,"Chennai","Screening bot"],[77,30,4,"Chennai","Career site"],[58,90,2,"Remote","Referral"],[87,90,11,"Bengaluru","Screening bot"],[67,15,2,"Bengaluru","Screening bot"],[70,30,3,"Chennai","Career site"],[63,15,4,"Bengaluru","Referral"],[82,0,7,"Chennai","Referral"],[85,15,11,"Bengaluru","Screening bot"],[77,60,8,"Chennai","Job board"],[53,60,3,"Bengaluru","Screening bot"],[56,60,12,"Chennai","Referral"],[63,15,7,"Remote","Screening bot"],[82,0,2,"Coimbatore","Job board"],[65,0,1,"Chennai","Screening bot"],[64,90,9,"Coimbatore","Screening bot"],[68,90,6,"Coimbatore","Screening bot"],[70,15,11,"Bengaluru","Job board"],[91,30,7,"Chennai","Referral"],[68,30,1,"Coimbatore","Screening bot"],[87,15,11,"Remote","Job board"],[61,30,7,"Remote","Job board"],[72,60,3,"Coimbatore","Referral"],[63,30,4,"Remote","Screening bot"],[69,60,5,"Bengaluru","Referral"],[61,15,5,"Chennai","Screening bot"],[79,60,4,"Remote","Career site"],[98,30,3,"Remote","Screening bot"],[82,60,9,"Chennai","Screening bot"],[82,15,4,"Chennai","Career site"],[79,30,5,"Remote","Referral"],[88,60,2,"Chennai","Screening bot"],[68,60,4,"Remote","Job board"],[98,60,9,"Chennai","Career site"],[77,0,5,"Chennai","Screening bot"],[91,60,11,"Chennai","Screening bot"],[64,30,8,"Bengaluru","Job board"],[71,60,4,"Chennai","Screening bot"],[67,60,2,"Bengaluru","Referral"]]; /* [score, notice days, years, city, source] */
+  var G=[
+    {k:'score',t:'Screening score',one:true,o:[['Any',0],['50+',50],['70+',70],['85+',85]],v:70,
+     m:function(c,v){return c[0]>=v;}},
+    {k:'notice',t:'Notice period',one:true,o:[['Any',999],['Immediate',0],['≤ 15 days',15],['≤ 30 days',30]],v:30,
+     m:function(c,v){return c[1]<=v;}},
+    {k:'exp',t:'Experience',o:[['0-2 yrs',[0,2]],['3-5 yrs',[3,5]],['6-9 yrs',[6,9]],['10+ yrs',[10,99]]],v:[],
+     m:function(c,v){return v.some(function(r){return c[2]>=r[0]&&c[2]<=r[1];});}},
+    {k:'loc',t:'Location',o:[['Chennai','Chennai'],['Remote','Remote'],['Bengaluru','Bengaluru'],['Coimbatore','Coimbatore'],['Hyderabad','Hyderabad']],v:[],
+     m:function(c,v){return v.indexOf(c[3])>-1;}},
+    {k:'src',t:'Source',o:[['Screening bot','Screening bot'],['Referral','Referral'],['Job board','Job board'],['Career site','Career site']],v:[],
+     m:function(c,v){return v.indexOf(c[4])>-1;}}
+  ];
+  var body=document.getElementById('fs-body');
+  function active(g,v){return g.one?true:v.length>0;}
+  function count(over){ /* over: {gi, v} */
+    var n=0;
+    for(var i=0;i<C.length;i++){
+      var ok=true;
+      for(var j=0;j<G.length&&ok;j++){
+        var g=G[j], v=(over&&over.gi===j)?over.v:g.v;
+        if(active(g,v)&&!g.m(C[i],v)) ok=false;
+      }
+      if(ok) n++;
+    }
+    return n;
+  }
+  function same(a,b){return JSON.stringify(a)===JSON.stringify(b);}
+  function render(){
+    if(!body) return;
+    body.innerHTML='';
+    G.forEach(function(g,gi){
+      var d=document.createElement('div'); d.className='grp';
+      var h=document.createElement('h5'); h.textContent=g.t;
+      if(!g.one){var s=document.createElement('small'); s.textContent='Pick any'; h.appendChild(s);}
+      d.appendChild(h);
+      var w=document.createElement('div'); w.className='opts2';
+      g.o.forEach(function(o){
+        var b=document.createElement('button'); b.type='button'; b.className='op';
+        var on, n;
+        if(g.one){ on=g.v===o[1]; n=count({gi:gi,v:o[1]}); }
+        else{
+          on=g.v.some(function(x){return same(x,o[1]);});
+          n=count({gi:gi,v:[o[1]]});
+        }
+        b.setAttribute('aria-pressed',String(on));
+        b.innerHTML=o[0]+' <i>'+n+'</i>';
+        if(n===0&&!on){b.disabled=true; b.setAttribute('aria-label',o[0]+', no candidates');}
+        if(g.k==='score'&&o[1]===0) b.setAttribute('data-a','s-opt');
+        if(g.k==='loc'&&o[1]==='Hyderabad') b.setAttribute('data-a','s-zero');
+        b.addEventListener('click',function(){
+          if(g.one) g.v=o[1];
+          else{
+            var ix=-1; g.v.forEach(function(x,i){if(same(x,o[1])) ix=i;});
+            if(ix>-1) g.v.splice(ix,1); else g.v.push(o[1]);
+          }
+          render(); schedule();
+        });
+        w.appendChild(b);
+      });
+      d.appendChild(w); body.appendChild(d);
+    });
+    var total=count(null), go=document.getElementById('fs-go'), hint=document.getElementById('fs-hint');
+    go.disabled=total===0;
+    go.textContent=total===0?'No matches':'Show '+total+(total===1?' candidate':' candidates');
+    hint.textContent='';
+    if(total===0){
+      var best=null;
+      G.forEach(function(g,gi){
+        var free=g.one?g.o[0][1]:[];
+        if(same(free,g.v)) return;
+        var n=count({gi:gi,v:free});
+        if(!best||n>best.n) best={n:n,t:g.t};
+      });
+      if(best) hint.textContent='Clear '+best.t.toLowerCase()+' to see '+best.n+'.';
+    }
+  }
+  var clr=document.getElementById('fs-clear');
+  if(clr) clr.addEventListener('click',function(){
+    G.forEach(function(g){g.v=g.one?g.o[0][1]:[];}); render(); schedule();
+  });
+  render();
+
+  /* ---------- Fit-to-width boxes (hero phone, before table) ---------- */
+  var fits=[].slice.call(document.querySelectorAll('[data-fit]'));
+  function fitAll(){
+    fits.forEach(function(f){
+      var inner=f.querySelector('.fit-in');
+      inner.style.transform='';
+      var w=inner.scrollWidth, h=inner.scrollHeight;
+      var s=Math.min(parseFloat(f.dataset.max||'1'), f.clientWidth/w);
+      inner.style.transform='scale('+s+')';
+      inner.style.left=Math.max(0,(f.clientWidth-w*s)/2)+'px';
+      f.style.height=(h*s)+'px';
+    });
+  }
+
+  /* ---------- Annotated phone figures ---------- */
+  var figs=[].slice.call(document.querySelectorAll('[data-anno]'));
+  var DESIGN_W=980, SHOT_W=378, MIN_GUTTER_W=820;
+
+  function layout(fig, idx){
+    var stage=fig.querySelector('.anno-stage');
+    var fit=fig.querySelector('.shot-fit');
+    var shot=fig.querySelector('.shot-ph');
+    var svg=fig.querySelector('.anno-svg');
+    var avail=fig.clientWidth;
+    var stacked=avail<MIN_GUTTER_W||window.matchMedia('(max-width:1365px)').matches;
+    fig.classList.toggle('stacked',stacked);
+    var notes=[].slice.call(fig.querySelectorAll('.an'));
+    shot.style.transformOrigin='0 0';
+
+    if(stacked){
+      stage.style.transform=''; fig.style.height='';
+      notes.forEach(function(n){n.style.top='';});
+      var s=Math.min(1,avail/SHOT_W);
+      shot.style.transform='scale('+s+')';
+      shot.style.marginLeft=Math.max(0,(avail-SHOT_W*s)/2)/ (s||1)+'px';
+      fit.style.height=(shot.offsetHeight*s)+'px';
+      return;
+    }
+    shot.style.transform=''; shot.style.marginLeft=''; fit.style.height='';
+    var sc=Math.min(1.15,avail/DESIGN_W);
+    var off=Math.max(0,(avail-DESIGN_W*sc)/2);
+    stage.style.transform='translateX('+off+'px) scale('+sc+')';
+    stage.style.transformOrigin='0 0';
+    var sr=stage.getBoundingClientRect();
+    function rel(el){
+      var r=el.getBoundingClientRect();
+      return {l:(r.left-sr.left)/sc,t:(r.top-sr.top)/sc,r:(r.right-sr.left)/sc,b:(r.bottom-sr.top)/sc,w:r.width/sc,h:r.height/sc};
+    }
+    ['.anno-col.l','.anno-col.r'].forEach(function(sel){
+      var col=fig.querySelector(sel); if(!col) return;
+      var colTop=rel(col).t;
+      var items=[].slice.call(col.querySelectorAll('.an')).map(function(n){
+        var t=fig.querySelector('[data-a="'+n.dataset.for+'"]');
+        var p=t?rel(t):{t:0,h:0};
+        return {n:n,y:p.t+Math.min(p.h/2,14)-colTop};
+      }).sort(function(a,b){return a.y-b.y;});
+      var cursor=0;
+      items.forEach(function(it){
+        var top=Math.max(it.y-9,cursor);
+        it.n.style.top=top+'px';
+        cursor=top+it.n.offsetHeight+22;
+      });
+      col.style.height=cursor+'px';
+    });
+    var W=DESIGN_W, H=Math.max(stage.offsetHeight, shot.offsetHeight);
+    svg.setAttribute('width',W); svg.setAttribute('height',H);
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var mid='ah'+idx;
+    var defs=document.createElementNS(SVGNS,'defs');
+    defs.innerHTML='<marker id="'+mid+'" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>';
+    svg.appendChild(defs);
+    notes.forEach(function(n){
+      var t=fig.querySelector('[data-a="'+n.dataset.for+'"]'); if(!t) return;
+      var left=!!n.closest('.anno-col.l');
+      var b=rel(n.querySelector('b')), p=rel(t);
+      var sx=left? b.r+8 : b.l-8, sy=b.t+b.h/2;
+      var ex,ey,c2x,c2y;
+      if(left){ex=p.l-6;ey=p.t+Math.min(p.h/2,14);c2x=ex-56;c2y=ey;}
+      else {ex=p.r+6;ey=p.t+Math.min(p.h/2,14);c2x=ex+56;c2y=ey;}
+      var dx=Math.max(36,Math.abs(ex-sx)*.35);
+      var c1x=left? sx+dx : sx-dx;
+      var d='M'+sx+' '+sy+' C'+c1x+' '+sy+' '+c2x+' '+c2y+' '+ex+' '+ey;
+      var halo=document.createElementNS(SVGNS,'path'); halo.setAttribute('d',d); halo.setAttribute('class','halo');
+      var ln=document.createElementNS(SVGNS,'path'); ln.setAttribute('d',d); ln.setAttribute('class','ln'); ln.setAttribute('marker-end','url(#'+mid+')');
+      var dot=document.createElementNS(SVGNS,'circle'); dot.setAttribute('cx',sx); dot.setAttribute('cy',sy); dot.setAttribute('r',2.6); dot.setAttribute('class','st');
+      svg.appendChild(halo); svg.appendChild(ln); svg.appendChild(dot);
+      n._ln=ln;
+    });
+    fig.style.height=(H*sc)+'px';
+  }
+  function layoutAll(){fitAll(); figs.forEach(layout);}
+  figs.forEach(function(fig){
+    fig.querySelectorAll('.an').forEach(function(n){
+      function on(v){
+        var t=fig.querySelector('[data-a="'+n.dataset.for+'"]');
+        if(t) t.classList.toggle('anno-hit',v);
+        n.classList.toggle('on',v);
+        if(n._ln) n._ln.classList.toggle('on',v);
+      }
+      n.addEventListener('mouseenter',function(){on(true);});
+      n.addEventListener('mouseleave',function(){on(false);});
+      n.addEventListener('focus',function(){on(true);});
+      n.addEventListener('blur',function(){on(false);});
+    });
+  });
+  var rafL=0;
+  function schedule(){cancelAnimationFrame(rafL); rafL=requestAnimationFrame(function(){layoutAll(); updateIndex();});}
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(schedule); figs.concat(fits).forEach(function(f){ro.observe(f.parentElement);}); }
+  window.addEventListener('resize',schedule);
+  window.addEventListener('load',schedule);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(schedule);
+
+  /* ---------- Reading mode ---------- */
+  var btns=document.querySelectorAll('.mode button');
+  function setMode(m){
+    document.body.classList.toggle('skim',m==='skim');
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.mode===m));});
+    try{localStorage.setItem('cs-mode',m);}catch(e){}
+    schedule();
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.mode);});});
+  var saved=null; try{saved=localStorage.getItem('cs-mode');}catch(e){}
+
+  /* ---------- Right index and progress ---------- */
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  var bar=document.getElementById('prog-fill'), nowLabel=document.getElementById('now-label');
+  function updateIndex(){
+    var doc=document.documentElement;
+    var max=doc.scrollHeight-window.innerHeight;
+    var p=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
+    bar.style.transform='scaleX('+p+')';
+    var line=window.scrollY+window.innerHeight*0.35;
+    var atEnd=window.scrollY>=max-4;
+    var act=-1;
+    secs.forEach(function(s,i){
+      var top=s.getBoundingClientRect().top+window.scrollY, h=s.offsetHeight;
+      if(line>=top&&line<top+h) act=i;
+      links[i].classList.toggle('done',atEnd||line>=top+h);
+    });
+    if(atEnd) act=-1;
+    links.forEach(function(a,i){ if(i===act) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+    nowLabel.textContent=act>=0?links[act].textContent:(atEnd?'Done':'Introduction');
+  }
+  var rafS=0;
+  window.addEventListener('scroll',function(){cancelAnimationFrame(rafS); rafS=requestAnimationFrame(updateIndex);},{passive:true});
+  setMode(saved==='full'?'full':'skim');
+  layoutAll(); updateIndex();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Case study: AI summary and co-pilot for a security platform. Afnan, senior product designer.">
+<meta property="og:title" content="Security teams had the data. They didn’t have time to read it.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20122%20122%22%3E%3Crect%20width%3D%22122%22%20height%3D%22122%22%20rx%3D%2226%22%20fill%3D%22%23111312%22/%3E%3Cg%20transform%3D%22translate%280%209%29%22%20fill%3D%22%2376FBC8%22%3E%3Cpath%20d%3D%22M48.2%2011L53.2%2020L26%2077.2L31%2082.6H15.4Z%22/%3E%3Cpath%20d%3D%22M74%2011L106.4%2082.2H90.4L96.6%2076.8L74%2028L51%2077L56%2082.6H40.6Z%22/%3E%3Ccircle%20cx%3D%2274.6%22%20cy%3D%2263.6%22%20r%3D%226.6%22/%3E%3Crect%20x%3D%2211%22%20y%3D%2290.4%22%20width%3D%22100.4%22%20height%3D%225.2%22/%3E%3C/g%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vigil Assist: AI for security teams | Afnan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Portfolio shell tokens ---------- */
+:root{
+  --bg:#F3F5F9; --surface:#FFFFFF; --sunk:#E9EDF4; --ink:#121A2B; --ink-2:#4A556B; --ink-3:#717B8F; --line:#DCE1EA;
+  --brand:#2B4FD8; --brand-ink:#FFFFFF; --brand-soft:#E6ECFF;
+  --annot:#D4127A; --annot-halo:rgba(255,255,255,.92);
+  --navy:#0C1426;
+  --shadow:0 30px 70px -20px rgba(16,28,60,.28), 0 2px 6px rgba(16,28,60,.06);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A0F1C; --surface:#121A2C; --sunk:#182238; --ink:#E8ECF4; --ink-2:#AAB3C5; --ink-3:#8590A5; --line:#253049;
+    --brand:#8FA6FF; --brand-ink:#0A0F1C; --brand-soft:#1A2547;
+    --annot:#FF5CAD; --annot-halo:rgba(10,15,28,.0);
+    --navy:#0E1830;
+    --shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A0F1C; --surface:#121A2C; --sunk:#182238; --ink:#E8ECF4; --ink-2:#AAB3C5; --ink-3:#8590A5; --line:#253049;
+  --brand:#8FA6FF; --brand-ink:#0A0F1C; --brand-soft:#1A2547;
+  --annot:#FF5CAD; --annot-halo:rgba(10,15,28,.0);
+  --navy:#0E1830;
+  --shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:clamp(16px,.35vw + 12px,19px);line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+img{max-width:100%}
+a{color:var(--brand)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* ---------- Header with progress index ---------- */
+.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.site-in{max-width:1920px;margin:0 auto;padding:14px clamp(24px,4.2vw,80px);display:flex;align-items:center;gap:24px}
+.site b{font-weight:600;font-size:16px}
+.site nav.links{display:flex;gap:20px;margin-left:auto;font-size:15px}
+.site nav.links a{color:var(--ink-2);text-decoration:none}
+.site nav.links a:hover{color:var(--ink)}
+.mode{display:inline-flex;background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:3px}
+.mode button{font:inherit;font-size:14px;font-weight:500;border:0;background:transparent;color:var(--ink-2);padding:5px 14px;border-radius:999px;cursor:pointer}
+.mode button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+.prog{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:transparent}
+.prog i{display:block;height:100%;width:100%;background:var(--brand);transform-origin:0 50%;transform:scaleX(0)}
+.now{display:none;font-size:14px;color:var(--ink-2);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now b{font-weight:600;color:var(--ink)}
+.wrap{max-width:1920px;margin:0 auto;padding:0 clamp(24px,4.2vw,80px)}
+
+/* ---------- Hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(40px,5vw,112px);padding:clamp(56px,6vw,112px) 0 clamp(72px,7vw,140px);align-items:center}
+.kicker{font-size:15px;color:var(--ink-2);margin:0 0 20px}
+.kicker a{color:var(--ink-2)}
+h1{font-size:clamp(34px,3.3vw,64px);line-height:1.1;letter-spacing:-.025em;font-weight:500;margin:0 0 24px}
+.lede{font-size:clamp(18px,1.05vw + 4px,24px);line-height:1.5;color:var(--ink-2);margin:0 0 36px}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin:0 0 36px;padding:0}
+.meta div{display:flex;flex-direction:column}
+.meta dt{font-size:13px;color:var(--ink-3)}
+.meta dd{margin:2px 0 0;font-size:15px;font-weight:500}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi strong{display:block;font-size:clamp(22px,2vw,28px);white-space:nowrap;line-height:1.1;letter-spacing:-.02em;color:var(--brand);font-weight:600}
+.kpi span{display:block;font-size:13px;line-height:1.4;color:var(--ink-2);margin-top:8px}
+.nda{font-size:13px;color:var(--ink-3);margin-top:20px}
+.how{margin-top:28px;font-size:15px;color:var(--ink-2)}
+.how summary{cursor:pointer;font-weight:500;color:var(--brand)}
+.how b{color:var(--ink);font-weight:600}
+
+.stage{background:var(--navy);border-radius:24px;padding:clamp(24px,3vw,56px);position:relative;overflow:hidden}
+.stage .hpn{max-width:560px;margin:0 auto}
+.stage::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 90% -10%,rgba(110,75,242,.35),transparent 60%),radial-gradient(500px 300px at -10% 110%,rgba(43,79,216,.35),transparent 60%);pointer-events:none}
+
+/* ---------- Content column ---------- */
+.body{border-top:1px solid var(--line);padding:clamp(72px,7vw,140px) 0 160px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:clamp(48px,5vw,120px)}
+.toc{position:sticky;top:112px;align-self:start;font-size:14.5px}
+.toc p{margin:0 0 16px;font-size:13px;color:var(--ink-3)}
+.toc ol{list-style:none;margin:0;padding:0;position:relative}
+.toc ol::before{content:"";position:absolute;left:9px;top:12px;bottom:12px;width:2px;background:var(--line)}
+.toc li{position:relative}
+.toc a{display:flex;align-items:center;gap:12px;padding:7px 8px 7px 0;color:var(--ink-3);text-decoration:none;border-radius:8px;transition:color .15s}
+.toc a:hover{color:var(--ink)}
+.ck{position:relative;z-index:1;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);background:var(--bg);display:grid;place-items:center;flex:none;transition:background .2s,border-color .2s}
+.ck svg{width:12px;height:12px;color:var(--brand-ink);opacity:0;transition:opacity .2s}
+.toc a.done{color:var(--ink-2)}
+.toc a.done .ck{background:var(--brand);border-color:var(--brand)}
+.toc a.done .ck svg{opacity:1}
+.toc a[aria-current="true"]{color:var(--ink);font-weight:600}
+.toc a[aria-current="true"] .ck{border-color:var(--brand)}
+.toc a[aria-current="true"] .ck::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.toc .tt{margin:20px 0 0;font-size:13px;color:var(--ink-3)}
+section{padding:0 0 clamp(120px,10vw,200px)}
+.txt{margin-bottom:clamp(36px,3vw,56px)}
+section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spacing:-.012em;font-weight:400;color:var(--ink);margin:0}
+.sec-name{font-size:15px;font-weight:600;color:var(--brand);margin:0 0 14px}
+.p{font-size:inherit;color:var(--ink-2);margin:16px 0 0}
+.skim .full{display:none}
+.skim-only{display:none}
+.skim .skim-only{display:inline}
+
+.pains{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:0}
+.pain{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(22px,2vw,32px)}
+.pain h3{font-size:18px;margin:0 0 8px;font-weight:600}
+.pain p{margin:0;font-size:15px;color:var(--ink-2);line-height:1.55}
+.users{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;align-items:center;font-size:15px}
+.tag{background:var(--brand-soft);color:var(--brand);font-weight:500;border-radius:999px;padding:6px 14px;font-size:14px}
+
+.rules{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.rule{padding:22px 28px 0 0}
+.rule b{display:block;font-size:16px;font-weight:600;margin-bottom:4px}
+.rule span{font-size:14px;color:var(--ink-2);line-height:1.5}
+
+.cap{font-size:13px;color:var(--ink-3);margin:18px 0 0;text-align:center}
+.sub-h{font-size:15px;font-weight:600;color:var(--ink-2);margin:88px 0 24px}
+.txt + .sub-h{margin-top:0}
+
+/* ---------- Annotated figure ---------- */
+.anno{margin:0;position:relative}
+.anno-stage{position:relative;width:1180px;display:grid;grid-template-columns:160px 820px 160px;column-gap:20px;align-items:start;transform-origin:0 0}
+.anno-col{position:relative}
+.an{position:absolute;left:0;right:0;font-size:13px;line-height:1.45;cursor:default;outline:none}
+.anno-col.l .an{text-align:right}
+.an b{display:block;font-size:14px;font-weight:600;color:var(--ink);line-height:1.3}
+.an p{margin:4px 0 0;color:var(--ink-2)}
+.skim .an p{display:none}
+.an:hover b,.an:focus-visible b,.an.on b{color:var(--annot)}
+.anno-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:5;color:var(--annot)}
+.anno-svg .halo{stroke:var(--annot-halo);stroke-width:5;fill:none;stroke-linecap:round}
+.anno-svg .ln{stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;transition:stroke-width .15s}
+.anno-svg .ln.on{stroke-width:2.6}
+.anno-svg .st{fill:currentColor}
+.anno-hit{outline:2px solid var(--annot)!important;outline-offset:3px;border-radius:6px}
+.shot-fit{position:relative}
+.anno.stacked .anno-stage{width:100%;display:flex;flex-direction:column}
+.anno.stacked .shot-fit{order:-1;overflow:hidden;width:100%;min-width:0}
+.anno.stacked .anno-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px;height:auto!important;margin-top:18px}
+.anno.stacked .anno-col.r{margin-top:14px}
+.anno.stacked .an{position:static;text-align:left!important;padding-left:22px;position:relative}
+.anno.stacked .an::before{content:"";position:absolute;left:2px;top:4px;width:11px;height:11px;border-left:2px solid var(--annot);border-top:2px solid var(--annot);transform:rotate(0deg)}
+.anno.stacked .an::after{content:"";position:absolute;left:3px;top:5px;width:14px;height:2px;background:var(--annot);transform-origin:0 0;transform:rotate(45deg)}
+.anno.stacked .anno-svg{display:none}
+
+/* ---------- Options ---------- */
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,44px)}
+.opt h3{font-size:19px;margin:14px 0 8px;font-weight:600}
+.opt dl{margin:0;display:grid;gap:8px}
+.opt dt{font-size:12.5px;color:var(--ink-3)}
+.opt dt.t{color:var(--annot)}
+.opt dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.thumb{height:clamp(170px,12vw,230px);border:1px solid var(--line);border-radius:12px;background:#F3F5F9;overflow:hidden;display:grid;grid-template-rows:18px 1fr}
+.thumb .tb0{background:#0C1426}
+.thumb .tin{display:grid;grid-template-columns:22px 1fr}
+.thumb .tr{background:#fff;border-right:1px solid #E3E7EF}
+.thumb .sk{display:block;height:8px;border-radius:4px;background:#DDE2EB}
+.thumb .skrow{display:flex;gap:8px;margin-top:8px}
+.decision{margin-top:40px;background:var(--brand-soft);color:var(--brand);border-radius:14px;padding:22px 26px;font-weight:500;font-size:inherit}
+
+.hind{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,56px)}
+.hind h3{font-size:clamp(18px,.6vw + 12px,22px);line-height:1.35;letter-spacing:-.01em;margin:0 0 8px;font-weight:500}
+.hind p{margin:0;font-size:15px;color:var(--ink-2)}
+.next{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:24px;margin:0;border-top:1px solid color-mix(in srgb,var(--ink) 14%,transparent);padding:28px 0 0;font-family:Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.4;color:var(--ink-2)}
+.next > span{color:var(--ink-2);font-weight:400}
+.next a{font-size:22px;font-weight:600;letter-spacing:-.01em;text-decoration:none;color:var(--ink);white-space:nowrap}
+.next a:hover{color:var(--brand)}
+@media (max-width:720px){.next{flex-direction:column;align-items:flex-start;gap:8px}.next a{white-space:normal}}
+
+/* =========================================================
+   Product UI: Vigil. Fixed light theme, like a real screenshot.
+   ========================================================= */
+.ui{
+  --u-bg:#F4F6FA; --u-card:#FFFFFF; --u-line:#E4E8F0; --u-line2:#EEF1F6;
+  --u-ink:#101828; --u-ink2:#475467; --u-ink3:#8A94A6;
+  --u-nav:#0C1426; --u-nav2:#16213A;
+  --u-pri:#2D55E8; --u-pri-soft:#EBF0FF;
+  --u-ai:#6E4BF2; --u-ai-soft:#F2EEFF; --u-ai-line:#DCD2FE;
+  --u-crit:#D92D20; --u-high:#EF6820; --u-med:#DC9A00; --u-low:#2E90FA; --u-good:#12A15A;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:13px;line-height:1.45;color:var(--u-ink);background:var(--u-bg);
+  -webkit-font-smoothing:antialiased;letter-spacing:-.003em;text-align:left;
+}
+.ui svg{width:16px;height:16px;flex:none}
+.shot{width:820px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(16,24,40,.12);position:relative;z-index:1;transform-origin:0 0}
+.bwr{height:30px;background:#E8EBF1;display:flex;align-items:center;gap:7px;padding:0 12px;border-bottom:1px solid #DADFE8}
+.bwr .bd{width:10px;height:10px;border-radius:50%;background:#CDD2DC}
+.bwr .url{margin:0 auto;display:flex;align-items:center;gap:6px;background:#fff;border-radius:6px;padding:3px 14px;font-size:11.5px;color:#5B6576;min-width:280px;justify-content:center}
+.bwr .url svg{width:11px;height:11px;color:#8A94A6}
+
+.tb{height:46px;background:var(--u-nav);display:flex;align-items:center;gap:12px;padding:0 14px;color:#E6EAF2}
+.lg{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;letter-spacing:-.02em;color:#fff}
+.lg svg{width:22px;height:22px}
+.ws{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:#C8D0DE;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:5px 9px}
+.ws svg{width:12px;height:12px}
+.ws i{width:7px;height:7px;border-radius:50%;background:#12A15A}
+.se{flex:1;max-width:290px;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:7px;padding:6px 10px;font-size:12px;color:#8A94A6;margin-left:6px}
+.se svg{width:14px;height:14px}
+.se kbd{margin-left:auto;font:500 10.5px Inter,sans-serif;color:#A7B0C0;border:1px solid rgba(255,255,255,.15);border-radius:4px;padding:1px 5px}
+.tbr{margin-left:auto;display:flex;align-items:center;gap:12px}
+.askb{display:flex;align-items:center;gap:6px;background:var(--u-ai);color:#fff;font-weight:600;font-size:12px;border-radius:7px;padding:6px 11px;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset}
+.askb svg{width:13px;height:13px}
+.tbi{position:relative;color:#A7B0C0;display:grid;place-items:center}
+.tbi b{position:absolute;top:-2px;right:-2px;width:7px;height:7px;border-radius:50%;background:#F04438;border:1.5px solid var(--u-nav)}
+.av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#2D55E8,#6E4BF2);color:#fff;font-size:10.5px;font-weight:600;display:grid;place-items:center}
+
+.ub{display:grid;grid-template-columns:52px minmax(0,1fr);position:relative}
+.sb{background:#fff;border-right:1px solid var(--u-line);padding:12px 9px;display:flex;flex-direction:column;gap:6px;align-items:center}
+.sb .si{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;color:#667085}
+.sb .si svg{width:18px;height:18px}
+.sb .si.on{background:var(--u-pri-soft);color:var(--u-pri)}
+.sb .si.aiv{color:var(--u-ai)}
+.sb .si.aiv.on{background:var(--u-ai-soft)}
+.sb .gap{flex:1;min-height:30px}
+.mn{padding:18px 20px 22px;min-width:0}
+
+.ph{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px}
+.crumb{font-size:11.5px;color:var(--u-ink3);margin-bottom:2px}
+.ttl{font-size:18px;font-weight:600;letter-spacing:-.015em}
+.ctl{display:flex;gap:8px;align-items:center}
+.seg{display:flex;background:#fff;border:1px solid var(--u-line);border-radius:7px;padding:2px}
+.seg span{font-size:11.5px;font-weight:500;color:var(--u-ink2);padding:3px 9px;border-radius:5px}
+.seg span.on{background:var(--u-pri-soft);color:var(--u-pri)}
+.ubtn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;background:#fff;border:1px solid var(--u-line);border-radius:7px;padding:5px 10px;color:var(--u-ink);white-space:nowrap}
+.ubtn svg{width:13px;height:13px;color:var(--u-ink2)}
+.ubtn.pri{background:var(--u-pri);border-color:var(--u-pri);color:#fff}
+.ubtn.pri svg{color:#fff}
+.ubtn.aip{background:var(--u-ai);border-color:var(--u-ai);color:#fff}
+.ubtn.aip svg{color:#fff}
+
+/* AI summary card */
+.aic{background:#fff;border:1px solid var(--u-ai-line);border-radius:11px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 0 0 4px rgba(110,75,242,.05);position:relative;overflow:hidden}
+.aic::before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,#6E4BF2,#2D55E8 60%,#2E90FA)}
+.aih{display:flex;align-items:center;gap:10px;padding:13px 14px 11px}
+.aii{width:30px;height:30px;border-radius:8px;background:var(--u-ai-soft);color:var(--u-ai);display:grid;place-items:center;flex:none}
+.aii svg{width:16px;height:16px}
+.aii.sm{width:24px;height:24px;border-radius:7px}
+.aii.sm svg{width:13px;height:13px}
+.ait{flex:1;min-width:0}
+.ait b{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600}
+.ait small{display:inline-block;font-size:11.5px;color:var(--u-ink3)}
+.beta{font-size:10px;font-weight:600;color:var(--u-ai);background:var(--u-ai-soft);border-radius:4px;padding:1px 5px}
+.aibtn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--u-ai);border:1px solid var(--u-ai-line);border-radius:7px;padding:5px 10px;background:#fff}
+.aibtn svg{width:13px;height:13px}
+.ic{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:var(--u-ink2)}
+.ic svg{width:15px;height:15px}
+.ic.bx{border:1px solid var(--u-line)}
+.stg{display:flex;gap:28px;padding:10px 14px;border-top:1px solid var(--u-line2);border-bottom:1px solid var(--u-line2);background:#FBFCFE;width:max-content;min-width:100%}
+.sg{display:flex;gap:9px;align-items:stretch}
+.sg i{width:3px;border-radius:2px}
+.sg b{display:block;font-size:12.5px;font-weight:600;line-height:1.25}
+.sg small{display:block;font-size:11px;color:var(--u-ink3)}
+.sl{list-style:none;margin:0;padding:10px 14px 12px;display:grid;gap:2px}
+.sl li{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.5;padding:5px 0}
+.sl li span{flex:1;color:var(--u-ink2)}
+.sl li span b{color:var(--u-ink);font-weight:600}
+.sl a{font-size:12px;font-weight:600;color:var(--u-pri);text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:3px}
+.sl a svg{width:12px;height:12px}
+.d{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:none}
+.d.g{background:var(--u-good)}.d.c{background:var(--u-crit)}.d.m{background:var(--u-med)}.d.h{background:var(--u-high)}
+
+/* widgets */
+.wg3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.cd{background:#fff;border:1px solid var(--u-line);border-radius:10px;padding:13px 14px}
+.cdh{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:600;color:var(--u-ink2);margin-bottom:8px}
+.cdh svg{width:13px;height:13px;color:var(--u-ink3)}
+.big{font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.big small{font-size:12px;font-weight:500;color:var(--u-ink3);letter-spacing:0;margin-left:3px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;border-radius:999px;padding:2px 7px}
+.pill.med{background:#FEF6E0;color:#9A6700}
+.pill.up{background:#E7F7EE;color:#0B7A43}
+.pill.dn{background:#FEECEB;color:#B42318}
+.ui .gauge{display:block;width:100%;max-width:150px;height:auto;margin:2px auto 6px}
+.sbar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:10px 0 10px;gap:2px}
+.sbar i{display:block;height:100%}
+.lgd{display:grid;gap:5px;font-size:11.5px}
+.lgd div{display:flex;align-items:center;gap:7px;color:var(--u-ink2)}
+.lgd div b{margin-left:auto;color:var(--u-ink);font-weight:600;font-variant-numeric:tabular-nums}
+.lgd i{width:7px;height:7px;border-radius:2px}
+.slr{display:grid;grid-template-columns:58px 1fr 30px;gap:8px;align-items:center;font-size:11.5px;color:var(--u-ink2);margin-top:6px}
+.slr .tr{height:5px;border-radius:3px;background:var(--u-line2);overflow:hidden}
+.slr .tr i{display:block;height:100%;border-radius:3px}
+.slr b{text-align:right;font-weight:600;color:var(--u-ink);font-variant-numeric:tabular-nums}
+.crop{position:relative;max-height:96px;overflow:hidden;margin-top:12px}
+.crop::after{content:"";position:absolute;inset:auto 0 0;height:56px;background:linear-gradient(rgba(244,246,250,0),var(--u-bg))}
+.scn{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.scn div{border:1px solid var(--u-line2);border-radius:8px;padding:8px 10px;font-size:11.5px}
+.scn b{display:flex;align-items:center;gap:6px;font-weight:600;font-size:12px}
+.scn b svg{width:12px;height:12px;color:var(--u-good)}
+.scn span{color:var(--u-ink3)}
+
+/* Ask Vigil */
+.hp{border-right:1px solid var(--u-line);background:#FBFCFE;padding:14px 10px;width:196px}
+.nb{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:600;border:1px solid var(--u-line);background:#fff;border-radius:7px;padding:7px;margin-bottom:12px}
+.nb svg{width:13px;height:13px}
+.hg{font-size:10.5px;font-weight:600;color:var(--u-ink3);padding:10px 8px 4px}
+.hi{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--u-ink2);padding:6px 8px;border-radius:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hi.on{background:#EEF1F6;color:var(--u-ink);font-weight:500}
+.hi svg{width:13px;height:13px;color:var(--u-ai)}
+.hi em{margin-left:auto;font-style:normal;font-size:10.5px;color:var(--u-ink3);background:#EEF1F6;border-radius:4px;padding:0 5px}
+.ac{padding:46px 40px 30px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.gm{margin:0;font-size:12.5px;color:var(--u-ink3);display:flex;align-items:center;gap:6px}
+.gm svg{width:14px;height:14px;color:var(--u-ai)}
+.ac h4{margin:6px 0 20px;font-size:22px;font-weight:600;letter-spacing:-.02em}
+.cmp{width:100%;max-width:460px;background:#fff;border:1px solid #CFC3FD;border-radius:12px;padding:10px 12px;text-align:left;box-shadow:0 0 0 4px rgba(110,75,242,.07),0 4px 14px rgba(16,24,40,.05)}
+.cmp.sm{max-width:none;box-shadow:0 2px 8px rgba(16,24,40,.05);border-color:var(--u-line);display:flex;align-items:center;gap:10px;padding:9px 12px}
+.ctx{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;background:var(--u-pri-soft);color:var(--u-pri);border-radius:5px;padding:2px 6px}
+.ctx svg{width:11px;height:11px}
+.ph2{font-size:13px;color:var(--u-ink3);margin:8px 0 14px}
+.cmpf{display:flex;align-items:center;gap:8px}
+.srcsel{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--u-ink2);border:1px solid var(--u-line);border-radius:6px;padding:3px 8px}
+.srcsel svg{width:11px;height:11px}
+.snd{margin-left:auto;width:28px;height:28px;border-radius:7px;background:#E4E8F0;color:#98A2B3;display:grid;place-items:center}
+.snd.on{background:var(--u-ai);color:#fff}
+.snd svg{width:14px;height:14px}
+.sug{width:100%;max-width:460px;text-align:left;margin-top:20px}
+.sug small{display:block;font-size:11px;font-weight:600;color:var(--u-ink3);margin:12px 0 7px}
+.sug small:first-child{margin-top:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;border:1px solid var(--u-line);background:#fff;color:var(--u-ink);border-radius:999px;padding:5px 11px}
+.chip svg{width:12px;height:12px;color:var(--u-ink3)}
+.chip.hv{border-color:#B9A8FC;background:var(--u-ai-soft);color:#4B2FC9}
+.chip.hv svg{color:var(--u-ai)}
+.chip.act{background:var(--u-ai);border-color:var(--u-ai);color:#fff}
+.chip.act svg{color:#fff}
+.disc{font-size:11px;color:var(--u-ink3);margin:22px 0 0}
+
+/* answer thread */
+.th{padding:20px 34px 18px;max-width:700px;margin:0 auto}
+.um{background:var(--u-nav2);color:#fff;font-size:12.5px;border-radius:12px 12px 3px 12px;padding:9px 13px;width:max-content;max-width:80%;margin:0 0 16px auto}
+.am{display:flex;gap:9px;align-items:flex-start;margin-bottom:10px}
+.am b{display:block;font-size:14px;font-weight:600;letter-spacing:-.01em}
+.am small{display:inline-block;font-size:11.5px;color:var(--u-ink3)}
+.ans{background:#fff;border:1px solid var(--u-line);border-radius:10px}
+.tabs{display:flex;gap:2px;padding:0 10px;border-bottom:1px solid var(--u-line);overflow-x:auto}
+.tabs button{font:inherit;font-size:12px;font-weight:500;color:var(--u-ink2);background:none;border:0;border-bottom:2px solid transparent;padding:9px 9px 8px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.tabs button svg{width:13px;height:13px}
+.tabs button[aria-selected="true"]{color:var(--u-pri);font-weight:600;border-bottom-color:var(--u-pri)}
+.tabs button:focus-visible{outline:2px solid var(--u-pri);outline-offset:-2px}
+.panel{padding:10px 12px}
+.ui table{border-collapse:collapse;width:100%;font-size:12px}
+.ui th,.ui td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--u-line2)}
+.ui th{color:var(--u-ink3);font-weight:500;font-size:11px;background:#FAFBFD}
+.ui tr:last-child td{border-bottom:0}
+.ui td:first-child{font-weight:500}
+.ui td.n{font-variant-numeric:tabular-nums;font-weight:600}
+.st8{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500}
+.st8 i{width:6px;height:6px;border-radius:50%}
+.bars{display:grid;gap:8px;padding:4px 2px}
+.bar{display:grid;grid-template-columns:86px 1fr 34px;gap:10px;align-items:center;font-size:12px;color:var(--u-ink2)}
+.bar i{display:block;height:9px;border-radius:3px;background:var(--u-pri)}
+.bar b{text-align:right;color:var(--u-ink);font-variant-numeric:tabular-nums}
+.acts{display:flex;gap:6px;padding:8px 12px 10px;border-top:1px solid var(--u-line2)}
+.anl{margin-top:12px;padding:0 2px}
+.anl b{display:block;font-size:12px;font-weight:600;margin-bottom:3px}
+.anl p{margin:0;font-size:12.5px;color:var(--u-ink2);line-height:1.55}
+.srcs{display:flex;gap:6px;align-items:center;margin-top:8px;font-size:11px;color:var(--u-ink3)}
+.srcs span{border:1px solid var(--u-line);border-radius:5px;padding:1px 6px;color:var(--u-ink2);background:#fff}
+.fu{margin-top:14px}
+.fb{display:flex;gap:4px;margin-left:auto}
+
+/* drawer */
+.scene{min-height:640px}
+.scene .th{opacity:1}
+.scrim{position:absolute;inset:0;background:rgba(12,20,38,.38);z-index:2}
+.drawer{position:absolute;top:0;right:0;bottom:0;width:372px;background:#fff;z-index:3;display:flex;flex-direction:column;box-shadow:-18px 0 40px rgba(12,20,38,.18)}
+.dh{display:flex;align-items:center;gap:9px;padding:13px 14px;border-bottom:1px solid var(--u-line)}
+.dh b{flex:1;font-size:14px;font-weight:600}
+.dh a{font-size:11.5px;font-weight:600;color:var(--u-pri);text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.dh a svg{width:12px;height:12px}
+.db{padding:14px;display:grid;gap:13px;flex:1;align-content:start}
+.src{display:inline-flex;align-items:center;gap:6px;background:var(--u-ai-soft);color:#4B2FC9;font-size:11.5px;font-weight:500;border-radius:6px;padding:5px 9px;width:max-content;max-width:100%}
+.src svg{width:12px;height:12px;color:var(--u-ai)}
+.fld label{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--u-ink2);font-weight:500;margin-bottom:5px}
+.fld label svg{width:11px;height:11px;color:var(--u-ai)}
+.fld .in{border:1px solid var(--u-line);border-radius:7px;padding:7px 10px;font-size:12.5px;background:#fff}
+.fld .in.foc{border-color:var(--u-pri);box-shadow:0 0 0 3px rgba(45,85,232,.15)}
+.flow{display:grid;gap:0;position:relative}
+.stp{display:grid;grid-template-columns:22px 1fr;gap:10px;position:relative;padding-bottom:12px}
+.stp:not(:last-child)::before{content:"";position:absolute;left:10px;top:22px;bottom:0;width:2px;background:#E4E8F0}
+.stp .nm{width:22px;height:22px;border-radius:50%;background:var(--u-pri-soft);color:var(--u-pri);font-size:11px;font-weight:600;display:grid;place-items:center}
+.stp b{display:block;font-size:12px;font-weight:600;margin:2px 0 6px}
+.fc{display:inline-flex;align-items:center;gap:4px;font-size:11px;border:1px solid var(--u-line);background:#FAFBFD;border-radius:6px;padding:3px 7px;margin:0 3px 4px 0;color:var(--u-ink2)}
+.fc em{font-style:normal;font-weight:600;color:var(--u-ink)}
+.fc.add{border-style:dashed;color:var(--u-pri);background:#fff}
+.mt{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--u-ink2);background:#F6F8FB;border-radius:6px;padding:5px 8px;margin-top:2px;width:max-content}
+.mt b{display:inline;margin:0;font-size:11.5px;color:var(--u-ink)}
+.mt svg{width:12px;height:12px;color:var(--u-crit)}
+.avs{display:inline-flex;margin-left:4px}
+.avs i{width:16px;height:16px;border-radius:50%;border:1.5px solid #fff;margin-left:-5px;display:inline-block}
+.tg{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:500;border-top:1px solid var(--u-line2);padding-top:12px}
+.tg small{display:block;font-weight:400;color:var(--u-ink3);font-size:11px}
+.sw{width:32px;height:18px;border-radius:9px;background:var(--u-pri);position:relative;flex:none}
+.sw::after{content:"";position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+.df{display:flex;justify-content:flex-end;gap:8px;padding:12px 14px;border-top:1px solid var(--u-line)}
+
+
+/* promptbooks */
+.why{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,2.4vw,44px);margin:0 0 clamp(56px,5vw,88px);border-top:1px solid var(--line)}
+.why div{padding-top:22px}
+.why b{display:block;font-size:16px;font-weight:600;margin-bottom:4px}
+.why span{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+.kpis.k5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.pbh{display:flex;align-items:center;gap:10px;padding:13px 14px;border-bottom:1px solid var(--u-line)}
+.pbh b{display:block;font-size:14px;font-weight:600}
+.pbh small{display:block;font-size:11px;color:var(--u-ink3)}
+.pbh .ic{margin-left:auto}
+.pbtabs{display:flex;align-items:center;gap:2px;padding:0 14px;border-bottom:1px solid var(--u-line)}
+.pbtabs span{font-size:12px;font-weight:500;color:var(--u-ink2);padding:9px 8px 8px;border-bottom:2px solid transparent}
+.pbtabs span.on{color:var(--u-ai);border-bottom-color:var(--u-ai);font-weight:600}
+.pbtabs .ubtn{margin-left:auto;padding:3px 8px;font-size:11.5px}
+.pbs{margin:12px 14px 6px;display:flex;align-items:center;gap:7px;border:1px solid var(--u-line);border-radius:7px;padding:6px 9px;font-size:12px;color:var(--u-ink3)}
+.pbs svg{width:13px;height:13px}
+.pbl{padding:4px 14px 14px;display:grid;gap:6px}
+.pbr{display:flex;align-items:center;gap:8px;border:1px solid var(--u-line2);border-radius:8px;padding:8px 10px;font-size:12.5px;font-weight:500}
+.pbr svg{width:13px;height:13px;color:var(--u-ink3)}
+.pbr em{margin-left:auto;font-style:normal;font-size:11px;font-weight:400;color:var(--u-ink3)}
+.pbx{border:1px solid var(--u-ai-line);border-radius:10px;background:#FCFBFF;box-shadow:0 0 0 3px rgba(110,75,242,.06)}
+.pbx-h{display:flex;align-items:center;gap:8px;padding:10px 10px 8px;font-size:12.5px;font-weight:600}
+.pbx-h svg{width:13px;height:13px;color:var(--u-ai)}
+.pbx-h .ubtn{margin-left:auto;padding:4px 12px}
+.pbx-b{padding:0 10px 10px}
+.pbx .fld label{font-size:11px}
+.pbx .in{display:flex;align-items:center;gap:4px}
+.pbx .in i{width:1.5px;height:14px;background:var(--u-pri);display:inline-block}
+.prl{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:5px;counter-reset:pr}
+.prl li{display:grid;grid-template-columns:16px 1fr;gap:6px;font-size:11.5px;line-height:1.45;color:var(--u-ink2)}
+.prl li::before{counter-increment:pr;content:counter(pr) ".";font-weight:600;color:var(--u-ink3);padding-top:6px}
+.prl li > span{background:#fff;border:1px solid var(--u-line);border-radius:6px;padding:5px 8px}
+.tok{display:inline-block;background:var(--u-ai-soft);color:#4B2FC9;font-weight:600;border-radius:4px;padding:0 4px;font-size:11px}
+.addp{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;color:var(--u-pri);margin-top:8px}
+.addp svg{width:12px;height:12px}
+.pbmeta{display:flex;justify-content:space-between;font-size:10.5px;color:var(--u-ink3);margin-top:8px;padding-top:8px;border-top:1px solid var(--u-line2)}
+.homebg{padding:60px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;width:calc(100% - 410px)}
+.homebg h4{margin:4px 0 16px;font-size:20px;font-weight:600;letter-spacing:-.02em}
+.homebg .cmp{max-width:320px}
+.usepb{display:inline-flex;align-items:center;gap:6px;margin-top:22px;font-size:12px;font-weight:600;color:var(--u-ai);border:1px solid var(--u-ai-line);background:#fff;border-radius:999px;padding:5px 12px}
+.usepb svg{width:13px;height:13px}
+.runb{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--u-ai-line);border-radius:10px;padding:9px 12px;margin-bottom:16px}
+.runb b{font-size:12.5px;font-weight:600}
+.runb .ctx{background:var(--u-ai-soft);color:#4B2FC9}
+.dots{display:flex;gap:4px;margin-left:6px}
+.dots i{width:16px;height:4px;border-radius:2px;background:var(--u-ai)}
+.runb small{font-size:11px;color:var(--u-ink3)}
+.runb a{margin-left:auto;font-size:11.5px;font-weight:600;color:var(--u-pri);display:inline-flex;align-items:center;gap:4px}
+.runb a svg{width:12px;height:12px}
+.stq{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin:0 0 8px}
+.stq em{font-style:normal;font-size:10.5px;font-weight:600;color:var(--u-ai);background:var(--u-ai-soft);border-radius:4px;padding:1px 6px}
+.stq .um{margin:0;max-width:72%}
+.ansc{background:#fff;border:1px solid var(--u-line);border-radius:10px;padding:11px 13px;margin-bottom:14px}
+.ansc b{display:block;font-size:12.5px;font-weight:600;margin-bottom:3px}
+.ansc p{margin:0;font-size:12px;color:var(--u-ink2);line-height:1.55}
+.ansf{display:flex;gap:2px;margin-top:6px;margin-left:-6px}
+.ansf .ic{width:24px;height:24px}
+.ansf .ic svg{width:13px;height:13px}
+.mt2{display:grid;grid-template-columns:120px 1fr;gap:4px 12px;font-size:11.5px;margin-top:4px}
+.mt2 dt{font-weight:600;color:var(--u-ink)}
+.mt2 dd{margin:0;color:var(--u-ink2)}
+.mt2 dd a{color:var(--u-pri);font-weight:500;text-decoration:none}
+.colr{display:flex;align-items:center;gap:8px;border:1px dashed var(--u-line);border-radius:8px;padding:7px 10px;font-size:12px;color:var(--u-ink2);margin-bottom:6px;background:#fff}
+.colr em{font-style:normal;font-size:10.5px;font-weight:600;color:var(--u-ai);background:var(--u-ai-soft);border-radius:4px;padding:1px 6px}
+.colr span{margin-left:auto;color:var(--u-pri);font-weight:600;font-size:11.5px}
+
+/* hero panel */
+.hpn{position:relative;border-radius:14px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.08)}
+.hpn-h{display:flex;align-items:center;gap:8px;padding:11px 14px;background:#fff;border-bottom:1px solid var(--u-line)}
+.hpn-h b{font-size:13.5px;font-weight:600}
+.hpn-h .ctx{margin-left:4px}
+.hpn-h .ic{margin-left:auto;width:24px;height:24px}
+.hpn-b{padding:14px;background:var(--u-bg)}
+.hpn .sl li{padding:4px 0;font-size:12px}
+.mini{background:#fff;border:1px solid var(--u-line);border-radius:10px;padding:12px}
+.mini .am{margin-bottom:8px}
+.mini table{font-size:11.5px}
+.mini .chips{margin-top:10px}
+
+@media (max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .why{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpis.k5{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .body{grid-template-columns:minmax(0,1fr)}
+  .toc{display:none}
+  .now{display:block}
+  .rules{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .site nav.links{display:none}
+  .mode button{padding:5px 10px}
+  .meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pains,.opts,.hind,.why{grid-template-columns:1fr}
+  .kpis.k5{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rules{grid-template-columns:1fr}
+  .anno.stacked .anno-col{grid-template-columns:1fr}
+  .stage{padding:16px;border-radius:18px}
+}
+
+/* ---------- One desktop breakpoint: annotations and index collapse together below 1366px ---------- */
+@media (max-width:1365px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.now{display:block}}
+
+/* ---------- Brand mark ---------- */
+.site .brand{display:inline-flex;align-items:center;color:#76FBC8;flex:none}
+.site .brand svg{height:28px;width:auto;filter:drop-shadow(0 0 6px rgba(118,251,200,.3))}
+
+/* ---------- Case study tags ---------- */
+.cs-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 28px;padding:0}
+.cs-tags li{font-size:13.5px;line-height:1;color:var(--ink-2);border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:999px;padding:7px 12px}
+.cs-tags li.win{color:var(--brand);border-color:color-mix(in srgb,var(--brand) 45%,transparent)}
+</style>
+</head>
+<body class="skim">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="spark" viewBox="0 0 24 24"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9L12 2zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z" fill="currentColor"/></symbol>
+  <symbol id="logo" viewBox="0 0 24 24"><defs><linearGradient id="lgg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B7CFF"/><stop offset="1" stop-color="#7A55F5"/></linearGradient></defs><path d="M12 1.8l8.6 3.3v6.4c0 5.3-3.6 9.6-8.6 10.9C7 21.1 3.4 16.8 3.4 11.5V5.1L12 1.8z" fill="url(#lgg)"/><path d="M8 8.5l4 7 4-7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <symbol id="i-grid" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></g></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 15.5H3L12 3.5zM12 10v4M12 16.8v.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="4" width="17" height="7" rx="2"/><rect x="3.5" y="13" width="17" height="7" rx="2"/><path d="M7.5 7.5h.01M7.5 16.5h.01"/></g></symbol>
+    <symbol id="i-radar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6-6"/></g></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M10 6.5h10M10 12h10M10 17.5h10M4 6.5l1.3 1.3L7.6 5.5M4 12l1.3 1.3L7.6 11M4 17.5l1.3 1.3 2.3-2.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6V3zM14 3v4h4M9 13h6M9 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></g></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></g></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 1 1 12 0v5l1.5 2h-15L6 16zM10 20.5a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chev-u" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5H5V6h5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M6.5 3.5h11v17l-5.5-4-5.5 4v-17z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2"/><path d="M15.5 8.5V5.5a1.5 1.5 0 0 0-1.5-1.5H5.5A1.5 1.5 0 0 0 4 5.5V14a1.5 1.5 0 0 0 1.5 1.5h3"/></g></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-7.5-5.5 16-2.8-6.2L4 12z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 24 24"><path d="M20 11.5l-8 8a5 5 0 0 1-7-7l8.5-8.5a3.4 3.4 0 0 1 4.8 4.8l-8.4 8.4a1.8 1.8 0 0 1-2.6-2.6l7.6-7.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2 2 0 0 1 6 3.5h13v15H6a2 2 0 0 0-2 2v-15zM4 20.5a2 2 0 0 1 2-2h13v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.1"/></g></symbol>
+    <symbol id="i-table" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M3.5 10h17M3.5 15h17M10 10v9.5"/></g></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20h16M7 16V10M12 16V6M17 16v-4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-thumb" viewBox="0 0 24 24"><path d="M7 10.5v9H4.5v-9H7zM7 10.5l4-7c1.6 0 2.6 1.2 2.3 2.8L12.8 9.5H19a1.6 1.6 0 0 1 1.6 1.9l-1.3 6.6a2 2 0 0 1-2 1.5H7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  </g>
+</svg>
+
+<header class="site">
+  <div class="site-in" style="position:relative">
+    <a class="brand" href="index.html" aria-label="Mohammed Afnan, home"><svg viewBox="8 8 106 90" fill="currentColor" aria-hidden="true"><path d="M48.2 11L53.2 20L26 77.2L31 82.6H15.4Z"/><path d="M74 11L106.4 82.2H90.4L96.6 76.8L74 28L51 77L56 82.6H40.6Z"/><circle cx="74.6" cy="63.6" r="6.6"/><rect x="11" y="90.4" width="100.4" height="5.2"/></svg></a>
+    <div class="mode" role="group" aria-label="Reading mode">
+      <button type="button" data-mode="skim" aria-pressed="true">Skim</button>
+      <button type="button" data-mode="full" aria-pressed="false">Full story</button>
+    </div>
+    <span class="now" aria-live="polite"><b id="now-label">Introduction</b></span>
+    <nav class="links" aria-label="Site"><a href="index.html#work">Work</a><a href="index.html#approach">About</a><a href="mailto:mails2afnan@gmail.com">Contact</a></nav>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="prog-fill"></i></div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <p class="kicker"><a href="index.html#work">Work</a> / AI features for a security platform</p>
+      <h1>Security teams had the data. They didn’t have time to read it.</h1>
+      <p class="lede">I designed Vigil Assist: an AI summary that reads the risk dashboard for you, and a co-pilot that takes a question all the way to an assigned fix.</p>
+      <ul class="cs-tags" aria-label="Tags"><li>Enterprise</li><li>Cybersecurity</li><li>Agentic UX</li><li>Faster decisions</li></ul>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>Senior product designer</dd></div>
+        <div><dt>Scope</dt><dd>AI summary, co-pilot, answer to action</dd></div>
+        <div><dt>Platform</dt><dd>Web, enterprise SaaS</dd></div>
+        <div><dt>Year</dt><dd>2025</dd></div>
+      </dl>
+      <div class="kpis">
+        <div class="kpi"><strong>6 → 1</strong><span>Dashboard widgets to read, now one 5-line brief</span></div>
+        <div class="kpi"><strong>7 → 3</strong><span>Steps from a threat question to an assigned fix</span></div>
+        <div class="kpi"><strong>3 → 1</strong><span>Tools for research, triage and ticketing</span></div>
+        <div class="kpi"><strong>7 → 1</strong><span>Fields to set up an automation. AI fills the rest.</span></div>
+      </div>
+      <p class="nda"><span class="skim-only">Skim mode shows headlines, numbers and screens. Switch to Full story for the detail.<br></span>Under NDA. Product name, brand, customer and data are changed. Screens are rebuilt with mock data.</p>
+    </div>
+
+    <div class="stage">
+      <div class="hpn ui" role="img" aria-label="The Ask Vigil side panel showing the AI summary and an answer about affected assets">
+        <div class="hpn-h"><span class="aii sm"><svg><use href="#spark"/></svg></span><b>Ask Vigil</b><span class="ctx"><svg><use href="#i-grid"/></svg>Risk overview</span><span class="ic"><svg><use href="#i-x"/></svg></span></div>
+        <div class="hpn-b">
+          <div class="aic">
+            <div class="aih"><span class="aii sm"><svg><use href="#spark"/></svg></span><div class="ait"><b>Vigil summary <span class="beta">Beta</span></b><small>Generated 09:40 GST. AI can be wrong, check sources.</small></div></div>
+            <ul class="sl" style="border-top:1px solid var(--u-line2)">
+              <li><i class="d g"></i><span><b>Security score is moderate at 612.</b> Risk is managed, with room to improve.</span></li>
+              <li><i class="d c"></i><span><b>Weaponised vulnerabilities are present</b> and likely to be exploited.</span></li>
+              <li><i class="d c"></i><span><b>Fix first: 84 ransomware-linked findings,</b> 142 older than 90 days.</span></li>
+            </ul>
+          </div>
+          <div class="um" style="margin:14px 0 12px auto">Which of my assets are hit by the ransomware findings?</div>
+          <div class="mini">
+            <div class="am"><span class="aii sm"><svg><use href="#spark"/></svg></span><div><b>31 assets across 3 workspaces</b><small>From 84 ransomware-linked findings</small></div></div>
+            <table>
+              <thead><tr><th>Asset</th><th>Workspace</th><th>Findings</th></tr></thead>
+              <tbody>
+                <tr><td>scada-hmi-03</td><td>Grid operations</td><td class="n">12</td></tr>
+                <tr><td>ems-gw-01</td><td>Grid operations</td><td class="n">9</td></tr>
+                <tr><td>historian-db-02</td><td>Plant IT</td><td class="n">7</td></tr>
+              </tbody>
+            </table>
+            <div class="chips"><span class="chip act"><svg><use href="#spark"/></svg>Create task suite</span><span class="chip">Create alert</span><span class="chip">Show all 31</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="flowc">
+
+      <section id="problem">
+        <div class="txt">
+          <p class="sec-name">Problem</p>
+          <h2>A CISO has ten minutes before a board call. The dashboard has six widgets and no story.</h2>
+        </div>
+        <div class="pains full">
+          <div class="pain"><h3>Too much to read</h3><p>Scores, scanner coverage, SLA timers and the exposure funnel each told part of the story. Nobody joined them up.</p></div>
+          <div class="pain"><h3>Answers lived outside</h3><p>Threat questions went to search engines, vendor reports and chat threads, then came back as screenshots.</p></div>
+          <div class="pain"><h3>Insight never became work</h3><p>Finding a risk was one tool. Tagging, assigning and ticketing it was another, done by hand.</p></div>
+        </div>
+        <div class="users"><span>Two users, one feature:</span><span class="tag">CISO needs the story in 30 seconds</span><span class="tag">SOC analyst needs the evidence and the fix</span></div>
+      </section>
+
+      <section id="rules">
+        <div class="txt">
+          <p class="sec-name">Rules I set for the AI</p>
+          <h2>Five rules every AI line had to pass.</h2>
+        </div>
+        <div class="rules">
+          <div class="rule"><b>Specific</b><span>Counts and names in every line. No paragraphs.</span></div>
+          <div class="rule"><b>Sourced</b><span>Every claim links to the data behind it.</span></div>
+          <div class="rule"><b>Balanced</b><span>Good news next to bad, or nobody trusts it.</span></div>
+          <div class="rule"><b>Honest about itself</b><span>Shows when it ran and that it can be wrong.</span></div>
+          <div class="rule"><b>Ends in a next step</b><span>Every answer offers a question or an action.</span></div>
+        </div>
+      </section>
+
+      <!-- ===================== SUMMARY ===================== -->
+      <section id="summary">
+        <div class="txt">
+          <p class="sec-name">Feature one: AI summary</p>
+          <h2>Five lines on top of six widgets. Read in 30 seconds, then go deeper.</h2>
+          <p class="p full">The summary reads scores, SLA timers, scanner coverage and the exposure funnel, then writes what changed and what to fix first.</p>
+        </div>
+
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <div class="an" tabindex="0" data-for="s1-meta"><b>Fresh and honest</b><p>Generated time and an “AI can be wrong” line. Leaders forward this text, so it has to say how old it is.</p></div>
+              <div class="an" tabindex="0" data-for="s1-strip"><b>One word per stage</b><p>Routing, discovery and remediation each get one word. A CISO can repeat it in the board meeting.</p></div>
+              <div class="an" tabindex="0" data-for="s1-dots"><b>Good next to bad</b><p>All-red reads like an alarm. All-green reads like marketing. Both lose trust.</p></div>
+              <div class="an" tabindex="0" data-for="s1-wid"><b>Nothing below moved</b><p>The original widgets stay where people know them. The summary only adds.</p></div>
+            </div>
+
+            <div class="shot-fit">
+              <div class="shot ui" role="img" aria-label="Vigil risk overview with the AI summary card above the dashboard widgets">
+                <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url"><svg><use href="#i-lock"/></svg>app.vigil.io/overview/risk</span></div>
+                <div class="tb"><span class="lg"><svg><use href="#logo"/></svg>vigil</span><span class="ws"><i></i>Northgate Energy<svg><use href="#i-chev-d"/></svg></span><span class="se"><svg><use href="#i-search"/></svg>Search assets, CVEs, findings<kbd>⌘K</kbd></span><span class="tbr"><span class="askb"><svg><use href="#spark"/></svg>Ask Vigil</span><span class="tbi"><svg><use href="#i-bell"/></svg><b></b></span><span class="av">RK</span></span></div>
+                <div class="ub">
+                  <nav class="sb"><span class="si on"><svg><use href="#i-grid"/></svg></span><span class="si"><svg><use href="#i-alert"/></svg></span><span class="si"><svg><use href="#i-server"/></svg></span><span class="si"><svg><use href="#i-radar"/></svg></span><span class="si"><svg><use href="#i-list"/></svg></span><span class="si"><svg><use href="#i-file"/></svg></span><span class="si aiv"><svg><use href="#spark"/></svg></span><span class="gap"></span><span class="si"><svg><use href="#i-gear"/></svg></span></nav>
+                  <div class="mn">
+                    <div class="ph"><div><div class="crumb">Overview</div><div class="ttl">Risk overview</div></div><div class="ctl"><span class="seg"><span>7d</span><span class="on">30d</span><span>90d</span></span><span class="ubtn"><svg><use href="#i-dl"/></svg>Export</span></div></div>
+
+                    <div class="aic">
+                      <div class="aih">
+                        <span class="aii"><svg><use href="#spark"/></svg></span>
+                        <div class="ait"><b>Vigil summary <span class="beta">Beta</span></b><small data-a="s1-meta">Generated 09:40 GST, 10 min ago. AI can be wrong, check sources.</small></div>
+                        <span class="aibtn" data-a="s1-ask"><svg><use href="#spark"/></svg>Ask Vigil</span>
+                        <span class="ic"><svg><use href="#i-refresh"/></svg></span>
+                        <span class="ic bx" data-a="s1-fold"><svg><use href="#i-chev-u"/></svg></span>
+                      </div>
+                      <div class="stg" data-a="s1-strip">
+                        <div class="sg"><i style="background:var(--u-med)"></i><div><b>Average</b><small>Routing</small></div></div>
+                        <div class="sg"><i style="background:var(--u-good)"></i><div><b>Good</b><small>Discovery</small></div></div>
+                        <div class="sg"><i style="background:var(--u-crit)"></i><div><b>Needs work</b><small>Remediation</small></div></div>
+                      </div>
+                      <ul class="sl" data-a="s1-dots">
+                        <li><i class="d g"></i><span><b>Security score is moderate at 612.</b> Risk is managed, with room to improve.</span><a>View score<svg><use href="#i-chev-r"/></svg></a></li>
+                        <li><i class="d c"></i><span><b>Weaponised vulnerabilities are present</b> and likely to be exploited in real attacks.</span><a>View 37<svg><use href="#i-chev-r"/></svg></a></li>
+                        <li><i class="d c"></i><span><b>Fix first: 84 ransomware-linked and 9.4k high-severity findings,</b> 142 of them older than 90 days.</span><a data-a="s1-view">View 84<svg><use href="#i-chev-r"/></svg></a></li>
+                        <li><i class="d m"></i><span><b>Most findings are medium severity (10.8k),</b> so coverage is broad but less urgent.</span><a>View<svg><use href="#i-chev-r"/></svg></a></li>
+                        <li><i class="d g"></i><span><b>All 4 scanners ran on schedule this week.</b> Coverage is at 97%.</span><a>View<svg><use href="#i-chev-r"/></svg></a></li>
+                      </ul>
+                    </div>
+
+                    <div class="wg3" data-a="s1-wid">
+                      <div class="cd">
+                        <div class="cdh">Security score<svg><use href="#i-info"/></svg></div>
+                        <svg class="gauge" viewBox="0 0 120 66" aria-hidden="true"><path d="M12 60a48 48 0 0 1 96 0" fill="none" stroke="#EEF1F6" stroke-width="10" stroke-linecap="round"/><path d="M12 60a48 48 0 0 1 96 0" fill="none" stroke="#DC9A00" stroke-width="10" stroke-linecap="round" pathLength="100" stroke-dasharray="72 100"/><text x="60" y="55" text-anchor="middle" font-family="Inter,sans-serif" font-size="20" font-weight="600" fill="#101828">612</text></svg>
+                        <div style="display:flex;justify-content:space-between;align-items:center"><span class="pill med">Moderate</span><span class="pill up"><svg style="width:10px;height:10px"><use href="#i-up"/></svg>14 in 30 days</span></div>
+                      </div>
+                      <div class="cd">
+                        <div class="cdh">Open findings<svg><use href="#i-info"/></svg></div>
+                        <div class="big">26,648</div>
+                        <div class="sbar"><i style="width:1.2%;background:var(--u-crit)"></i><i style="width:35.3%;background:var(--u-high)"></i><i style="width:40.5%;background:var(--u-med)"></i><i style="width:23%;background:var(--u-low)"></i></div>
+                        <div class="lgd">
+                          <div><i style="background:var(--u-crit)"></i>Critical<b>312</b></div>
+                          <div><i style="background:var(--u-high)"></i>High<b>9,412</b></div>
+                          <div><i style="background:var(--u-med)"></i>Medium<b>10,804</b></div>
+                          <div><i style="background:var(--u-low)"></i>Low<b>6,120</b></div>
+                        </div>
+                      </div>
+                      <div class="cd">
+                        <div class="cdh">SLA compliance<svg><use href="#i-info"/></svg></div>
+                        <div class="big">71%<small>within SLA</small></div>
+                        <div style="margin-top:4px"><span class="pill dn">142 older than 90 days</span></div>
+                        <div class="slr"><span>Critical</span><span class="tr"><i style="width:58%;background:var(--u-crit)"></i></span><b>58%</b></div>
+                        <div class="slr"><span>High</span><span class="tr"><i style="width:66%;background:var(--u-high)"></i></span><b>66%</b></div>
+                        <div class="slr"><span>Medium</span><span class="tr"><i style="width:74%;background:var(--u-med)"></i></span><b>74%</b></div>
+                        <div class="slr"><span>Low</span><span class="tr"><i style="width:81%;background:var(--u-low)"></i></span><b>81%</b></div>
+                      </div>
+                    </div>
+                    <div class="crop">
+                      <div class="cd">
+                        <div class="cdh">Scanner coverage<span style="font-weight:600;color:var(--u-ink)">97%</span></div>
+                        <div class="scn">
+                          <div><b><svg><use href="#i-check"/></svg>Network</b><span>Ran 06:00</span></div>
+                          <div><b><svg><use href="#i-check"/></svg>Cloud posture</b><span>Ran 05:30</span></div>
+                          <div><b><svg><use href="#i-check"/></svg>Web apps</b><span>Ran 04:10</span></div>
+                          <div><b><svg><use href="#i-check"/></svg>Agents</b><span>Live</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="anno-col r">
+              <div class="an" tabindex="0" data-for="s1-ask" data-at="top"><b>Hand-off to the co-pilot</b><p>Ask Vigil opens with this summary already in context.</p></div>
+              <div class="an" tabindex="0" data-for="s1-fold"><b>Folds away</b><p>Daily users collapse it after reading. The state is remembered.</p></div>
+              <div class="an" tabindex="0" data-for="s1-view"><b>Every claim has a source</b><p>Each line names the count and links to the filtered list behind it.</p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+      </section>
+
+      <!-- ===================== ASK VIGIL ===================== -->
+      <section id="copilot">
+        <div class="txt">
+          <p class="sec-name">Feature two: Ask Vigil</p>
+          <h2>Ask in plain words. Get a table, a chart and a next step.</h2>
+          <p class="p full">Analysts used to leave the product to research threats. Now the question, the evidence and the follow-up live in one thread. Try the tabs on the second screen.</p>
+        </div>
+
+        <p class="sub-h">Before the question</p>
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <div class="an" tabindex="0" data-for="s2-books"><b>Promptbooks</b><p>Saved investigations the team runs with one input. The next section shows how.</p></div>
+              <div class="an" tabindex="0" data-for="s2-hist"><b>Threads stay</b><p>Every answer is a thread the analyst can come back to and share.</p></div>
+            </div>
+            <div class="shot-fit">
+              <div class="shot ui" role="img" aria-label="Ask Vigil start page with suggested prompts and a context chip">
+                <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url"><svg><use href="#i-lock"/></svg>app.vigil.io/assist</span></div>
+                <div class="tb"><span class="lg"><svg><use href="#logo"/></svg>vigil</span><span class="ws"><i></i>Northgate Energy<svg><use href="#i-chev-d"/></svg></span><span class="se"><svg><use href="#i-search"/></svg>Search assets, CVEs, findings<kbd>⌘K</kbd></span><span class="tbr"><span class="tbi"><svg><use href="#i-bell"/></svg><b></b></span><span class="av">RK</span></span></div>
+                <div class="ub" style="grid-template-columns:52px 196px minmax(0,1fr)">
+                  <nav class="sb"><span class="si"><svg><use href="#i-grid"/></svg></span><span class="si"><svg><use href="#i-alert"/></svg></span><span class="si"><svg><use href="#i-server"/></svg></span><span class="si"><svg><use href="#i-radar"/></svg></span><span class="si"><svg><use href="#i-list"/></svg></span><span class="si"><svg><use href="#i-file"/></svg></span><span class="si aiv on"><svg><use href="#spark"/></svg></span><span class="gap"></span><span class="si"><svg><use href="#i-gear"/></svg></span></nav>
+                  <div class="hp">
+                    <span class="nb"><svg><use href="#i-plus"/></svg>New thread</span>
+                    <div data-a="s2-hist">
+                      <div class="hg">Today</div>
+                      <div class="hi">Ransomware exposure in OT</div>
+                      <div class="hi">Board brief, October</div>
+                      <div class="hg">This week</div>
+                      <div class="hi">Weekly threat review</div>
+                      <div class="hi">Expired certificates on edge</div>
+                      <div class="hi">False positives, web scanner</div>
+                    </div>
+                    <div data-a="s2-books">
+                      <div class="hg">Prompt books</div>
+                      <div class="hi"><svg><use href="#i-book"/></svg>Monday threat review<em>6</em></div>
+                      <div class="hi"><svg><use href="#i-book"/></svg>Board prep<em>4</em></div>
+                      <div class="hi"><svg><use href="#i-book"/></svg>New CVE triage<em>5</em></div>
+                    </div>
+                  </div>
+                  <div class="ac">
+                    <p class="gm"><svg><use href="#spark"/></svg>Good morning, Rana</p>
+                    <h4>What do you want to look into?</h4>
+                    <div class="cmp">
+                      <span class="ctx" data-a="s2-ctx"><svg><use href="#i-grid"/></svg>Risk overview<svg><use href="#i-x"/></svg></span>
+                      <div class="ph2">Ask about threats, exposures or your own data</div>
+                      <div class="cmpf"><span class="ic bx" style="width:26px;height:26px"><svg><use href="#i-clip"/></svg></span><span class="srcsel">Vigil intel and this workspace<svg><use href="#i-chev-d"/></svg></span><span class="snd"><svg><use href="#i-send"/></svg></span></div>
+                    </div>
+                    <div class="sug" data-a="s2-chips">
+                      <small>Threat research</small>
+                      <div class="chips"><span class="chip"><svg><use href="#i-chart"/></svg>Trending vulnerabilities</span><span class="chip"><svg><use href="#i-alert"/></svg>Top exploits this week</span><span class="chip"><svg><use href="#i-radar"/></svg>Recent ransomware activity</span><span class="chip hv"><svg><use href="#spark"/></svg>Threats to the energy sector</span></div>
+                      <small>Product help</small>
+                      <div class="chips"><span class="chip">Create a ticket</span><span class="chip">Report a false positive</span><span class="chip">Set up alerts</span></div>
+                    </div>
+                    <p class="disc">Vigil can be wrong. Check sources before you act.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="anno-col r">
+              <div class="an" tabindex="0" data-for="s2-ctx"><b>Context comes along</b><p>Opened from the summary, so the dashboard is already in context. One click removes it.</p></div>
+              <div class="an" tabindex="0" data-for="s2-chips"><b>The box never starts empty</b><p>Starter prompts split into threat questions and product help.</p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+
+        <p class="sub-h">The answer</p>
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <div class="an" tabindex="0" data-for="s3-scope"><b>Says what it read</b><p>How many reports, which dates, how fresh. The analyst judges the answer before reading it.</p></div>
+              <div class="an" tabindex="0" data-for="s3-tabs"><b>Tabs, not a wall of text</b><p>One question returns several views. The reader picks table or chart.</p></div>
+              <div class="an" tabindex="0" data-for="s3-anl"><b>Data first, opinion second</b><p>The written analysis sits under the evidence, not above it.</p></div>
+            </div>
+            <div class="shot-fit">
+              <div class="shot ui" aria-label="Ask Vigil answer about threats against the energy sector">
+                <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url"><svg><use href="#i-lock"/></svg>app.vigil.io/assist/t/energy-threats</span></div>
+                <div class="tb"><span class="lg"><svg><use href="#logo"/></svg>vigil</span><span class="ws"><i></i>Northgate Energy<svg><use href="#i-chev-d"/></svg></span><span class="se"><svg><use href="#i-search"/></svg>Search assets, CVEs, findings<kbd>⌘K</kbd></span><span class="tbr"><span class="tbi"><svg><use href="#i-bell"/></svg><b></b></span><span class="av">RK</span></span></div>
+                <div class="ub">
+                  <nav class="sb"><span class="si"><svg><use href="#i-grid"/></svg></span><span class="si"><svg><use href="#i-alert"/></svg></span><span class="si"><svg><use href="#i-server"/></svg></span><span class="si"><svg><use href="#i-radar"/></svg></span><span class="si"><svg><use href="#i-list"/></svg></span><span class="si"><svg><use href="#i-file"/></svg></span><span class="si aiv on"><svg><use href="#spark"/></svg></span><span class="gap"></span><span class="si"><svg><use href="#i-gear"/></svg></span></nav>
+                  <div class="th">
+                    <div class="um">Give me an overview of threats against the energy sector</div>
+                    <div class="am"><span class="aii sm"><svg><use href="#spark"/></svg></span><div><b>Threats against the energy sector</b><small data-a="s3-scope">Read 214 intel reports from the last 90 days. Updated 2 h ago.</small></div><span class="fb"><span class="ic"><svg><use href="#i-thumb"/></svg></span><span class="ic"><svg style="transform:scaleY(-1)"><use href="#i-thumb"/></svg></span></span></div>
+                    <div class="ans">
+                      <div class="tabs" role="tablist" aria-label="Answer views" data-a="s3-tabs">
+                        <button role="tab" aria-selected="false" aria-controls="t1" id="b1" tabindex="-1"><svg><use href="#i-table"/></svg>Recent attacks</button>
+                        <button role="tab" aria-selected="true" aria-controls="t2" id="b2"><svg><use href="#i-table"/></svg>Actors by origin</button>
+                        <button role="tab" aria-selected="false" aria-controls="t3" id="b3" tabindex="-1"><svg><use href="#i-chart"/></svg>Origin share</button>
+                        <button role="tab" aria-selected="false" aria-controls="t4" id="b4" tabindex="-1"><svg><use href="#i-table"/></svg>Tools</button>
+                      </div>
+                      <div class="panel" role="tabpanel" id="t1" aria-labelledby="b1" hidden>
+                        <table><thead><tr><th>Date</th><th>Target</th><th>Type</th><th>Status</th></tr></thead><tbody>
+                          <tr><td>8 Oct</td><td>Gulf utility, OT network</td><td>Wiper attempt</td><td><span class="st8"><i style="background:var(--u-good)"></i>Contained</span></td></tr>
+                          <tr><td>2 Oct</td><td>European grid operator</td><td>Ransomware</td><td><span class="st8"><i style="background:var(--u-crit)"></i>Disclosed</span></td></tr>
+                          <tr><td>27 Sep</td><td>LNG terminal supplier</td><td>Credential theft</td><td><span class="st8"><i style="background:var(--u-med)"></i>Investigating</span></td></tr>
+                          <tr><td>19 Sep</td><td>Solar inverter vendor</td><td>Supply chain</td><td><span class="st8"><i style="background:var(--u-good)"></i>Patched</span></td></tr>
+                          <tr><td>11 Sep</td><td>Pipeline control vendor</td><td>Phishing</td><td><span class="st8"><i style="background:var(--u-med)"></i>Investigating</span></td></tr>
+                        </tbody></table>
+                      </div>
+                      <div class="panel" role="tabpanel" id="t2" aria-labelledby="b2">
+                        <table><thead><tr><th>Origin</th><th>Groups</th><th>Main motive</th><th>Trend</th></tr></thead><tbody>
+                          <tr><td>China</td><td class="n">18</td><td>Espionage, data theft</td><td><span class="pill dn">Rising</span></td></tr>
+                          <tr><td>Russia</td><td class="n">14</td><td>Sabotage, espionage</td><td><span class="pill dn">Rising</span></td></tr>
+                          <tr><td>Iran</td><td class="n">11</td><td>Disruption</td><td><span class="pill med">Steady</span></td></tr>
+                          <tr><td>North Korea</td><td class="n">5</td><td>Financial gain</td><td><span class="pill med">Steady</span></td></tr>
+                          <tr><td>Unattributed</td><td class="n">22</td><td>Mixed</td><td><span class="pill up">Falling</span></td></tr>
+                        </tbody></table>
+                      </div>
+                      <div class="panel" role="tabpanel" id="t3" aria-labelledby="b3" hidden>
+                        <div class="bars">
+                          <div class="bar"><span>Unattributed</span><i style="width:100%"></i><b>31%</b></div>
+                          <div class="bar"><span>China</span><i style="width:82%"></i><b>25%</b></div>
+                          <div class="bar"><span>Russia</span><i style="width:64%"></i><b>20%</b></div>
+                          <div class="bar"><span>Iran</span><i style="width:50%"></i><b>16%</b></div>
+                          <div class="bar"><span>North Korea</span><i style="width:23%"></i><b>7%</b></div>
+                        </div>
+                      </div>
+                      <div class="panel" role="tabpanel" id="t4" aria-labelledby="b4" hidden>
+                        <table><thead><tr><th>Tool type</th><th>Reports</th><th>Seen in your estate</th></tr></thead><tbody>
+                          <tr><td>Living-off-the-land binaries</td><td class="n">41</td><td>Yes, 6 assets</td></tr>
+                          <tr><td>Remote access trojans</td><td class="n">33</td><td>No</td></tr>
+                          <tr><td>Credential dumpers</td><td class="n">29</td><td>Yes, 2 assets</td></tr>
+                          <tr><td>ICS-specific malware</td><td class="n">12</td><td>No</td></tr>
+                        </tbody></table>
+                      </div>
+                      <div class="acts"><span class="ubtn"><svg><use href="#i-dl"/></svg>Export CSV</span><span class="ubtn"><svg><use href="#i-save"/></svg>Save to report</span><span class="ubtn" data-a="s3-acts"><svg><use href="#i-copy"/></svg>Copy</span></div>
+                    </div>
+                    <div class="anl" data-a="s3-anl"><b>Analysis</b><p>State-linked groups lead. Espionage is the most common motive, and sabotage targets grid operators.</p><div class="srcs">Sources<span>Vigil intel, 168</span><span>Vendor reports, 46</span></div></div>
+                    <div class="fu"><div class="chips" data-a="s3-fu" style="width:max-content"><span class="chip">Which of my assets are affected?</span><span class="chip act"><svg><use href="#spark"/></svg>Create task suite</span><span class="chip">Create alert</span></div></div>
+                    <div class="cmp sm" style="margin-top:16px"><span style="color:var(--u-ink3);font-size:12.5px">Ask a follow-up</span><span class="snd"><svg><use href="#i-send"/></svg></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="anno-col r">
+              <div class="an" tabindex="0" data-for="s3-acts"><b>Every block exports</b><p>Analysts paste these into reports, so each block saves on its own.</p></div>
+              <div class="an" tabindex="0" data-for="s3-fu"><b>Follow-ups that act</b><p>Next steps mix questions and actions. Create task suite opens the next screen.</p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+      </section>
+
+
+      <!-- ===================== PROMPTBOOKS ===================== -->
+      <section id="promptbooks">
+        <div class="txt">
+          <p class="sec-name">Feature three: promptbooks</p>
+          <h2>A senior analyst’s investigation, saved as one button the whole team can press.</h2>
+          <p class="p full">Every new threat actor or CVE got the same five or six questions from our best analysts. Juniors skipped steps or wrote the prompts differently, so no two reports looked alike. Promptbooks save the sequence once. Anyone runs it with one input and gets the same structure back.</p>
+        </div>
+
+        <div class="why">
+          <div><b>Expert steps, shared</b><span>A senior analyst’s method becomes something a new hire can run on day one.</span></div>
+          <div><b>Same shape every time</b><span>Every actor profile has the same sections, so reports compare side by side.</span></div>
+          <div><b>Type it once</b><span>The threat actor goes in one field. A variable fills it into every prompt.</span></div>
+          <div><b>Nothing gets skipped</b><span>The book runs every step in order, even on a busy Monday.</span></div>
+        </div>
+
+        <p class="sub-h">Pick a book, give it one input</p>
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <div class="an" tabindex="0" data-for="p1-lib" data-at="left"><b>A library, not a blank box</b><p>Investigations the team already trusts, one click from the co-pilot home.</p></div>
+              <div class="an" tabindex="0" data-for="p1-in" data-at="left"><b>One input</b><p>The only thing the analyst types. It fills every prompt below.</p></div>
+              <div class="an" tabindex="0" data-for="p1-prompts" data-at="left"><b>Prompts you can read</b><p>No hidden magic. The variable is marked, so people see exactly what will be asked.</p></div>
+            </div>
+            <div class="shot-fit">
+              <div class="shot ui" role="img" aria-label="Promptbooks drawer with the Profiling a threat actor book expanded">
+                <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url"><svg><use href="#i-lock"/></svg>app.vigil.io/assist/promptbooks</span></div>
+                <div class="tb"><span class="lg"><svg><use href="#logo"/></svg>vigil</span><span class="ws"><i></i>Northgate Energy<svg><use href="#i-chev-d"/></svg></span><span class="se"><svg><use href="#i-search"/></svg>Search assets, CVEs, findings<kbd>⌘K</kbd></span><span class="tbr"><span class="tbi"><svg><use href="#i-bell"/></svg><b></b></span><span class="av">RK</span></span></div>
+                <div class="ub scene" style="min-height:690px">
+                  <nav class="sb"><span class="si"><svg><use href="#i-grid"/></svg></span><span class="si"><svg><use href="#i-alert"/></svg></span><span class="si"><svg><use href="#i-server"/></svg></span><span class="si"><svg><use href="#i-radar"/></svg></span><span class="si"><svg><use href="#i-list"/></svg></span><span class="si"><svg><use href="#i-file"/></svg></span><span class="si aiv on"><svg><use href="#spark"/></svg></span><span class="gap"></span><span class="si"><svg><use href="#i-gear"/></svg></span></nav>
+                  <div class="homebg">
+                    <p class="gm"><svg><use href="#spark"/></svg>Good morning, Rana</p>
+                    <h4>What do you want to look into?</h4>
+                    <div class="cmp"><div class="ph2" style="margin:2px 0 10px">Ask about threats, exposures or your own data</div><div class="cmpf"><span class="snd" style="margin-left:auto"><svg><use href="#i-send"/></svg></span></div></div>
+                    <span class="usepb"><svg><use href="#i-book"/></svg>Use promptbooks</span>
+                  </div>
+                  <div class="scrim"></div>
+                  <div class="drawer" style="width:410px">
+                    <div class="pbh"><span class="aii sm"><svg><use href="#i-book"/></svg></span><div><b>Promptbooks</b><small>Saved investigations you run in one go</small></div><span class="ic"><svg><use href="#i-x"/></svg></span></div>
+                    <div class="pbtabs"><span class="on">Library</span><span data-a="p1-tabs">Team</span><span>Mine</span><span class="ubtn"><svg><use href="#i-plus"/></svg>New</span></div>
+                    <div class="pbs"><svg><use href="#i-search"/></svg>Search promptbooks</div>
+                    <div class="pbl">
+                      <div class="pbr" data-a="p1-lib"><svg><use href="#i-chev-r"/></svg>CVE investigation<em>6 prompts</em></div>
+                      <div class="pbx">
+                        <div class="pbx-h"><svg><use href="#i-chev-d"/></svg>Profiling a threat actor<span class="ubtn aip" data-a="p1-run"><svg><use href="#spark"/></svg>Run</span></div>
+                        <div class="pbx-b">
+                          <div class="fld" data-a="p1-in"><label>Threat actor</label><div class="in foc">APT29<i></i></div></div>
+                          <div style="font-size:11px;font-weight:600;color:var(--u-ink2);margin-top:10px">Prompts, run in order</div>
+                          <ol class="prl" data-a="p1-prompts">
+                            <li><span>Give me a profile summary of <span class="tok">&lt;Threat actor&gt;</span>. End with an executive summary.</span></li>
+                            <li><span>Summarise the popular MITRE ATT&amp;CK techniques as bullets, linked to MITRE.</span></li>
+                            <li><span>Show targeted industries, origin country and targeted countries.</span></li>
+                            <li><span>List the most targeted vendors and products.</span></li>
+                            <li><span>Show vulnerabilities linked to <span class="tok">&lt;Threat actor&gt;</span>, by severity.</span></li>
+                          </ol>
+                          <span class="addp" data-a="p1-add"><svg><use href="#i-plus"/></svg>Add a prompt</span>
+                          <div class="pbmeta"><span>By Threat intel team</span><span>Edited 3 days ago</span></div>
+                        </div>
+                      </div>
+                      <div class="pbr"><svg><use href="#i-chev-r"/></svg>Zero-day investigation<em>4 prompts</em></div>
+                      <div class="pbr"><svg><use href="#i-chev-r"/></svg>Monday threat review<em>6 prompts</em></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="anno-col r">
+              <div class="an" tabindex="0" data-for="p1-tabs" data-at="top"><b>Owned by teams</b><p>Library, team and personal books. Good ones get promoted.</p></div>
+              <div class="an" tabindex="0" data-for="p1-run"><b>Run runs them all</b><p>Five prompts go in order, without the analyst retyping anything.</p></div>
+              <div class="an" tabindex="0" data-for="p1-add"><b>Grows with the team</b><p>Anyone can add a step. The book gets better every time it is used.</p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+
+        <p class="sub-h">The run</p>
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <div class="an" tabindex="0" data-for="p2-run" data-at="left"><b>Status up top</b><p>Which book, which input, how many steps done. One line.</p></div>
+              <div class="an" tabindex="0" data-for="p2-step" data-at="left"><b>Every step is labelled</b><p>The prompt shows as a normal message with its step number, so the thread reads like a report.</p></div>
+              <div class="an" tabindex="0" data-for="p2-fold" data-at="left"><b>Long runs fold</b><p>Later steps collapse to one line. The analyst opens what they need.</p></div>
+            </div>
+            <div class="shot-fit">
+              <div class="shot ui" role="img" aria-label="Ask Vigil thread after running the Profiling a threat actor promptbook for APT29">
+                <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url"><svg><use href="#i-lock"/></svg>app.vigil.io/assist/t/apt29-profile</span></div>
+                <div class="tb"><span class="lg"><svg><use href="#logo"/></svg>vigil</span><span class="ws"><i></i>Northgate Energy<svg><use href="#i-chev-d"/></svg></span><span class="se"><svg><use href="#i-search"/></svg>Search assets, CVEs, findings<kbd>⌘K</kbd></span><span class="tbr"><span class="tbi"><svg><use href="#i-bell"/></svg><b></b></span><span class="av">RK</span></span></div>
+                <div class="ub">
+                  <nav class="sb"><span class="si"><svg><use href="#i-grid"/></svg></span><span class="si"><svg><use href="#i-alert"/></svg></span><span class="si"><svg><use href="#i-server"/></svg></span><span class="si"><svg><use href="#i-radar"/></svg></span><span class="si"><svg><use href="#i-list"/></svg></span><span class="si"><svg><use href="#i-file"/></svg></span><span class="si aiv on"><svg><use href="#spark"/></svg></span><span class="gap"></span><span class="si"><svg><use href="#i-gear"/></svg></span></nav>
+                  <div class="th" style="max-width:640px">
+                    <div class="runb" data-a="p2-run"><span class="aii sm"><svg><use href="#i-book"/></svg></span><b>Profiling a threat actor</b><span class="ctx">APT29</span><span class="dots"><i></i><i></i><i></i><i></i><i></i></span><small>5 of 5 done</small><a data-a="p2-edit"><svg><use href="#i-ext"/></svg>Edit book</a></div>
+
+                    <div class="stq"><em data-a="p2-step">Step 1</em><div class="um">Give me a profile summary of APT29. End with an executive summary.</div></div>
+                    <div class="ansc">
+                      <b>APT29 profile</b>
+                      <p>Russian state-backed group linked to the SVR foreign intelligence service, also tracked as Cozy Bear. It runs long, quiet espionage campaigns against governments, think tanks and healthcare. Best known for the SolarWinds supply chain compromise.</p>
+                      <div class="ansf" data-a="p2-save"><span class="ic"><svg><use href="#i-refresh"/></svg></span><span class="ic"><svg><use href="#i-copy"/></svg></span><span class="ic"><svg><use href="#i-save"/></svg></span></div>
+                    </div>
+
+                    <div class="stq"><em>Step 2</em><div class="um">Summarise the popular MITRE ATT&amp;CK techniques as bullets, linked to MITRE.</div></div>
+                    <div class="ansc">
+                      <dl class="mt2">
+                        <dt>Initial access</dt><dd><a>Phishing, T1566</a>. <a>Exploit public-facing app, T1190</a></dd>
+                        <dt>Execution</dt><dd><a>Command and scripting interpreter, T1059</a></dd>
+                        <dt>Persistence</dt><dd><a>Boot or logon autostart, T1547</a></dd>
+                        <dt>Privilege escalation</dt><dd><a>Valid accounts, T1078</a></dd>
+                      </dl>
+                    </div>
+
+                    <div data-a="p2-fold">
+                      <div class="colr"><em>Step 3</em>Targeted industries, origin and countries<span>Open</span></div>
+                      <div class="colr"><em>Step 4</em>Most targeted vendors and products<span>Open</span></div>
+                      <div class="colr"><em>Step 5</em>Vulnerabilities by severity<span>Open</span></div>
+                    </div>
+
+                    <div class="fu"><div class="chips"><span class="chip">Which of my assets are linked to APT29?</span><span class="chip">My weaknesses tied to APT29</span><span class="chip act" data-a="p2-fu"><svg><use href="#spark"/></svg>Create task suite</span><span class="chip">Create notification</span></div></div>
+                    <div class="cmp sm" style="margin-top:14px"><span style="color:var(--u-ink3);font-size:12.5px">Ask a follow-up about APT29</span><span class="snd"><svg><use href="#i-send"/></svg></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="anno-col r">
+              <div class="an" tabindex="0" data-for="p2-edit" data-at="top"><b>Edit from the result</b><p>If a step was weak, fix the book right here for next time.</p></div>
+              <div class="an" tabindex="0" data-for="p2-save" data-at="bottom"><b>Each answer stands alone</b><p>Rerun, copy or save one step without running the whole book again.</p></div>
+              <div class="an" tabindex="0" data-for="p2-fu" data-at="bottom"><b>Ends in action</b><p>The profile leads straight to the analyst’s own assets and a task suite.</p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+      </section>
+
+      <!-- ===================== ACTION ===================== -->
+      <section id="action">
+        <div class="txt">
+          <p class="sec-name">Feature four: answer to action</p>
+          <h2>An answer is not the end. The fix is.</h2>
+          <p class="p full">Create task suite opens a drawer the AI has already filled in. The analyst checks the scope, edits one field and saves.</p>
+        </div>
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <div class="an" tabindex="0" data-for="s4-flow" data-at="left"><b>Logic you can read</b><p>Scope, then tag, assign and ticket, drawn as one flow.</p></div>
+              <div class="an" tabindex="0" data-for="s4-blast" data-at="left"><b>Shows what it will touch</b><p>Before saving, the drawer counts the findings and assets the rule will hit.</p></div>
+            </div>
+            <div class="shot-fit">
+              <div class="shot ui" role="img" aria-label="Create task suite drawer, pre-filled from the answer">
+                <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url"><svg><use href="#i-lock"/></svg>app.vigil.io/assist/t/energy-threats</span></div>
+                <div class="tb"><span class="lg"><svg><use href="#logo"/></svg>vigil</span><span class="ws"><i></i>Northgate Energy<svg><use href="#i-chev-d"/></svg></span><span class="se"><svg><use href="#i-search"/></svg>Search assets, CVEs, findings<kbd>⌘K</kbd></span><span class="tbr"><span class="tbi"><svg><use href="#i-bell"/></svg><b></b></span><span class="av">RK</span></span></div>
+                <div class="ub scene">
+                  <nav class="sb"><span class="si"><svg><use href="#i-grid"/></svg></span><span class="si"><svg><use href="#i-alert"/></svg></span><span class="si"><svg><use href="#i-server"/></svg></span><span class="si"><svg><use href="#i-radar"/></svg></span><span class="si"><svg><use href="#i-list"/></svg></span><span class="si"><svg><use href="#i-file"/></svg></span><span class="si aiv on"><svg><use href="#spark"/></svg></span><span class="gap"></span><span class="si"><svg><use href="#i-gear"/></svg></span></nav>
+                  <div class="th" style="margin:0;max-width:440px;padding-right:20px">
+                    <div class="um">Give me an overview of threats against the energy sector</div>
+                    <div class="am"><span class="aii sm"><svg><use href="#spark"/></svg></span><div><b>Threats against the energy sector</b><small>Read 214 intel reports from the last 90 days.</small></div></div>
+                    <div class="ans"><table><thead><tr><th>Origin</th><th>Groups</th><th>Main motive</th></tr></thead><tbody><tr><td>China</td><td class="n">18</td><td>Espionage</td></tr><tr><td>Russia</td><td class="n">14</td><td>Sabotage</td></tr><tr><td>Iran</td><td class="n">11</td><td>Disruption</td></tr></tbody></table></div>
+                    <div class="fu chips"><span class="chip">Which of my assets are affected?</span><span class="chip act"><svg><use href="#spark"/></svg>Create task suite</span></div>
+                  </div>
+                  <div class="scrim"></div>
+                  <div class="drawer">
+                    <div class="dh"><span class="aii sm"><svg><use href="#spark"/></svg></span><b>Create task suite</b><a data-a="s4-full">Open full builder<svg><use href="#i-ext"/></svg></a><span class="ic"><svg><use href="#i-x"/></svg></span></div>
+                    <div class="db">
+                      <span class="src" data-a="s4-src"><svg><use href="#spark"/></svg>Drafted from: Threats against the energy sector</span>
+                      <div class="fld"><label>Name</label><div class="in foc">Critical exposures: energy sector</div></div>
+                      <div class="flow" data-a="s4-flow">
+                        <div class="stp"><span class="nm">1</span><div><b>Scope</b><span class="fc">Risk index <em>≥ 8</em></span><span class="fc">Sector <em>Energy</em></span><span class="fc">Threat actor <em>exists</em></span><span class="fc add">Add filter</span><div class="mt" data-a="s4-blast"><svg><use href="#i-alert"/></svg>Matches <b>248 findings</b> on <b>31 assets</b></div></div></div>
+                        <div class="stp"><span class="nm">2</span><div><b>Add tags</b><span class="fc">ransomware</span><span class="fc">energy</span><span class="fc">board-watch</span></div></div>
+                        <div class="stp"><span class="nm">3</span><div><b>Assign workspace</b><span class="fc">Grid operations<span class="avs"><i style="background:#F79009"></i><i style="background:#2E90FA"></i><i style="background:#12A15A"></i></span></span></div></div>
+                        <div class="stp"><span class="nm">4</span><div><b>Create ticket</b><span class="fc">Project <em>VIG</em></span><span class="fc">Priority <em>P1</em></span></div></div>
+                      </div>
+                      <div class="tg"><div>Run on new matches<small>New findings that fit the scope join the suite</small></div><span class="sw"></span></div>
+                    </div>
+                    <div class="df"><span class="ubtn">Cancel</span><span class="ubtn pri" data-a="s4-save">Save and run</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="anno-col r">
+              <div class="an" tabindex="0" data-for="s4-full" data-at="top"><b>Room for experts</b><p>The full builder opens with the same draft.</p></div>
+              <div class="an" tabindex="0" data-for="s4-src"><b>Pre-filled from the answer</b><p>The drawer opens with the scope the AI already found. The analyst edits instead of typing.</p></div>
+              <div class="an" tabindex="0" data-for="s4-save"><b>People decide</b><p>Nothing runs until someone presses Save and run.</p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+      </section>
+
+      <section id="decision">
+        <div class="txt">
+          <p class="sec-name">Decision</p>
+          <h2>One assistant, three places to meet it.</h2>
+          <p class="p full">I explored where the co-pilot should live. Each placement serves a different moment, so they share one engine and hand off to each other.</p>
+        </div>
+        <div class="opts">
+          <div class="opt">
+            <div class="thumb" aria-hidden="true"><div class="tb0"></div><div class="tin"><div class="tr"></div><div style="display:grid;place-items:center;padding:14px"><div style="width:72%"><i class="sk" style="width:50%;margin:0 auto 10px;height:12px;background:#6E4BF2;opacity:.75"></i><div style="border:1.5px solid #B9A8FC;border-radius:8px;height:30px;background:#fff"></div><div class="skrow"><i class="sk" style="width:30%"></i><i class="sk" style="width:30%"></i><i class="sk" style="width:30%"></i></div></div></div></div></div>
+            <h3>Full page</h3>
+            <dl><dt>Best for</dt><dd>Open research, like threat trends across an industry.</dd><dt class="t">Trade-off</dt><dd>Takes the user away from the page they were on.</dd></dl>
+          </div>
+          <div class="opt">
+            <div class="thumb" aria-hidden="true"><div class="tb0"></div><div class="tin"><div class="tr"></div><div style="display:grid;grid-template-columns:1fr 40%"><div style="padding:12px"><div class="skrow" style="margin-top:0"><i class="sk" style="width:70%"></i></div><div class="skrow"><i class="sk" style="width:60%"></i></div><div class="skrow"><i class="sk" style="width:70%"></i></div><div class="skrow"><i class="sk" style="width:55%"></i></div><div class="skrow"><i class="sk" style="width:65%"></i></div></div><div style="background:#fff;padding:10px;border-left:1px solid #E3E7EF"><i class="sk" style="width:60%;background:#6E4BF2;opacity:.75;height:10px"></i><div style="background:#F2EEFF;border:1px solid #DCD2FE;border-radius:6px;height:54px;margin-top:10px"></div></div></div></div></div>
+            <h3>Side panel</h3>
+            <dl><dt>Best for</dt><dd>Questions about the list or dashboard on screen, with that context passed in.</dd><dt class="t">Trade-off</dt><dd>Narrow width. Wide tables scroll or expand to full page.</dd></dl>
+          </div>
+          <div class="opt">
+            <div class="thumb" aria-hidden="true"><div class="tb0"></div><div class="tin"><div class="tr"></div><div style="padding:12px"><div style="border:1px solid #DCD2FE;border-top:2px solid #6E4BF2;border-radius:8px;padding:10px;background:#fff"><div class="skrow" style="margin-top:0;align-items:center"><i style="width:7px;height:7px;border-radius:50%;background:#12A15A"></i><i class="sk" style="width:70%"></i></div><div class="skrow" style="align-items:center"><i style="width:7px;height:7px;border-radius:50%;background:#D92D20"></i><i class="sk" style="width:60%"></i></div><div class="skrow" style="align-items:center"><i style="width:7px;height:7px;border-radius:50%;background:#D92D20"></i><i class="sk" style="width:50%"></i></div></div><div style="border:1px solid #E3E7EF;border-radius:8px;height:36px;margin-top:10px;background:#fff"></div></div></div></div>
+            <h3>Inline summary</h3>
+            <dl><dt>Best for</dt><dd>Leaders who will never open a chat window.</dd><dt class="t">Trade-off</dt><dd>Fixed questions. Links out to the panel for anything else.</dd></dl>
+          </div>
+        </div>
+        <p class="decision">Keep all three on one engine. The summary hands off to the panel, and the panel expands to the full page. The user never repeats their question.</p>
+      </section>
+
+      <section id="outcome">
+        <div class="txt">
+          <p class="sec-name">Outcome</p>
+          <h2>From reading dashboards to acting on them.</h2>
+        </div>
+        <div class="kpis k5">
+          <div class="kpi"><strong>6 → 1</strong><span>Dashboard widgets to read, now one 5-line brief</span></div>
+          <div class="kpi"><strong>7 → 3</strong><span>Steps from a threat question to an assigned fix</span></div>
+          <div class="kpi"><strong>3 → 1</strong><span>Tools for research, triage and ticketing</span></div>
+          <div class="kpi"><strong>7 → 1</strong><span>Fields to set up an automation. AI fills the rest.</span></div>
+          <div class="kpi"><strong>5 → 1</strong><span>Prompts typed for a threat actor profile. Now one input.</span></div>
+        </div>
+        <details class="how full">
+          <summary>How I counted</summary>
+          <p><b>Steps, before:</b> research the threat outside the product, open the exposure list, build the filter, select matches, add tags, assign a workspace, raise a ticket in another tool. <b>After:</b> ask, press Create task suite, press Save and run.</p>
+          <p><b>Prompts:</b> the threat actor book has five prompts. Before, an analyst typed each one with the actor name. Now they type the name once and press Run.</p>
+          <p><b>Fields:</b> name, three filter values, tags, workspace and ticket were typed by hand. Now the AI drafts all of them and the analyst checks the name.</p>
+          <p><b>Reading time:</b> the brief is 64 words. At an average adult reading speed that is under 20 seconds.</p>
+        </details>
+      </section>
+
+      <section id="hindsight">
+        <div class="txt">
+          <p class="sec-name">What I’d do differently</p>
+          <h2>Three things I’d change next time.</h2>
+        </div>
+        <div class="hind">
+          <div><h3>Test with real board decks earlier</h3><p class="full">I’d put the summary in front of CISOs next to their own board slides before the layout was final.</p></div>
+          <div><h3>Ship answer feedback on day one</h3><p class="full">Helpful or not, on every answer, so quality has a signal from the first week.</p></div>
+          <div><h3>Design “I don’t know” as carefully as the right answer</h3><p class="full">A clear no-answer with a next step builds more trust than a confident guess.</p></div>
+        </div>
+      </section>
+
+    </div>
+    <aside class="toc" aria-label="Case study sections">
+      <p>In this case study</p>
+      <ol><li><a href="#problem"><span class="ck"><svg><use href="#i-check"/></svg></span>Problem</a></li><li><a href="#rules"><span class="ck"><svg><use href="#i-check"/></svg></span>Rules I set</a></li><li><a href="#summary"><span class="ck"><svg><use href="#i-check"/></svg></span>AI summary</a></li><li><a href="#copilot"><span class="ck"><svg><use href="#i-check"/></svg></span>Ask Vigil</a></li><li><a href="#promptbooks"><span class="ck"><svg><use href="#i-check"/></svg></span>Promptbooks</a></li><li><a href="#action"><span class="ck"><svg><use href="#i-check"/></svg></span>Answer to action</a></li><li><a href="#decision"><span class="ck"><svg><use href="#i-check"/></svg></span>Decision</a></li><li><a href="#outcome"><span class="ck"><svg><use href="#i-check"/></svg></span>Outcome</a></li><li><a href="#hindsight"><span class="ck"><svg><use href="#i-check"/></svg></span>Hindsight</a></li></ol>
+      <p class="tt">About 3 minutes in Skim</p>
+    </aside>
+    <div class="next"><span>Next case study</span><a href="proctra.html">Proctra ↗</a></div>
+  </div>
+</main>
+
+<script>
+(function(){
+  var SVGNS='http://www.w3.org/2000/svg';
+
+  /* ---------- Annotated figures ---------- */
+  var figs=[].slice.call(document.querySelectorAll('[data-anno]'));
+  var DESIGN_W=1180, SHOT_W=820, MIN_GUTTER_W=960;
+
+  function layout(fig, idx){
+    var stage=fig.querySelector('.anno-stage');
+    var fit=fig.querySelector('.shot-fit');
+    var shot=fig.querySelector('.shot');
+    var svg=fig.querySelector('.anno-svg');
+    var avail=fig.clientWidth;
+    var stacked=avail<MIN_GUTTER_W||window.matchMedia('(max-width:1365px)').matches;
+    fig.classList.toggle('stacked',stacked);
+    var notes=[].slice.call(fig.querySelectorAll('.an'));
+
+    if(stacked){
+      stage.style.transform=''; fig.style.height='';
+      notes.forEach(function(n){n.style.top='';});
+      var s=Math.min(1,avail/SHOT_W);
+      shot.style.transform='scale('+s+')';
+      fit.style.height=(shot.offsetHeight*s)+'px';
+      return;
+    }
+    shot.style.transform=''; fit.style.height='';
+    var sc=Math.min(1.3,avail/DESIGN_W);
+    var off=Math.max(0,(avail-DESIGN_W*sc)/2);
+    stage.style.transform='translateX('+off+'px) scale('+sc+')';
+    var sr=stage.getBoundingClientRect();
+    function rel(el){
+      var r=el.getBoundingClientRect();
+      return {l:(r.left-sr.left)/sc,t:(r.top-sr.top)/sc,r:(r.right-sr.left)/sc,b:(r.bottom-sr.top)/sc,w:r.width/sc,h:r.height/sc};
+    }
+
+    // place notes next to their targets, pushing down to avoid overlap
+    ['.anno-col.l','.anno-col.r'].forEach(function(sel){
+      var col=fig.querySelector(sel); if(!col) return;
+      var colTop=rel(col).t;
+      var items=[].slice.call(col.querySelectorAll('.an')).map(function(n){
+        var t=fig.querySelector('[data-a="'+n.dataset.for+'"]');
+        var p=t?rel(t):{t:0,h:0};
+        return {n:n,y:p.t+Math.min(p.h/2,14)-colTop};
+      }).sort(function(a,b){return a.y-b.y;});
+      var cursor=0;
+      items.forEach(function(it){
+        var top=Math.max(it.y-9,cursor);
+        it.n.style.top=top+'px';
+        cursor=top+it.n.offsetHeight+22;
+      });
+      col.style.height=cursor+'px';
+    });
+
+    // draw arrows
+    var W=DESIGN_W, H=stage.offsetHeight;
+    svg.setAttribute('width',W); svg.setAttribute('height',H);
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var mid='ah'+idx;
+    var defs=document.createElementNS(SVGNS,'defs');
+    defs.innerHTML='<marker id="'+mid+'" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>';
+    svg.appendChild(defs);
+
+    notes.forEach(function(n){
+      var t=fig.querySelector('[data-a="'+n.dataset.for+'"]'); if(!t) return;
+      var left=!!n.closest('.anno-col.l');
+      var b=rel(n.querySelector('b')), p=rel(t);
+      var sx=left? b.r+8 : b.l-8, sy=b.t+b.h/2;
+      var at=n.dataset.at||(left?'left':'right');
+      var ex,ey,c2x,c2y;
+      if(at==='top'){ex=p.l+p.w/2;ey=p.t-5;c2x=ex;c2y=ey-46;}
+      else if(at==='bottom'){ex=p.l+p.w/2;ey=p.b+5;c2x=ex;c2y=ey+46;}
+      else if(at==='left'){ex=p.l-6;ey=p.t+Math.min(p.h/2,14);c2x=ex-56;c2y=ey;}
+      else {ex=p.r+6;ey=p.t+Math.min(p.h/2,14);c2x=ex+56;c2y=ey;}
+      var dx=Math.max(36,Math.abs(ex-sx)*.35);
+      var c1x=left? sx+dx : sx-dx;
+      var d='M'+sx+' '+sy+' C'+c1x+' '+sy+' '+c2x+' '+c2y+' '+ex+' '+ey;
+      var halo=document.createElementNS(SVGNS,'path'); halo.setAttribute('d',d); halo.setAttribute('class','halo');
+      var ln=document.createElementNS(SVGNS,'path'); ln.setAttribute('d',d); ln.setAttribute('class','ln'); ln.setAttribute('marker-end','url(#'+mid+')');
+      var dot=document.createElementNS(SVGNS,'circle'); dot.setAttribute('cx',sx); dot.setAttribute('cy',sy); dot.setAttribute('r',2.6); dot.setAttribute('class','st');
+      svg.appendChild(halo); svg.appendChild(ln); svg.appendChild(dot);
+      n._ln=ln;
+    });
+    fig.style.height=(H*sc)+'px';
+  }
+
+  function layoutAll(){figs.forEach(layout);}
+
+  figs.forEach(function(fig){
+    fig.querySelectorAll('.an').forEach(function(n){
+      function on(v){
+        var t=fig.querySelector('[data-a="'+n.dataset.for+'"]');
+        if(t) t.classList.toggle('anno-hit',v);
+        n.classList.toggle('on',v);
+        if(n._ln) n._ln.classList.toggle('on',v);
+      }
+      n.addEventListener('mouseenter',function(){on(true);});
+      n.addEventListener('mouseleave',function(){on(false);});
+      n.addEventListener('focus',function(){on(true);});
+      n.addEventListener('blur',function(){on(false);});
+    });
+  });
+
+  var rafL=0;
+  function schedule(){cancelAnimationFrame(rafL); rafL=requestAnimationFrame(function(){layoutAll(); updateIndex();});}
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(schedule); figs.forEach(function(f){ro.observe(f.parentElement);}); }
+  window.addEventListener('resize',schedule);
+  window.addEventListener('load',schedule);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(schedule);
+  layoutAll();
+
+  /* ---------- Reading mode ---------- */
+  var btns=document.querySelectorAll('.mode button');
+  function setMode(m){
+    document.body.classList.toggle('skim',m==='skim');
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.mode===m));});
+    try{localStorage.setItem('cs-mode',m);}catch(e){}
+    schedule();
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.mode);});});
+  var saved=null; try{saved=localStorage.getItem('cs-mode');}catch(e){}
+  setMode(saved==='full'?'full':'skim');
+
+  /* ---------- Tabs ---------- */
+  var tabs=[].slice.call(document.querySelectorAll('[role="tab"]'));
+  function pick(t){
+    tabs.forEach(function(o){
+      var sel=o===t; o.setAttribute('aria-selected',String(sel)); o.tabIndex=sel?0:-1;
+      document.getElementById(o.getAttribute('aria-controls')).hidden=!sel;
+    });
+    schedule();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){pick(t);});
+    t.addEventListener('keydown',function(e){
+      var n=null;
+      if(e.key==='ArrowRight') n=tabs[(i+1)%tabs.length];
+      if(e.key==='ArrowLeft') n=tabs[(i-1+tabs.length)%tabs.length];
+      if(n){e.preventDefault(); n.focus(); pick(n);}
+    });
+  });
+
+  /* ---------- Right index and universal progress ---------- */
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  var bar=document.getElementById('prog-fill'), nowLabel=document.getElementById('now-label');
+  function updateIndex(){
+    var doc=document.documentElement;
+    var max=doc.scrollHeight-window.innerHeight;
+    var p=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
+    bar.style.transform='scaleX('+p+')';
+    var line=window.scrollY+window.innerHeight*0.35;
+    var atEnd=window.scrollY>=max-4;
+    var active=-1;
+    secs.forEach(function(s,i){
+      var top=s.getBoundingClientRect().top+window.scrollY, h=s.offsetHeight;
+      if(line>=top&&line<top+h) active=i;
+      links[i].classList.toggle('done',atEnd||line>=top+h);
+    });
+    if(atEnd) active=-1;
+    links.forEach(function(a,i){ if(i===active) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+    nowLabel.textContent=active>=0?links[active].textContent:(atEnd?'Done':'Introduction');
+  }
+  var rafS=0;
+  window.addEventListener('scroll',function(){cancelAnimationFrame(rafS); rafS=requestAnimationFrame(updateIndex);},{passive:true});
+  updateIndex();
+})();
+</script>
+</body>
+</html>

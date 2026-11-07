@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Case study: a design system with light and dark themes for an assessment platform. Afnan, senior product designer.">
+<meta property="og:title" content="Exam day ran on 8 blues. One of them passed contrast.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20122%20122%22%3E%3Crect%20width%3D%22122%22%20height%3D%22122%22%20rx%3D%2226%22%20fill%3D%22%23111312%22/%3E%3Cg%20transform%3D%22translate%280%209%29%22%20fill%3D%22%2376FBC8%22%3E%3Cpath%20d%3D%22M48.2%2011L53.2%2020L26%2077.2L31%2082.6H15.4Z%22/%3E%3Cpath%20d%3D%22M74%2011L106.4%2082.2H90.4L96.6%2076.8L74%2028L51%2077L56%2082.6H40.6Z%22/%3E%3Ccircle%20cx%3D%2274.6%22%20cy%3D%2263.6%22%20r%3D%226.6%22/%3E%3Crect%20x%3D%2211%22%20y%3D%2290.4%22%20width%3D%22100.4%22%20height%3D%225.2%22/%3E%3C/g%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DigiAssess: a design system for exam day | Afnan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ---------- Portfolio shell tokens ---------- */
+:root{
+  --bg:#F3F5F9; --surface:#FFFFFF; --sunk:#E9EDF4; --ink:#121A2B; --ink-2:#4A556B; --ink-3:#717B8F; --line:#DCE1EA;
+  --brand:#2B4FD8; --brand-ink:#FFFFFF; --brand-soft:#E6ECFF;
+  --annot:#D4127A; --annot-halo:rgba(255,255,255,.92);
+  --navy:#0C1426;
+  --shadow:0 30px 70px -20px rgba(16,28,60,.28), 0 2px 6px rgba(16,28,60,.06);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A0F1C; --surface:#121A2C; --sunk:#182238; --ink:#E8ECF4; --ink-2:#AAB3C5; --ink-3:#8590A5; --line:#253049;
+    --brand:#8FA6FF; --brand-ink:#0A0F1C; --brand-soft:#1A2547;
+    --annot:#FF5CAD; --annot-halo:rgba(10,15,28,.0);
+    --navy:#0E1830;
+    --shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A0F1C; --surface:#121A2C; --sunk:#182238; --ink:#E8ECF4; --ink-2:#AAB3C5; --ink-3:#8590A5; --line:#253049;
+  --brand:#8FA6FF; --brand-ink:#0A0F1C; --brand-soft:#1A2547;
+  --annot:#FF5CAD; --annot-halo:rgba(10,15,28,.0);
+  --navy:#0E1830;
+  --shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:clamp(16px,.35vw + 12px,19px);line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+img{max-width:100%}
+a{color:var(--brand)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* ---------- Header with progress index ---------- */
+.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.site-in{max-width:1920px;margin:0 auto;padding:14px clamp(24px,4.2vw,80px);display:flex;align-items:center;gap:24px}
+.site b{font-weight:600;font-size:16px}
+.site nav.links{display:flex;gap:20px;margin-left:auto;font-size:15px}
+.site nav.links a{color:var(--ink-2);text-decoration:none}
+.site nav.links a:hover{color:var(--ink)}
+.mode{display:inline-flex;background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:3px}
+.mode button{font:inherit;font-size:14px;font-weight:500;border:0;background:transparent;color:var(--ink-2);padding:5px 14px;border-radius:999px;cursor:pointer}
+.mode button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+.prog{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:transparent}
+.prog i{display:block;height:100%;width:100%;background:var(--brand);transform-origin:0 50%;transform:scaleX(0)}
+.now{display:none;font-size:14px;color:var(--ink-2);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now b{font-weight:600;color:var(--ink)}
+.wrap{max-width:1920px;margin:0 auto;padding:0 clamp(24px,4.2vw,80px)}
+
+/* ---------- Hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(40px,5vw,112px);padding:clamp(56px,6vw,112px) 0 clamp(72px,7vw,140px);align-items:center}
+.kicker{font-size:15px;color:var(--ink-2);margin:0 0 20px}
+.kicker a{color:var(--ink-2)}
+h1{font-size:clamp(34px,3.3vw,64px);line-height:1.1;letter-spacing:-.025em;font-weight:500;margin:0 0 24px}
+.lede{font-size:clamp(18px,1.05vw + 4px,24px);line-height:1.5;color:var(--ink-2);margin:0 0 36px}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin:0 0 36px;padding:0}
+.meta div{display:flex;flex-direction:column}
+.meta dt{font-size:13px;color:var(--ink-3)}
+.meta dd{margin:2px 0 0;font-size:15px;font-weight:500}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi strong{display:block;font-size:clamp(22px,2vw,28px);white-space:nowrap;line-height:1.1;letter-spacing:-.02em;color:var(--brand);font-weight:600}
+.kpi span{display:block;font-size:13px;line-height:1.4;color:var(--ink-2);margin-top:8px}
+.nda{font-size:13px;color:var(--ink-3);margin-top:20px}
+.how{margin-top:28px;font-size:15px;color:var(--ink-2)}
+.how summary{cursor:pointer;font-weight:500;color:var(--brand)}
+.how b{color:var(--ink);font-weight:600}
+
+.stage{background:var(--navy);border-radius:24px;padding:clamp(24px,3vw,56px);position:relative;overflow:hidden}
+.stage .hpn{max-width:560px;margin:0 auto}
+.stage::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 90% -10%,rgba(110,75,242,.35),transparent 60%),radial-gradient(500px 300px at -10% 110%,rgba(43,79,216,.35),transparent 60%);pointer-events:none}
+
+/* ---------- Content column ---------- */
+.body{border-top:1px solid var(--line);padding:clamp(72px,7vw,140px) 0 160px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:clamp(48px,5vw,120px)}
+.toc{position:sticky;top:112px;align-self:start;font-size:14.5px}
+.toc p{margin:0 0 16px;font-size:13px;color:var(--ink-3)}
+.toc ol{list-style:none;margin:0;padding:0;position:relative}
+.toc ol::before{content:"";position:absolute;left:9px;top:12px;bottom:12px;width:2px;background:var(--line)}
+.toc li{position:relative}
+.toc a{display:flex;align-items:center;gap:12px;padding:7px 8px 7px 0;color:var(--ink-3);text-decoration:none;border-radius:8px;transition:color .15s}
+.toc a:hover{color:var(--ink)}
+.ck{position:relative;z-index:1;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);background:var(--bg);display:grid;place-items:center;flex:none;transition:background .2s,border-color .2s}
+.ck svg{width:12px;height:12px;color:var(--brand-ink);opacity:0;transition:opacity .2s}
+.toc a.done{color:var(--ink-2)}
+.toc a.done .ck{background:var(--brand);border-color:var(--brand)}
+.toc a.done .ck svg{opacity:1}
+.toc a[aria-current="true"]{color:var(--ink);font-weight:600}
+.toc a[aria-current="true"] .ck{border-color:var(--brand)}
+.toc a[aria-current="true"] .ck::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.toc .tt{margin:20px 0 0;font-size:13px;color:var(--ink-3)}
+section{padding:0 0 clamp(120px,10vw,200px)}
+.txt{margin-bottom:clamp(36px,3vw,56px)}
+section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spacing:-.012em;font-weight:400;color:var(--ink);margin:0}
+.sec-name{font-size:15px;font-weight:600;color:var(--brand);margin:0 0 14px}
+.p{font-size:inherit;color:var(--ink-2);margin:16px 0 0}
+.skim .full{display:none}
+.skim-only{display:none}
+.skim .skim-only{display:inline}
+
+.pains{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:0}
+.pain{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(22px,2vw,32px)}
+.pain h3{font-size:18px;margin:0 0 8px;font-weight:600}
+.pain p{margin:0;font-size:15px;color:var(--ink-2);line-height:1.55}
+.users{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;align-items:center;font-size:15px}
+.tag{background:var(--brand-soft);color:var(--brand);font-weight:500;border-radius:999px;padding:6px 14px;font-size:14px}
+
+.rules{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.rule{padding:22px 28px 0 0}
+.rule b{display:block;font-size:16px;font-weight:600;margin-bottom:4px}
+.rule span{font-size:14px;color:var(--ink-2);line-height:1.5}
+
+.cap{font-size:13px;color:var(--ink-3);margin:18px 0 0;text-align:center}
+.sub-h{font-size:15px;font-weight:600;color:var(--ink-2);margin:88px 0 24px}
+.txt + .sub-h{margin-top:0}
+
+/* ---------- Annotated figure ---------- */
+.anno{margin:0;position:relative}
+.anno-stage{position:relative;width:1180px;display:grid;grid-template-columns:160px 820px 160px;column-gap:20px;align-items:start;transform-origin:0 0}
+.anno-col{position:relative}
+.an{position:absolute;left:0;right:0;font-size:13px;line-height:1.45;cursor:default;outline:none}
+.anno-col.l .an{text-align:right}
+.an b{display:block;font-size:14px;font-weight:600;color:var(--ink);line-height:1.3}
+.an p{margin:4px 0 0;color:var(--ink-2)}
+.skim .an p{display:none}
+.an:hover b,.an:focus-visible b,.an.on b{color:var(--annot)}
+.anno-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:5;color:var(--annot)}
+.anno-svg .halo{stroke:var(--annot-halo);stroke-width:5;fill:none;stroke-linecap:round}
+.anno-svg .ln{stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;transition:stroke-width .15s}
+.anno-svg .ln.on{stroke-width:2.6}
+.anno-svg .st{fill:currentColor}
+.anno-hit{outline:2px solid var(--annot)!important;outline-offset:3px;border-radius:6px}
+.shot-fit{position:relative}
+.anno.stacked .anno-stage{width:100%;display:flex;flex-direction:column}
+.anno.stacked .shot-fit{order:-1;overflow:hidden;width:100%;min-width:0}
+.anno.stacked .anno-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px;height:auto!important;margin-top:18px}
+.anno.stacked .anno-col.r{margin-top:14px}
+.anno.stacked .an{position:static;text-align:left!important;padding-left:22px;position:relative}
+.anno.stacked .an::before{content:"";position:absolute;left:2px;top:4px;width:11px;height:11px;border-left:2px solid var(--annot);border-top:2px solid var(--annot);transform:rotate(0deg)}
+.anno.stacked .an::after{content:"";position:absolute;left:3px;top:5px;width:14px;height:2px;background:var(--annot);transform-origin:0 0;transform:rotate(45deg)}
+.anno.stacked .anno-svg{display:none}
+
+/* ---------- Options ---------- */
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,44px)}
+.opt h3{font-size:19px;margin:14px 0 8px;font-weight:600}
+.opt dl{margin:0;display:grid;gap:8px}
+.opt dt{font-size:12.5px;color:var(--ink-3)}
+.opt dt.t{color:var(--annot)}
+.opt dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.thumb{height:clamp(170px,12vw,230px);border:1px solid var(--line);border-radius:12px;background:#F3F5F9;overflow:hidden;display:grid;grid-template-rows:18px 1fr}
+.thumb .tb0{background:#0C1426}
+.thumb .tin{display:grid;grid-template-columns:22px 1fr}
+.thumb .tr{background:#fff;border-right:1px solid #E3E7EF}
+.thumb .sk{display:block;height:8px;border-radius:4px;background:#DDE2EB}
+.thumb .skrow{display:flex;gap:8px;margin-top:8px}
+.decision{margin-top:40px;background:var(--brand-soft);color:var(--brand);border-radius:14px;padding:22px 26px;font-weight:500;font-size:inherit}
+
+.hind{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,56px)}
+.hind h3{font-size:clamp(18px,.6vw + 12px,22px);line-height:1.35;letter-spacing:-.01em;margin:0 0 8px;font-weight:500}
+.hind p{margin:0;font-size:15px;color:var(--ink-2)}
+.next{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:24px;margin:0;border-top:1px solid color-mix(in srgb,var(--ink) 14%,transparent);padding:28px 0 0;font-family:Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.4;color:var(--ink-2)}
+.next > span{color:var(--ink-2);font-weight:400}
+.next a{font-size:22px;font-weight:600;letter-spacing:-.01em;text-decoration:none;color:var(--ink);white-space:nowrap}
+.next a:hover{color:var(--brand)}
+@media (max-width:720px){.next{flex-direction:column;align-items:flex-start;gap:8px}.next a{white-space:normal}}
+
+
+/* =========================================================
+   DigiAssess design system. Tokens use the same names as the
+   Figma code syntax, so this page runs on the real system.
+   ========================================================= */
+.da{
+  --color-bg-canvas:#F2F5F9; --color-bg-surface:#FFFFFF; --color-bg-subtle:#F8FAFC; --color-bg-hover:#E6EBF2; --color-bg-inverse:#161B26;
+  --color-text-primary:#161B26; --color-text-secondary:#4B566C; --color-text-tertiary:#5F6B82; --color-text-inverse:#FFFFFF; --color-text-on-brand:#FFFFFF; --color-text-link:#2453CC;
+  --color-border-default:#D3DBE6; --color-border-strong:#8794A8; --color-border-focus:#2453CC;
+  --color-brand-default:#2453CC; --color-brand-hover:#1D43A6; --color-brand-soft:#EEF4FF; --color-brand-on-soft:#1D43A6;
+  --color-success-fg:#0E6A3D; --color-success-bg:#ECFDF3; --color-success-solid:#12804A;
+  --color-warning-fg:#924C0A; --color-warning-bg:#FFF8EB; --color-warning-solid:#B25E09;
+  --color-danger-fg:#A82623; --color-danger-bg:#FEF1F1; --color-danger-solid:#C9302C;
+  --color-info-fg:#1D43A6; --color-info-bg:#EEF4FF; --color-info-solid:#2453CC;
+  --color-data-1:#2453CC; --color-data-2:#0F7A73; --color-data-3:#6741D9; --color-data-4:#B25E09; --color-data-5:#5F6B82;
+  --control-height:40px; --control-padding-x:16px; --table-row-height:52px; --table-cell-padding-x:16px; --card-padding:24px;
+  --radius-xs:4px; --radius-sm:6px; --radius-md:8px; --radius-lg:12px; --radius-xl:16px; --radius-full:999px;
+  --shadow-1:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
+  color:var(--color-text-primary); background:var(--color-bg-canvas);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased; text-align:left; color-scheme:light;
+}
+.da[data-theme="dark"]{
+  --color-bg-canvas:#0E121A; --color-bg-surface:#161B26; --color-bg-subtle:#1E2533; --color-bg-hover:#283041; --color-bg-inverse:#E6EBF2;
+  --color-text-primary:#F2F5F9; --color-text-secondary:#B2BDCD; --color-text-tertiary:#8794A8; --color-text-inverse:#161B26; --color-text-on-brand:#0E121A; --color-text-link:#8DB0F8;
+  --color-border-default:#283041; --color-border-strong:#5F6B82; --color-border-focus:#8DB0F8;
+  --color-brand-default:#5B8BF1; --color-brand-hover:#8DB0F8; --color-brand-soft:#121E3F; --color-brand-on-soft:#BACFFC;
+  --color-success-fg:#6FD9A0; --color-success-bg:#0F3524; --color-success-solid:#3BC17A;
+  --color-warning-fg:#F9C46B; --color-warning-bg:#3D2709; --color-warning-solid:#F2A93B;
+  --color-danger-fg:#F89A9A; --color-danger-bg:#451715; --color-danger-solid:#F06B6B;
+  --color-info-fg:#8DB0F8; --color-info-bg:#121E3F; --color-info-solid:#5B8BF1;
+  --color-data-1:#5B8BF1; --color-data-2:#2FB3A9; --color-data-3:#9779F0; --color-data-4:#F2A93B; --color-data-5:#8794A8;
+  --shadow-1:none;
+  color-scheme:dark;
+}
+.da .compact,.da.compact{--control-height:32px; --control-padding-x:12px; --table-row-height:40px; --table-cell-padding-x:12px; --card-padding:16px}
+
+/* ---------- Components ---------- */
+.da-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:var(--control-height);padding:0 var(--control-padding-x);border-radius:var(--radius-md);border:1px solid transparent;font:500 14px/20px Inter,sans-serif;white-space:nowrap}
+.da-btn.pri{background:var(--color-brand-default);color:var(--color-text-on-brand)}
+.da-btn.sec{background:var(--color-bg-surface);border-color:var(--color-border-strong);color:var(--color-text-primary)}
+.da-btn.ghost{background:transparent;color:var(--color-text-link);padding:0 8px}
+.da-btn.dgr{background:var(--color-danger-solid);color:var(--color-text-on-brand)}
+
+.da-badge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 8px;border-radius:var(--radius-full);font:500 12px/16px Inter,sans-serif;white-space:nowrap}
+.da-badge::before{content:"";width:8px;height:8px;flex:none}
+.da-badge.ok{background:var(--color-success-bg);color:var(--color-success-fg)}
+.da-badge.ok::before{border-radius:50%;background:var(--color-success-solid)}
+.da-badge.warn{background:var(--color-warning-bg);color:var(--color-warning-fg)}
+.da-badge.warn::before{clip-path:polygon(50% 0,100% 100%,0 100%);background:var(--color-warning-solid)}
+.da-badge.crit{background:var(--color-danger-bg);color:var(--color-danger-fg)}
+.da-badge.crit::before{width:7px;height:7px;transform:rotate(45deg);background:var(--color-danger-solid)}
+.da-badge.info{background:var(--color-info-bg);color:var(--color-info-fg)}
+.da-badge.info::before{border-radius:50%;box-shadow:inset 0 0 0 2px var(--color-info-solid)}
+.da-badge.none{background:var(--color-bg-hover);color:var(--color-text-secondary)}
+.da-badge.none::before{border-radius:50%;background:var(--color-text-tertiary)}
+.da-live{display:inline-flex;align-items:center;gap:6px;padding:2px 10px 2px 8px;border-radius:var(--radius-full);border:1px solid var(--color-danger-solid);background:var(--color-danger-bg);color:var(--color-danger-fg);font:500 12px/16px Inter,sans-serif}
+.da-live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--color-danger-solid);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+.da-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--radius-full);border:1px solid var(--color-border-default);background:var(--color-bg-surface);font:500 14px/20px Inter,sans-serif;color:var(--color-text-primary);white-space:nowrap}
+.da-chip em{font-style:normal;color:var(--color-text-tertiary)}
+.da-chip.on{background:var(--color-brand-soft);border-color:var(--color-brand-default);color:var(--color-brand-on-soft)}
+.da-chip.on em{color:var(--color-brand-on-soft)}
+.da-tab{display:inline-block;padding:10px 4px;border-bottom:2px solid transparent;font:500 14px/20px Inter,sans-serif;color:var(--color-text-secondary)}
+.da-tab.on{color:var(--color-text-primary);border-color:var(--color-brand-default)}
+
+.da-q{position:relative;width:40px;height:40px;border-radius:var(--radius-md);display:inline-grid;place-items:center;font:500 14px/1 Inter,sans-serif}
+.da-q.cur{background:var(--color-brand-default);color:var(--color-text-on-brand)}
+.da-q.att{background:var(--color-brand-soft);color:var(--color-brand-on-soft)}
+.da-q.att::after{content:"";position:absolute;bottom:5px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--color-brand-default)}
+.da-q.un{background:var(--color-bg-surface);color:var(--color-text-secondary);border:1px dashed var(--color-border-strong)}
+.da-q.bm{background:var(--color-warning-bg);color:var(--color-warning-fg);border:2px solid var(--color-warning-solid)}
+.da-q.bm::before{content:"";position:absolute;top:4px;right:5px;width:9px;height:7px;clip-path:polygon(0 0,100% 0,50% 100%);background:var(--color-warning-solid)}
+
+.da-opt{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-surface);font:400 16px/24px "Atkinson Hyperlegible",Inter,sans-serif;color:var(--color-text-primary)}
+.da-opt i{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:500 14px/1 Inter,sans-serif;font-style:normal;background:var(--color-bg-subtle);border:1px solid var(--color-border-strong);color:var(--color-text-secondary)}
+.da-opt.sel{background:var(--color-brand-soft);border:2px solid var(--color-brand-default);padding:10px 15px}
+.da-opt.sel i{background:var(--color-brand-default);border-color:var(--color-brand-default);color:var(--color-text-on-brand)}
+.da-opt.foc{border:2px solid var(--color-border-focus);padding:10px 15px}
+
+.da-field{display:grid;gap:6px;min-width:0}
+.da-field label{font:500 14px/20px Inter,sans-serif;color:var(--color-text-primary)}
+.da-field span{display:flex;align-items:center;height:var(--control-height);padding:0 12px;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-surface);font:400 14px/20px Inter,sans-serif;color:var(--color-text-tertiary)}
+.da-field small{font:500 12px/16px Inter,sans-serif;color:var(--color-text-secondary)}
+.da-field.err span{border:2px solid var(--color-danger-solid);color:var(--color-text-primary)}
+.da-field.err small{color:var(--color-danger-fg)}
+
+.da-stat{background:var(--color-bg-surface);border:1px solid var(--color-border-default);border-radius:var(--radius-lg);padding:16px var(--card-padding)}
+.da-stat b{display:block;font:500 14px/20px Inter,sans-serif;color:var(--color-text-secondary)}
+.da-stat strong{display:block;font:600 32px/40px Inter,sans-serif;letter-spacing:-.015em;color:var(--color-text-primary)}
+.da-stat span{display:block;font:400 14px/20px Inter,sans-serif;color:var(--color-text-tertiary)}
+
+/* ---------- Component sheet ---------- */
+.csheet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.cpanel{border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:26px;align-content:start}
+.cpanel>p{margin:0;font:500 14px/1.4 Geist,sans-serif;color:var(--color-text-secondary)}
+.cgrp{display:grid;gap:10px}
+.cgrp h3{margin:0;font:500 12px/1.4 Inter,sans-serif;color:var(--color-text-tertiary)}
+.crow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.crow small{font:400 12px/1.4 Inter,sans-serif;color:var(--color-text-tertiary)}
+.ccol{display:grid;gap:8px}
+.cfields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+
+/* ---------- Token figures ---------- */
+.arch{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,1fr);gap:14px;align-items:center}
+.arch .ar{color:var(--ink-3);font-size:24px;text-align:center}
+.tbox{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.tbox.acc{background:var(--brand-soft);border-color:var(--brand)}
+.tbox small{display:block;font-size:13px;font-weight:500;color:var(--ink-2)}
+.tbox strong{display:block;font-size:30px;line-height:1.2;font-weight:600;letter-spacing:-.02em;margin:2px 0}
+.tbox span{display:block;font-size:14px;line-height:1.45;color:var(--ink-2)}
+.tbox .md{display:flex;gap:6px;margin-top:10px}
+.tbox .md i{font-style:normal;font-size:12px;font-weight:500;color:var(--ink-2);background:var(--sunk);border-radius:999px;padding:2px 10px}
+.arch2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.4fr);gap:16px;margin-top:16px}
+.chain{display:grid;gap:10px;align-content:start}
+.chain div{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--ink-3)}
+.chain code{font:500 12.5px Inter,sans-serif;color:var(--ink);background:var(--sunk);border-radius:6px;padding:2px 8px}
+.chain .sq{width:14px;height:14px;border-radius:4px}
+
+.ttbl-wrap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+.tscroll{min-width:0;overflow-x:auto;border-radius:16px}
+.ttbl{width:100%;min-width:560px;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:13px}
+.ttbl th{font-size:12px;font-weight:500;color:var(--ink-3);text-align:left;padding:10px 12px;background:var(--sunk)}
+.ttbl td{padding:8px 12px;border-top:1px solid var(--line);vertical-align:middle}
+.ttbl td:first-child b{display:block;font:500 13.5px Inter,sans-serif}
+.ttbl td:first-child small{font-size:12px;color:var(--ink-3)}
+.ttbl .ratio{font-weight:500;color:var(--good,#12804A);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ttbl .ratio.na{color:var(--ink-3)}
+.swc{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:8px;background:transparent}
+.swc[data-theme="dark"]{background:var(--color-bg-surface)}
+.swc i{width:22px;height:22px;border-radius:6px;flex:none;box-shadow:inset 0 0 0 1px var(--color-border-default)}
+.swc span{font:500 12px/1.3 Inter,sans-serif;color:var(--color-text-primary)}
+.swc small{display:block;font-weight:400;color:var(--color-text-tertiary)}
+.ramps{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:14px;margin-top:28px}
+.ramps p{margin:0 0 6px;font-size:13px;font-weight:500;color:var(--ink-2)}
+.ramps div{display:flex;height:36px;border-radius:9px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+.ramps div i{flex:1}
+.ramps small{font-size:12px;color:var(--ink-3)}
+
+/* ---------- Type ---------- */
+.spec{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px 28px}
+.spec>div{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.spec>div:first-child{border-top:0}
+.spec b{display:block;font-size:15px;font-weight:500}
+.spec small{font-size:13px;color:var(--ink-3)}
+.spec .s{color:var(--ink);font-family:Inter,sans-serif;min-width:0;overflow-wrap:anywhere}
+
+/* ---------- Space, shape, depth ---------- */
+.ssd{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+.ssd>div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px 26px}
+.ssd h3{font-size:15px;font-weight:600;margin:0 0 14px}
+.sp{display:grid;grid-template-columns:72px minmax(0,1fr) 40px;gap:10px;align-items:center;font-size:13px;margin:6px 0}
+.sp code{font:500 12.5px Inter,sans-serif}
+.sp i{display:block;max-width:100%;height:10px;border-radius:3px;background:var(--brand)}
+.sp span{color:var(--ink-3)}
+.rad{display:flex;flex-wrap:wrap;gap:14px}
+.rad div{font-size:12px;color:var(--ink-3)}
+.rad i{display:block;width:56px;height:56px;background:var(--brand-soft);border:1.5px solid var(--brand);margin-bottom:6px}
+.rad code{display:block;font:500 12.5px Inter,sans-serif;color:var(--ink)}
+.elev{display:flex;gap:14px;margin:18px 0 12px;flex-wrap:wrap}
+.elev div{width:100px;height:66px;border-radius:12px;background:var(--surface);padding:10px 12px;font-size:12px;color:var(--ink-3)}
+.elev b{display:block;font-size:13px;font-weight:500;color:var(--ink)}
+.ssd p{font-size:13px;line-height:1.5;color:var(--ink-2);margin:10px 0 0}
+.dens{width:100%;border-collapse:collapse;font-size:13px}
+.dens th{font-weight:400;color:var(--ink-3);text-align:left;padding:8px 0}
+.dens td{padding:8px 0;border-top:1px solid var(--line);color:var(--ink-2)}
+.dens td:first-child{font:500 12.5px Inter,sans-serif;color:var(--ink)}
+
+/* ---------- Screen theme switch ---------- */
+.scr-bar{display:flex;align-items:center;gap:14px;margin:0 0 22px;font-size:14px;color:var(--ink-2)}
+.scr-sw{display:inline-flex;background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:3px}
+.scr-sw button{font:inherit;font-size:14px;font-weight:500;border:0;background:transparent;color:var(--ink-2);padding:5px 16px;border-radius:999px;cursor:pointer}
+.scr-sw button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+/* ---------- Product screenshot (820px, like the Vigil shots) ---------- */
+.shot{width:820px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(16,24,40,.12);position:relative;z-index:1;transform-origin:0 0;font-size:12px;line-height:1.45;transition:background-color .25s}
+.bwr{height:30px;background:#E8EBF1;display:flex;align-items:center;gap:7px;padding:0 12px;border-bottom:1px solid #DADFE8}
+.bwr .bd{width:10px;height:10px;border-radius:50%;background:#CDD2DC}
+.bwr .url{margin:0 auto;background:#fff;border-radius:6px;padding:3px 14px;font-size:11.5px;color:#5B6576;min-width:280px;text-align:center}
+.s-top{display:flex;align-items:flex-end;gap:20px;padding:10px 18px 0;background:var(--color-bg-surface);border-bottom:1px solid var(--color-border-default)}
+.s-logo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding-bottom:11px}
+.s-logo i{width:22px;height:22px;border-radius:6px;background:var(--color-brand-default);color:var(--color-text-on-brand);display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:600}
+.s-tabs{display:flex;gap:14px}
+.s-tabs span{white-space:nowrap;padding:6px 2px 9px;border-bottom:2px solid transparent;font-weight:500;color:var(--color-text-secondary)}
+.s-tabs span.on{color:var(--color-text-primary);border-color:var(--color-brand-default)}
+.s-r{white-space:nowrap;margin-left:auto;display:flex;align-items:center;gap:12px;padding-bottom:8px;color:var(--color-text-secondary);font-weight:500}
+.s-pill{background:var(--color-bg-hover);border-radius:999px;padding:2px 8px;font-size:11px}
+.s-av{width:26px;height:26px;border-radius:50%;background:var(--color-brand-soft);color:var(--color-brand-on-soft);display:grid;place-items:center;font-size:10.5px;font-weight:600}
+.s-who b{display:block;font-size:12px;color:var(--color-text-primary);line-height:1.2}
+.s-who small{font-size:10.5px;color:var(--color-text-tertiary);font-weight:400}
+.s-body{padding:16px 18px 18px;display:grid;gap:12px}
+.s-head{display:flex;align-items:center;gap:10px}
+.s-head h4{margin:0;font-size:18px;font-weight:600;letter-spacing:-.015em}
+.s-head p{margin:2px 0 0;color:var(--color-text-secondary)}
+.s-head .da-btn{height:30px;padding:0 12px;font-size:12px}
+.s-head .grow{flex:1}
+.s-ttl{display:flex;align-items:center;gap:10px}
+.s-ttl .da-live{font-size:11px;padding:1px 8px 1px 7px}
+.s-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.s-stats .da-stat{padding:10px 12px;border-radius:10px}
+.s-stats .da-stat b,.s-stats .da-stat span{font-size:11.5px;line-height:1.4}
+.s-stats .da-stat strong{font-size:22px;line-height:1.25}
+.s-mid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:10px;align-items:stretch}
+.s-card{background:var(--color-bg-surface);border:1px solid var(--color-border-default);border-radius:10px;overflow:hidden}
+.s-ch{display:flex;align-items:flex-start;gap:10px;padding:12px 14px 10px}
+.s-ch h5{margin:0;font-size:13.5px;font-weight:600}
+.s-ch p{margin:1px 0 0;font-size:11px;color:var(--color-text-secondary)}
+.s-ch .lg{margin-left:auto;display:flex;gap:10px;font-size:11px;color:var(--color-text-secondary)}
+.s-ch .lg span{display:inline-flex;align-items:center;gap:5px}
+.s-ch .lg i{width:8px;height:8px;border-radius:2px}
+.s-need>div{display:flex;align-items:center;gap:10px;padding:9px 14px;border-top:1px solid var(--color-border-default)}
+.s-need .tx{flex:1;min-width:0;display:grid;gap:3px;justify-items:start}
+.s-need b{font-weight:500;font-size:12px}
+.s-need small{font-size:11px;color:var(--color-text-secondary)}
+.s-need .da-badge{font-size:10.5px;padding:1px 8px 1px 6px}
+.s-need .da-btn{height:26px;font-size:11.5px;padding:0 10px}
+.s-att{padding:2px 14px 12px;display:grid;gap:9px}
+.s-att>div{display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;align-items:center}
+.s-att>div>b{font-weight:500;font-size:11.5px}
+.s-bars{display:grid;gap:3px}
+.s-bar{display:grid;grid-template-columns:minmax(0,1fr) 84px;gap:8px;align-items:center;font-size:10.5px;color:var(--color-text-secondary)}
+.s-bar span{height:6px;border-radius:3px;background:var(--color-bg-hover);overflow:hidden}
+.s-bar span i{display:block;height:100%;border-radius:3px}
+.s-bar.met em{color:var(--color-text-primary);font-weight:600}
+.s-bar em{font-style:normal}
+.s-chips{display:flex;gap:6px;padding:0 14px 10px;flex-wrap:wrap}
+.s-chips .da-chip{font-size:11.5px;padding:3px 10px;gap:6px}
+.s-tbl{width:100%;border-collapse:collapse}
+.s-tbl th{font-size:10.5px;font-weight:500;color:var(--color-text-tertiary);text-align:left;padding:7px 14px;background:var(--color-bg-subtle);border-top:1px solid var(--color-border-default)}
+.s-tbl td{height:32px;padding:0 14px;border-top:1px solid var(--color-border-default);color:var(--color-text-secondary);white-space:nowrap}
+.s-tbl td.n{color:var(--color-text-primary);font-weight:500}
+.s-tbl tr.hov td{background:var(--color-bg-hover)}
+.s-tbl .da-badge{font-size:10.5px;padding:1px 8px 1px 6px}
+.s-tbl td:last-child{text-align:right;color:var(--color-text-link);font-weight:500}
+
+.darknotes{margin-top:44px}
+.legal-cap{font-size:13px;color:var(--ink-3);margin:18px 0 0}
+
+@media (max-width:1100px){
+  .ttbl-wrap,.csheet{grid-template-columns:1fr}
+  .ssd{grid-template-columns:minmax(0,1fr)}
+  .ramps{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .arch{grid-template-columns:1fr}
+  .arch .ar{transform:rotate(90deg)}
+  .arch2{grid-template-columns:1fr}
+  .spec{padding:4px 18px}
+  .ssd>div{padding:20px}
+  .spec>div{grid-template-columns:1fr;gap:6px}
+  .cfields{grid-template-columns:1fr}
+  .cpanel{padding:20px}
+  .ramps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ttbl td,.ttbl th{padding:8px}
+  .ttbl .swc small{display:none}
+}
+@media (prefers-reduced-motion: reduce){.da-live::before{animation:none}}
+
+:root{--good:#0E6A3D}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--good:#6FD9A0}}
+:root[data-theme="dark"]{--good:#6FD9A0}
+.pains.p4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.hind.h4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.darknotes{border-top:1px solid var(--line)}
+/* hero stage */
+.hst{position:relative;color:#E8ECF4;max-width:520px;margin:0 auto}
+.hst p{margin:0 0 16px;font-size:14px;font-weight:500;color:#AAB3C5}
+.hst small{display:block;margin-top:14px;font-size:13px;color:#8590A5}
+.hst hr{border:0;border-top:1px solid #253049;margin:26px 0}
+.old{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
+.old div{display:grid;gap:6px;justify-items:center}
+.old i{display:block;width:100%;aspect-ratio:1;border-radius:10px}
+.old span{font-size:12px;font-weight:500}
+.old .ok{color:#7DE3A6}.old .no{color:#FF8A8A}
+.ramp{display:grid;grid-template-columns:repeat(11,minmax(0,1fr))}
+.ramp div{display:grid;gap:6px;justify-items:center}
+.ramp i{display:block;width:100%;height:48px}
+.ramp div:first-child i{border-radius:8px 0 0 8px}.ramp div:last-child i{border-radius:0 8px 8px 0}
+.ramp span{font-size:11px;color:#8590A5}
+.ramp .mk span{color:#fff;font-weight:600}
+.hst dl{margin:22px 0 0;display:grid;gap:10px}
+.hst dl div{display:flex;justify-content:space-between;gap:12px;font-size:14px}
+.hst dt{font-weight:500}.hst dd{margin:0;color:#7DE3A6}
+@media (max-width:1100px){.pains.p4,.hind.h4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){.pains.p4,.hind.h4{grid-template-columns:1fr}.old{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .why{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpis.k5{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .body{grid-template-columns:minmax(0,1fr)}
+  .toc{display:none}
+  .now{display:block}
+  .rules{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .site nav.links{display:none}
+  .mode button{padding:5px 10px}
+  .meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pains,.opts,.hind,.why{grid-template-columns:1fr}
+  .kpis.k5{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rules{grid-template-columns:1fr}
+  .anno.stacked .anno-col{grid-template-columns:1fr}
+  .stage{padding:16px;border-radius:18px}
+}
+
+/* ---------- One desktop breakpoint: annotations and index collapse together below 1366px ---------- */
+@media (max-width:1365px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.now{display:block}}
+
+/* ---------- Brand mark ---------- */
+.site .brand{display:inline-flex;align-items:center;color:#76FBC8;flex:none}
+.site .brand svg{height:28px;width:auto;filter:drop-shadow(0 0 6px rgba(118,251,200,.3))}
+
+/* ---------- Case study tags ---------- */
+.cs-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 28px;padding:0}
+.cs-tags li{font-size:13.5px;line-height:1;color:var(--ink-2);border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:999px;padding:7px 12px}
+.cs-tags li.win{color:var(--brand);border-color:color-mix(in srgb,var(--brand) 45%,transparent)}
+</style>
+</head>
+<body class="skim">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+<header class="site">
+  <div class="site-in" style="position:relative">
+    <a class="brand" href="index.html" aria-label="Mohammed Afnan, home"><svg viewBox="8 8 106 90" fill="currentColor" aria-hidden="true"><path d="M48.2 11L53.2 20L26 77.2L31 82.6H15.4Z"/><path d="M74 11L106.4 82.2H90.4L96.6 76.8L74 28L51 77L56 82.6H40.6Z"/><circle cx="74.6" cy="63.6" r="6.6"/><rect x="11" y="90.4" width="100.4" height="5.2"/></svg></a>
+    <div class="mode" role="group" aria-label="Reading mode">
+      <button type="button" data-mode="skim" aria-pressed="true">Skim</button>
+      <button type="button" data-mode="full" aria-pressed="false">Full story</button>
+    </div>
+    <span class="now" aria-live="polite"><b id="now-label">Introduction</b></span>
+    <nav class="links" aria-label="Site"><a href="index.html#work">Work</a><a href="index.html#approach">About</a><a href="mailto:mails2afnan@gmail.com">Contact</a></nav>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="prog-fill"></i></div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <p class="kicker"><a href="index.html#work">Work</a> / Design system for an assessment platform</p>
+      <h1>Exam day ran on 8 blues. One of them passed contrast.</h1>
+      <p class="lede">I rebuilt DigiAssess on one token set. Students, proctors, exam co-ordinators and schedulers now share 35 semantic colours, two themes and one type ramp. Every colour pair is checked against WCAG AA in both themes.</p>
+      <ul class="cs-tags" aria-label="Tags"><li>B2B</li><li>EdTech</li><li>Design system</li><li>Accessibility (WCAG AA)</li></ul>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>Senior product designer</dd></div>
+        <div><dt>Scope</dt><dd>Tokens, themes, components</dd></div>
+        <div><dt>Platform</dt><dd>Web and Android exam app</dd></div>
+        <div><dt>Users</dt><dd>Students, proctors, co-ordinators, schedulers</dd></div>
+      </dl>
+      <div class="kpis">
+        <div class="kpi"><strong>77 → 35</strong><span>Fill colours in 10 audited screens, now 35 semantic tokens</span></div>
+        <div class="kpi"><strong>19 → 8</strong><span>Font sizes, now 12 text styles on 8 sizes</span></div>
+        <div class="kpi"><strong>33 → 6</strong><span>Corner radii, now 6 radius tokens</span></div>
+        <div class="kpi"><strong>1 → 60</strong><span>Colour checks passing AA. Was 1 of 15, now 60 of 60.</span></div>
+      </div>
+      <p class="nda"><span class="skim-only">Skim mode shows headlines, numbers and screens. Switch to Full story for the detail.<br></span>Audit numbers come from 10 screens of the original file. Screens are rebuilt with mock data. Student names are invented.</p>
+    </div>
+
+    <div class="stage">
+      <div class="hst">
+        <p>Before: 8 blues from the old file</p>
+        <div class="old"><div><i style="background:#2F80ED"></i><span class="no">3.9:1</span></div><div><i style="background:#008DFF"></i><span class="no">3.4:1</span></div><div><i style="background:#0064C8"></i><span class="ok">5.7:1</span></div><div><i style="background:#3E95EF"></i><span class="no">3.1:1</span></div><div><i style="background:#3A8DDF"></i><span class="no">3.5:1</span></div><div><i style="background:#00A3FF"></i><span class="no">2.7:1</span></div><div><i style="background:#2D9CDB"></i><span class="no">3.1:1</span></div><div><i style="background:#5F72E1"></i><span class="no">4.2:1</span></div></div>
+        <small>Ratio on white. Green passes 4.5:1. Red fails.</small>
+        <hr>
+        <p>After: 1 ramp, 2 themes</p>
+        <div class="ramp"><div class=""><i style="background:#EEF4FF"></i><span>50</span></div><div class=""><i style="background:#DCE7FE"></i><span>100</span></div><div class=""><i style="background:#BACFFC"></i><span>200</span></div><div class=""><i style="background:#8DB0F8"></i><span>300</span></div><div class="mk"><i style="background:#5B8BF1"></i><span>400</span></div><div class=""><i style="background:#3569E6"></i><span>500</span></div><div class="mk"><i style="background:#2453CC"></i><span>600</span></div><div class=""><i style="background:#1D43A6"></i><span>700</span></div><div class=""><i style="background:#1C3A84"></i><span>800</span></div><div class=""><i style="background:#1B3168"></i><span>900</span></div><div class=""><i style="background:#121E3F"></i><span>950</span></div></div>
+        <dl>
+          <div><dt>Light: brand/default = blue/600</dt><dd>6.6:1 on white</dd></div>
+          <div><dt>Dark: brand/default = blue/400</dt><dd>5.3:1 on surface</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="flowc">
+
+      <section id="problem">
+        <div class="txt">
+          <p class="sec-name">Problem</p>
+          <h2>A proctor watches 35 students on one screen. The colours could not tell him who needed help first.</h2>
+          <p class="p full">I audited 10 screens: scheduling, assessment creation, outcome analysis, the co-ordinator dashboard, proctor monitoring and the student exam. Four problems came up on every one of them.</p>
+        </div>
+        <div class="pains p4 full">
+          <div class="pain"><h3>Eight blues, no rules</h3><p>Links, buttons, headers and selected states each used a different blue. Nobody could say which one was the brand.</p></div>
+          <div class="pain"><h3>Status by colour alone</h3><p>Red text meant support requested. Green meant on time. For a proctor with red-green colour blindness the two look alike.</p></div>
+          <div class="pain"><h3>Small grey text</h3><p>Captions in #979797 measured 2.9:1 on white. AA asks for 4.5:1. The green nav label on the blue header measured 2.4:1.</p></div>
+          <div class="pain"><h3>One bright theme</h3><p>Proctors and co-ordinators watch the same screen for a full session. There was no dark theme and no tokens to build one with.</p></div>
+        </div>
+        <div class="users"><span>Four users, one system:</span><span class="tag">Student reads and answers</span><span class="tag">Proctor sees exceptions first</span><span class="tag">Co-ordinator sees the whole session</span><span class="tag">Scheduler sees dates and clashes</span></div>
+      </section>
+
+      <section id="rules">
+        <div class="txt">
+          <p class="sec-name">Rules I set for the system</p>
+          <h2>Five rules every token and component had to pass.</h2>
+        </div>
+        <div class="rules">
+          <div class="rule"><b>Named for the job</b><span>brand/default, not blue/600. Screens never touch a raw hex value.</span></div>
+          <div class="rule"><b>AA or it does not ship</b><span>4.5:1 for text. 3:1 for borders, icons and chart marks. Checked in both themes.</span></div>
+          <div class="rule"><b>Never colour alone</b><span>Every status has a shape and a word. The screen still works in greyscale.</span></div>
+          <div class="rule"><b>Dark is a mode</b><span>A theme switch changes the alias, never the component.</span></div>
+          <div class="rule"><b>Reading gets its own type</b><span>Question stems use Atkinson Hyperlegible, drawn by the Braille Institute for low-vision readers.</span></div>
+        </div>
+      </section>
+
+      <section id="tokens">
+        <div class="txt">
+          <p class="sec-name">Foundation one: tokens</p>
+          <h2>Three colour layers. Screens only ever see the top two.</h2>
+          <p class="p full">Primitives hold raw values and are hidden from the library, so nobody picks blue/600 by mistake. Semantic tokens say what a colour is for and carry the Light and Dark modes. Component tokens point at semantic ones, so a button can change without touching the theme.</p>
+        </div>
+        <div class="arch">
+          <div class="tbox"><small>Primitives</small><strong>60</strong><span>7 ramps. Hidden from publishing.</span><div class="md"><i>Value</i></div></div>
+          <span class="ar" aria-hidden="true">→</span>
+          <div class="tbox acc"><small>Color, semantic</small><strong>35</strong><span>bg, text, border, brand, status, data</span><div class="md"><i>Light</i><i>Dark</i></div></div>
+          <span class="ar" aria-hidden="true">→</span>
+          <div class="tbox"><small>Component</small><strong>23</strong><span>button, input, option, question cell, table</span><div class="md"><i>Value</i></div></div>
+        </div>
+        <div class="arch2">
+          <div class="tbox"><small>Dimension</small><strong>15</strong><span>9 space steps on a 4px grid, 6 radii</span></div>
+          <div class="tbox"><small>Density</small><strong>5</strong><span>control height, row height, padding</span><div class="md"><i>Comfortable</i><i>Compact</i></div></div>
+          <div class="tbox chain"><small>One alias chain</small>
+            <div><span>Light</span><i class="sq" style="background:#2453CC"></i><code>blue/600</code>→<code>brand/default</code>→<code>button/primary/bg</code></div>
+            <div><span>Dark</span><i class="sq" style="background:#5B8BF1"></i><code>blue/400</code>→<code>brand/default</code>→<code>button/primary/bg</code></div>
+          </div>
+        </div>
+        <p class="sub-h">35 semantic colours. Every ratio is measured against the background it is meant for.</p>
+        <div class="ttbl-wrap"><div class="tscroll" tabindex="0" role="region" aria-label="Semantic colour tokens"><table class="ttbl"><thead><tr><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">Ratio L / D</th></tr></thead><tbody><tr><td><b>bg/canvas</b><small>text/primary on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-bg-canvas)"></i><span>slate/50<small>#F2F5F9</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-bg-canvas)"></i><span>slate/950<small>#0E121A</small></span></span></td><td><span class="ratio">15.8 / 17.1</span></td></tr><tr><td><b>bg/surface</b><small>text/primary on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-bg-surface)"></i><span>slate/0<small>#FFFFFF</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-bg-surface)"></i><span>slate/900<small>#161B26</small></span></span></td><td><span class="ratio">17.2 / 15.8</span></td></tr><tr><td><b>bg/subtle</b><small>text/primary on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-bg-subtle)"></i><span>slate/25<small>#F8FAFC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-bg-subtle)"></i><span>slate/850<small>#1E2533</small></span></span></td><td><span class="ratio">16.5 / 14.0</span></td></tr><tr><td><b>bg/hover</b><small>text/primary on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-bg-hover)"></i><span>slate/100<small>#E6EBF2</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-bg-hover)"></i><span>slate/800<small>#283041</small></span></span></td><td><span class="ratio">14.4 / 12.1</span></td></tr><tr><td><b>bg/inverse</b><small>text/inverse on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-bg-inverse)"></i><span>slate/900<small>#161B26</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-bg-inverse)"></i><span>slate/100<small>#E6EBF2</small></span></span></td><td><span class="ratio">17.2 / 14.4</span></td></tr><tr><td><b>text/primary</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-primary)"></i><span>slate/900<small>#161B26</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-primary)"></i><span>slate/50<small>#F2F5F9</small></span></span></td><td><span class="ratio">17.2 / 15.8</span></td></tr><tr><td><b>text/secondary</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-secondary)"></i><span>slate/600<small>#4B566C</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-secondary)"></i><span>slate/300<small>#B2BDCD</small></span></span></td><td><span class="ratio">7.4 / 9.1</span></td></tr><tr><td><b>text/tertiary</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-tertiary)"></i><span>slate/500<small>#5F6B82</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-tertiary)"></i><span>slate/400<small>#8794A8</small></span></span></td><td><span class="ratio">5.4 / 5.6</span></td></tr><tr><td><b>text/inverse</b><small>on bg/inverse</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-inverse)"></i><span>slate/0<small>#FFFFFF</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-inverse)"></i><span>slate/900<small>#161B26</small></span></span></td><td><span class="ratio">17.2 / 14.4</span></td></tr><tr><td><b>text/on-brand</b><small>on brand/default</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-on-brand)"></i><span>slate/0<small>#FFFFFF</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-on-brand)"></i><span>slate/950<small>#0E121A</small></span></span></td><td><span class="ratio">6.6 / 5.7</span></td></tr><tr><td><b>text/link</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-link)"></i><span>blue/600<small>#2453CC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-link)"></i><span>blue/300<small>#8DB0F8</small></span></span></td><td><span class="ratio">6.6 / 8.0</span></td></tr><tr><td><b>border/default</b><small>Decorative</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-border-default)"></i><span>slate/200<small>#D3DBE6</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-border-default)"></i><span>slate/800<small>#283041</small></span></span></td><td><span class="ratio na">Not for text</span></td></tr><tr><td><b>border/strong</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-border-strong)"></i><span>slate/400<small>#8794A8</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-border-strong)"></i><span>slate/500<small>#5F6B82</small></span></span></td><td><span class="ratio">3.1 / 3.2</span></td></tr><tr><td><b>border/focus</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-border-focus)"></i><span>blue/600<small>#2453CC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-border-focus)"></i><span>blue/300<small>#8DB0F8</small></span></span></td><td><span class="ratio">6.6 / 8.0</span></td></tr><tr><td><b>brand/default</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-brand-default)"></i><span>blue/600<small>#2453CC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-brand-default)"></i><span>blue/400<small>#5B8BF1</small></span></span></td><td><span class="ratio">6.6 / 5.3</span></td></tr><tr><td><b>brand/hover</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-brand-hover)"></i><span>blue/700<small>#1D43A6</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-brand-hover)"></i><span>blue/300<small>#8DB0F8</small></span></span></td><td><span class="ratio">8.7 / 8.0</span></td></tr><tr><td><b>brand/soft</b><small>on-soft on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-brand-soft)"></i><span>blue/50<small>#EEF4FF</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-brand-soft)"></i><span>blue/950<small>#121E3F</small></span></span></td><td><span class="ratio">7.9 / 10.5</span></td></tr><tr><td><b>brand/on-soft</b><small>on brand/soft</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-brand-on-soft)"></i><span>blue/700<small>#1D43A6</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-brand-on-soft)"></i><span>blue/200<small>#BACFFC</small></span></span></td><td><span class="ratio">7.9 / 10.5</span></td></tr></tbody></table></div><div class="tscroll" tabindex="0" role="region" aria-label="Semantic colour tokens"><table class="ttbl"><thead><tr><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">Ratio L / D</th></tr></thead><tbody><tr><td><b>success/fg</b><small>on success/bg</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-success-fg)"></i><span>green/700<small>#0E6A3D</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-success-fg)"></i><span>green/300<small>#6FD9A0</small></span></span></td><td><span class="ratio">6.3 / 7.8</span></td></tr><tr><td><b>success/bg</b><small>fg on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-success-bg)"></i><span>green/50<small>#ECFDF3</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-success-bg)"></i><span>green/900<small>#0F3524</small></span></span></td><td><span class="ratio">6.3 / 7.8</span></td></tr><tr><td><b>success/solid</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-success-solid)"></i><span>green/600<small>#12804A</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-success-solid)"></i><span>green/400<small>#3BC17A</small></span></span></td><td><span class="ratio">5.0 / 7.5</span></td></tr><tr><td><b>warning/fg</b><small>on warning/bg</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-warning-fg)"></i><span>amber/700<small>#924C0A</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-warning-fg)"></i><span>amber/300<small>#F9C46B</small></span></span></td><td><span class="ratio">6.1 / 8.8</span></td></tr><tr><td><b>warning/bg</b><small>fg on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-warning-bg)"></i><span>amber/50<small>#FFF8EB</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-warning-bg)"></i><span>amber/900<small>#3D2709</small></span></span></td><td><span class="ratio">6.1 / 8.8</span></td></tr><tr><td><b>warning/solid</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-warning-solid)"></i><span>amber/600<small>#B25E09</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-warning-solid)"></i><span>amber/400<small>#F2A93B</small></span></span></td><td><span class="ratio">4.7 / 8.6</span></td></tr><tr><td><b>danger/fg</b><small>on danger/bg</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-danger-fg)"></i><span>red/700<small>#A82623</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-danger-fg)"></i><span>red/300<small>#F89A9A</small></span></span></td><td><span class="ratio">6.4 / 7.3</span></td></tr><tr><td><b>danger/bg</b><small>fg on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-danger-bg)"></i><span>red/50<small>#FEF1F1</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-danger-bg)"></i><span>red/900<small>#451715</small></span></span></td><td><span class="ratio">6.4 / 7.3</span></td></tr><tr><td><b>danger/solid</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-danger-solid)"></i><span>red/600<small>#C9302C</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-danger-solid)"></i><span>red/400<small>#F06B6B</small></span></span></td><td><span class="ratio">5.3 / 5.8</span></td></tr><tr><td><b>info/fg</b><small>on info/bg</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-info-fg)"></i><span>blue/700<small>#1D43A6</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-info-fg)"></i><span>blue/300<small>#8DB0F8</small></span></span></td><td><span class="ratio">7.9 / 7.6</span></td></tr><tr><td><b>info/bg</b><small>fg on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-info-bg)"></i><span>blue/50<small>#EEF4FF</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-info-bg)"></i><span>blue/950<small>#121E3F</small></span></span></td><td><span class="ratio">7.9 / 7.6</span></td></tr><tr><td><b>info/solid</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-info-solid)"></i><span>blue/600<small>#2453CC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-info-solid)"></i><span>blue/400<small>#5B8BF1</small></span></span></td><td><span class="ratio">6.6 / 5.3</span></td></tr><tr><td><b>data/1</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-data-1)"></i><span>blue/600<small>#2453CC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-data-1)"></i><span>blue/400<small>#5B8BF1</small></span></span></td><td><span class="ratio">6.6 / 5.3</span></td></tr><tr><td><b>data/2</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-data-2)"></i><span>teal/600<small>#0F7A73</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-data-2)"></i><span>teal/400<small>#2FB3A9</small></span></span></td><td><span class="ratio">5.2 / 6.7</span></td></tr><tr><td><b>data/3</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-data-3)"></i><span>violet/600<small>#6741D9</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-data-3)"></i><span>violet/400<small>#9779F0</small></span></span></td><td><span class="ratio">6.3 / 5.2</span></td></tr><tr><td><b>data/4</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-data-4)"></i><span>amber/600<small>#B25E09</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-data-4)"></i><span>amber/400<small>#F2A93B</small></span></span></td><td><span class="ratio">4.7 / 8.6</span></td></tr><tr><td><b>data/5</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-data-5)"></i><span>slate/500<small>#5F6B82</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-data-5)"></i><span>slate/400<small>#8794A8</small></span></span></td><td><span class="ratio">5.4 / 5.6</span></td></tr></tbody></table></div></div>
+        <p class="legal-cap">The Dark column on this page is the same CSS variable inside a dark-mode wrapper. Nothing is redrawn. Data colours never reuse status colours, so red on a chart only ever means a problem.</p>
+        <div class="ramps full"><div><p>blue</p><div><i style="background:#EEF4FF"></i><i style="background:#DCE7FE"></i><i style="background:#BACFFC"></i><i style="background:#8DB0F8"></i><i style="background:#5B8BF1"></i><i style="background:#3569E6"></i><i style="background:#2453CC"></i><i style="background:#1D43A6"></i><i style="background:#1C3A84"></i><i style="background:#1B3168"></i><i style="background:#121E3F"></i></div><small>11 steps</small></div><div><p>slate</p><div><i style="background:#FFFFFF"></i><i style="background:#F8FAFC"></i><i style="background:#F2F5F9"></i><i style="background:#E6EBF2"></i><i style="background:#D3DBE6"></i><i style="background:#B2BDCD"></i><i style="background:#8794A8"></i><i style="background:#5F6B82"></i><i style="background:#4B566C"></i><i style="background:#384255"></i><i style="background:#283041"></i><i style="background:#1E2533"></i><i style="background:#161B26"></i><i style="background:#0E121A"></i></div><small>14 steps</small></div><div><p>green</p><div><i style="background:#ECFDF3"></i><i style="background:#D1F7E0"></i><i style="background:#6FD9A0"></i><i style="background:#3BC17A"></i><i style="background:#12804A"></i><i style="background:#0E6A3D"></i><i style="background:#0F3524"></i></div><small>7 steps</small></div><div><p>amber</p><div><i style="background:#FFF8EB"></i><i style="background:#FEEBC8"></i><i style="background:#F9C46B"></i><i style="background:#F2A93B"></i><i style="background:#B25E09"></i><i style="background:#924C0A"></i><i style="background:#3D2709"></i></div><small>7 steps</small></div><div><p>red</p><div><i style="background:#FEF1F1"></i><i style="background:#FDDCDC"></i><i style="background:#F89A9A"></i><i style="background:#F06B6B"></i><i style="background:#C9302C"></i><i style="background:#A82623"></i><i style="background:#451715"></i></div><small>7 steps</small></div><div><p>violet</p><div><i style="background:#F4F1FE"></i><i style="background:#E7E0FD"></i><i style="background:#B7A3F7"></i><i style="background:#9779F0"></i><i style="background:#6741D9"></i><i style="background:#5533B8"></i><i style="background:#2A1F5C"></i></div><small>7 steps</small></div><div><p>teal</p><div><i style="background:#EBFAF9"></i><i style="background:#CCF1EE"></i><i style="background:#66CFC6"></i><i style="background:#2FB3A9"></i><i style="background:#0F7A73"></i><i style="background:#0C625D"></i><i style="background:#0B3432"></i></div><small>7 steps</small></div></div>
+      </section>
+
+      <section id="type">
+        <div class="txt">
+          <p class="sec-name">Foundation two: type</p>
+          <h2>Inter for the interface. Atkinson Hyperlegible for the question.</h2>
+          <p class="p full">The old file used Roboto at 19 sizes, including 18.4, 19.5 and 24.3. The new ramp has 12 styles on 8 sizes. Exam content gets its own two styles, because a student reads a long stem under a timer and the letter shapes matter most there.</p>
+        </div>
+        <div class="spec"><div><div><b>Display</b><small>Inter Semi Bold, 40/48</small></div><div class="s" style="font:600 40px/48px Inter;letter-spacing:-.02em">Session 1 is live</div></div><div><div><b>Heading 1</b><small>Inter Semi Bold, 32/40</small></div><div class="s" style="font:600 32px/40px Inter;letter-spacing:-.015em">Monitor test centre</div></div><div><div><b>Heading 2</b><small>Inter Semi Bold, 24/32</small></div><div class="s" style="font:600 24px/32px Inter;letter-spacing:-.01em">Student status</div></div><div><div><b>Heading 3</b><small>Inter Semi Bold, 20/28</small></div><div class="s" style="font:600 20px/28px Inter">Needs attention</div></div><div><div><b>Title</b><small>Inter Semi Bold, 16/24</small></div><div class="s" style="font:600 16px/24px Inter">Test centre 02, male</div></div><div><div><b>Body</b><small>Inter Regular, 16/24</small></div><div class="s" style="font:400 16px/24px Inter">Mohammed Salman was paused for a misbehaviour report.</div></div><div><div><b>Body small</b><small>Inter Regular, 14/20</small></div><div class="s" style="font:400 14px/20px Inter">Started 10 min late, 09:10</div></div><div><div><b>Label</b><small>Inter Medium, 14/20</small></div><div class="s" style="font:500 14px/20px Inter">Close session</div></div><div><div><b>Caption</b><small>Inter Medium, 12/16</small></div><div class="s" style="font:500 12px/16px Inter;color:var(--ink-2)">Academic number</div></div><div><div><b>Numeric</b><small>Inter Semi Bold, 32/40</small></div><div class="s" style="font:600 32px/40px Inter;letter-spacing:-.015em;font-variant-numeric:tabular-nums">245 / 432</div></div><div><div><b>Reading stem</b><small>Atkinson Hyperlegible Regular, 18/28</small></div><div class="s" style="font:400 18px/28px 'Atkinson Hyperlegible';max-width:62ch">A 4-year-old girl is brought to the clinic with lethargy and an enlarging belly. A CT-guided biopsy shows small blue cells. What is the diagnosis?</div></div><div><div><b>Reading option</b><small>Atkinson Hyperlegible Regular, 16/24</small></div><div class="s" style="font:400 16px/24px 'Atkinson Hyperlegible'">B. Pheochromocytoma</div></div></div>
+      </section>
+
+      <section id="space">
+        <div class="txt">
+          <p class="sec-name">Foundation three: space, shape and depth</p>
+          <h2>A 4px grid, six radii and three shadows. Density is a mode.</h2>
+          <p class="p full">The old screens had 33 corner radii, from 2 to 103. The new set has six. Density lives in its own collection, so the proctor table can run Compact while the student exam stays Comfortable, with the same components.</p>
+        </div>
+        <div class="ssd">
+          <div><h3>Space</h3><div class="sp"><code>space/2xs</code><i style="width:6px"></i><span>2px</span></div><div class="sp"><code>space/xs</code><i style="width:12px"></i><span>4px</span></div><div class="sp"><code>space/sm</code><i style="width:24px"></i><span>8px</span></div><div class="sp"><code>space/md</code><i style="width:36px"></i><span>12px</span></div><div class="sp"><code>space/lg</code><i style="width:48px"></i><span>16px</span></div><div class="sp"><code>space/xl</code><i style="width:72px"></i><span>24px</span></div><div class="sp"><code>space/2xl</code><i style="width:96px"></i><span>32px</span></div><div class="sp"><code>space/3xl</code><i style="width:144px"></i><span>48px</span></div><div class="sp"><code>space/4xl</code><i style="width:192px"></i><span>64px</span></div></div>
+          <div><h3>Radius</h3><div class="rad"><div><i style="border-radius:4px"></i><code>radius/xs</code>4px, table badges</div><div><i style="border-radius:6px"></i><code>radius/sm</code>6px, tags</div><div><i style="border-radius:8px"></i><code>radius/md</code>8px, buttons</div><div><i style="border-radius:12px"></i><code>radius/lg</code>12px, cards</div><div><i style="border-radius:16px"></i><code>radius/xl</code>16px, panels</div><div><i style="border-radius:28px"></i><code>radius/full</code>999px, chips</div></div><h3 style="margin-top:22px">Elevation</h3>
+            <div class="elev"><div style="box-shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08)"><b>Elevation 1</b>menus, rows</div><div style="box-shadow:0 4px 12px -2px rgba(16,24,40,.12),0 2px 4px -2px rgba(16,24,40,.06)"><b>Elevation 2</b>cards on hover</div><div style="box-shadow:0 16px 32px -8px rgba(16,24,40,.2),0 4px 8px -4px rgba(16,24,40,.08)"><b>Elevation 3</b>dialogs</div></div>
+            <p>In dark mode shadows barely show. Raised surfaces step one shade lighter instead: canvas 950, surface 900, subtle 850.</p></div>
+          <div><h3>Density</h3>
+            <table class="dens"><thead><tr><th>Token</th><th>Comfortable</th><th>Compact</th></tr></thead><tbody>
+            <tr><td>control/height</td><td>40</td><td>32</td></tr><tr><td>control/padding-x</td><td>16</td><td>12</td></tr><tr><td>table/row-height</td><td>52</td><td>40</td></tr><tr><td>table/cell-padding-x</td><td>16</td><td>12</td></tr><tr><td>card/padding</td><td>24</td><td>16</td></tr></tbody></table>
+            <p>Comfortable for students, schedulers and anything touch. Compact for proctors and co-ordinators who scan long tables.</p></div>
+        </div>
+      </section>
+
+      <section id="components">
+        <div class="txt">
+          <p class="sec-name">Components</p>
+          <h2>Nine components cover exam day. Each one still works in greyscale.</h2>
+          <p class="p full">Same markup on both sides. The right panel only switches its theme. Every fill, border, radius and padding is a token, and control heights follow the Density collection.</p>
+        </div>
+        <div class="csheet"><div class="cpanel da" data-theme="light" aria-label="Components in light mode">
+  <p>Light mode</p>
+  <div class="cgrp"><h3>Button</h3><div class="crow"><span class="da-btn pri">Close session</span><span class="da-btn sec">Export</span><span class="da-btn ghost">View details</span><span class="da-btn dgr">Withhold exam</span></div></div>
+  <div class="cgrp"><h3>Status badge</h3><div class="crow"><span class="da-badge ok">On time</span><span class="da-badge warn">10 min late</span><span class="da-badge crit">Critical</span><span class="da-badge info">Support asked</span><span class="da-badge none">Not started</span><span class="da-live">Live</span></div></div>
+  <div class="cgrp"><h3>Filter chip and tab</h3><div class="crow"><span class="da-chip">All students <em>35</em></span><span class="da-chip on">Support asked <em>6</em></span><span class="da-tab on">Students</span><span class="da-tab">Proctors</span></div></div>
+  <div class="cgrp"><h3>Question navigator</h3><div class="crow"><span class="da-q att">01</span><span class="da-q att">02</span><span class="da-q bm">03</span><span class="da-q cur">04</span><span class="da-q un">05</span><span class="da-q un">06</span><small>Attended, bookmarked, current, unattended</small></div></div>
+  <div class="cgrp"><h3>Answer option</h3><div class="ccol"><div class="da-opt"><i>A</i>Meniere disease</div><div class="da-opt sel"><i>B</i>Pheochromocytoma</div><div class="da-opt foc"><i>C</i>Neuroblastoma</div></div></div>
+  <div class="cgrp"><h3>Text field</h3><div class="cfields"><div class="da-field"><label>Academic number</label><span>Search by name or number</span><small>9 digits, on the student ID card</small></div><div class="da-field err"><label>Academic number</label><span>23112</span><small>Enter all 9 digits</small></div></div></div>
+  <div class="cgrp"><h3>Stat card</h3><div class="crow"><div class="da-stat"><b>Proctors reported</b><strong>35</strong><span>of 42 expected</span></div></div></div>
+</div><div class="cpanel da" data-theme="dark" aria-label="Components in dark mode">
+  <p>Dark mode</p>
+  <div class="cgrp"><h3>Button</h3><div class="crow"><span class="da-btn pri">Close session</span><span class="da-btn sec">Export</span><span class="da-btn ghost">View details</span><span class="da-btn dgr">Withhold exam</span></div></div>
+  <div class="cgrp"><h3>Status badge</h3><div class="crow"><span class="da-badge ok">On time</span><span class="da-badge warn">10 min late</span><span class="da-badge crit">Critical</span><span class="da-badge info">Support asked</span><span class="da-badge none">Not started</span><span class="da-live">Live</span></div></div>
+  <div class="cgrp"><h3>Filter chip and tab</h3><div class="crow"><span class="da-chip">All students <em>35</em></span><span class="da-chip on">Support asked <em>6</em></span><span class="da-tab on">Students</span><span class="da-tab">Proctors</span></div></div>
+  <div class="cgrp"><h3>Question navigator</h3><div class="crow"><span class="da-q att">01</span><span class="da-q att">02</span><span class="da-q bm">03</span><span class="da-q cur">04</span><span class="da-q un">05</span><span class="da-q un">06</span><small>Attended, bookmarked, current, unattended</small></div></div>
+  <div class="cgrp"><h3>Answer option</h3><div class="ccol"><div class="da-opt"><i>A</i>Meniere disease</div><div class="da-opt sel"><i>B</i>Pheochromocytoma</div><div class="da-opt foc"><i>C</i>Neuroblastoma</div></div></div>
+  <div class="cgrp"><h3>Text field</h3><div class="cfields"><div class="da-field"><label>Academic number</label><span>Search by name or number</span><small>9 digits, on the student ID card</small></div><div class="da-field err"><label>Academic number</label><span>23112</span><small>Enter all 9 digits</small></div></div></div>
+  <div class="cgrp"><h3>Stat card</h3><div class="crow"><div class="da-stat"><b>Proctors reported</b><strong>35</strong><span>of 42 expected</span></div></div></div>
+</div></div>
+      </section>
+
+      <section id="screen">
+        <div class="txt">
+          <p class="sec-name">Sample screen</p>
+          <h2>The live session, in both themes. Same components, one switch.</h2>
+          <p class="p full">The exam co-ordinator had ring charts, a feed sorted by time and a red pill for Live. The rebuild answers one question first: who needs me right now?</p>
+        </div>
+        <div class="scr-bar"><span>Screen theme</span><div class="scr-sw" role="group" aria-label="Screen theme"><button type="button" data-t="light" aria-pressed="true">Light</button><button type="button" data-t="dark" aria-pressed="false">Dark</button></div></div>
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <div class="an" tabindex="0" data-for="s-live" data-at="top"><b>Live is a dot and a word</b><p>It reads in greyscale and to a screen reader. The old badge was a red pill with white text.</p></div>
+              <div class="an" tabindex="0" data-for="s-stats"><b>Numbers instead of rings</b><p>245 of 432 is quicker to read than a 64% ring. The rings moved to the detail view.</p></div>
+              <div class="an" tabindex="0" data-for="s-need"><b>Sorted by severity</b><p>Critical first, on time last. Every row has a shape, a word and at most one action.</p></div>
+              <div class="an" tabindex="0" data-for="s-chips"><b>Compact density</b><p>Rows drop from 52 to 40px. Same components. Only the Density mode of this card changed.</p></div>
+            </div>
+            <div class="shot-fit"><div class="shot da" id="live-shot" data-theme="light" role="img" aria-label="DigiAssess live session dashboard for an exam co-ordinator, showing stats, a needs attention list, attendance by test centre and a student status table">
+  <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url">app.digiassess.io/sessions/live</span></div>
+  <div class="s-top"><span class="s-logo"><i>D</i>DigiAssess</span><span class="s-tabs"><span class="on">Dashboard</span><span>Test centres</span><span>Student status</span><span>Proctors</span></span><span class="s-r"><span class="s-pill">TC 11, PC 1</span><span>08:55</span><span class="s-av">RK</span><span class="s-who"><b>Rana Khalid</b><small>Exam co-ordinator</small></span></span></div>
+  <div class="s-body">
+    <div class="s-head"><div class="grow"><div class="s-ttl"><h4>Session 1</h4><span class="da-live" data-a="s-live">Live</span></div><p>08:30 to 10:30. 6 exams across 17 test centres. Auto save on.</p></div><span class="da-btn sec">Export report</span><span class="da-btn pri" data-a="s-pri">Close session</span></div>
+    <div class="s-stats" data-a="s-stats">
+      <div class="da-stat"><b>Students reported</b><strong>245</strong><span>of 432 expected</span></div>
+      <div class="da-stat"><b>Proctors reported</b><strong>35</strong><span>of 42 expected</span></div>
+      <div class="da-stat"><b>Test centres active</b><strong>13</strong><span>of 17 open today</span></div>
+      <div class="da-stat"><b>Answers uploaded</b><strong>220</strong><span>of 220, all received</span></div>
+    </div>
+    <div class="s-mid">
+      <div class="s-card s-need" data-a="s-need"><div class="s-ch" style="border:0"><span><h5>Needs attention</h5><p>4 open, sorted by severity</p></span></div><div><span class="tx"><span class="da-badge crit">Critical</span><b>Mohammed Salman paused for misbehaviour</b><small>Test centre 02, male. Paused at 08:45.</small></span><span class="da-btn sec">Resume</span></div><div><span class="tx"><span class="da-badge info">Support asked</span><b>6 students asked for login help</b><small>Test centre 02. Oldest request 4 min ago.</small></span><span class="da-btn sec">Open</span></div><div><span class="tx"><span class="da-badge warn">10 min late</span><b>Fathima Raoof, secondary proctor, logged in</b><small>Test centre 03, female. 08:40.</small></span></div><div><span class="tx"><span class="da-badge ok">On time</span><b>Abdullah Salman, primary proctor, logged in</b><small>Test centre 01, male. 08:28.</small></span></div></div>
+      <div class="s-card"><div class="s-ch"><span><h5>Attendance by test centre</h5><p>6 of 13 active centres. Reported against expected.</p></span><span class="lg" data-a="s-legend"><span><i style="background:var(--color-data-1)"></i>Students</span><span><i style="background:var(--color-data-2)"></i>Proctors</span></span></div><div class="s-att"><div><b>TC 01, male</b><div class="s-bars"><div class="s-bar"><span><i style="width:89%;background:var(--color-data-1)"></i></span><em>24/27 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--color-data-2)"></i></span><em>3/3 proctors</em></div></div></div><div><b>TC 02, male</b><div class="s-bars"><div class="s-bar"><span><i style="width:84%;background:var(--color-data-1)"></i></span><em>27/32 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--color-data-2)"></i></span><em>3/3 proctors</em></div></div></div><div><b>TC 03, female</b><div class="s-bars"><div class="s-bar met"><span><i style="width:100%;background:var(--color-data-1)"></i></span><em>32/32 students</em></div><div class="s-bar"><span><i style="width:67%;background:var(--color-data-2)"></i></span><em>2/3 proctors</em></div></div></div><div><b>TC 04, female</b><div class="s-bars"><div class="s-bar"><span><i style="width:89%;background:var(--color-data-1)"></i></span><em>24/27 students</em></div><div class="s-bar"><span><i style="width:67%;background:var(--color-data-2)"></i></span><em>2/3 proctors</em></div></div></div><div><b>TC 05, male</b><div class="s-bars"><div class="s-bar"><span><i style="width:88%;background:var(--color-data-1)"></i></span><em>30/34 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--color-data-2)"></i></span><em>3/3 proctors</em></div></div></div><div><b>TC 06, female</b><div class="s-bars"><div class="s-bar"><span><i style="width:93%;background:var(--color-data-1)"></i></span><em>28/30 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--color-data-2)"></i></span><em>3/3 proctors</em></div></div></div></div></div>
+    </div>
+    <div class="s-card"><div class="s-ch"><span><h5>Student status, test centre 02</h5><p>32 expected. Compact density.</p></span></div>
+      <div class="s-chips" data-a="s-chips"><span class="da-chip">All students <em>32</em></span><span class="da-chip on">Support asked <em>6</em></span><span class="da-chip">Paused <em>1</em></span><span class="da-chip">Late <em>2</em></span><span class="da-chip">Not started <em>3</em></span></div>
+      <table class="s-tbl" data-a="s-thead"><thead><tr><th>Academic no.</th><th>Student</th><th>System</th><th>Status</th><th>Started</th><th></th></tr></thead><tbody><tr class=""><td>231123231</td><td class="n">Mohammed Salman</td><td>PC 09</td><td><span class="da-badge crit">Paused</span></td><td>08:31</td><td data-a="s-act">Resume</td></tr><tr class="hov"><td>231123245</td><td class="n">Aisha Rahman</td><td>PC 10</td><td><span class="da-badge info">Support asked</span></td><td>Not yet</td><td>Verify</td></tr><tr class=""><td>231123262</td><td class="n">Omar Haddad</td><td>PC 11</td><td><span class="da-badge ok">In exam</span></td><td>08:30</td><td>View</td></tr><tr class=""><td>231123270</td><td class="n">Layla Nasser</td><td>PC 12</td><td><span class="da-badge warn">12 min late</span></td><td>08:42</td><td>View</td></tr><tr class=""><td>231123288</td><td class="n">Yusuf Karim</td><td>PC 13</td><td><span class="da-badge none">Not started</span></td><td>Not yet</td><td>Call</td></tr><tr class=""><td>231123301</td><td class="n">Sara Mansour</td><td>PC 14</td><td><span class="da-badge ok">In exam</span></td><td>08:30</td><td>View</td></tr></tbody></table>
+    </div>
+  </div>
+</div></div>
+            <div class="anno-col r">
+              <div class="an" tabindex="0" data-for="s-pri"><b>One primary per view</b><p>Close session is the only filled button. In dark it moves to blue/400 with near-black text, 5.7:1.</p></div>
+              <div class="an" tabindex="0" data-for="s-legend"><b>Chart colours from data tokens</b><p>Students use data/1, proctors data/2. Red never appears in a chart.</p></div>
+              <div class="an" tabindex="0" data-for="s-act"><b>Actions in words</b><p>Resume, Verify, View, Call. The old row hid four actions behind a kebab icon.</p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+        <p class="cap">Switch the screen theme above. Only one attribute changes on the screen.</p>
+        <div class="rules darknotes full">
+          <div class="rule"><b>One switch</b><span>The dark screen sets data-theme on one element. No component is restyled.</span></div>
+          <div class="rule"><b>Brand moves to blue/400</b><span>On-brand text flips to near black so the button keeps 5.7:1.</span></div>
+          <div class="rule"><b>Depth by shade</b><span>Canvas 950, cards 900, table header 850. The layers read without shadows.</span></div>
+          <div class="rule"><b>Status stays readable</b><span>Every status colour measures 7.3:1 or more on its own background in dark.</span></div>
+          <div class="rule"><b>Charts swap together</b><span>All five data colours move to their 400 step and still pass 3:1.</span></div>
+        </div>
+      </section>
+
+      <section id="hindsight">
+        <div class="txt">
+          <p class="sec-name">What I’d do differently</p>
+          <h2>Start from the student exam screen, not the dashboard.</h2>
+        </div>
+        <div class="hind h4">
+          <div><h3>Start where reading is hardest</h3><p class="full">I built the tokens from the co-ordinator screens first. The student exam has the strictest needs: long stems, a timer and zoom to 200%. Starting there would have settled the type ramp sooner.</p></div>
+          <div><h3>Test dark mode in the room</h3><p class="full">The contrast checks are maths. Glare and fatigue in an exam hall are not. I’d run one live session with proctors before calling the theme done.</p></div>
+          <div><h3>Add a high-contrast mode</h3><p class="full">The colour collection is ready for a third mode. Students who need stronger contrast should get it without a single new component.</p></div>
+          <div><h3>Write the Android rules next</h3><p class="full">The exam app shares the tokens but not the touch targets. Answer rows and question cells need their own density values there.</p></div>
+        </div>
+      </section>
+
+    </div>
+    <aside class="toc" aria-label="Case study sections">
+      <p>In this case study</p>
+      <ol><li><a href="#problem"><span class="ck"><svg><use href="#i-check"/></svg></span>Problem</a></li><li><a href="#rules"><span class="ck"><svg><use href="#i-check"/></svg></span>Rules I set</a></li><li><a href="#tokens"><span class="ck"><svg><use href="#i-check"/></svg></span>Tokens</a></li><li><a href="#type"><span class="ck"><svg><use href="#i-check"/></svg></span>Type</a></li><li><a href="#space"><span class="ck"><svg><use href="#i-check"/></svg></span>Space and shape</a></li><li><a href="#components"><span class="ck"><svg><use href="#i-check"/></svg></span>Components</a></li><li><a href="#screen"><span class="ck"><svg><use href="#i-check"/></svg></span>Sample screen</a></li><li><a href="#hindsight"><span class="ck"><svg><use href="#i-check"/></svg></span>Hindsight</a></li></ol>
+      <p class="tt">About 3 minutes in Skim</p>
+    </aside>
+    <div class="next"><span>Next case study</span><a href="loulous-kitchen.html">Loulou’s Kitchen ↗</a></div>
+  </div>
+</main>
+<script>
+(function(){
+  var SVGNS='http://www.w3.org/2000/svg';
+
+  /* ---------- Annotated figures ---------- */
+  var figs=[].slice.call(document.querySelectorAll('[data-anno]'));
+  var DESIGN_W=1180, SHOT_W=820, MIN_GUTTER_W=960;
+
+  function layout(fig, idx){
+    var stage=fig.querySelector('.anno-stage');
+    var fit=fig.querySelector('.shot-fit');
+    var shot=fig.querySelector('.shot');
+    var svg=fig.querySelector('.anno-svg');
+    var avail=fig.clientWidth;
+    var stacked=avail<MIN_GUTTER_W||window.matchMedia('(max-width:1365px)').matches;
+    fig.classList.toggle('stacked',stacked);
+    var notes=[].slice.call(fig.querySelectorAll('.an'));
+
+    if(stacked){
+      stage.style.transform=''; fig.style.height='';
+      notes.forEach(function(n){n.style.top='';});
+      var s=Math.min(1,avail/SHOT_W);
+      shot.style.transform='scale('+s+')';
+      fit.style.height=(shot.offsetHeight*s)+'px';
+      return;
+    }
+    shot.style.transform=''; fit.style.height='';
+    var sc=Math.min(1.3,avail/DESIGN_W);
+    var off=Math.max(0,(avail-DESIGN_W*sc)/2);
+    stage.style.transform='translateX('+off+'px) scale('+sc+')';
+    var sr=stage.getBoundingClientRect();
+    function rel(el){
+      var r=el.getBoundingClientRect();
+      return {l:(r.left-sr.left)/sc,t:(r.top-sr.top)/sc,r:(r.right-sr.left)/sc,b:(r.bottom-sr.top)/sc,w:r.width/sc,h:r.height/sc};
+    }
+
+    // place notes next to their targets, pushing down to avoid overlap
+    ['.anno-col.l','.anno-col.r'].forEach(function(sel){
+      var col=fig.querySelector(sel); if(!col) return;
+      var colTop=rel(col).t;
+      var items=[].slice.call(col.querySelectorAll('.an')).map(function(n){
+        var t=fig.querySelector('[data-a="'+n.dataset.for+'"]');
+        var p=t?rel(t):{t:0,h:0};
+        return {n:n,y:p.t+Math.min(p.h/2,14)-colTop};
+      }).sort(function(a,b){return a.y-b.y;});
+      var cursor=0;
+      items.forEach(function(it){
+        var top=Math.max(it.y-9,cursor);
+        it.n.style.top=top+'px';
+        cursor=top+it.n.offsetHeight+22;
+      });
+      col.style.height=cursor+'px';
+    });
+
+    // draw arrows
+    var W=DESIGN_W, H=stage.offsetHeight;
+    svg.setAttribute('width',W); svg.setAttribute('height',H);
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var mid='ah'+idx;
+    var defs=document.createElementNS(SVGNS,'defs');
+    defs.innerHTML='<marker id="'+mid+'" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>';
+    svg.appendChild(defs);
+
+    notes.forEach(function(n){
+      var t=fig.querySelector('[data-a="'+n.dataset.for+'"]'); if(!t) return;
+      var left=!!n.closest('.anno-col.l');
+      var b=rel(n.querySelector('b')), p=rel(t);
+      var sx=left? b.r+8 : b.l-8, sy=b.t+b.h/2;
+      var at=n.dataset.at||(left?'left':'right');
+      var ex,ey,c2x,c2y;
+      if(at==='top'){ex=p.l+p.w/2;ey=p.t-5;c2x=ex;c2y=ey-46;}
+      else if(at==='bottom'){ex=p.l+p.w/2;ey=p.b+5;c2x=ex;c2y=ey+46;}
+      else if(at==='left'){ex=p.l-6;ey=p.t+Math.min(p.h/2,14);c2x=ex-56;c2y=ey;}
+      else {ex=p.r+6;ey=p.t+Math.min(p.h/2,14);c2x=ex+56;c2y=ey;}
+      var dx=Math.max(36,Math.abs(ex-sx)*.35);
+      var c1x=left? sx+dx : sx-dx;
+      var d='M'+sx+' '+sy+' C'+c1x+' '+sy+' '+c2x+' '+c2y+' '+ex+' '+ey;
+      var halo=document.createElementNS(SVGNS,'path'); halo.setAttribute('d',d); halo.setAttribute('class','halo');
+      var ln=document.createElementNS(SVGNS,'path'); ln.setAttribute('d',d); ln.setAttribute('class','ln'); ln.setAttribute('marker-end','url(#'+mid+')');
+      var dot=document.createElementNS(SVGNS,'circle'); dot.setAttribute('cx',sx); dot.setAttribute('cy',sy); dot.setAttribute('r',2.6); dot.setAttribute('class','st');
+      svg.appendChild(halo); svg.appendChild(ln); svg.appendChild(dot);
+      n._ln=ln;
+    });
+    fig.style.height=(H*sc)+'px';
+  }
+
+  function layoutAll(){figs.forEach(layout);}
+
+  figs.forEach(function(fig){
+    fig.querySelectorAll('.an').forEach(function(n){
+      function on(v){
+        var t=fig.querySelector('[data-a="'+n.dataset.for+'"]');
+        if(t) t.classList.toggle('anno-hit',v);
+        n.classList.toggle('on',v);
+        if(n._ln) n._ln.classList.toggle('on',v);
+      }
+      n.addEventListener('mouseenter',function(){on(true);});
+      n.addEventListener('mouseleave',function(){on(false);});
+      n.addEventListener('focus',function(){on(true);});
+      n.addEventListener('blur',function(){on(false);});
+    });
+  });
+
+  var rafL=0;
+  function schedule(){cancelAnimationFrame(rafL); rafL=requestAnimationFrame(function(){layoutAll(); updateIndex();});}
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(schedule); figs.forEach(function(f){ro.observe(f.parentElement);}); }
+  window.addEventListener('resize',schedule);
+  window.addEventListener('load',schedule);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(schedule);
+  layoutAll();
+
+  /* ---------- Reading mode ---------- */
+  var btns=document.querySelectorAll('.mode button');
+  function setMode(m){
+    document.body.classList.toggle('skim',m==='skim');
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.mode===m));});
+    try{localStorage.setItem('cs-mode',m);}catch(e){}
+    schedule();
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.mode);});});
+  var saved=null; try{saved=localStorage.getItem('cs-mode');}catch(e){}
+  setMode(saved==='full'?'full':'skim');
+
+  /* ---------- Tabs ---------- */
+  var tabs=[].slice.call(document.querySelectorAll('[role="tab"]'));
+  function pick(t){
+    tabs.forEach(function(o){
+      var sel=o===t; o.setAttribute('aria-selected',String(sel)); o.tabIndex=sel?0:-1;
+      document.getElementById(o.getAttribute('aria-controls')).hidden=!sel;
+    });
+    schedule();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){pick(t);});
+    t.addEventListener('keydown',function(e){
+      var n=null;
+      if(e.key==='ArrowRight') n=tabs[(i+1)%tabs.length];
+      if(e.key==='ArrowLeft') n=tabs[(i-1+tabs.length)%tabs.length];
+      if(n){e.preventDefault(); n.focus(); pick(n);}
+    });
+  });
+
+  /* ---------- Right index and universal progress ---------- */
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  var bar=document.getElementById('prog-fill'), nowLabel=document.getElementById('now-label');
+  function updateIndex(){
+    var doc=document.documentElement;
+    var max=doc.scrollHeight-window.innerHeight;
+    var p=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
+    bar.style.transform='scaleX('+p+')';
+    var line=window.scrollY+window.innerHeight*0.35;
+    var atEnd=window.scrollY>=max-4;
+    var active=-1;
+    secs.forEach(function(s,i){
+      var top=s.getBoundingClientRect().top+window.scrollY, h=s.offsetHeight;
+      if(line>=top&&line<top+h) active=i;
+      links[i].classList.toggle('done',atEnd||line>=top+h);
+    });
+    if(atEnd) active=-1;
+    links.forEach(function(a,i){ if(i===active) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+    nowLabel.textContent=active>=0?links[active].textContent:(atEnd?'Done':'Introduction');
+  }
+  var rafS=0;
+  window.addEventListener('scroll',function(){cancelAnimationFrame(rafS); rafS=requestAnimationFrame(updateIndex);},{passive:true});
+  updateIndex();
+})();
+</script>
+<script>
+(function(){
+  var shot=document.getElementById('live-shot');
+  var b=document.querySelectorAll('.scr-sw button');
+  b.forEach(function(x){x.addEventListener('click',function(){
+    shot.setAttribute('data-theme',x.dataset.t);
+    b.forEach(function(y){y.setAttribute('aria-pressed',String(y===x));});
+    window.dispatchEvent(new Event('resize'));
+  });});
+})();
+</script>
+</body>
+</html>

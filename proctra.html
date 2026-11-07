@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Case study: live exam attendance for exam co-ordinators, built from a qualitative and quantitative survey of five users. Afnan, product designer.">
+<meta property="og:title" content="Exam co-ordinators had one question during a live exam: is everyone in every centre?">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20122%20122%22%3E%3Crect%20width%3D%22122%22%20height%3D%22122%22%20rx%3D%2226%22%20fill%3D%22%23111312%22/%3E%3Cg%20transform%3D%22translate%280%209%29%22%20fill%3D%22%2376FBC8%22%3E%3Cpath%20d%3D%22M48.2%2011L53.2%2020L26%2077.2L31%2082.6H15.4Z%22/%3E%3Cpath%20d%3D%22M74%2011L106.4%2082.2H90.4L96.6%2076.8L74%2028L51%2077L56%2082.6H40.6Z%22/%3E%3Ccircle%20cx%3D%2274.6%22%20cy%3D%2263.6%22%20r%3D%226.6%22/%3E%3Crect%20x%3D%2211%22%20y%3D%2290.4%22%20width%3D%22100.4%22%20height%3D%225.2%22/%3E%3C/g%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Proctra: live exam attendance | Afnan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Lexend:wght@300;400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Portfolio shell tokens: exam-hall green, violet marking pen ---------- */
+:root{
+  --bg:#F2F5F3; --surface:#FFFFFF; --sunk:#E6ECE9; --ink:#13221E; --ink-2:#45554F; --ink-3:#6B7A74; --line:#D6DFDA;
+  --brand:#0B6E57; --brand-ink:#FFFFFF; --brand-soft:#DCEFE8;
+  --annot:#6D3FD6; --annot-halo:rgba(255,255,255,.92);
+  --navy:#0E2E27;
+  --bub:#9AA8A2;
+  --shadow:0 30px 70px -20px rgba(14,46,39,.28), 0 2px 6px rgba(14,46,39,.06);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1513; --surface:#12201C; --sunk:#182A25; --ink:#E6EEEA; --ink-2:#A9B8B2; --ink-3:#86968F; --line:#24372F;
+    --brand:#5CC9A7; --brand-ink:#0B1513; --brand-soft:#173A31;
+    --annot:#B79BFF; --annot-halo:rgba(11,21,19,0);
+    --navy:#0F2621;
+    --bub:#4F625B;
+    --shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1513; --surface:#12201C; --sunk:#182A25; --ink:#E6EEEA; --ink-2:#A9B8B2; --ink-3:#86968F; --line:#24372F;
+  --brand:#5CC9A7; --brand-ink:#0B1513; --brand-soft:#173A31;
+  --annot:#B79BFF; --annot-halo:rgba(11,21,19,0);
+  --navy:#0F2621;
+  --bub:#4F625B;
+  --shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Lexend,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:300;font-size:clamp(16px,.35vw + 12px,19px);line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+b,strong{font-weight:500}
+img{max-width:100%}
+a{color:var(--brand)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* ---------- Header with progress index ---------- */
+.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.site-in{max-width:1920px;margin:0 auto;padding:14px clamp(24px,4.2vw,80px);display:flex;align-items:center;gap:24px}
+.site b{font-weight:600;font-size:16px}
+.site nav.links{display:flex;gap:20px;margin-left:auto;font-size:15px}
+.site nav.links a{color:var(--ink-2);text-decoration:none}
+.site nav.links a:hover{color:var(--ink)}
+.mode{display:inline-flex;background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:3px}
+.mode button{font:inherit;font-size:14px;font-weight:500;border:0;background:transparent;color:var(--ink-2);padding:5px 14px;border-radius:999px;cursor:pointer}
+.mode button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+.prog{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:transparent}
+.prog i{display:block;height:100%;width:100%;background:var(--brand);transform-origin:0 50%;transform:scaleX(0)}
+.now{display:none;font-size:14px;color:var(--ink-2);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now b{font-weight:600;color:var(--ink)}
+.wrap{max-width:1920px;margin:0 auto;padding:0 clamp(24px,4.2vw,80px)}
+
+/* ---------- Hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(40px,5vw,112px);padding:clamp(56px,6vw,112px) 0 clamp(72px,7vw,140px);align-items:center}
+.kicker{font-size:15px;color:var(--ink-2);margin:0 0 20px}
+.kicker a{color:var(--ink-2)}
+h1{font-size:clamp(34px,3.3vw,64px);line-height:1.1;letter-spacing:-.025em;font-weight:500;margin:0 0 24px}
+.lede{font-size:clamp(18px,1.05vw + 4px,24px);line-height:1.5;color:var(--ink-2);margin:0 0 36px}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin:0 0 36px;padding:0}
+.meta div{display:flex;flex-direction:column}
+.meta dt{font-size:13px;color:var(--ink-3)}
+.meta dd{margin:2px 0 0;font-size:15px;font-weight:500}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi strong{display:block;font-size:clamp(22px,2vw,28px);white-space:nowrap;line-height:1.1;letter-spacing:-.02em;color:var(--brand);font-weight:600}
+.kpi span{display:block;font-size:13px;line-height:1.4;color:var(--ink-2);margin-top:8px}
+.nda{font-size:13px;color:var(--ink-3);margin-top:20px}
+.how{margin-top:28px;font-size:15px;color:var(--ink-2)}
+.how summary{cursor:pointer;font-weight:500;color:var(--brand)}
+.how b{color:var(--ink);font-weight:600}
+
+.stage{background:var(--navy);border-radius:24px;padding:clamp(24px,3vw,56px);position:relative;overflow:hidden}
+.stage .hpn{max-width:560px;margin:0 auto}
+.stage::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 90% -10%,rgba(92,201,167,.22),transparent 60%),radial-gradient(500px 300px at -10% 110%,rgba(11,110,87,.35),transparent 60%);pointer-events:none}
+
+/* ---------- Content column ---------- */
+.body{border-top:1px solid var(--line);padding:clamp(72px,7vw,140px) 0 160px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:clamp(48px,5vw,120px)}
+.toc{position:sticky;top:112px;align-self:start;font-size:14.5px}
+.toc p{margin:0 0 16px;font-size:13px;color:var(--ink-3)}
+.toc ol{list-style:none;margin:0;padding:0;position:relative}
+.toc ol::before{content:"";position:absolute;left:9px;top:12px;bottom:12px;width:2px;background:var(--line)}
+.toc li{position:relative}
+.toc a{display:flex;align-items:center;gap:12px;padding:7px 8px 7px 0;color:var(--ink-3);text-decoration:none;border-radius:8px;transition:color .15s}
+.toc a:hover{color:var(--ink)}
+.ck{position:relative;z-index:1;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);background:var(--bg);display:grid;place-items:center;flex:none;transition:background .2s,border-color .2s}
+.ck svg{width:12px;height:12px;color:var(--brand-ink);opacity:0;transition:opacity .2s}
+.toc a.done{color:var(--ink-2)}
+.toc a.done .ck{background:var(--brand);border-color:var(--brand)}
+.toc a.done .ck svg{opacity:1}
+.toc a[aria-current="true"]{color:var(--ink);font-weight:600}
+.toc a[aria-current="true"] .ck{border-color:var(--brand)}
+.toc a[aria-current="true"] .ck::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.toc .tt{margin:20px 0 0;font-size:13px;color:var(--ink-3)}
+section{padding:0 0 clamp(120px,10vw,200px)}
+.txt{margin-bottom:clamp(36px,3vw,56px)}
+section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spacing:-.012em;font-weight:400;color:var(--ink);margin:0}
+.sec-name{font-size:15px;font-weight:600;color:var(--brand);margin:0 0 14px}
+.p{font-size:inherit;color:var(--ink-2);margin:16px 0 0}
+.skim .full{display:none}
+.skim-only{display:none}
+.skim .skim-only{display:inline}
+
+.pains{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:0}
+.pain{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(22px,2vw,32px)}
+.pain h3{font-size:18px;margin:0 0 8px;font-weight:600}
+.pain p{margin:0;font-size:15px;color:var(--ink-2);line-height:1.55}
+.users{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;align-items:center;font-size:15px}
+.tag{background:var(--brand-soft);color:var(--brand);font-weight:500;border-radius:999px;padding:6px 14px;font-size:14px}
+
+.rules{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.rule{padding:22px 28px 0 0}
+.rule b{display:block;font-size:16px;font-weight:600;margin-bottom:4px}
+.rule span{font-size:14px;color:var(--ink-2);line-height:1.5}
+
+.cap{font-size:13px;color:var(--ink-3);margin:18px 0 0;text-align:center}
+.sub-h{font-size:15px;font-weight:600;color:var(--ink-2);margin:88px 0 24px}
+.txt + .sub-h{margin-top:0}
+
+/* ---------- Annotated figure ---------- */
+.anno{margin:0;position:relative}
+.anno-stage{position:relative;width:1180px;display:grid;grid-template-columns:160px 820px 160px;column-gap:20px;align-items:start;transform-origin:0 0}
+.anno-col{position:relative}
+.an{position:absolute;left:0;right:0;font-size:13px;line-height:1.45;cursor:default;outline:none}
+.anno-col.l .an{text-align:right}
+.an b{display:block;font-size:14px;font-weight:600;color:var(--ink);line-height:1.3}
+.an p{margin:4px 0 0;color:var(--ink-2)}
+.skim .an p{display:none}
+.an:hover b,.an:focus-visible b,.an.on b{color:var(--annot)}
+.anno-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:5;color:var(--annot)}
+.anno-svg .halo{stroke:var(--annot-halo);stroke-width:5;fill:none;stroke-linecap:round}
+.anno-svg .ln{stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;transition:stroke-width .15s}
+.anno-svg .ln.on{stroke-width:2.6}
+.anno-svg .st{fill:currentColor}
+.anno-hit{outline:2px solid var(--annot)!important;outline-offset:3px;border-radius:6px}
+.shot-fit{position:relative}
+.anno.stacked .anno-stage{width:100%;display:flex;flex-direction:column}
+.anno.stacked .shot-fit{order:-1;overflow:hidden;width:100%;min-width:0}
+.anno.stacked .anno-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px;height:auto!important;margin-top:18px}
+.anno.stacked .anno-col.r{margin-top:14px}
+.anno.stacked .an{position:static;text-align:left!important;padding-left:22px;position:relative}
+.anno.stacked .an::before{content:"";position:absolute;left:2px;top:4px;width:11px;height:11px;border-left:2px solid var(--annot);border-top:2px solid var(--annot);transform:rotate(0deg)}
+.anno.stacked .an::after{content:"";position:absolute;left:3px;top:5px;width:14px;height:2px;background:var(--annot);transform-origin:0 0;transform:rotate(45deg)}
+.anno.stacked .anno-svg{display:none}
+
+/* ---------- Options ---------- */
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,44px)}
+.opt h3{font-size:19px;margin:14px 0 8px;font-weight:600}
+.opt dl{margin:0;display:grid;gap:8px}
+.opt dt{font-size:12.5px;color:var(--ink-3)}
+.opt dt.t{color:var(--annot)}
+.opt dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.thumb{height:clamp(170px,12vw,230px);border:1px solid var(--line);border-radius:12px;background:#F3F5F9;overflow:hidden;display:grid;grid-template-rows:18px 1fr}
+.thumb .tb0{background:#0C1426}
+.thumb .tin{display:grid;grid-template-columns:22px 1fr}
+.thumb .tr{background:#fff;border-right:1px solid #E3E7EF}
+.thumb .sk{display:block;height:8px;border-radius:4px;background:#DDE2EB}
+.thumb .skrow{display:flex;gap:8px;margin-top:8px}
+.decision{margin-top:40px;background:var(--brand-soft);color:var(--brand);border-radius:14px;padding:22px 26px;font-weight:500;font-size:inherit}
+
+.hind{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,56px)}
+.hind h3{font-size:clamp(18px,.6vw + 12px,22px);line-height:1.35;letter-spacing:-.01em;margin:0 0 8px;font-weight:500}
+.hind p{margin:0;font-size:15px;color:var(--ink-2)}
+.next{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:24px;margin:0;border-top:1px solid color-mix(in srgb,var(--ink) 14%,transparent);padding:28px 0 0;font-family:Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.4;color:var(--ink-2)}
+.next > span{color:var(--ink-2);font-weight:400}
+.next a{font-size:22px;font-weight:600;letter-spacing:-.01em;text-decoration:none;color:var(--ink);white-space:nowrap}
+.next a:hover{color:var(--brand)}
+@media (max-width:720px){.next{flex-direction:column;align-items:flex-start;gap:8px}.next a{white-space:normal}}
+
+/* ---------- Overrides for this case study ---------- */
+h1{font-weight:400;letter-spacing:-.02em}
+section h2{font-weight:300}
+.lede{font-weight:300}
+.pains{grid-template-columns:repeat(2,minmax(0,1fr))}
+.pain h3{font-weight:500}
+.hind{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:clamp(32px,3vw,48px)}
+.hind h3{font-weight:400}
+
+/* ---------- Research: persona and answer sheet ---------- */
+.persona{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;margin-bottom:24px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(22px,2vw,32px)}
+.ph-row{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.pav{width:52px;height:52px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:500;font-size:18px;flex:none}
+.ph-row b{display:block;font-size:19px;font-weight:500;line-height:1.25}
+.ph-row span{font-size:14px;color:var(--ink-2)}
+.pcard ul{margin:0;padding:0 0 0 18px;font-size:15px;color:var(--ink-2);display:grid;gap:6px}
+.method{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mbox{background:var(--sunk);border-radius:14px;padding:16px 18px}
+.mbox strong{display:block;font-size:clamp(26px,2.2vw,34px);font-weight:500;line-height:1.05;color:var(--brand);letter-spacing:-.02em}
+.mbox span{display:block;font-size:13.5px;color:var(--ink-2);margin-top:6px;line-height:1.4}
+
+.qs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.qcol{display:grid;gap:20px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,1.8vw,28px)}
+.qn{font-size:13px;color:var(--ink-3);margin:0 0 6px}
+.q h3{font-size:17px;line-height:1.4;font-weight:500;margin:0 0 18px}
+.opt{display:grid;grid-template-columns:minmax(0,1fr) auto 46px;gap:14px;align-items:center;padding:7px 0;border-top:1px dashed var(--line);font-size:14.5px;color:var(--ink-2)}
+.opt:first-of-type{border-top:0}
+.opt.top{color:var(--ink);font-weight:400}
+.bubs{display:flex;gap:6px}
+.bub{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--bub);display:block}
+.bub.f{background:var(--brand);border-color:var(--brand)}
+.opt em{font-style:normal;font-size:13px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
+.take{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:15px;color:var(--brand);font-weight:400;line-height:1.5}
+.qkey{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-3);margin:0 0 18px}
+.qkey .bub{width:13px;height:13px}
+
+/* ---------- Findings map ---------- */
+.map{border-top:1px solid var(--line)}
+.mrow{display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,1.15fr);gap:clamp(18px,2vw,36px);padding:22px 0;border-bottom:1px solid var(--line);align-items:start}
+.mrow strong{font-size:clamp(24px,1.8vw,30px);font-weight:500;color:var(--brand);line-height:1.1;letter-spacing:-.02em;white-space:nowrap}
+.mrow p{margin:0;font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.mrow p.chg{color:var(--ink)}
+.mrow small{display:block;font-size:12.5px;color:var(--ink-3);margin-bottom:4px}
+
+/* =========================================================
+   Product UI: Proctra rebuilt. Fixed light theme, like a screenshot.
+   ========================================================= */
+.ui{
+  --u-bg:#F1F5F3; --u-card:#FFFFFF; --u-line:#DCE5E1; --u-line2:#EAF0ED;
+  --u-ink:#13221E; --u-ink2:#4A5A54; --u-ink3:#82918B;
+  --u-nav:#0F3B32; --u-nav2:#14493E;
+  --u-pri:#0B6E57; --u-pri2:#6CC3A6; --u-pri-soft:#E1F2EB;
+  --u-crit:#D9443F; --u-crit-soft:#FDECEB; --u-warn:#B87A00; --u-warn-soft:#FDF3DC;
+  --u-good:#1E9E61; --u-good-soft:#E3F6EC; --u-info:#3A78B5; --u-info-soft:#E6EFF8;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:13px;line-height:1.45;color:var(--u-ink);background:var(--u-bg);
+  -webkit-font-smoothing:antialiased;letter-spacing:-.003em;text-align:left;font-weight:400;
+}
+.ui b{font-weight:600}
+.ui svg{width:16px;height:16px;flex:none}
+.shot{width:820px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(16,40,34,.12);position:relative;z-index:1;transform-origin:0 0}
+.bwr{height:30px;background:#E7ECE9;display:flex;align-items:center;gap:7px;padding:0 12px;border-bottom:1px solid #D7DED9}
+.bwr .bd{width:10px;height:10px;border-radius:50%;background:#C9D1CC}
+.bwr .url{margin:0 auto;display:flex;align-items:center;gap:6px;background:#fff;border-radius:6px;padding:3px 14px;font-size:11.5px;color:#56645E;min-width:300px;justify-content:center}
+.bwr .url svg{width:11px;height:11px;color:#82918B}
+.logo{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:15px;letter-spacing:-.02em;color:#fff}
+.logo svg{width:18px;height:18px}
+.logo small{font-weight:500;font-size:13px;color:#BFE3D6;letter-spacing:0}
+.pillc{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:600;color:#fff;white-space:nowrap}
+.pillc i{width:7px;height:7px;border-radius:50%;background:#7EE2B8}
+
+/* ---- before ---- */
+.otop{height:34px;background:var(--u-pri);display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.otop .rt{display:flex;gap:8px}
+.otitle{height:46px;background:#118367;display:flex;align-items:center;gap:12px;padding:0 14px;color:#fff;font-size:15px;font-weight:500}
+.otitle svg{width:18px;height:18px}
+.otitle .lgi{margin-left:auto;display:flex;align-items:center;gap:10px;background:#fff;color:var(--u-ink);border-radius:6px;padding:5px 10px;font-size:11px;line-height:1.25}
+.otitle .lgi b{display:block;font-size:11.5px}
+.otitle .lgi svg{width:14px;height:14px;color:var(--u-pri)}
+.otitle .avc{width:22px;height:22px;border-radius:50%;background:#fff;border:1px solid #9FCDBE}
+.otabs{display:flex;gap:26px;background:#118367;padding:0 16px;font-size:12.5px;color:#D3EEE4}
+.otabs span{padding:8px 0 9px;border-bottom:2px solid transparent}
+.otabs span.on{color:#fff;border-bottom-color:#fff;font-weight:600}
+.omain{position:relative;padding:16px 16px 22px;min-height:640px}
+.oleft{width:560px}
+.oh{font-size:16px;font-weight:600;margin:0 0 10px}
+.ocard{background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(16,40,34,.14)}
+.osess{text-align:center;padding:10px;font-size:11.5px}
+.osess b{display:block;font-size:12px;letter-spacing:.02em}
+.osess .sx{display:inline-grid;grid-template-columns:auto auto;gap:0 20px;text-align:left;margin-top:4px}
+.osess .sx small{font-size:10px;color:var(--u-pri);font-weight:600}
+.olive{margin:10px 0 12px;background:#E3F5EE;border:1px solid #9FD5C2;border-radius:6px;padding:9px 12px}
+.olive>b{display:block;font-size:11px;color:var(--u-pri);margin-bottom:6px}
+.olive .row{display:inline-flex;align-items:center;gap:12px;background:#fff;border-radius:5px;padding:5px 9px;font-size:11.5px}
+.olive .tm{background:#FBE3E2;color:var(--u-crit);border-radius:4px;padding:1px 6px;font-weight:500}
+.olive .rs{border:1px solid var(--u-pri);color:var(--u-pri);border-radius:4px;padding:1px 9px;font-size:10px;font-weight:600}
+.ogrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+.ocol{display:grid;gap:12px}
+.ob{padding:12px 14px}
+.ob h5{margin:0 0 6px;font-size:11.5px;letter-spacing:.04em;color:#5A6762;font-weight:700}
+.om{padding:6px 0 7px;border-bottom:1px solid #E3E9E6}
+.om:last-child{border-bottom:0}
+.om small{display:block;font-size:8.5px;font-weight:700;color:#55625D;letter-spacing:.03em;text-transform:uppercase;margin-bottom:3px}
+.om .n3{display:grid;grid-template-columns:repeat(3,38px);gap:4px}
+.om .n3.two{grid-template-columns:repeat(2,52px)}
+.om .n3 div{font-size:13px;line-height:1.1;color:var(--u-pri);font-weight:500}
+.om .n3.k div{color:var(--u-ink)}
+.om .n3 div span{display:block;font-size:8.5px;color:var(--u-ink2);font-weight:400;margin-top:1px}
+.odrawer{position:absolute;top:0;right:0;bottom:0;width:224px;background:#fff;box-shadow:-10px 0 24px rgba(16,40,34,.14);border-left:1px solid var(--u-line)}
+.odh{background:var(--u-pri);color:#fff;display:flex;align-items:center;gap:10px;padding:12px 12px;font-size:14px;font-weight:500}
+.odh svg{width:14px;height:14px}
+.oni{margin:0 12px;padding:11px 0;border-bottom:1px solid #D9E1DD;font-size:11.5px}
+.oni .h{display:flex;justify-content:space-between;font-weight:600}
+.oni .h span{font-weight:400;color:var(--u-ink2)}
+.oni small{display:block;color:var(--u-ink3);margin:4px 0 5px;font-size:10.5px}
+.oni .ac{display:flex;justify-content:flex-end;gap:10px;align-items:center;margin-top:8px;font-size:10px;font-weight:600;color:var(--u-pri)}
+.oni .ac span:last-child{border:1px solid var(--u-pri);border-radius:4px;padding:1px 8px}
+
+/* ---- after ---- */
+.atop{height:42px;background:var(--u-nav);display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.atop .lt,.atop .rt{display:flex;gap:8px;align-items:center}
+.asub{height:38px;background:var(--u-nav2);display:flex;align-items:center;gap:12px;padding:0 14px;color:#CFE6DD;font-size:11px;font-weight:600;letter-spacing:.02em}
+.asub svg{width:16px;height:16px}
+.asub .cr{display:flex;align-items:center;gap:4px}
+.asub .cr svg{width:12px;height:12px}
+.asub .cr b{color:#7EE2B8}
+.asub .you{margin-left:auto;text-align:right;line-height:1.2;color:#fff;font-size:11.5px}
+.asub .you small{display:block;font-size:9px;color:#9CC7B8;font-weight:500}
+.asub .dot{width:12px;height:12px;border-radius:50%;background:#43D18F;box-shadow:0 0 0 3px rgba(67,209,143,.2)}
+.atabs{display:flex;gap:18px;padding:0 16px;background:#fff;border-bottom:1px solid var(--u-line);font-size:11.5px;font-weight:600;color:var(--u-pri)}
+.atabs span{padding:9px 0 8px;border-bottom:2px solid transparent}
+.atabs span.on{color:var(--u-ink);border-bottom-color:var(--u-pri)}
+.amain{padding:14px 16px 18px;display:grid;gap:10px}
+.card{background:#fff;border:1px solid var(--u-line);border-radius:10px}
+.live{display:flex;align-items:center;justify-content:center;gap:10px;background:#E5F4EE;border-radius:8px;padding:9px;font-size:12px;font-weight:700;letter-spacing:.02em}
+.live .tg{display:inline-flex;align-items:center;gap:5px;background:var(--u-crit);color:#fff;font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 7px}
+.live .tg i{width:6px;height:6px;border-radius:50%;background:#fff}
+.live .tm{font-weight:500;color:var(--u-ink2);letter-spacing:0}
+.sess{padding:11px 14px}
+.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ch b{font-size:12.5px;color:var(--u-pri)}
+.ch a{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--u-pri);text-decoration:none}
+.ch a svg{width:12px;height:12px}
+.sgrid{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:16px;font-size:11.5px}
+.sgrid small{display:block;color:var(--u-ink3);font-size:10.5px;margin-bottom:2px}
+.sgrid .ex{display:grid;grid-template-columns:1fr 1fr;gap:1px 10px;color:var(--u-ink2)}
+.arow{display:grid;grid-template-columns:300px minmax(0,1fr);gap:10px}
+.feed{padding:11px 0 6px}
+.fh{display:flex;align-items:center;gap:8px;padding:0 12px 9px;border-bottom:1px solid var(--u-line2)}
+.fh b{font-size:12px;flex:1}
+.fh a{font-size:10.5px;color:var(--u-pri);font-weight:600;text-decoration:none}
+.fh em{font-style:normal;font-size:10px;font-weight:600;color:#fff;background:var(--u-crit);border-radius:999px;padding:0 6px}
+.fi{padding:9px 12px;border-bottom:1px solid var(--u-line2);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;align-items:center}
+.fi:last-child{border-bottom:0}
+.fi.new{background:#FBFDFC;box-shadow:inset 3px 0 0 var(--u-crit)}
+.fi .tc{font-size:10px;font-weight:600;color:var(--u-ink3);letter-spacing:.02em}
+.fi .ago{font-size:10px;color:var(--u-ink3);text-align:right}
+.fi p{margin:0;font-size:11.5px;color:var(--u-ink2);line-height:1.4}
+.fi p b{color:var(--u-ink)}
+.stag{font-size:9.5px;font-weight:700;border-radius:4px;padding:2px 7px;white-space:nowrap;text-align:center}
+.stag.c{background:var(--u-crit-soft);color:#B42F2B}
+.stag.w{background:var(--u-warn-soft);color:#8A5B00}
+.stag.g{background:var(--u-good-soft);color:#13784A}
+.stag.i{background:var(--u-info-soft);color:#2A5F94}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.st{padding:11px 12px}
+.st h6{margin:0;font-size:11.5px;font-weight:600;color:var(--u-pri)}
+.big{font-size:20px;font-weight:600;letter-spacing:-.02em;line-height:1.15;margin-top:2px}
+.big small{font-size:12px;color:var(--u-ink3);font-weight:500;letter-spacing:0}
+.dn{display:flex;gap:12px;align-items:center;margin-top:8px}
+.dn svg{width:66px;height:66px}
+.lg2{display:grid;gap:7px;font-size:11px;color:var(--u-ink2)}
+.lg2 div{display:grid;grid-template-columns:9px auto;gap:2px 7px;align-items:center}
+.lg2 i{width:9px;height:9px;border-radius:2px}
+.lg2 b{font-size:12.5px;color:var(--u-ink)}
+.lg2 b small{font-size:10.5px;color:var(--u-ink3);font-weight:500}
+.lg2 span{grid-column:2;font-size:10px;color:var(--u-ink3)}
+.up .bar{height:5px;border-radius:3px;background:var(--u-line2);margin:8px 0 6px;overflow:hidden}
+.up .bar i{display:block;height:100%;background:var(--u-pri);border-radius:3px}
+.up .bl{display:flex;justify-content:space-between;font-size:10px;color:var(--u-ink3)}
+.up .bl a{color:var(--u-crit);font-weight:600;text-decoration:none}
+.btnx{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:11px;font-weight:600;border-radius:6px;padding:6px 11px;background:#E7ECEA;color:#9AA7A2}
+.btnx svg{width:12px;height:12px}
+.hint{display:block;font-size:10px;color:var(--u-ink3);margin-top:6px}
+.cen{padding:11px 12px 13px}
+.cwrap{display:grid;grid-template-columns:18px repeat(4,minmax(0,1fr)) 18px;gap:9px;align-items:center}
+.cwrap>svg{color:var(--u-pri);width:16px;height:16px}
+.cc{border:1px solid var(--u-line);border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(16,40,34,.06)}
+.cc h6{margin:0;background:var(--u-pri-soft);padding:8px 10px;font-size:11.5px;font-weight:600}
+.cc.done h6{background:#CDEBDF}
+.cc .cb{padding:8px 10px;display:grid;gap:8px}
+.cm b{font-size:13px}
+.cm b small{font-size:10.5px;color:var(--u-ink3);font-weight:500}
+.cm b svg{width:11px;height:11px;color:var(--u-good);vertical-align:-1px;margin-left:3px}
+.cm .tr{height:4px;border-radius:2px;background:var(--u-line2);margin:3px 0 3px;overflow:hidden}
+.cm .tr i{display:block;height:100%;background:var(--u-pri)}
+.cm span{font-size:9.5px;color:var(--u-ink3)}
+.tally{padding:10px 12px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.tl{background:#F5F8F7;border-radius:6px;padding:7px 9px}
+.tl b{display:block;font-size:17px;line-height:1.1}
+.tl span{font-size:10px;color:var(--u-ink3)}
+.tl.c{background:var(--u-crit-soft)}
+.tl.c b{color:#B42F2B}
+
+/* hero panel */
+.hpn{position:relative;border-radius:14px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.08);max-width:540px;margin:0 auto}
+.hpn .live{border-radius:0}
+.hpn-b{padding:12px;background:var(--u-bg);display:grid;gap:10px}
+.hpn .g2 .st{padding:10px 11px}
+
+@media (max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .body{grid-template-columns:minmax(0,1fr)}
+  .toc{display:none}
+  .now{display:block}
+  .persona,.qs{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .site nav.links{display:none}
+  .mode button{padding:5px 10px}
+  .meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pains,.hind{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .anno.stacked .anno-col{grid-template-columns:1fr}
+  .stage{padding:16px;border-radius:18px}
+  .mrow{grid-template-columns:1fr;gap:8px}
+  .hpn .arow{grid-template-columns:1fr}
+}
+/* ---------- v2: qualitative themes ---------- */
+.themes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.theme{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:14px;padding:clamp(20px,1.8vw,26px)}
+.theme .cnt{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-3);margin-bottom:8px}
+.theme h3{font-size:18px;font-weight:500;margin:0 0 8px;line-height:1.35}
+.theme p{margin:0;font-size:15px;color:var(--ink-2);line-height:1.55}
+.openq{margin:0 0 22px;padding:0;list-style:none;display:grid;gap:8px}
+.openq li{font-size:15.5px;color:var(--ink-2);padding-left:22px;position:relative}
+.openq li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--bub)}
+.qcol3{display:grid;gap:20px}
+
+/* ---------- v2: red flags and errors ---------- */
+.states{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:36px}
+.stbox{display:flex;flex-direction:column;gap:10px}
+.stbox .ui{border-radius:12px;padding:12px;border:1px solid var(--line);flex:1}
+.stbox p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.45}
+.stbox p b{display:block;color:var(--ink);font-weight:500}
+.scgrp{margin-top:8px}
+.scgrp h3{font-size:16px;font-weight:500;margin:28px 0 4px}
+.scgrp>p{margin:0 0 12px;font-size:14.5px;color:var(--ink-3)}
+.scrow{display:grid;grid-template-columns:92px minmax(0,1.1fr) minmax(0,1.2fr) minmax(0,.9fr);gap:clamp(12px,1.6vw,28px);padding:14px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.45;align-items:start}
+.scrow.hd{font-size:12.5px;color:var(--ink-3);padding:8px 0}
+.scrow span{color:var(--ink-2)}
+.scrow b{font-weight:500}
+.sev{display:inline-block;font-size:12px;font-weight:500;border-radius:6px;padding:2px 8px;white-space:nowrap}
+.sev.c{background:#FDECEB;color:#A8302C}
+.sev.w{background:#FDF3DC;color:#7A5200}
+.sev.e{background:#ECE6FB;color:#5130A8}
+:root[data-theme="dark"] .sev.c{background:#3A1A19;color:#FF9C97}
+:root[data-theme="dark"] .sev.w{background:#3A2D10;color:#F5C76A}
+:root[data-theme="dark"] .sev.e{background:#2A2147;color:#C7B4FF}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .sev.c{background:#3A1A19;color:#FF9C97}
+  :root:not([data-theme="light"]) .sev.w{background:#3A2D10;color:#F5C76A}
+  :root:not([data-theme="light"]) .sev.e{background:#2A2147;color:#C7B4FF}
+}
+
+/* ---------- v2: centre groups in the product ---------- */
+.grp{display:grid;gap:7px}
+.grp+.grp{margin-top:10px}
+.gh{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600}
+.gh i{width:8px;height:8px;border-radius:2px}
+.gh small{font-weight:500;color:var(--u-ink3);font-size:10.5px}
+.gh a{margin-left:auto;font-size:10.5px;font-weight:600;color:var(--u-pri);text-decoration:none}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cc2{border:1px solid var(--u-line);border-radius:8px;background:#fff;overflow:hidden}
+.cc2 h6{margin:0;display:flex;align-items:center;justify-content:space-between;padding:7px 9px;background:#F5F8F7;font-size:11.5px;font-weight:600;border-bottom:1px solid var(--u-line2)}
+.cs{font-size:9.5px;font-weight:700;border-radius:4px;padding:1px 6px}
+.cs.ok{background:var(--u-good-soft);color:#13784A}
+.cs.bad{background:var(--u-crit-soft);color:#B42F2B}
+.cs.off{background:#E7ECEA;color:#5F6C67}
+.cc2 .cb{padding:6px 9px 8px;display:grid;gap:5px}
+.pa{display:grid;grid-template-columns:52px 1fr 1fr;gap:6px;align-items:baseline;font-size:10px;color:var(--u-ink3)}
+.pa b{font-size:13px;color:var(--u-ink);font-weight:600;margin-right:3px}
+.pa .ab b{color:var(--u-crit)}
+.pa .z b{color:var(--u-ink3)}
+.cc2.bad{border-color:#F0A8A5;box-shadow:0 0 0 3px rgba(217,68,63,.1)}
+.cc2.bad h6{background:var(--u-crit-soft)}
+.cc2 .act{display:flex;justify-content:flex-end;padding:0 9px 8px}
+.cc2 .act span{font-size:10px;font-weight:600;color:#fff;background:var(--u-crit);border-radius:5px;padding:3px 8px}
+.cc2.off{background:#F6F8F7}
+.cc2.off .cb{opacity:.55}
+.cc2 .stale{font-size:9.5px;color:var(--u-ink3);padding:0 9px 8px}
+.ebar{display:flex;align-items:center;gap:8px;background:var(--u-crit-soft);color:#8E2622;border-radius:7px;padding:8px 10px;font-size:11px;line-height:1.35}
+.ebar b{display:block;font-size:11.5px}
+.ebar span.btn{margin-left:auto;font-size:10px;font-weight:600;background:#fff;border:1px solid #F0A8A5;border-radius:5px;padding:3px 8px;white-space:nowrap}
+.ebar.e{background:#ECE6FB;color:#3E2490}
+.ebar.e span.btn{border-color:#C9B8F5}
+.stag.e{background:#ECE6FB;color:#4B2BA8}
+.hpn .grp{gap:6px}
+.hpn .g3{grid-template-columns:1fr 1fr}
+
+@media (max-width:1100px){.states{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){
+  .themes,.states{grid-template-columns:1fr}
+  .scrow{grid-template-columns:1fr;gap:4px}
+  .scrow.hd{display:none}
+}
+
+/* ---------- Hero: before and after slider ---------- */
+.hero{display:block;padding:clamp(48px,5vw,96px) 0 clamp(64px,6vw,120px)}
+.hero-txt{max-width:860px}
+.hero h1{max-width:22ch}
+.hero .lede{max-width:46ch;margin-bottom:28px}
+.hero .meta{margin-bottom:clamp(32px,3vw,48px)}
+.cmp{max-width:1180px}
+.cmp-stage{position:relative;overflow:hidden;border-radius:20px;background:var(--navy);touch-action:pan-y}
+.cmp-layer{position:absolute;inset:0;padding:var(--cmp-pad,32px);background:var(--navy)}
+.cmp-layer .shot{box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.cmp-before{clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0)}
+.cmp-after{clip-path:inset(0 0 0 var(--pos,50%))}
+.cmp-line{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.15);pointer-events:none;z-index:3}
+.cmp-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:#fff;color:#0B6E57;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.cmp-knob svg{width:15px;height:15px}
+.cmp-tag{position:absolute;top:16px;z-index:4;font-size:14px;font-weight:500;padding:6px 14px;border-radius:999px;pointer-events:none}
+.cmp-tag.l{left:16px;background:#fff;color:#13221E}
+.cmp-tag.r{right:16px;background:#5CC9A7;color:#0B1513}
+.cmp-stage input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:5;-webkit-appearance:none;appearance:none}
+.cmp-stage:has(input:focus-visible) .cmp-knob{outline:3px solid #B79BFF;outline-offset:3px}
+.cmp-cap{font-size:14px;color:var(--ink-3);margin:14px 0 0}
+@media (max-width:720px){.cmp-tag{top:10px;font-size:12.5px;padding:4px 10px}.cmp-tag.l{left:10px}.cmp-tag.r{right:10px}.cmp-knob{width:38px;height:38px}}
+
+
+/* ---------- One desktop breakpoint: annotations and index collapse together below 1366px ---------- */
+@media (max-width:1365px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.now{display:block}}
+
+/* ---------- Brand mark ---------- */
+.site .brand{display:inline-flex;align-items:center;color:#76FBC8;flex:none}
+.site .brand svg{height:28px;width:auto;filter:drop-shadow(0 0 6px rgba(118,251,200,.3))}
+
+/* ---------- Case study tags ---------- */
+.cs-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 28px;padding:0}
+.cs-tags li{font-size:13.5px;line-height:1;color:var(--ink-2);border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:999px;padding:7px 12px}
+.cs-tags li.win{color:var(--brand);border-color:color-mix(in srgb,var(--brand) 45%,transparent)}
+</style>
+</head>
+<body class="skim">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M12 4L1.5 9 12 14l10.5-5L12 4z" fill="currentColor"/><path d="M5.5 11.2V16c0 1.6 2.9 3 6.5 3s6.5-1.4 6.5-3v-4.8L12 14.3 5.5 11.2z" fill="currentColor" opacity=".7"/><path d="M21 9.5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></g></symbol>
+</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="spark" viewBox="0 0 24 24"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9L12 2zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z" fill="currentColor"/></symbol>
+  <symbol id="logo" viewBox="0 0 24 24"><defs><linearGradient id="lgg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B7CFF"/><stop offset="1" stop-color="#7A55F5"/></linearGradient></defs><path d="M12 1.8l8.6 3.3v6.4c0 5.3-3.6 9.6-8.6 10.9C7 21.1 3.4 16.8 3.4 11.5V5.1L12 1.8z" fill="url(#lgg)"/><path d="M8 8.5l4 7 4-7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <symbol id="i-grid" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></g></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 15.5H3L12 3.5zM12 10v4M12 16.8v.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="4" width="17" height="7" rx="2"/><rect x="3.5" y="13" width="17" height="7" rx="2"/><path d="M7.5 7.5h.01M7.5 16.5h.01"/></g></symbol>
+    <symbol id="i-radar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6-6"/></g></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M10 6.5h10M10 12h10M10 17.5h10M4 6.5l1.3 1.3L7.6 5.5M4 12l1.3 1.3L7.6 11M4 17.5l1.3 1.3 2.3-2.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6V3zM14 3v4h4M9 13h6M9 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></g></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></g></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 1 1 12 0v5l1.5 2h-15L6 16zM10 20.5a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chev-u" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5H5V6h5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M6.5 3.5h11v17l-5.5-4-5.5 4v-17z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2"/><path d="M15.5 8.5V5.5a1.5 1.5 0 0 0-1.5-1.5H5.5A1.5 1.5 0 0 0 4 5.5V14a1.5 1.5 0 0 0 1.5 1.5h3"/></g></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-7.5-5.5 16-2.8-6.2L4 12z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 24 24"><path d="M20 11.5l-8 8a5 5 0 0 1-7-7l8.5-8.5a3.4 3.4 0 0 1 4.8 4.8l-8.4 8.4a1.8 1.8 0 0 1-2.6-2.6l7.6-7.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2 2 0 0 1 6 3.5h13v15H6a2 2 0 0 0-2 2v-15zM4 20.5a2 2 0 0 1 2-2h13v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.1"/></g></symbol>
+    <symbol id="i-table" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M3.5 10h17M3.5 15h17M10 10v9.5"/></g></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20h16M7 16V10M12 16V6M17 16v-4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-thumb" viewBox="0 0 24 24"><path d="M7 10.5v9H4.5v-9H7zM7 10.5l4-7c1.6 0 2.6 1.2 2.3 2.8L12.8 9.5H19a1.6 1.6 0 0 1 1.6 1.9l-1.3 6.6a2 2 0 0 1-2 1.5H7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  </g>
+</svg>
+
+<header class="site">
+  <div class="site-in" style="position:relative">
+    <a class="brand" href="index.html" aria-label="Mohammed Afnan, home"><svg viewBox="8 8 106 90" fill="currentColor" aria-hidden="true"><path d="M48.2 11L53.2 20L26 77.2L31 82.6H15.4Z"/><path d="M74 11L106.4 82.2H90.4L96.6 76.8L74 28L51 77L56 82.6H40.6Z"/><circle cx="74.6" cy="63.6" r="6.6"/><rect x="11" y="90.4" width="100.4" height="5.2"/></svg></a>
+    <div class="mode" role="group" aria-label="Reading mode">
+      <button type="button" data-mode="skim" aria-pressed="true">Skim</button>
+      <button type="button" data-mode="full" aria-pressed="false">Full story</button>
+    </div>
+    <span class="now" aria-live="polite"><b id="now-label">Introduction</b></span>
+    <nav class="links" aria-label="Site"><a href="index.html#work">Work</a><a href="index.html#approach">About</a><a href="mailto:mails2afnan@gmail.com">Contact</a></nav>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="prog-fill"></i></div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="hero-txt">
+      <p class="kicker"><a href="index.html#work">Work</a> / Live exam attendance for an onsite exam portal</p>
+      <h1>Is everyone in every centre?</h1>
+      <p class="lede">I rebuilt Proctra’s live exam dashboard from a survey of five exam co-ordinators, so attendance reads centre by centre.</p>
+      <ul class="cs-tags" aria-label="Tags"><li>B2B</li><li>EdTech</li><li>User research</li><li>Real-time dashboard</li></ul>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>Product designer</dd></div>
+        <div><dt>Scope</dt><dd>Research, live dashboard, error states</dd></div>
+        <div><dt>Platform</dt><dd>Web, onsite exam portal</dd></div>
+        <div><dt>Year</dt><dd>2021</dd></div>
+      </dl>
+    </div>
+    <div class="cmp" id="cmp">
+      <div class="cmp-stage">
+        <div class="cmp-layer cmp-after" aria-hidden="true"></div>
+        <div class="cmp-layer cmp-before" aria-hidden="true"></div>
+        <div class="cmp-line" aria-hidden="true"><span class="cmp-knob"><svg><use href="#i-chev-l"/></svg><svg><use href="#i-chev-r"/></svg></span></div>
+        <span class="cmp-tag l">Before</span>
+        <span class="cmp-tag r">After</span>
+        <input type="range" min="0" max="100" value="50" step="1" aria-label="Drag to compare the dashboard before and after the redesign" aria-valuetext="50 percent before">
+      </div>
+      <p class="cmp-cap">Drag the handle, or use the arrow keys, to compare the old dashboard with the redesign.</p>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="flowc">
+
+      <section id="problem">
+        <div class="txt">
+          <p class="sec-name">Problem</p>
+          <h2>One session can hold 432 students, 42 proctors and 17 test centres. The old dashboard added them all into one set of totals.</h2>
+        </div>
+        <div class="pains full">
+          <div class="pain"><h3>Totals, not a roll call</h3><p>Students and proctors showed as session totals, split male and female. Nothing said which centre was missing people.</p></div>
+          <div class="pain"><h3>Absent was hard to find</h3><p>Students not reported sat in row three of one card. Proctors not reported sat in row two of another.</p></div>
+          <div class="pain"><h3>Alerts lived in a drawer</h3><p>Notifications opened in a side panel with no severity. A proctor login looked as loud as a student caught copying.</p></div>
+          <div class="pain"><h3>Closing was a guess</h3><p>Answers not uploaded was the last row of the last card. Nothing stopped a co-ordinator closing the session early.</p></div>
+        </div>
+        <div class="users"><span>One persona, one job:</span><span class="tag">Exam co-ordinator at the control desk during a live onsite session</span></div>
+      </section>
+
+      <section id="research">
+        <div class="txt">
+          <p class="sec-name">Qualitative and quantitative research</p>
+          <h2>Before I changed anything, I sent the same survey to five exam co-ordinators. Open questions told me what worried them. Fixed questions told me how many.</h2>
+          <p class="p full">All five ran onsite sessions on the old dashboard. I wrote the fixed questions from the old screen itself, one for each thing a co-ordinator does with it. The open questions asked about worry and about the last session that went wrong.</p>
+        </div>
+
+        <div class="persona">
+          <div class="pcard">
+            <div class="ph-row"><span class="pav">EC</span><div><b>Exam co-ordinator</b><span>The person at the control desk while an exam runs</span></div></div>
+            <ul>
+              <li>Runs one session at a time, usually two hours long</li>
+              <li>Watches male and female test centres as separate halls</li>
+              <li>Needs every centre staffed and every student accounted for</li>
+              <li>Handles paused exams, late proctors and failed logins</li>
+              <li>Closes the session once every answer is uploaded</li>
+            </ul>
+          </div>
+          <div class="method">
+            <div class="mbox"><strong>5</strong><span>Co-ordinators answered the survey</span></div>
+            <div class="mbox"><strong>5</strong><span>Fixed questions, written from the old screen</span></div>
+            <div class="mbox"><strong>3</strong><span>Open questions, answered in their own words</span></div>
+            <div class="mbox"><strong>0</strong><span>Screens changed before the results came in</span></div>
+          </div>
+        </div>
+
+        <p class="sub-h">What they said, in open answers</p>
+        <ul class="openq">
+          <li>What worries you most while a session is live?</li>
+          <li>Walk me through how you check attendance in one centre today.</li>
+          <li>Describe the last thing that went wrong in a session and how you found out.</li>
+        </ul>
+        <div class="themes">
+          <div class="theme"><div class="cnt"><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i></span>Raised by 5 of 5</div><h3>Show me each test centre on its own</h3><p>A session total of 245 students hides a centre with nobody in it. They wanted to read attendance room by room.</p></div>
+          <div class="theme"><div class="cnt"><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i></span>Raised by 5 of 5</div><h3>Keep male and female centres apart</h3><p>They run them as separate halls with separate staff, and the exam office expects separate reports.</p></div>
+          <div class="theme"><div class="cnt"><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i></span>Raised by 5 of 5</div><h3>Present and absent, for students and proctors</h3><p>Absent mattered more than present. An absent proctor means a room of students with no one watching.</p></div>
+          <div class="theme"><div class="cnt"><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub"></i></span>Raised by 4 of 5</div><h3>Tell me when something breaks</h3><p>Failed uploads and dropped connections were found late, often by a phone call from the centre.</p></div>
+        </div>
+
+        <p class="sub-h">What they chose, in fixed answers</p>
+        <p class="qkey"><span class="bubs"><i class="bub f"></i><i class="bub"></i></span>One bubble per co-ordinator, like an answer sheet. Filled means they picked it.</p>
+        <div class="qs">
+          <div class="qcol"><div class="q"><p class="qn">Question 1 of 5, pick one</p><h3>In the first minute of a session, what do you need to know?</h3><div class="opt top"><span>Proctor attendance in each test centre</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub"></i><i class="bub"></i></span><em>3 of 5</em></div><div class="opt"><span>Student attendance in each test centre</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>2 of 5</em></div><div class="opt"><span>Total students in the session</span><span class="bubs"><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>0 of 5</em></div><div class="opt"><span>Which exams are running</span><span class="bubs"><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>0 of 5</em></div><p class="take">All five picked a per-centre answer. Nobody picked a session total.</p></div><div class="q"><p class="qn">Question 2 of 5, scale of 1 to 5</p><h3>How easy is it to spot a problem on the current dashboard?</h3><div class="opt"><span>1, very hard</span><span class="bubs"><i class="bub f"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>1</em></div><div class="opt top"><span>2</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub"></i><i class="bub"></i></span><em>3</em></div><div class="opt"><span>3</span><span class="bubs"><i class="bub f"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>1</em></div><div class="opt"><span>4</span><span class="bubs"><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>0</em></div><div class="opt"><span>5, very easy</span><span class="bubs"><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>0</em></div><p class="take">Average 2.0 out of 5. Four of five scored it 2 or lower.</p></div><div class="q"><p class="qn">Question 3 of 5, pick one</p><h3>How do you check one centre’s attendance today?</h3><div class="opt top"><span>Call or message the proctor</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub"></i><i class="bub"></i></span><em>3 of 5</em></div><div class="opt"><span>Open the test centers tab</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>2 of 5</em></div><div class="opt"><span>Read it from the dashboard</span><span class="bubs"><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>0 of 5</em></div><p class="take">The dashboard was nobody’s answer. Three of five picked up the phone.</p></div></div>
+          <div class="qcol"><div class="q"><p class="qn">Question 4 of 5, pick any</p><h3>Which of these must interrupt you the moment it happens?</h3><div class="opt top"><span>Proctor absent from a centre</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i></span><em>5 of 5</em></div><div class="opt top"><span>Student failed authentication</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i></span><em>5 of 5</em></div><div class="opt top"><span>Student flagged for misbehaviour</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i></span><em>5 of 5</em></div><div class="opt top"><span>Answers failed to upload</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i></span><em>5 of 5</em></div><div class="opt"><span>Test centre went offline</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub"></i></span><em>4 of 5</em></div><div class="opt"><span>Student paused</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub"></i></span><em>4 of 5</em></div><div class="opt"><span>Student at the wrong centre</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub"></i></span><em>4 of 5</em></div><div class="opt"><span>Proctor late</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub"></i><i class="bub"></i></span><em>3 of 5</em></div><div class="opt"><span>Late comer</span><span class="bubs"><i class="bub f"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>1 of 5</em></div><div class="opt"><span>Extra time given</span><span class="bubs"><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>0 of 5</em></div><p class="take">Four got all five votes. Three are about people. One is a system error, failed uploads.</p></div><div class="q"><p class="qn">Question 5 of 5, pick one</p><h3>How do you report attendance after a session?</h3><div class="opt top"><span>Male and female centres separately</span><span class="bubs"><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i><i class="bub f"></i></span><em>5 of 5</em></div><div class="opt"><span>One total for the session</span><span class="bubs"><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i></span><em>0 of 5</em></div><p class="take">The split is how the exam office works, so the screen has to work that way too.</p></div></div>
+        </div>
+      </section>
+
+      <section id="findings">
+        <div class="txt">
+          <p class="sec-name">From answers to layout</p>
+          <h2>Each result moved something on the screen.</h2>
+          <p class="p full">I wrote every finding next to the change it caused, so the team could argue with the data instead of with my taste.</p>
+        </div>
+        <div class="map">
+          <div class="mrow"><strong>5 of 5</strong><p>asked to see each test centre on its own, with male and female centres kept apart.</p><p class="chg"><small>On screen</small>Centres sit in two groups, male and female. Every centre gets its own card with a live status.</p></div>
+          <div class="mrow"><strong>5 of 5</strong><p>worried more about who is absent than who is present.</p><p class="chg"><small>On screen</small>Each card shows present and absent for students and proctors. Absent turns red above zero.</p></div>
+          <div class="mrow"><strong>3 of 5</strong><p>phoned the proctor to check one centre’s attendance.</p><p class="chg"><small>On screen</small>The card answers that call. A centre with no proctor turns red and offers a reassign button.</p></div>
+          <div class="mrow"><strong>2.0 / 5</strong><p>was the average score for spotting a problem. Alerts lived in a drawer with no severity.</p><p class="chg"><small>On screen</small>A live feed sits inside the page. Every row has a tag, and critical rows stay on top until read.</p></div>
+          <div class="mrow"><strong>4 of 10</strong><p>red flags got all five votes in question 4, including failed uploads.</p><p class="chg"><small>On screen</small>Those four interrupt the co-ordinator. Close session stays locked until every answer is in.</p></div>
+        </div>
+      </section>
+
+      <section id="before">
+        <div class="txt">
+          <p class="sec-name">Before</p>
+          <h2>Four cards, three numbers per row, and alerts in a separate drawer.</h2>
+          <p class="p full">This is the screen the five co-ordinators scored. Attendance was there, but only as session totals.</p>
+        </div>
+
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <div class="an" tabindex="0" data-for="b-banner"><b>One pause at a time</b><p>The banner fits a single paused centre. A second pause has no slot.</p></div>
+              <div class="an" tabindex="0" data-for="b-students"><b>Split by gender, never by centre</b><p>Nine rows of session totals. Nothing says which room is missing people.</p></div>
+            </div>
+
+            <div class="shot-fit">
+              <div class="shot ui" role="img" aria-label="Old exam co-ordinator dashboard with four count cards and a notifications drawer">
+                <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url"><svg><use href="#i-lock"/></svg>onsite.proctra.app/exam-management/coordinator</span></div>
+                <div class="otop"><span class="pillc">TC 11 | PC 1</span><span class="logo"><svg><use href="#i-cap"/></svg>Proctra</span><span class="rt"><span class="pillc">08:55 am</span><span class="pillc">30 Jun 2020</span></span></div>
+                <div class="otitle"><svg><use href="#i-menu"/></svg>Exam management › Exam co-ordinator<span class="lgi"><svg><use href="#i-arrow"/></svg><span>Logged in as<b>Exam co-ordinator</b></span><svg><use href="#i-bell"/></svg></span><span class="avc"></span><svg style="width:16px;height:16px"><use href="#i-dots"/></svg></div>
+                <div class="otabs"><span class="on">Dashboard</span><span>Test centers</span><span>Student’s status</span><span>Proctors</span></div>
+                <div class="omain">
+                  <div class="oleft">
+                    <p class="oh">Dashboard</p>
+                    <div class="ocard osess"><b>CURRENT SESSION</b><span class="sx"><small>SESSION</small><small>DATE</small><span>8:30 to 10:30</span><span>Tue 30 Jun 2020</span></span></div>
+                    <div class="olive" data-a="b-banner"><b>LIVE ONGOING</b><span class="row"><span>TC 01, Male</span><span>Tue 30 Jun 2020</span><b>Paused since</b><span class="tm">03 min : 45 sec</span><span class="rs">RESUME</span></span></div>
+                    <div class="ogrid">
+                      <div class="ocard ob" data-a="b-students">
+                        <h5>STUDENTS</h5>
+                        <div class="om"><small>Total expected</small><div class="n3 k"><div>460<span>Total</span></div><div>250<span>Male</span></div><div>210<span>Female</span></div></div></div>
+                        <div class="om"><small>Late admitted students</small><div class="n3"><div>1<span>Total</span></div><div>1<span>Male</span></div><div>0<span>Female</span></div></div></div>
+                        <div class="om"><small>Not reported</small><div class="n3"><div>3<span>Total</span></div><div>1<span>Male</span></div><div>2<span>Female</span></div></div></div>
+                        <div class="om"><small>Failed authentication</small><div class="n3"><div>5<span>Total</span></div><div>3<span>Male</span></div><div>2<span>Female</span></div></div></div>
+                        <div class="om"><small>Supported for authentication</small><div class="n3"><div>3<span>Total</span></div><div>2<span>Male</span></div><div>1<span>Female</span></div></div></div>
+                        <div class="om"><small>Late comers</small><div class="n3"><div>6<span>Total</span></div><div>4<span>Male</span></div><div>2<span>Female</span></div></div></div>
+                        <div class="om"><small>Paused</small><div class="n3"><div>2<span>Total</span></div><div>1<span>Male</span></div><div>1<span>Female</span></div></div></div>
+                        <div class="om"><small>Extra time given</small><div class="n3"><div>3<span>Total</span></div><div>1<span>Male</span></div><div>2<span>Female</span></div></div></div>
+                        <div class="om"><small>Misbehaviour activity</small><div class="n3"><div>1<span>Total</span></div><div>1<span>Male</span></div><div>0<span>Female</span></div></div></div>
+                      </div>
+                      <div class="ocol">
+                        <div class="ocard ob">
+                          <h5>TEST CENTERS</h5>
+                          <div class="om"><small>Total test centers</small><div class="n3"><div>14<span>Total</span></div><div>13<span>Reserved</span></div><div>1<span>Unreserved</span></div></div></div>
+                          <div class="om"><small>Reserved, currently inactive</small><div class="n3"><div>3<span>Total</span></div><div>2<span>Male</span></div><div>1<span>Female</span></div></div></div>
+                        </div>
+                        <div class="ocard ob" data-a="b-proctors">
+                          <h5>PROCTORS</h5>
+                          <div class="om"><small>Expected</small><div class="n3"><div>43<span>Total</span></div><div>21<span>Male</span></div><div>22<span>Female</span></div></div></div>
+                          <div class="om"><small>Not reported</small><div class="n3"><div>3<span>Total</span></div><div>1<span>Male</span></div><div>2<span>Female</span></div></div></div>
+                          <div class="om"><small>Reassigned</small><div class="n3"><div>2<span>Total</span></div><div>1<span>Male</span></div><div>1<span>Female</span></div></div></div>
+                        </div>
+                      </div>
+                      <div class="ocard ob">
+                        <h5>ASSESSMENTS</h5>
+                        <div class="om"><small>Secondary server</small><div class="n3 k two"><div>28<span>Expected</span></div><div>28<span>Received</span></div></div></div>
+                        <div class="om"><small>Not delivered</small><div class="n3"><div>3<span>Total</span></div><div>1<span>Male</span></div><div>2<span>Female</span></div></div></div>
+                        <div class="om" data-a="b-upload"><small>Answers not uploaded</small><div class="n3"><div>0<span>Total</span></div><div>0<span>Male</span></div><div>0<span>Female</span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="odrawer" data-a="b-drawer">
+                    <div class="odh"><svg><use href="#i-x"/></svg>Notifications</div>
+                    <div class="oni"><div class="h">TC 03, Male<span>09:05 am</span></div><small>Secondary proctor login</small>Mohammed I. has taken charge.</div>
+                    <div class="oni"><div class="h">TC 04, Male<span>09:05 am</span></div><small>Misbehaviour activity by a student</small>Caught copying<div class="ac"><span>DISMISS</span><span>VIEW</span></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="anno-col r">
+              <div class="an" tabindex="0" data-for="b-drawer"><b>Alerts off to the side</b><p>No severity. A proctor login and a copying case look the same.</p></div>
+              <div class="an" tabindex="0" data-for="b-proctors" data-at="bottom"><b>Proctors as one total</b><p>3 not reported, but from which centre? Co-ordinators phoned to find out.</p></div>
+              <div class="an" tabindex="0" data-for="b-upload"><b>Uploads at the bottom</b><p>All five want failed uploads to interrupt them. It is the last row on the screen.</p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+      </section>
+
+      <section id="after">
+        <div class="txt">
+          <p class="sec-name">After</p>
+          <h2>Every test centre on its own card, male and female apart, absent in red.</h2>
+          <p class="p full">Same session data. The ratios give the session at a glance. The centre cards answer the question all five asked. The feed catches what breaks.</p>
+        </div>
+
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <div class="an" tabindex="0" data-for="a-live"><b>Live state first</b><p>A red live tag and the session window. Session details fold away after the first look.</p></div>
+              <div class="an" tabindex="0" data-for="a-feed"><b>Feed with severity</b><p>Every row carries a tag. Unread critical rows get a red edge and stay on top.</p></div>
+              <div class="an" tabindex="0" data-for="a-centres"><b>Male and female apart</b><p>Two groups, each with its own totals. Every centre shows present and absent for students and proctors.</p></div>
+            </div>
+
+            <div class="shot-fit">
+              <div class="shot ui" role="img" aria-label="Redesigned live session dashboard with live feed, ratio cards, upload status, test centre cards and an exceptions strip">
+                <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url"><svg><use href="#i-lock"/></svg>onsite.proctra.app/sessions/1/dashboard</span></div>
+                <div class="atop"><span class="lt"><span class="pillc">TC 11 | PC 1</span><span class="pillc"><i></i>Auto save on</span></span><span class="logo"><svg><use href="#i-cap"/></svg>Proctra <small>Onsite exam portal</small></span><span class="rt"><span class="pillc">08:46 am, 18 Feb 2021</span></span></div>
+                <div class="asub"><svg><use href="#i-menu"/></svg><span class="cr">EXAM SESSIONS<svg><use href="#i-chev-r"/></svg><b>SESSION 1</b></span><span class="you"><small>YOU ARE</small>Exam co-ordinator</span><span class="dot"></span><svg><use href="#i-bell"/></svg></div>
+                <div class="atabs"><span class="on">Dashboard</span><span>Test centers</span><span>Students</span><span>Proctors</span></div>
+                <div class="amain">
+                  <div class="live" data-a="a-live"><span>CURRENT SESSION</span><span class="tg"><i></i>LIVE</span><span class="tm">Session 1, 08:30 am to 10:30 am</span></div>
+                  <div class="card sess">
+                    <div class="ch"><b>Session details</b><a>Hide session details<svg><use href="#i-chev-u"/></svg></a></div>
+                    <div class="sgrid">
+                      <div><small>Date</small>Thursday, 18 February 2021</div>
+                      <div><small>Session timing</small>08:30 am to 10:30 am</div>
+                      <div><small>Exams in this session</small><span class="ex"><span>Anatomy, midterm</span><span>Physiology, quiz 2</span><span>Biochemistry, final</span><span>Pharmacology, quiz 1</span></span></div>
+                    </div>
+                  </div>
+                  <div class="arow">
+                    <div class="card feed" data-a="a-feed">
+                      <div class="fh"><b>Live updates</b><em>3 new</em><a>Mark all as read</a></div>
+                      <div class="fi new"><span class="tc">TEST CENTER 05, MALE</span><span class="ago">1 min ago</span><p><b>0 of 2 proctors</b> present. Exam started 16 min ago.</p><span class="stag c">Critical</span></div>
+                      <div class="fi new"><span class="tc">TEST CENTER 02, MALE</span><span class="ago">2 min ago</span><p><b>Omar K.</b> paused. Proctor flagged misbehaviour.</p><span class="stag c">Critical</span></div>
+                      <div class="fi new"><span class="tc">TEST CENTER 04, FEMALE</span><span class="ago">4 min ago</span><p><b>Sara M.</b> failed face authentication twice.</p><span class="stag c">Critical</span></div>
+                      <div class="fi"><span class="tc">TEST CENTER 06, FEMALE</span><span class="ago">5 min ago</span><p>Centre went offline. Last sync 08:41.</p><span class="stag w">Offline</span></div>
+                      <div class="fi"><span class="tc">TEST CENTER 03, FEMALE</span><span class="ago">10 min ago</span><p>Secondary proctor <b>Fatima A.</b> logged in.</p><span class="stag w">10 min late</span></div>
+                      <div class="fi"><span class="tc">TEST CENTER 01, MALE</span><span class="ago">12 min ago</span><p>Primary proctor <b>Abdullah S.</b> logged in.</p><span class="stag g">On time</span></div>
+                    </div>
+                    <div class="g2">
+                      <div class="card st">
+                        <h6>Test centers active</h6><div class="big">13<small>/17</small></div>
+                        <div class="dn"><svg viewBox="0 0 42 42" aria-hidden="true"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#EAF0ED" stroke-width="6"/><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#0B6E57" stroke-width="6" pathLength="100" stroke-dasharray="35.3 100" transform="rotate(-90 21 21)"/><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#6CC3A6" stroke-width="6" pathLength="100" stroke-dasharray="41.2 100" stroke-dashoffset="-35.3" transform="rotate(-90 21 21)"/><text x="21" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="#13221E">76%</text></svg>
+                          <div class="lg2"><div><i style="background:#0B6E57"></i><b>6<small>/8</small></b><span>Male centers</span></div><div><i style="background:#6CC3A6"></i><b>7<small>/9</small></b><span>Female centers</span></div></div></div>
+                      </div>
+                      <div class="card st up" data-a="a-close">
+                        <h6>Answer upload status</h6><div class="big">218<small>/220</small></div>
+                        <div class="bar"><i style="width:99%"></i></div>
+                        <div class="bl"><span>Answers uploaded</span><a>View 2 not uploaded</a></div>
+                        <span class="btnx"><svg><use href="#i-lock"/></svg>Close session</span>
+                        <span class="hint">Opens when all 220 are uploaded</span>
+                      </div>
+                      <div class="card st">
+                        <h6>Students reported</h6><div class="big">245<small>/432</small></div>
+                        <div class="dn"><svg viewBox="0 0 42 42" aria-hidden="true"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#EAF0ED" stroke-width="6"/><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#0B6E57" stroke-width="6" pathLength="100" stroke-dasharray="29.6 100" transform="rotate(-90 21 21)"/><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#6CC3A6" stroke-width="6" pathLength="100" stroke-dasharray="27.1 100" stroke-dashoffset="-29.6" transform="rotate(-90 21 21)"/><text x="21" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="#13221E">57%</text></svg>
+                          <div class="lg2"><div><i style="background:#0B6E57"></i><b>128<small>/230</small></b><span>Male students</span></div><div><i style="background:#6CC3A6"></i><b>117<small>/202</small></b><span>Female students</span></div></div></div>
+                      </div>
+                      <div class="card st" data-a="a-ratio">
+                        <h6>Proctors reported</h6><div class="big">35<small>/42</small></div>
+                        <div class="dn"><svg viewBox="0 0 42 42" aria-hidden="true"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#EAF0ED" stroke-width="6"/><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#0B6E57" stroke-width="6" pathLength="100" stroke-dasharray="42.9 100" transform="rotate(-90 21 21)"/><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#6CC3A6" stroke-width="6" pathLength="100" stroke-dasharray="40.5 100" stroke-dashoffset="-42.9" transform="rotate(-90 21 21)"/><text x="21" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="#13221E">83%</text></svg>
+                          <div class="lg2"><div><i style="background:#0B6E57"></i><b>18<small>/22</small></b><span>Male proctors</span></div><div><i style="background:#6CC3A6"></i><b>17<small>/20</small></b><span>Female proctors</span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card cen" data-a="a-centres">
+                    <div class="ch"><b>Test center attendance</b><a>Hide test center details<svg><use href="#i-chev-u"/></svg></a></div>
+                    <div class="grp"><div class="gh"><i style="background:#0B6E57"></i>Male test centers<small>6 of 8 live, 128 of 230 students present</small><a>View all 8</a></div><div class="g3"><div class="cc2 "><h6>Test center 01<span class="cs ok">Live</span></h6><div class="cb"><div class="pa"><span>Students</span><span><b>24</b>present</span><span class="ab"><b>3</b>absent</span></div><div class="pa"><span>Proctors</span><span><b>2</b>present</span><span class="ab"><b>1</b>absent</span></div></div></div><div class="cc2 "><h6>Test center 02<span class="cs ok">Live</span></h6><div class="cb"><div class="pa"><span>Students</span><span><b>27</b>present</span><span class="ab"><b>5</b>absent</span></div><div class="pa"><span>Proctors</span><span><b>3</b>present</span><span class="z"><b>0</b>absent</span></div></div></div><div data-a="a-bad"><div class="cc2 bad"><h6>Test center 05<span class="cs bad">No proctor</span></h6><div class="cb"><div class="pa"><span>Students</span><span><b>18</b>present</span><span class="ab"><b>2</b>absent</span></div><div class="pa"><span>Proctors</span><span><b>0</b>present</span><span class="ab"><b>2</b>absent</span></div></div><div class="act"><span>Reassign proctor</span></div></div></div></div></div>
+                    <div class="grp"><div class="gh"><i style="background:#6CC3A6"></i>Female test centers<small>7 of 9 live, 117 of 202 students present</small><a>View all 9</a></div><div class="g3"><div class="cc2 "><h6>Test center 03<span class="cs ok">Complete</span></h6><div class="cb"><div class="pa"><span>Students</span><span><b>32</b>present</span><span class="z"><b>0</b>absent</span></div><div class="pa"><span>Proctors</span><span><b>3</b>present</span><span class="z"><b>0</b>absent</span></div></div></div><div class="cc2 "><h6>Test center 04<span class="cs ok">Live</span></h6><div class="cb"><div class="pa"><span>Students</span><span><b>24</b>present</span><span class="ab"><b>3</b>absent</span></div><div class="pa"><span>Proctors</span><span><b>2</b>present</span><span class="ab"><b>1</b>absent</span></div></div></div><div data-a="a-off"><div class="cc2 off"><h6>Test center 06<span class="cs off">Offline</span></h6><div class="cb"><div class="pa"><span>Students</span><span><b>20</b>present</span><span class="ab"><b>4</b>absent</span></div><div class="pa"><span>Proctors</span><span><b>2</b>present</span><span class="z"><b>0</b>absent</span></div></div><div class="stale">Offline since 08:41. Numbers are from the last sync.</div></div></div></div></div>
+                  </div>
+                  <div class="card tally" data-a="a-tally">
+                    <div class="tl"><b>12</b><span>Late admitted students</span></div>
+                    <div class="tl"><b>15</b><span>Late comers</span></div>
+                    <div class="tl"><b>187</b><span>Not reported yet</span></div>
+                    <div class="tl c"><b>3</b><span>Paused exams</span></div>
+                    <div class="tl"><b>4</b><span>Extra time given</span></div>
+                    <div class="tl c"><b>2</b><span>Misbehaviour flags</span></div>
+                    <div class="tl"><b>6</b><span>Supported for authentication</span></div>
+                    <div class="tl c"><b>5</b><span>Failed authentication</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="anno-col r">
+              <div class="an" tabindex="0" data-for="a-close"><b>Close waits for uploads</b><p>The button stays locked until every answer is in. Two are missing here.</p></div>
+              <div class="an" tabindex="0" data-for="a-bad"><b>Absent proctor, red card</b><p>No proctor means no supervision. The fix sits on the card.</p></div>
+              <div class="an" tabindex="0" data-for="a-off"><b>Offline says so</b><p>Faded numbers with the last sync time, so nobody trusts stale data.</p></div>
+              <div class="an" tabindex="0" data-for="a-tally"><b>Exceptions in one strip</b><p>Eight counts that were spread over two cards. Red ones need action.</p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+      </section>
+
+
+      <section id="redflags">
+        <div class="txt">
+          <p class="sec-name">Red flags and errors</p>
+          <h2>I listed every way a live session can go wrong, then gave each one a state on screen.</h2>
+          <p class="p full">Red flags are people problems, like an absent proctor or a flagged student. Errors are system problems, like data that did not arrive or does not match. The list came from the open answers and from walking through the old screen with the co-ordinators.</p>
+        </div>
+        <div class="states">
+          <div class="stbox"><div class="ui"><div class="cc2 bad"><h6>Test center 05<span class="cs bad">No proctor</span></h6><div class="cb"><div class="pa"><span>Students</span><span><b>18</b>present</span><span class="ab"><b>2</b>absent</span></div><div class="pa"><span>Proctors</span><span><b>0</b>present</span><span class="ab"><b>2</b>absent</span></div></div><div class="act"><span>Reassign proctor</span></div></div></div><p><b>Proctor absent</b>The card turns red and offers the fix in place.</p></div>
+          <div class="stbox"><div class="ui"><div class="cc2 off"><h6>Test center 06<span class="cs off">Offline</span></h6><div class="cb"><div class="pa"><span>Students</span><span><b>20</b>present</span><span class="ab"><b>4</b>absent</span></div><div class="pa"><span>Proctors</span><span><b>2</b>present</span><span class="z"><b>0</b>absent</span></div></div><div class="stale">Offline since 08:41. Numbers are from the last sync.</div></div></div><p><b>Centre offline</b>Old numbers stay visible but faded, with their age.</p></div>
+          <div class="stbox"><div class="ui"><div class="ebar"><div><b>2 answers failed to upload</b>Test center 02, male</div><span class="btn">Retry</span></div><span class="btnx" style="margin-top:10px"><svg><use href="#i-lock"/></svg>Close session</span><span class="hint">Locked. 2 of 220 answers missing.</span></div><p><b>Upload failed</b>Retry sits next to the count. Close stays locked.</p></div>
+          <div class="stbox"><div class="ui"><div class="ebar e"><div><b>Wrong centre</b>Ali R. checked in at TC 06, female. Assigned to TC 02, male.</div><span class="btn">Move</span></div></div><p><b>Student at the wrong centre</b>Both centres are named, so the fix is one tap.</p></div>
+        </div>
+        <div class="scgrp">
+          <h3>Red flags: 6 people scenarios</h3>
+          <p>Something is wrong in a room. The co-ordinator has to act on a person.</p>
+          <div class="scrow hd"><span>Severity</span><span>Scenario</span><span>How it shows</span><span>What the co-ordinator does</span></div><div class="scrow"><span class="sev c">Critical</span><b>Proctor absent from a centre</b><span>Centre card turns red with 0 of 2 proctors. A critical row tops the feed.</span><span>Reassign a proctor from the card</span></div><div class="scrow"><span class="sev w">Warning</span><b>Proctor logs in late</b><span>Feed row with a late tag that counts the minutes</span><span>Call the proctor or reassign</span></div><div class="scrow"><span class="sev c">Critical</span><b>Students absent after the start</b><span>Red absent count on that centre’s card</span><span>Open the absent list for the centre</span></div><div class="scrow"><span class="sev c">Critical</span><b>Student fails face authentication twice</b><span>Critical feed row with the student and centre</span><span>Support authentication by hand</span></div><div class="scrow"><span class="sev c">Critical</span><b>Student flagged for misbehaviour</b><span>Exam pauses. Critical row with a running timer.</span><span>View, resume or withdraw</span></div><div class="scrow"><span class="sev w">Warning</span><b>Two or more exams paused at once</b><span>One feed row and one timer for each pause</span><span>Resume each one from its row</span></div>
+          <h3>Errors: 5 system scenarios</h3>
+          <p>Something is wrong with the data. The screen has to say so instead of showing a confident number.</p>
+          <div class="scrow hd"><span>Severity</span><span>Scenario</span><span>How it shows</span><span>What the co-ordinator does</span></div><div class="scrow"><span class="sev c">Critical</span><b>Answers fail to upload</b><span>Upload card turns red with the failed count</span><span>Retry the upload for that centre</span></div><div class="scrow"><span class="sev w">Warning</span><b>Test centre goes offline</b><span>Card greys out with the time of the last sync</span><span>Wait for sync or call the centre</span></div><div class="scrow"><span class="sev e">Error</span><b>Student checks in at the other group’s centre</b><span>Error row naming both centres</span><span>Move the student to the right centre</span></div><div class="scrow"><span class="sev e">Error</span><b>Secondary server count does not match</b><span>Warning with expected and received counts</span><span>Recheck delivery before the exam ends</span></div><div class="scrow"><span class="sev e">Error</span><b>Close pressed with answers missing</b><span>Button stays locked and says how many are missing</span><span>Fix uploads, then close</span></div>
+        </div>
+      </section>
+
+      <section id="outcome">
+        <div class="txt">
+          <p class="sec-name">Outcome</p>
+          <h2>Attendance reads room by room, and nothing that breaks stays hidden.</h2>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><strong>0 → 17</strong><span>Test centres with their own present and absent count on the dashboard</span></div>
+          <div class="kpi"><strong>0 → 11</strong><span>Red flag and error scenarios with a designed state</span></div>
+          <div class="kpi"><strong>0 → 4</strong><span>Severity tags on alerts: critical, warning, error, on time</span></div>
+          <div class="kpi"><strong>50 → 12</strong><span>Headline numbers before the centre cards begin</span></div>
+        </div>
+        <details class="how full">
+          <summary>How I counted</summary>
+          <p><b>Centres:</b> the old dashboard had no per-centre attendance. That lived in the test centers tab. The new one has a card for each of the 17 centres, grouped 8 male and 9 female, three shown per group with the rest one tap away.</p>
+          <p><b>Scenarios:</b> 6 red flags and 5 errors, listed in the section above. Each has a severity, a place on screen and an action.</p>
+          <p><b>Headline numbers:</b> the old screen showed 50 numbers across four cards (students 27, test centres 6, proctors 9, assessments 8). The new one leads with 4 ratios and 8 exception counts, then the centre cards.</p>
+          <p><b>Survey:</b> 5 exam co-ordinators, 5 fixed questions and 3 open ones, sent before any design work started.</p>
+        </details>
+      </section>
+
+      <section id="hindsight">
+        <div class="txt">
+          <p class="sec-name">Hindsight</p>
+          <h2>Four things I’d change next time.</h2>
+        </div>
+        <div class="hind">
+          <div><h3>Run the same survey after launch</h3><p class="full">I asked five people before the redesign and nobody after. Question 2 on the new screen would have given me a real before and after score.</p></div>
+          <div><h3>Time a task, not only ask</h3><p class="full">A survey records what people say they check. Timing “find the centre with no proctor” on both screens would show what they actually do.</p></div>
+          <div><h3>Ask more than five</h3><p class="full">Five is enough to see a pattern and too few to trust a 3 against 2 split. I’d aim for 12 to 15 across small and large centres.</p></div>
+          <div><h3>Rehearse the errors with a real session</h3><p class="full">I designed 11 scenarios on paper. I’d stage a mock exam, pull a network cable and send a proctor home, and watch the co-ordinator react.</p></div>
+        </div>
+      </section>
+
+    </div>
+    <aside class="toc" aria-label="Case study sections">
+      <p>In this case study</p>
+      <ol><li><a href="#problem"><span class="ck"><svg><use href="#i-check"/></svg></span>Problem</a></li><li><a href="#research"><span class="ck"><svg><use href="#i-check"/></svg></span>Research</a></li><li><a href="#findings"><span class="ck"><svg><use href="#i-check"/></svg></span>Findings</a></li><li><a href="#before"><span class="ck"><svg><use href="#i-check"/></svg></span>Before</a></li><li><a href="#after"><span class="ck"><svg><use href="#i-check"/></svg></span>After</a></li><li><a href="#redflags"><span class="ck"><svg><use href="#i-check"/></svg></span>Red flags and errors</a></li><li><a href="#outcome"><span class="ck"><svg><use href="#i-check"/></svg></span>Outcome</a></li><li><a href="#hindsight"><span class="ck"><svg><use href="#i-check"/></svg></span>Hindsight</a></li></ol>
+      <p class="tt">About 3 minutes in Skim</p>
+    </aside>
+    <div class="next"><span>Next case study</span><a href="digiassess.html">DigiAssess ↗</a></div>
+  </div>
+</main>
+
+<script>
+(function(){
+  var SVGNS='http://www.w3.org/2000/svg';
+
+  /* ---------- Annotated figures ---------- */
+  var figs=[].slice.call(document.querySelectorAll('[data-anno]'));
+  var DESIGN_W=1180, SHOT_W=820, MIN_GUTTER_W=960;
+
+  function layout(fig, idx){
+    var stage=fig.querySelector('.anno-stage');
+    var fit=fig.querySelector('.shot-fit');
+    var shot=fig.querySelector('.shot');
+    var svg=fig.querySelector('.anno-svg');
+    var avail=fig.clientWidth;
+    var stacked=avail<MIN_GUTTER_W||window.matchMedia('(max-width:1365px)').matches;
+    fig.classList.toggle('stacked',stacked);
+    var notes=[].slice.call(fig.querySelectorAll('.an'));
+
+    if(stacked){
+      stage.style.transform=''; fig.style.height='';
+      notes.forEach(function(n){n.style.top='';});
+      var s=Math.min(1,avail/SHOT_W);
+      shot.style.transform='scale('+s+')';
+      fit.style.height=(shot.offsetHeight*s)+'px';
+      return;
+    }
+    shot.style.transform=''; fit.style.height='';
+    var sc=Math.min(1.3,avail/DESIGN_W);
+    var off=Math.max(0,(avail-DESIGN_W*sc)/2);
+    stage.style.transform='translateX('+off+'px) scale('+sc+')';
+    var sr=stage.getBoundingClientRect();
+    function rel(el){
+      var r=el.getBoundingClientRect();
+      return {l:(r.left-sr.left)/sc,t:(r.top-sr.top)/sc,r:(r.right-sr.left)/sc,b:(r.bottom-sr.top)/sc,w:r.width/sc,h:r.height/sc};
+    }
+
+    // place notes next to their targets, pushing down to avoid overlap
+    ['.anno-col.l','.anno-col.r'].forEach(function(sel){
+      var col=fig.querySelector(sel); if(!col) return;
+      var colTop=rel(col).t;
+      var items=[].slice.call(col.querySelectorAll('.an')).map(function(n){
+        var t=fig.querySelector('[data-a="'+n.dataset.for+'"]');
+        var p=t?rel(t):{t:0,h:0};
+        return {n:n,y:p.t+Math.min(p.h/2,14)-colTop};
+      }).sort(function(a,b){return a.y-b.y;});
+      var cursor=0;
+      items.forEach(function(it){
+        var top=Math.max(it.y-9,cursor);
+        it.n.style.top=top+'px';
+        cursor=top+it.n.offsetHeight+22;
+      });
+      col.style.height=cursor+'px';
+    });
+
+    // draw arrows
+    var W=DESIGN_W, H=stage.offsetHeight;
+    svg.setAttribute('width',W); svg.setAttribute('height',H);
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var mid='ah'+idx;
+    var defs=document.createElementNS(SVGNS,'defs');
+    defs.innerHTML='<marker id="'+mid+'" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>';
+    svg.appendChild(defs);
+
+    notes.forEach(function(n){
+      var t=fig.querySelector('[data-a="'+n.dataset.for+'"]'); if(!t) return;
+      var left=!!n.closest('.anno-col.l');
+      var b=rel(n.querySelector('b')), p=rel(t);
+      var sx=left? b.r+8 : b.l-8, sy=b.t+b.h/2;
+      var at=n.dataset.at||(left?'left':'right');
+      var ex,ey,c2x,c2y;
+      if(at==='top'){ex=p.l+p.w/2;ey=p.t-5;c2x=ex;c2y=ey-46;}
+      else if(at==='bottom'){ex=p.l+p.w/2;ey=p.b+5;c2x=ex;c2y=ey+46;}
+      else if(at==='left'){ex=p.l-6;ey=p.t+Math.min(p.h/2,14);c2x=ex-56;c2y=ey;}
+      else {ex=p.r+6;ey=p.t+Math.min(p.h/2,14);c2x=ex+56;c2y=ey;}
+      var dx=Math.max(36,Math.abs(ex-sx)*.35);
+      var c1x=left? sx+dx : sx-dx;
+      var d='M'+sx+' '+sy+' C'+c1x+' '+sy+' '+c2x+' '+c2y+' '+ex+' '+ey;
+      var halo=document.createElementNS(SVGNS,'path'); halo.setAttribute('d',d); halo.setAttribute('class','halo');
+      var ln=document.createElementNS(SVGNS,'path'); ln.setAttribute('d',d); ln.setAttribute('class','ln'); ln.setAttribute('marker-end','url(#'+mid+')');
+      var dot=document.createElementNS(SVGNS,'circle'); dot.setAttribute('cx',sx); dot.setAttribute('cy',sy); dot.setAttribute('r',2.6); dot.setAttribute('class','st');
+      svg.appendChild(halo); svg.appendChild(ln); svg.appendChild(dot);
+      n._ln=ln;
+    });
+    fig.style.height=(H*sc)+'px';
+  }
+
+  function layoutAll(){figs.forEach(layout);}
+
+  figs.forEach(function(fig){
+    fig.querySelectorAll('.an').forEach(function(n){
+      function on(v){
+        var t=fig.querySelector('[data-a="'+n.dataset.for+'"]');
+        if(t) t.classList.toggle('anno-hit',v);
+        n.classList.toggle('on',v);
+        if(n._ln) n._ln.classList.toggle('on',v);
+      }
+      n.addEventListener('mouseenter',function(){on(true);});
+      n.addEventListener('mouseleave',function(){on(false);});
+      n.addEventListener('focus',function(){on(true);});
+      n.addEventListener('blur',function(){on(false);});
+    });
+  });
+
+  var rafL=0;
+  function schedule(){cancelAnimationFrame(rafL); rafL=requestAnimationFrame(function(){layoutAll(); updateIndex();});}
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(schedule); figs.forEach(function(f){ro.observe(f.parentElement);}); }
+  window.addEventListener('resize',schedule);
+  window.addEventListener('load',schedule);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(schedule);
+  layoutAll();
+
+  /* ---------- Reading mode ---------- */
+  var btns=document.querySelectorAll('.mode button');
+  function setMode(m){
+    document.body.classList.toggle('skim',m==='skim');
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.mode===m));});
+    try{localStorage.setItem('cs-mode',m);}catch(e){}
+    schedule();
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.mode);});});
+  var saved=null; try{saved=localStorage.getItem('cs-mode');}catch(e){}
+  setMode(saved==='full'?'full':'skim');
+
+  /* ---------- Tabs ---------- */
+  var tabs=[].slice.call(document.querySelectorAll('[role="tab"]'));
+  function pick(t){
+    tabs.forEach(function(o){
+      var sel=o===t; o.setAttribute('aria-selected',String(sel)); o.tabIndex=sel?0:-1;
+      document.getElementById(o.getAttribute('aria-controls')).hidden=!sel;
+    });
+    schedule();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){pick(t);});
+    t.addEventListener('keydown',function(e){
+      var n=null;
+      if(e.key==='ArrowRight') n=tabs[(i+1)%tabs.length];
+      if(e.key==='ArrowLeft') n=tabs[(i-1+tabs.length)%tabs.length];
+      if(n){e.preventDefault(); n.focus(); pick(n);}
+    });
+  });
+
+  /* ---------- Right index and universal progress ---------- */
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  var bar=document.getElementById('prog-fill'), nowLabel=document.getElementById('now-label');
+  function updateIndex(){
+    var doc=document.documentElement;
+    var max=doc.scrollHeight-window.innerHeight;
+    var p=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
+    bar.style.transform='scaleX('+p+')';
+    var line=window.scrollY+window.innerHeight*0.35;
+    var atEnd=window.scrollY>=max-4;
+    var active=-1;
+    secs.forEach(function(s,i){
+      var top=s.getBoundingClientRect().top+window.scrollY, h=s.offsetHeight;
+      if(line>=top&&line<top+h) active=i;
+      links[i].classList.toggle('done',atEnd||line>=top+h);
+    });
+    if(atEnd) active=-1;
+    links.forEach(function(a,i){ if(i===active) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+    nowLabel.textContent=active>=0?links[active].textContent:(atEnd?'Done':'Introduction');
+  }
+  var rafS=0;
+  window.addEventListener('scroll',function(){cancelAnimationFrame(rafS); rafS=requestAnimationFrame(updateIndex);},{passive:true});
+  updateIndex();
+
+  /* ---------- Hero before and after slider ---------- */
+  (function(){
+    var cmp=document.getElementById('cmp'); if(!cmp) return;
+    var stage=cmp.querySelector('.cmp-stage'), range=cmp.querySelector('input');
+    var lb=cmp.querySelector('.cmp-before'), la=cmp.querySelector('.cmp-after');
+    function grab(sel){
+      var src=document.querySelector(sel+' .shot'); var c=src.cloneNode(true);
+      c.removeAttribute('role'); c.removeAttribute('aria-label');
+      [].forEach.call(c.querySelectorAll('[data-a]'),function(n){n.removeAttribute('data-a');});
+      c.style.transform=''; return c;
+    }
+    var sb=grab('#before'), sa=grab('#after');
+    lb.appendChild(sb); la.appendChild(sa);
+    function size(){
+      var w=stage.clientWidth, pad=w<600?14:Math.min(40,w*.04);
+      stage.style.setProperty('--cmp-pad',pad+'px');
+      var s=Math.min(1.25,(w-pad*2)/820);
+      [sb,sa].forEach(function(x){x.style.transform='scale('+s+')';x.style.marginLeft=Math.max(0,(w-pad*2-820*s)/2)+'px';});
+      var h=Math.max(sb.offsetHeight,sa.offsetHeight)*s+pad*2;
+      stage.style.height=h+'px';
+    }
+    function set(v){stage.style.setProperty('--pos',v+'%');range.setAttribute('aria-valuetext',v+' percent before');}
+    range.addEventListener('input',function(){set(range.value);});
+    set(range.value);
+    size();
+    window.addEventListener('resize',size);
+    if('ResizeObserver' in window) new ResizeObserver(size).observe(stage);
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(size);
+  })();
+})();
+</script>
+</body>
+</html>
