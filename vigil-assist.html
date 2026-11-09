@@ -81,6 +81,9 @@ h1{font-size:clamp(34px,3.3vw,64px);line-height:1.1;letter-spacing:-.025em;font-
 .kpi strong{display:block;font-size:clamp(22px,2vw,28px);white-space:nowrap;line-height:1.1;letter-spacing:-.02em;color:var(--brand);font-weight:600}
 .kpi span{display:block;font-size:13px;line-height:1.4;color:var(--ink-2);margin-top:8px}
 .nda{font-size:13px;color:var(--ink-3);margin-top:20px}
+.skim .nda.skim-only{display:block}
+.disclose{margin-top:24px;max-width:60ch;border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:10px;background:var(--surface);padding:10px 14px;font-size:14px;line-height:1.5;color:var(--ink-2);width:fit-content}
+
 .how{margin-top:28px;font-size:15px;color:var(--ink-2)}
 .how summary{cursor:pointer;font-weight:500;color:var(--brand)}
 .how b{color:var(--ink);font-weight:600}
@@ -592,7 +595,8 @@ section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spac
         <div class="kpi"><strong>3 → 1</strong><span>Tools for research, triage and ticketing</span></div>
         <div class="kpi"><strong>7 → 1</strong><span>Fields to set up an automation. AI fills the rest.</span></div>
       </div>
-      <p class="nda"><span class="skim-only">Skim mode shows headlines, numbers and screens. Switch to Full story for the detail.<br></span>Under NDA. Product name, brand, customer and data are changed. Screens are rebuilt with mock data.</p>
+      <p class="nda skim-only">Skim mode shows headlines, numbers and screens. Switch to Full story for the detail.</p>
+      <p class="disclose">Under NDA, so the screens and branding have been revised.</p>
     </div>
 
     <div class="stage">
