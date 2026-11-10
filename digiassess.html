@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="color-scheme" content="dark">
-<meta name="description" content="Case study: a design system with light and dark themes for an assessment platform. Afnan, senior product designer.">
-<meta property="og:title" content="Exam day ran on 8 blues. One of them passed contrast.">
+<meta name="description" content="Case study: Digi design system 2.0, a Figma variable and component library with light and dark themes for an exam platform. Afnan, product designer.">
+<meta property="og:title" content="Digi design system 2.0: built for the student reading question 27">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20122%20122%22%3E%3Crect%20width%3D%22122%22%20height%3D%22122%22%20rx%3D%2226%22%20fill%3D%22%23111312%22/%3E%3Cg%20transform%3D%22translate%280%209%29%22%20fill%3D%22%2376FBC8%22%3E%3Cpath%20d%3D%22M48.2%2011L53.2%2020L26%2077.2L31%2082.6H15.4Z%22/%3E%3Cpath%20d%3D%22M74%2011L106.4%2082.2H90.4L96.6%2076.8L74%2028L51%2077L56%2082.6H40.6Z%22/%3E%3Ccircle%20cx%3D%2274.6%22%20cy%3D%2263.6%22%20r%3D%226.6%22/%3E%3Crect%20x%3D%2211%22%20y%3D%2290.4%22%20width%3D%22100.4%22%20height%3D%225.2%22/%3E%3C/g%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DigiAssess: a design system for exam day | Afnan</title>
+<title>Digi design system 2.0 | Afnan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 
 /* ---------- Portfolio shell tokens ---------- */
@@ -184,98 +184,6 @@ section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spac
 @media (max-width:720px){.next{flex-direction:column;align-items:flex-start;gap:8px}.next a{white-space:normal}}
 
 
-/* =========================================================
-   DigiAssess design system. Tokens use the same names as the
-   Figma code syntax, so this page runs on the real system.
-   ========================================================= */
-.da{
-  --color-bg-canvas:#F2F5F9; --color-bg-surface:#FFFFFF; --color-bg-subtle:#F8FAFC; --color-bg-hover:#E6EBF2; --color-bg-inverse:#161B26;
-  --color-text-primary:#161B26; --color-text-secondary:#4B566C; --color-text-tertiary:#5F6B82; --color-text-inverse:#FFFFFF; --color-text-on-brand:#FFFFFF; --color-text-link:#2453CC;
-  --color-border-default:#D3DBE6; --color-border-strong:#8794A8; --color-border-focus:#2453CC;
-  --color-brand-default:#2453CC; --color-brand-hover:#1D43A6; --color-brand-soft:#EEF4FF; --color-brand-on-soft:#1D43A6;
-  --color-success-fg:#0E6A3D; --color-success-bg:#ECFDF3; --color-success-solid:#12804A;
-  --color-warning-fg:#924C0A; --color-warning-bg:#FFF8EB; --color-warning-solid:#B25E09;
-  --color-danger-fg:#A82623; --color-danger-bg:#FEF1F1; --color-danger-solid:#C9302C;
-  --color-info-fg:#1D43A6; --color-info-bg:#EEF4FF; --color-info-solid:#2453CC;
-  --color-data-1:#2453CC; --color-data-2:#0F7A73; --color-data-3:#6741D9; --color-data-4:#B25E09; --color-data-5:#5F6B82;
-  --control-height:40px; --control-padding-x:16px; --table-row-height:52px; --table-cell-padding-x:16px; --card-padding:24px;
-  --radius-xs:4px; --radius-sm:6px; --radius-md:8px; --radius-lg:12px; --radius-xl:16px; --radius-full:999px;
-  --shadow-1:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
-  color:var(--color-text-primary); background:var(--color-bg-canvas);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-  -webkit-font-smoothing:antialiased; text-align:left; color-scheme:light;
-}
-.da[data-theme="dark"]{
-  --color-bg-canvas:#0E121A; --color-bg-surface:#161B26; --color-bg-subtle:#1E2533; --color-bg-hover:#283041; --color-bg-inverse:#E6EBF2;
-  --color-text-primary:#F2F5F9; --color-text-secondary:#B2BDCD; --color-text-tertiary:#8794A8; --color-text-inverse:#161B26; --color-text-on-brand:#0E121A; --color-text-link:#8DB0F8;
-  --color-border-default:#283041; --color-border-strong:#5F6B82; --color-border-focus:#8DB0F8;
-  --color-brand-default:#5B8BF1; --color-brand-hover:#8DB0F8; --color-brand-soft:#121E3F; --color-brand-on-soft:#BACFFC;
-  --color-success-fg:#6FD9A0; --color-success-bg:#0F3524; --color-success-solid:#3BC17A;
-  --color-warning-fg:#F9C46B; --color-warning-bg:#3D2709; --color-warning-solid:#F2A93B;
-  --color-danger-fg:#F89A9A; --color-danger-bg:#451715; --color-danger-solid:#F06B6B;
-  --color-info-fg:#8DB0F8; --color-info-bg:#121E3F; --color-info-solid:#5B8BF1;
-  --color-data-1:#5B8BF1; --color-data-2:#2FB3A9; --color-data-3:#9779F0; --color-data-4:#F2A93B; --color-data-5:#8794A8;
-  --shadow-1:none;
-  color-scheme:dark;
-}
-.da .compact,.da.compact{--control-height:32px; --control-padding-x:12px; --table-row-height:40px; --table-cell-padding-x:12px; --card-padding:16px}
-
-/* ---------- Components ---------- */
-.da-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:var(--control-height);padding:0 var(--control-padding-x);border-radius:var(--radius-md);border:1px solid transparent;font:500 14px/20px Inter,sans-serif;white-space:nowrap}
-.da-btn.pri{background:var(--color-brand-default);color:var(--color-text-on-brand)}
-.da-btn.sec{background:var(--color-bg-surface);border-color:var(--color-border-strong);color:var(--color-text-primary)}
-.da-btn.ghost{background:transparent;color:var(--color-text-link);padding:0 8px}
-.da-btn.dgr{background:var(--color-danger-solid);color:var(--color-text-on-brand)}
-
-.da-badge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 8px;border-radius:var(--radius-full);font:500 12px/16px Inter,sans-serif;white-space:nowrap}
-.da-badge::before{content:"";width:8px;height:8px;flex:none}
-.da-badge.ok{background:var(--color-success-bg);color:var(--color-success-fg)}
-.da-badge.ok::before{border-radius:50%;background:var(--color-success-solid)}
-.da-badge.warn{background:var(--color-warning-bg);color:var(--color-warning-fg)}
-.da-badge.warn::before{clip-path:polygon(50% 0,100% 100%,0 100%);background:var(--color-warning-solid)}
-.da-badge.crit{background:var(--color-danger-bg);color:var(--color-danger-fg)}
-.da-badge.crit::before{width:7px;height:7px;transform:rotate(45deg);background:var(--color-danger-solid)}
-.da-badge.info{background:var(--color-info-bg);color:var(--color-info-fg)}
-.da-badge.info::before{border-radius:50%;box-shadow:inset 0 0 0 2px var(--color-info-solid)}
-.da-badge.none{background:var(--color-bg-hover);color:var(--color-text-secondary)}
-.da-badge.none::before{border-radius:50%;background:var(--color-text-tertiary)}
-.da-live{display:inline-flex;align-items:center;gap:6px;padding:2px 10px 2px 8px;border-radius:var(--radius-full);border:1px solid var(--color-danger-solid);background:var(--color-danger-bg);color:var(--color-danger-fg);font:500 12px/16px Inter,sans-serif}
-.da-live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--color-danger-solid);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{50%{opacity:.35}}
-
-.da-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--radius-full);border:1px solid var(--color-border-default);background:var(--color-bg-surface);font:500 14px/20px Inter,sans-serif;color:var(--color-text-primary);white-space:nowrap}
-.da-chip em{font-style:normal;color:var(--color-text-tertiary)}
-.da-chip.on{background:var(--color-brand-soft);border-color:var(--color-brand-default);color:var(--color-brand-on-soft)}
-.da-chip.on em{color:var(--color-brand-on-soft)}
-.da-tab{display:inline-block;padding:10px 4px;border-bottom:2px solid transparent;font:500 14px/20px Inter,sans-serif;color:var(--color-text-secondary)}
-.da-tab.on{color:var(--color-text-primary);border-color:var(--color-brand-default)}
-
-.da-q{position:relative;width:40px;height:40px;border-radius:var(--radius-md);display:inline-grid;place-items:center;font:500 14px/1 Inter,sans-serif}
-.da-q.cur{background:var(--color-brand-default);color:var(--color-text-on-brand)}
-.da-q.att{background:var(--color-brand-soft);color:var(--color-brand-on-soft)}
-.da-q.att::after{content:"";position:absolute;bottom:5px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--color-brand-default)}
-.da-q.un{background:var(--color-bg-surface);color:var(--color-text-secondary);border:1px dashed var(--color-border-strong)}
-.da-q.bm{background:var(--color-warning-bg);color:var(--color-warning-fg);border:2px solid var(--color-warning-solid)}
-.da-q.bm::before{content:"";position:absolute;top:4px;right:5px;width:9px;height:7px;clip-path:polygon(0 0,100% 0,50% 100%);background:var(--color-warning-solid)}
-
-.da-opt{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-surface);font:400 16px/24px "Atkinson Hyperlegible",Inter,sans-serif;color:var(--color-text-primary)}
-.da-opt i{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:500 14px/1 Inter,sans-serif;font-style:normal;background:var(--color-bg-subtle);border:1px solid var(--color-border-strong);color:var(--color-text-secondary)}
-.da-opt.sel{background:var(--color-brand-soft);border:2px solid var(--color-brand-default);padding:10px 15px}
-.da-opt.sel i{background:var(--color-brand-default);border-color:var(--color-brand-default);color:var(--color-text-on-brand)}
-.da-opt.foc{border:2px solid var(--color-border-focus);padding:10px 15px}
-
-.da-field{display:grid;gap:6px;min-width:0}
-.da-field label{font:500 14px/20px Inter,sans-serif;color:var(--color-text-primary)}
-.da-field span{display:flex;align-items:center;height:var(--control-height);padding:0 12px;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-surface);font:400 14px/20px Inter,sans-serif;color:var(--color-text-tertiary)}
-.da-field small{font:500 12px/16px Inter,sans-serif;color:var(--color-text-secondary)}
-.da-field.err span{border:2px solid var(--color-danger-solid);color:var(--color-text-primary)}
-.da-field.err small{color:var(--color-danger-fg)}
-
-.da-stat{background:var(--color-bg-surface);border:1px solid var(--color-border-default);border-radius:var(--radius-lg);padding:16px var(--card-padding)}
-.da-stat b{display:block;font:500 14px/20px Inter,sans-serif;color:var(--color-text-secondary)}
-.da-stat strong{display:block;font:600 32px/40px Inter,sans-serif;letter-spacing:-.015em;color:var(--color-text-primary)}
-.da-stat span{display:block;font:400 14px/20px Inter,sans-serif;color:var(--color-text-tertiary)}
-
 /* ---------- Component sheet ---------- */
 .csheet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .cpanel{border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:26px;align-content:start}
@@ -442,31 +350,276 @@ section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spac
 }
 @media (prefers-reduced-motion: reduce){.da-live::before{animation:none}}
 
+/* =========================================================
+   Digi design system 2.0. Token names match the Figma code
+   syntax (var(--digi-…)), so this page runs on the real values.
+   ========================================================= */
+.dg{
+  --digi-bg-canvas:#F0F2F5; --digi-bg-surface:#FFFFFF; --digi-bg-surface-sunken:#F7F8FA; --digi-bg-subtle:#F0F2F5; --digi-bg-hover:rgba(0,0,0,.04); --digi-bg-selected:#EFF7FF; --digi-bg-inverse:#1A202B;
+  --digi-text-primary:#1A202B; --digi-text-secondary:#434C5B; --digi-text-tertiary:#5B6575; --digi-text-inverse:#FFFFFF; --digi-text-on-brand:#FFFFFF; --digi-text-brand:#0064C8; --digi-text-link:#0064C8;
+  --digi-icon-secondary:#7A8494; --digi-icon-brand:#1A73D9;
+  --digi-border-subtle:#E3E6EB; --digi-border-default:#CDD2DA; --digi-border-strong:#7A8494; --digi-border-control:#7A8494; --digi-border-focus:#1A73D9;
+  --digi-action-primary-bg:#1A73D9; --digi-action-primary-fg:#FFFFFF;
+  --digi-action-secondary-bg:#FFFFFF; --digi-action-secondary-border:#1A73D9; --digi-action-secondary-fg:#0064C8;
+  --digi-action-ghost-fg:#0064C8; --digi-action-danger-bg:#CC3238; --digi-action-danger-fg:#FFFFFF;
+  --digi-action-toggle-off-bg:#7A8494;
+  --digi-status-success-bg:#EAF8EE; --digi-status-success-fg:#156539; --digi-status-success-solid:#1A7D45; --digi-status-success-on-inverse:#3DB466;
+  --digi-status-warning-bg:#FFF8E6; --digi-status-warning-fg:#855208; --digi-status-warning-solid:#C77E00; --digi-status-warning-border:#FFDD8A;
+  --digi-status-danger-bg:#FEF0EF; --digi-status-danger-fg:#A8262C; --digi-status-danger-solid:#CC3238;
+  --digi-status-info-bg:#ECFAFF; --digi-status-info-fg:#0D5573; --digi-status-info-solid:#0A6990; --digi-status-info-border:#A6E7FF;
+  --digi-status-neutral-bg:#F0F2F5; --digi-status-neutral-fg:#434C5B; --digi-status-neutral-solid:#434C5B;
+  --digi-header-bg:#0064C8; --digi-header-bg-accent:#0A4F9C; --digi-header-fg:#FFFFFF; --digi-header-fg-muted:#DCEEFF;
+  --digi-exam-question-unattended-bg:#FFFFFF; --digi-exam-question-unattended-border:#7A8494; --digi-exam-question-unattended-fg:#5B6575;
+  --digi-exam-question-attended-bg:#EFF7FF; --digi-exam-question-attended-border:#B8DCFF; --digi-exam-question-attended-fg:#0064C8;
+  --digi-exam-question-current-bg:#1A73D9; --digi-exam-question-current-fg:#FFFFFF;
+  --digi-exam-question-bookmarked-bg:#FFEDBF; --digi-exam-question-bookmarked-border:#FFB951; --digi-exam-question-bookmarked-fg:#633E0A;
+  --digi-exam-option-bg:#FFFFFF; --digi-exam-option-border:#7A8494; --digi-exam-option-selected-bg:#D1F4FF; --digi-exam-option-selected-border:#3E95EF;
+  --digi-exam-live-bg:#CC3238; --digi-exam-live-fg:#FFFFFF;
+  --digi-data-1:#1A73D9; --digi-data-2:#3A8F7D; --digi-data-track:#E3E6EB;
+  --digi-control-height-md:40px; --digi-control-padding-x-md:16px; --digi-field-padding-x:12px; --digi-card-padding:24px;
+  --digi-radius-sm:4px; --digi-radius-md:8px; --digi-radius-lg:12px; --digi-radius-full:999px;
+  --digi-shadow-2:0 2px 4px -1px rgba(0,0,0,.08),0 4px 8px rgba(0,0,0,.16);
+  color:var(--digi-text-primary); background:var(--digi-bg-canvas);
+  font-family:Roboto,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased; text-align:left; color-scheme:light;
+}
+.dg[data-theme="dark"]{
+  --digi-bg-canvas:#0F131A; --digi-bg-surface:#1A202B; --digi-bg-surface-sunken:#0F131A; --digi-bg-subtle:#2B3340; --digi-bg-hover:rgba(255,255,255,.08); --digi-bg-selected:#0B2748; --digi-bg-inverse:#F0F2F5;
+  --digi-text-primary:#F7F8FA; --digi-text-secondary:#E3E6EB; --digi-text-tertiary:#CDD2DA; --digi-text-inverse:#1A202B; --digi-text-on-brand:#0F131A; --digi-text-brand:#8CCCFF; --digi-text-link:#8CCCFF;
+  --digi-icon-secondary:#A3ABB8; --digi-icon-brand:#8CCCFF;
+  --digi-border-subtle:#2B3340; --digi-border-default:#434C5B; --digi-border-strong:#A3ABB8; --digi-border-control:#A3ABB8; --digi-border-focus:#8CCCFF;
+  --digi-action-primary-bg:#5FAEF5; --digi-action-primary-fg:#0F131A;
+  --digi-action-secondary-bg:#1A202B; --digi-action-secondary-border:#5FAEF5; --digi-action-secondary-fg:#8CCCFF;
+  --digi-action-ghost-fg:#8CCCFF; --digi-action-danger-bg:#EF6A64; --digi-action-danger-fg:#0F131A;
+  --digi-action-toggle-off-bg:#A3ABB8;
+  --digi-status-success-bg:#06220F; --digi-status-success-fg:#6FCB8C; --digi-status-success-solid:#3DB466; --digi-status-success-on-inverse:#156539;
+  --digi-status-warning-bg:#382204; --digi-status-warning-fg:#FFCB57; --digi-status-warning-solid:#FFB951; --digi-status-warning-border:#855208;
+  --digi-status-danger-bg:#3B0D10; --digi-status-danger-fg:#F58C86; --digi-status-danger-solid:#EF6A64;
+  --digi-status-info-bg:#082C3D; --digi-status-info-fg:#6FD5FA; --digi-status-info-solid:#36BEF0; --digi-status-info-border:#0D5573;
+  --digi-status-neutral-bg:#2B3340; --digi-status-neutral-fg:#E3E6EB; --digi-status-neutral-solid:#CDD2DA;
+  --digi-header-bg:#1A202B; --digi-header-bg-accent:#2B3340; --digi-header-fg:#F7F8FA; --digi-header-fg-muted:#A3ABB8;
+  --digi-exam-question-unattended-bg:#1A202B; --digi-exam-question-unattended-border:#A3ABB8; --digi-exam-question-unattended-fg:#CDD2DA;
+  --digi-exam-question-attended-bg:#0B2748; --digi-exam-question-attended-border:#0A4F9C; --digi-exam-question-attended-fg:#8CCCFF;
+  --digi-exam-question-current-bg:#5FAEF5; --digi-exam-question-current-fg:#0F131A;
+  --digi-exam-question-bookmarked-bg:#633E0A; --digi-exam-question-bookmarked-border:#C77E00; --digi-exam-question-bookmarked-fg:#FFEDBF;
+  --digi-exam-option-bg:#1A202B; --digi-exam-option-border:#7A8494; --digi-exam-option-selected-bg:#082C3D; --digi-exam-option-selected-border:#5FAEF5;
+  --digi-exam-live-bg:#EF6A64; --digi-exam-live-fg:#0F131A;
+  --digi-data-1:#5FAEF5; --digi-data-2:#4FA997; --digi-data-track:#2B3340;
+  --digi-shadow-2:0 2px 4px -1px rgba(0,0,0,.4),0 4px 8px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+.dg .compact,.dg.compact{--digi-control-height-md:32px; --digi-control-padding-x-md:12px; --digi-field-padding-x:8px; --digi-card-padding:16px}
+
+/* ---------- Components ---------- */
+.dg-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:var(--digi-control-height-md);padding:0 var(--digi-control-padding-x-md);border-radius:var(--digi-radius-md);border:1px solid transparent;font:500 14px/20px Roboto,sans-serif;white-space:nowrap}
+.dg-btn svg{width:18px;height:18px}
+.dg-btn.pri{background:var(--digi-action-primary-bg);color:var(--digi-action-primary-fg)}
+.dg-btn.sec{background:var(--digi-action-secondary-bg);border-color:var(--digi-action-secondary-border);color:var(--digi-action-secondary-fg)}
+.dg-btn.ghost{background:transparent;color:var(--digi-action-ghost-fg);padding:0 8px}
+.dg-btn.dgr{background:var(--digi-action-danger-bg);color:var(--digi-action-danger-fg)}
+.dg-btn.icon{width:var(--digi-control-height-md);padding:0;border-radius:50%;border-color:var(--digi-border-control);background:var(--digi-bg-surface);color:var(--digi-text-secondary)}
+.dg-btn.fring{box-shadow:0 0 0 2px var(--digi-bg-surface),0 0 0 4px var(--digi-border-focus)}
+
+.dg-badge{display:inline-flex;align-items:center;gap:6px;padding:2px 10px 2px 8px;border-radius:var(--digi-radius-full);font:500 12px/16px Roboto,sans-serif;white-space:nowrap}
+.dg-badge::before{content:"";width:8px;height:8px;flex:none}
+.dg-badge.ok{background:var(--digi-status-success-bg);color:var(--digi-status-success-fg)}
+.dg-badge.ok::before{border-radius:50%;background:var(--digi-status-success-solid)}
+.dg-badge.warn{background:var(--digi-status-warning-bg);color:var(--digi-status-warning-fg)}
+.dg-badge.warn::before{clip-path:polygon(50% 0,100% 100%,0 100%);background:var(--digi-status-warning-solid)}
+.dg-badge.crit{background:var(--digi-status-danger-bg);color:var(--digi-status-danger-fg)}
+.dg-badge.crit::before{width:7px;height:7px;transform:rotate(45deg);background:var(--digi-status-danger-solid)}
+.dg-badge.info{background:var(--digi-status-info-bg);color:var(--digi-status-info-fg)}
+.dg-badge.info::before{border-radius:50%;box-shadow:inset 0 0 0 2px var(--digi-status-info-solid)}
+.dg-badge.none{background:var(--digi-status-neutral-bg);color:var(--digi-status-neutral-fg)}
+.dg-badge.none::before{border-radius:50%;background:var(--digi-status-neutral-solid)}
+.dg-badge.plain::before{display:none}
+.dg-badge.plain{padding:2px 8px;border-radius:var(--digi-radius-sm);background:var(--digi-status-neutral-bg);color:var(--digi-status-neutral-fg);font-size:11px;letter-spacing:.5px;text-transform:uppercase}
+.dg-live{display:inline-flex;align-items:center;gap:6px;padding:2px 10px 2px 8px;border-radius:var(--digi-radius-sm);background:var(--digi-exam-live-bg);color:var(--digi-exam-live-fg);font:500 11px/16px Roboto,sans-serif;letter-spacing:.5px;text-transform:uppercase}
+.dg-live::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+.dg-q{position:relative;width:32px;height:32px;border-radius:50%;display:inline-grid;place-items:center;font:500 12px/1 Roboto,sans-serif;border:1px solid transparent;flex:none}
+.dg-q.un{background:var(--digi-exam-question-unattended-bg);border-color:var(--digi-exam-question-unattended-border);color:var(--digi-exam-question-unattended-fg)}
+.dg-q.att{background:var(--digi-exam-question-attended-bg);border-color:var(--digi-exam-question-attended-border);color:var(--digi-exam-question-attended-fg)}
+.dg-q.cur{background:var(--digi-exam-question-current-bg);color:var(--digi-exam-question-current-fg);box-shadow:0 0 0 2px var(--digi-bg-surface),0 0 0 4px var(--digi-exam-question-current-bg)}
+.dg-q.bm{background:var(--digi-exam-question-bookmarked-bg);border-color:var(--digi-exam-question-bookmarked-border);color:var(--digi-exam-question-bookmarked-fg)}
+.dg-q .mk{position:absolute;top:-5px;right:-5px;width:15px;height:15px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--digi-bg-surface)}
+.dg-q.att .mk{background:var(--digi-status-success-solid);color:var(--digi-bg-surface)}
+.dg-q.bm .mk{background:var(--digi-status-warning-solid);color:var(--digi-bg-surface)}
+.dg-q .mk svg{width:9px;height:9px}
+
+.dg-opt{display:flex;align-items:center;gap:12px;padding:9px 14px;border-radius:var(--digi-radius-md);border:1px solid var(--digi-exam-option-border);background:var(--digi-exam-option-bg);font:400 16px/24px Roboto,sans-serif;color:var(--digi-text-primary)}
+.dg-opt i{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:500 13px/1 Roboto,sans-serif;font-style:normal;border:1px solid var(--digi-border-control);color:var(--digi-text-secondary)}
+.dg-opt.sel{background:var(--digi-exam-option-selected-bg);border:2px solid var(--digi-exam-option-selected-border);padding:8px 13px}
+.dg-opt.sel i{background:var(--digi-action-primary-bg);border-color:var(--digi-action-primary-bg);color:var(--digi-action-primary-fg)}
+.dg-opt.foc{box-shadow:0 0 0 2px var(--digi-bg-surface),0 0 0 4px var(--digi-border-focus)}
+
+.dg-field{display:grid;gap:6px;min-width:0}
+.dg-field label{font:500 14px/20px Roboto,sans-serif;color:var(--digi-text-primary)}
+.dg-field label em{font-style:normal;color:var(--digi-status-danger-fg)}
+.dg-field span{display:flex;align-items:center;height:var(--digi-control-height-md);padding:0 var(--digi-field-padding-x);border-radius:var(--digi-radius-md);border:1px solid var(--digi-border-control);background:var(--digi-bg-surface);font:400 14px/20px Roboto,sans-serif;color:var(--digi-text-tertiary)}
+.dg-field small{font:400 12px/16px Roboto,sans-serif;color:var(--digi-text-secondary)}
+.dg-field.err span{border:2px solid var(--digi-status-danger-solid);color:var(--digi-text-primary)}
+.dg-field.err small{color:var(--digi-status-danger-fg);display:flex;gap:6px;align-items:center}
+.dg-field.err small::before{content:"!";width:14px;height:14px;border-radius:50%;background:var(--digi-status-danger-solid);color:var(--digi-bg-surface);font:700 10px/14px Roboto,sans-serif;text-align:center;flex:none}
+
+.dg-sw{display:inline-flex;align-items:center;gap:10px;font:400 14px/20px Roboto,sans-serif;color:var(--digi-text-primary)}
+.dg-sw i{position:relative;width:36px;height:20px;border-radius:999px;background:var(--digi-action-toggle-off-bg)}
+.dg-sw i::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--digi-bg-surface)}
+.dg-sw.on i{background:var(--digi-action-primary-bg)}
+.dg-sw.on i::after{left:18px}
+.dg-cb{display:inline-flex;align-items:center;gap:10px;font:400 14px/20px Roboto,sans-serif;color:var(--digi-text-primary)}
+.dg-cb i{width:18px;height:18px;border-radius:4px;border:2px solid var(--digi-border-control);display:grid;place-items:center}
+.dg-cb.on i{background:var(--digi-action-primary-bg);border-color:var(--digi-action-primary-bg);color:var(--digi-action-primary-fg)}
+.dg-cb i svg{width:12px;height:12px}
+
+.dg-timer{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:var(--digi-radius-md);border:1px solid var(--digi-border-default);background:var(--digi-bg-surface);font:500 16px/24px "Roboto Mono",ui-monospace,monospace;color:var(--digi-text-primary);white-space:nowrap}
+.dg-timer svg{width:16px;height:16px;color:var(--digi-icon-secondary)}
+.dg-timer.low{background:var(--digi-status-warning-bg);border-color:var(--digi-status-warning-border);color:var(--digi-status-warning-fg)}
+.dg-timer.low svg{color:var(--digi-status-warning-fg)}
+.dg-toast{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--digi-radius-md);background:var(--digi-bg-inverse);color:var(--digi-text-inverse);font:400 14px/20px Roboto,sans-serif;box-shadow:var(--digi-shadow-2)}
+.dg-toast svg{width:18px;height:18px;color:var(--digi-status-success-on-inverse)}
+
+/* ---------- Hero stage ---------- */
+.hst{position:relative;color:#E8ECF4;max-width:520px;margin:0 auto}
+.hst p{margin:0 0 14px;font-size:14px;font-weight:500;color:#AAB3C5}
+.hst small{display:block;margin-top:14px;font-size:13px;color:#8590A5;line-height:1.5}
+.hst hr{border:0;border-top:1px solid #253049;margin:26px 0}
+.hcol{display:grid;gap:8px}
+.hcol div{display:grid;grid-template-columns:minmax(0,1fr) auto 44px;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid #253049}
+.hcol div.acc{border-color:#5FAEF5;background:rgba(95,174,245,.08)}
+.hcol b{font-size:14px;font-weight:500}
+.hcol span{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.hcol span i{font-style:normal;font-size:11.5px;font-weight:500;color:#C9D1DF;background:#182238;border-radius:999px;padding:2px 9px}
+.hcol strong{font-size:15px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.hbtn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.hbtn>div{border-radius:12px;padding:18px 16px;display:grid;gap:12px;justify-items:start;border:1px solid #253049}
+.hbtn>div>small{margin:0;font-size:12px}
+.hbtn .dg[data-theme="light"]>small{color:#5B6575}
+.hbtn .dg[data-theme="dark"]>small{color:#CDD2DA}
+
+/* ---------- Token chain and table ---------- */
+.chain code{font:500 12.5px "Roboto Mono",monospace}
+.swc{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:8px;background:#FFFFFF}
+.swc.d{background:#1A202B}
+.swc i{width:22px;height:22px;border-radius:6px;flex:none;box-shadow:inset 0 0 0 1px rgba(127,127,127,.35)}
+.swc span{font:500 12px/1.3 Roboto,sans-serif;color:#1A202B}
+.swc.d span{color:#F7F8FA}
+.swc small{display:block;font-weight:400;color:#5B6575}
+.swc.d small{color:#CDD2DA}
+.ttbl td:first-child b{font:500 13px "Roboto Mono",monospace}
+.ramps{grid-template-columns:repeat(4,minmax(0,1fr))}
+.ramps>div{display:block;height:auto;box-shadow:none;border-radius:0;overflow:visible}
+@media (max-width:1700px){.ttbl-wrap{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:720px){.ramps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- Type ---------- */
+.spec .s{font-family:Roboto,sans-serif}
+
+/* ---------- Inventory ---------- */
+.inv{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:56px}
+.inv>div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.inv small{display:block;font-size:12.5px;color:var(--ink-3)}
+.inv b{display:block;font-size:16px;font-weight:600;margin:2px 0 8px}
+.inv p{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.inv>div.acc{background:var(--brand-soft);border-color:var(--brand)}
+
+.cpanel{border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:26px;align-content:start}
+.cpanel>p{margin:0;font:500 14px/1.4 Geist,sans-serif;color:var(--digi-text-secondary)}
+.cgrp h3{margin:0;font:500 12px/1.4 Roboto,sans-serif;color:var(--digi-text-tertiary)}
+.crow small{font:400 12px/1.4 Roboto,sans-serif;color:var(--digi-text-tertiary)}
+
+/* ---------- Accessibility ---------- */
+.a11y{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 48px}
+.a11y div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.a11y strong{display:block;font-size:clamp(24px,2vw,32px);line-height:1.1;letter-spacing:-.02em;color:var(--brand);font-weight:600}
+.a11y span{display:block;font-size:13px;line-height:1.4;color:var(--ink-2);margin-top:8px}
+.fixes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 40px;border-top:1px solid var(--line)}
+.fixes .rule{padding:22px 0 0}
+.todo{margin-top:40px;background:var(--sunk);border-radius:14px;padding:22px 26px;font-size:15px;color:var(--ink-2)}
+.todo b{color:var(--ink);font-weight:600}
+
+/* ---------- Exam delivery screen (820px) ---------- */
+.e-hdr{display:flex;align-items:center;gap:10px;height:44px;padding:0 16px;background:var(--digi-header-bg);color:var(--digi-header-fg);font:500 12px/16px Roboto,sans-serif}
+.e-hdr .chip{background:var(--digi-header-bg-accent);border-radius:4px;padding:3px 8px;font-size:11px}
+.e-hdr .mid{margin:0 auto;display:flex;align-items:center;gap:8px;font-size:13px}
+.e-hdr .mid i{width:18px;height:18px;border-radius:4px;background:var(--digi-header-fg);color:var(--digi-header-bg);display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:700}
+.e-hdr .mid span{color:var(--digi-header-fg-muted);font-weight:400}
+.e-hdr .rt{color:var(--digi-header-fg-muted);font-weight:400}
+.e-body{padding:16px;display:grid;gap:12px;background:var(--digi-bg-canvas)}
+.e-card{background:var(--digi-bg-surface);border:1px solid var(--digi-border-subtle);border-radius:var(--digi-radius-lg)}
+.e-bar{display:flex;align-items:center;gap:10px;padding:12px 14px}
+.e-bar h4{margin:0;flex:1;font:500 15px/22px Roboto,sans-serif}
+.e-bar .dg-btn{height:34px;font-size:13px;padding:0 14px}
+.e-bar .dg-btn.icon{width:34px;padding:0}
+.e-bar .dg-btn.icon svg{width:16px;height:16px}
+.e-bar .dg-timer{height:34px;font-size:14px}
+.e-nav{border-top:1px solid var(--digi-border-subtle);padding:10px 14px 14px;display:grid;gap:10px}
+.e-leg{display:flex;align-items:center;gap:14px;font:400 12px/16px Roboto,sans-serif;color:var(--digi-text-secondary)}
+.e-leg span{display:inline-flex;align-items:center;gap:6px}
+.e-leg b{display:inline-grid;place-items:center;min-width:20px;height:18px;border-radius:9px;font-weight:500;font-size:11px;padding:0 5px}
+.e-leg .a b{background:var(--digi-exam-question-attended-bg);color:var(--digi-exam-question-attended-fg);border:1px solid var(--digi-exam-question-attended-border)}
+.e-leg .k b{background:var(--digi-exam-question-bookmarked-bg);color:var(--digi-exam-question-bookmarked-fg);border:1px solid var(--digi-exam-question-bookmarked-border)}
+.e-leg .u b{background:var(--digi-exam-question-unattended-bg);color:var(--digi-exam-question-unattended-fg);border:1px solid var(--digi-exam-question-unattended-border)}
+.e-leg .sec{margin-left:auto;color:var(--digi-text-link);font-weight:500}
+.e-pills{display:flex;gap:9px;padding-top:4px}
+.e-time{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:var(--digi-radius-md);background:var(--digi-status-warning-bg);border:1px solid var(--digi-status-warning-border);color:var(--digi-status-warning-fg);font:400 12.5px/18px Roboto,sans-serif}
+.e-time b{font:500 12.5px/18px "Roboto Mono",monospace}
+.e-time svg{width:15px;height:15px}
+.e-q{padding:16px 18px 18px;display:grid;gap:12px}
+.e-qh{display:flex;align-items:center;gap:10px}
+.e-qh h5{margin:0;flex:1;font:500 16px/24px Roboto,sans-serif;color:var(--digi-text-brand)}
+.e-qh svg{width:18px;height:18px;color:var(--digi-icon-secondary)}
+.e-stem{margin:0;font:400 18px/30px Roboto,sans-serif;color:var(--digi-text-primary);max-width:68ch}
+.e-ov{margin:4px 0 0;font:500 11px/16px Roboto,sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--digi-text-tertiary)}
+.e-opts{display:grid;gap:8px}
+.e-opts .dg-opt{font-size:15px;padding:7px 12px}
+.e-opts .dg-opt.sel{padding:6px 11px}
+.e-foot{display:flex;align-items:center;justify-content:space-between;font:400 11.5px/16px Roboto,sans-serif;color:var(--digi-text-tertiary);padding:0 2px}
+
+@media (max-width:1100px){.inv,.a11y{grid-template-columns:repeat(2,minmax(0,1fr))}.fixes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){.inv,.fixes{grid-template-columns:1fr}.hbtn{grid-template-columns:1fr}.hcol div{grid-template-columns:minmax(0,1fr) 44px}.hcol span{grid-column:1/-1;grid-row:2;justify-content:flex-start}}
+@media (prefers-reduced-motion: reduce){.dg-live::before{animation:none}}
+
+/* ---------- Figma link ---------- */
+.fig-link{display:inline-flex;align-items:center;gap:8px;margin-top:28px;padding:12px 20px;border-radius:999px;background:var(--brand);color:var(--brand-ink);font-size:15px;font-weight:600;text-decoration:none}
+.fig-link:hover{filter:brightness(1.08)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.cap a{color:var(--brand);font-weight:500}
+
+/* ---------- Co-ordinator dashboard (820px) ---------- */
+.dg{--color-bg-surface:var(--digi-bg-surface);--color-border-default:var(--digi-border-subtle);--color-brand-default:var(--digi-action-primary-bg);--color-text-on-brand:var(--digi-action-primary-fg);--color-text-primary:var(--digi-text-primary);--color-text-secondary:var(--digi-text-secondary);--color-text-tertiary:var(--digi-text-tertiary);--color-bg-hover:var(--digi-bg-hover);--color-bg-subtle:var(--digi-bg-surface-sunken);--color-text-link:var(--digi-text-link)}
+.d-tabs{display:flex;gap:20px;padding:0 18px;background:var(--digi-bg-surface);border-bottom:1px solid var(--digi-border-subtle)}
+.d-tabs span{padding:10px 2px 9px;border-bottom:2px solid transparent;font:500 12.5px/16px Roboto,sans-serif;color:var(--digi-text-secondary);white-space:nowrap}
+.d-tabs span.on{color:var(--digi-text-brand);border-color:var(--digi-action-primary-bg)}
+.d-av{width:24px;height:24px;border-radius:50%;background:var(--digi-header-bg-accent);color:var(--digi-header-fg);display:grid;place-items:center;font-size:10px;font-weight:700}
+.d-who{color:var(--digi-header-fg);font-weight:500}
+#dash-shot .s-body{background:var(--digi-bg-canvas)}
+#dash-shot .s-head h4{font:500 18px/24px Roboto,sans-serif}
+#dash-shot .s-head .dg-btn{height:30px;padding:0 12px;font-size:12px}
+#dash-shot .s-ttl .dg-live{font-size:10px;padding:1px 8px 1px 7px}
+.dg-stat{background:var(--digi-bg-surface);border:1px solid var(--digi-border-subtle);border-radius:10px;padding:10px 12px}
+.dg-stat b{display:block;font:500 10.5px/16px Roboto,sans-serif;letter-spacing:.5px;text-transform:uppercase;color:var(--digi-text-secondary)}
+.dg-stat strong{display:block;font:700 22px/28px Roboto,sans-serif;color:var(--digi-text-primary);font-variant-numeric:tabular-nums}
+.dg-stat span{display:block;font:400 11.5px/16px Roboto,sans-serif;color:var(--digi-text-tertiary)}
+#dash-shot .s-ch h5{font:500 13.5px/20px Roboto,sans-serif}
+#dash-shot .s-need b{font-weight:500}
+.s-need .dg-badge,.s-tbl .dg-badge{font-size:10.5px;padding:1px 8px 1px 6px}
+.s-need .dg-btn{height:26px;font-size:11.5px;padding:0 10px}
+#dash-shot .s-bar span{background:var(--digi-data-track)}
+.dg-chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:var(--digi-radius-full);border:1px solid var(--digi-border-control);background:var(--digi-bg-surface);font:500 11.5px/18px Roboto,sans-serif;color:var(--digi-text-primary);white-space:nowrap}
+.dg-chip em{font-style:normal;color:var(--digi-text-tertiary)}
+.dg-chip.on{background:var(--digi-bg-selected);border-color:var(--digi-action-primary-bg);color:var(--digi-text-brand)}
+.dg-chip.on em{color:var(--digi-text-brand)}
+#screen .sub-h{margin:56px 0 20px}
+#screen .scr-bar + .sub-h{margin-top:0}
+
 :root{--good:#0E6A3D}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--good:#6FD9A0}}
 :root[data-theme="dark"]{--good:#6FD9A0}
 .pains.p4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .hind.h4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .darknotes{border-top:1px solid var(--line)}
-/* hero stage */
-.hst{position:relative;color:#E8ECF4;max-width:520px;margin:0 auto}
-.hst p{margin:0 0 16px;font-size:14px;font-weight:500;color:#AAB3C5}
-.hst small{display:block;margin-top:14px;font-size:13px;color:#8590A5}
-.hst hr{border:0;border-top:1px solid #253049;margin:26px 0}
-.old{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
-.old div{display:grid;gap:6px;justify-items:center}
-.old i{display:block;width:100%;aspect-ratio:1;border-radius:10px}
-.old span{font-size:12px;font-weight:500}
-.old .ok{color:#7DE3A6}.old .no{color:#FF8A8A}
-.ramp{display:grid;grid-template-columns:repeat(11,minmax(0,1fr))}
-.ramp div{display:grid;gap:6px;justify-items:center}
-.ramp i{display:block;width:100%;height:48px}
-.ramp div:first-child i{border-radius:8px 0 0 8px}.ramp div:last-child i{border-radius:0 8px 8px 0}
-.ramp span{font-size:11px;color:#8590A5}
-.ramp .mk span{color:#fff;font-weight:600}
-.hst dl{margin:22px 0 0;display:grid;gap:10px}
-.hst dl div{display:flex;justify-content:space-between;gap:12px;font-size:14px}
-.hst dt{font-weight:500}.hst dd{margin:0;color:#7DE3A6}
 @media (max-width:1100px){.pains.p4,.hind.h4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:720px){.pains.p4,.hind.h4{grid-template-columns:1fr}.old{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:1100px){
@@ -506,6 +659,13 @@ section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spac
 <body class="skim">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bm" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z" fill="currentColor"/></symbol>
+  <symbol id="i-bmo" viewBox="0 0 24 24"><path d="M6.5 3.5h11v16.5l-5.5-4-5.5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-prev" viewBox="0 0 24 24"><path d="M19 12H6M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v5.5M12 7.6v.2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7.5 12.3l3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 <header class="site">
   <div class="site-in" style="position:relative">
@@ -524,36 +684,42 @@ section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spac
   <div class="hero">
     <div>
       <p class="kicker"><a href="index.html#work">Work</a> / Design system for an assessment platform</p>
-      <h1>Exam day ran on 8 blues. One of them passed contrast.</h1>
-      <p class="lede">I rebuilt DigiAssess on one token set. Students, proctors, exam co-ordinators and schedulers now share 35 semantic colours, two themes and one type ramp. Every colour pair is checked against WCAG AA in both themes.</p>
-      <ul class="cs-tags" aria-label="Tags"><li>B2B</li><li>EdTech</li><li>Design system</li><li>Accessibility (WCAG AA)</li></ul>
+      <h1>A student reads question 27 under a timer. Every token in this system is built for that moment.</h1>
+      <p class="lede">Digi 2.0 is the design system behind DigiAssess, an exam platform for students, proctors and exam co-ordinators. I built it in Figma from an audit of 300 product frames: five variable collections, 90 components and two themes. Every text and icon pair passes WCAG 2.2 AA in light and dark.</p>
+      <ul class="cs-tags" aria-label="Tags"><li>B2B</li><li>EdTech</li><li>Design system</li><li>Figma variables</li><li>Dark theme</li><li>Accessibility (WCAG 2.2 AA)</li></ul>
       <dl class="meta">
-        <div><dt>Role</dt><dd>Senior product designer</dd></div>
-        <div><dt>Scope</dt><dd>Tokens, themes, components</dd></div>
-        <div><dt>Platform</dt><dd>Web and Android exam app</dd></div>
-        <div><dt>Users</dt><dd>Students, proctors, co-ordinators, schedulers</dd></div>
+        <div><dt>Role</dt><dd>Product designer</dd></div>
+        <div><dt>Scope</dt><dd>Variables, styles, components, templates</dd></div>
+        <div><dt>Platform</dt><dd>Web and mobile exam app</dd></div>
+        <div><dt>Users</dt><dd>Students, proctors, co-ordinators</dd></div>
       </dl>
       <div class="kpis">
-        <div class="kpi"><strong>77 → 35</strong><span>Fill colours in 10 audited screens, now 35 semantic tokens</span></div>
-        <div class="kpi"><strong>19 → 8</strong><span>Font sizes, now 12 text styles on 8 sizes</span></div>
-        <div class="kpi"><strong>33 → 6</strong><span>Corner radii, now 6 radius tokens</span></div>
-        <div class="kpi"><strong>1 → 60</strong><span>Colour checks passing AA. Was 1 of 15, now 60 of 60.</span></div>
+        <div class="kpi"><strong>329</strong><span>Variables in 5 collections, each with a CSS code name</span></div>
+        <div class="kpi"><strong>90</strong><span>Components with 334 variants and 59 icons</span></div>
+        <div class="kpi"><strong>25</strong><span>Text styles bound to Typography variables</span></div>
+        <div class="kpi"><strong>0</strong><span>Contrast failures in 1,758 text checks across both themes</span></div>
       </div>
-      <p class="nda"><span class="skim-only">Skim mode shows headlines, numbers and screens. Switch to Full story for the detail.<br></span>Audit numbers come from 10 screens of the original file. Screens are rebuilt with mock data. Student names are invented.</p>
+      <a class="fig-link" href="https://www.figma.com/design/bkvvKnJoVe699lLecai89C/DXB?node-id=101-903" target="_blank" rel="noopener">View the full design system in Figma <span aria-hidden="true">↗</span><span class="vh"> (opens in a new tab)</span></a>
+      <p class="nda"><span class="skim-only">Skim mode shows headlines, numbers and screens. Switch to Full story for the detail.<br></span>Screens on this page are rebuilt in HTML from the real token values. Student data is invented.</p>
     </div>
 
     <div class="stage">
       <div class="hst">
-        <p>Before: 8 blues from the old file</p>
-        <div class="old"><div><i style="background:#2F80ED"></i><span class="no">3.9:1</span></div><div><i style="background:#008DFF"></i><span class="no">3.4:1</span></div><div><i style="background:#0064C8"></i><span class="ok">5.7:1</span></div><div><i style="background:#3E95EF"></i><span class="no">3.1:1</span></div><div><i style="background:#3A8DDF"></i><span class="no">3.5:1</span></div><div><i style="background:#00A3FF"></i><span class="no">2.7:1</span></div><div><i style="background:#2D9CDB"></i><span class="no">3.1:1</span></div><div><i style="background:#5F72E1"></i><span class="no">4.2:1</span></div></div>
-        <small>Ratio on white. Green passes 4.5:1. Red fails.</small>
+        <p>Five collections. Modes do the work variants used to do.</p>
+        <div class="hcol">
+          <div><b>Primitives</b><span><i>Value</i><i>Hidden</i></span><strong>104</strong></div>
+          <div class="acc"><b>Theme</b><span><i>Light</i><i>Dark</i></span><strong>129</strong></div>
+          <div><b>Scale</b><span><i>Value</i></span><strong>51</strong></div>
+          <div><b>Density</b><span><i>Comfortable</i><i>Compact</i></span><strong>17</strong></div>
+          <div><b>Typography</b><span><i>Desktop</i><i>Mobile</i></span><strong>28</strong></div>
+        </div>
         <hr>
-        <p>After: 1 ramp, 2 themes</p>
-        <div class="ramp"><div class=""><i style="background:#EEF4FF"></i><span>50</span></div><div class=""><i style="background:#DCE7FE"></i><span>100</span></div><div class=""><i style="background:#BACFFC"></i><span>200</span></div><div class=""><i style="background:#8DB0F8"></i><span>300</span></div><div class="mk"><i style="background:#5B8BF1"></i><span>400</span></div><div class=""><i style="background:#3569E6"></i><span>500</span></div><div class="mk"><i style="background:#2453CC"></i><span>600</span></div><div class=""><i style="background:#1D43A6"></i><span>700</span></div><div class=""><i style="background:#1C3A84"></i><span>800</span></div><div class=""><i style="background:#1B3168"></i><span>900</span></div><div class=""><i style="background:#121E3F"></i><span>950</span></div></div>
-        <dl>
-          <div><dt>Light: brand/default = blue/600</dt><dd>6.6:1 on white</dd></div>
-          <div><dt>Dark: brand/default = blue/400</dt><dd>5.3:1 on surface</dd></div>
-        </dl>
+        <p>One component. The Theme mode picks the colour.</p>
+        <div class="hbtn">
+          <div class="dg" data-theme="light"><span class="dg-btn pri">Next question<svg aria-hidden="true"><use href="#i-next"/></svg></span><small>Light: blue/600 #1A73D9</small></div>
+          <div class="dg" data-theme="dark"><span class="dg-btn pri">Next question<svg aria-hidden="true"><use href="#i-next"/></svg></span><small>Dark: blue/400 #5FAEF5</small></div>
+        </div>
+        <small>Both buttons read action/primary/bg. White text on the light one measures 4.6:1. Near-black text on the dark one measures 7.8:1.</small>
       </div>
     </div>
   </div>
@@ -563,190 +729,292 @@ section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spac
 
       <section id="problem">
         <div class="txt">
-          <p class="sec-name">Problem</p>
-          <h2>A proctor watches 35 students on one screen. The colours could not tell him who needed help first.</h2>
-          <p class="p full">I audited 10 screens: scheduling, assessment creation, outcome analysis, the co-ordinator dashboard, proctor monitoring and the student exam. Four problems came up on every one of them.</p>
+          <p class="sec-name">Starting point</p>
+          <h2>300 frames of a working product. No single source for a colour, a size or a state.</h2>
+          <p class="p full">I audited the Digi page of the UX file, 300 top-level frames covering scheduling, the co-ordinator dashboard, proctor monitoring, outcome analysis and the student exam. The product worked. The file had no shared rules behind it, and four gaps came up on screen after screen.</p>
         </div>
         <div class="pains p4 full">
-          <div class="pain"><h3>Eight blues, no rules</h3><p>Links, buttons, headers and selected states each used a different blue. Nobody could say which one was the brand.</p></div>
-          <div class="pain"><h3>Status by colour alone</h3><p>Red text meant support requested. Green meant on time. For a proctor with red-green colour blindness the two look alike.</p></div>
-          <div class="pain"><h3>Small grey text</h3><p>Captions in #979797 measured 2.9:1 on white. AA asks for 4.5:1. The green nav label on the blue header measured 2.4:1.</p></div>
-          <div class="pain"><h3>One bright theme</h3><p>Proctors and co-ordinators watch the same screen for a full session. There was no dark theme and no tokens to build one with.</p></div>
+          <div class="pain"><h3>A brand blue too light for text</h3><p>The main blue, #3E95EF, measures 3.1:1 on white. It filled buttons and coloured links, and AA asks for 4.5:1.</p></div>
+          <div class="pain"><h3>States told apart by colour</h3><p>Attended and bookmarked question pills differed only in fill. A student with low colour vision could not tell where they had flagged a question.</p></div>
+          <div class="pain"><h3>Faint control borders</h3><p>Text fields, selects and chips used a pale grey outline. On white, the edge of the field was hard to find.</p></div>
+          <div class="pain"><h3>No way to see focus</h3><p>Most interactive components had no focused state, so a keyboard user lost their place on the exam screen.</p></div>
         </div>
-        <div class="users"><span>Four users, one system:</span><span class="tag">Student reads and answers</span><span class="tag">Proctor sees exceptions first</span><span class="tag">Co-ordinator sees the whole session</span><span class="tag">Scheduler sees dates and clashes</span></div>
+        <div class="users"><span>Three users, one library:</span><span class="tag">Student reads under a timer</span><span class="tag">Proctor sees exceptions first</span><span class="tag">Co-ordinator watches the whole session</span></div>
       </section>
 
       <section id="rules">
         <div class="txt">
           <p class="sec-name">Rules I set for the system</p>
-          <h2>Five rules every token and component had to pass.</h2>
+          <h2>Five rules every variable and component had to pass.</h2>
         </div>
         <div class="rules">
-          <div class="rule"><b>Named for the job</b><span>brand/default, not blue/600. Screens never touch a raw hex value.</span></div>
-          <div class="rule"><b>AA or it does not ship</b><span>4.5:1 for text. 3:1 for borders, icons and chart marks. Checked in both themes.</span></div>
-          <div class="rule"><b>Never colour alone</b><span>Every status has a shape and a word. The screen still works in greyscale.</span></div>
-          <div class="rule"><b>Dark is a mode</b><span>A theme switch changes the alias, never the component.</span></div>
-          <div class="rule"><b>Reading gets its own type</b><span>Question stems use Atkinson Hyperlegible, drawn by the Braille Institute for low-vision readers.</span></div>
+          <div class="rule"><b>Named for the job</b><span>action/primary/bg, not blue/600. Primitives have no scopes, so they never show up in a fill picker.</span></div>
+          <div class="rule"><b>AA in both themes</b><span>4.5:1 for text. 3:1 for borders, icons and chart marks. Checked in Light and Dark.</span></div>
+          <div class="rule"><b>Never colour alone</b><span>Every state has a mark, a word or an outline as well as a fill.</span></div>
+          <div class="rule"><b>Modes, not variants</b><span>Theme, density and screen size switch on the frame. No component has a "dark" or "mobile" variant.</span></div>
+          <div class="rule"><b>Slots, not forks</b><span>Card, Dialog, Drawer, Accordion item and Bottom sheet take any content through one instance swap.</span></div>
         </div>
       </section>
 
       <section id="tokens">
         <div class="txt">
-          <p class="sec-name">Foundation one: tokens</p>
-          <h2>Three colour layers. Screens only ever see the top two.</h2>
-          <p class="p full">Primitives hold raw values and are hidden from the library, so nobody picks blue/600 by mistake. Semantic tokens say what a colour is for and carry the Light and Dark modes. Component tokens point at semantic ones, so a button can change without touching the theme.</p>
+          <p class="sec-name">Foundation one: variables</p>
+          <h2>Raw values sit at the bottom and stay hidden. Screens only see names that say what a colour is for.</h2>
+          <p class="p full">Primitives hold the ramps and are hidden from publishing. The Theme collection aliases them into roles and carries the Light and Dark modes. Every variable has explicit scopes and a WEB code syntax, so a developer inspecting a button reads var(--digi-action-primary-bg), not a hex value.</p>
         </div>
         <div class="arch">
-          <div class="tbox"><small>Primitives</small><strong>60</strong><span>7 ramps. Hidden from publishing.</span><div class="md"><i>Value</i></div></div>
+          <div class="tbox"><small>Primitives</small><strong>104</strong><span>neutral, blue, green, red, amber, violet, teal, cyan, alpha</span><div class="md"><i>Value</i></div></div>
           <span class="ar" aria-hidden="true">→</span>
-          <div class="tbox acc"><small>Color, semantic</small><strong>35</strong><span>bg, text, border, brand, status, data</span><div class="md"><i>Light</i><i>Dark</i></div></div>
+          <div class="tbox acc"><small>Theme</small><strong>129</strong><span>bg, text, icon, border, action, status, header, exam, data, shadow</span><div class="md"><i>Light</i><i>Dark</i></div></div>
           <span class="ar" aria-hidden="true">→</span>
-          <div class="tbox"><small>Component</small><strong>23</strong><span>button, input, option, question cell, table</span><div class="md"><i>Value</i></div></div>
+          <div class="tbox"><small>Components</small><strong>90</strong><span>Every fill, stroke and effect bound to a Theme variable</span><div class="md"><i>334 variants</i></div></div>
         </div>
         <div class="arch2">
-          <div class="tbox"><small>Dimension</small><strong>15</strong><span>9 space steps on a 4px grid, 6 radii</span></div>
-          <div class="tbox"><small>Density</small><strong>5</strong><span>control height, row height, padding</span><div class="md"><i>Comfortable</i><i>Compact</i></div></div>
+          <div class="tbox"><small>Scale</small><strong>51</strong><span>space, radius, border width, icon and avatar size, breakpoints, layout, opacity</span></div>
+          <div class="tbox"><small>Density</small><strong>17</strong><span>control, field, table, list, card, section, dialog</span><div class="md"><i>Comfortable</i><i>Compact</i></div></div>
           <div class="tbox chain"><small>One alias chain</small>
-            <div><span>Light</span><i class="sq" style="background:#2453CC"></i><code>blue/600</code>→<code>brand/default</code>→<code>button/primary/bg</code></div>
-            <div><span>Dark</span><i class="sq" style="background:#5B8BF1"></i><code>blue/400</code>→<code>brand/default</code>→<code>button/primary/bg</code></div>
+            <div><span>Light</span><i class="sq" style="background:#1A73D9"></i><code>blue/600</code>→<code>action/primary/bg</code>→<code>Button</code></div>
+            <div><span>Dark</span><i class="sq" style="background:#5FAEF5"></i><code>blue/400</code>→<code>action/primary/bg</code>→<code>Button</code></div>
+            <div><span>Code</span><code>var(--digi-action-primary-bg)</code></div>
           </div>
         </div>
-        <p class="sub-h">35 semantic colours. Every ratio is measured against the background it is meant for.</p>
-        <div class="ttbl-wrap"><div class="tscroll" tabindex="0" role="region" aria-label="Semantic colour tokens"><table class="ttbl"><thead><tr><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">Ratio L / D</th></tr></thead><tbody><tr><td><b>bg/canvas</b><small>text/primary on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-bg-canvas)"></i><span>slate/50<small>#F2F5F9</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-bg-canvas)"></i><span>slate/950<small>#0E121A</small></span></span></td><td><span class="ratio">15.8 / 17.1</span></td></tr><tr><td><b>bg/surface</b><small>text/primary on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-bg-surface)"></i><span>slate/0<small>#FFFFFF</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-bg-surface)"></i><span>slate/900<small>#161B26</small></span></span></td><td><span class="ratio">17.2 / 15.8</span></td></tr><tr><td><b>bg/subtle</b><small>text/primary on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-bg-subtle)"></i><span>slate/25<small>#F8FAFC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-bg-subtle)"></i><span>slate/850<small>#1E2533</small></span></span></td><td><span class="ratio">16.5 / 14.0</span></td></tr><tr><td><b>bg/hover</b><small>text/primary on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-bg-hover)"></i><span>slate/100<small>#E6EBF2</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-bg-hover)"></i><span>slate/800<small>#283041</small></span></span></td><td><span class="ratio">14.4 / 12.1</span></td></tr><tr><td><b>bg/inverse</b><small>text/inverse on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-bg-inverse)"></i><span>slate/900<small>#161B26</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-bg-inverse)"></i><span>slate/100<small>#E6EBF2</small></span></span></td><td><span class="ratio">17.2 / 14.4</span></td></tr><tr><td><b>text/primary</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-primary)"></i><span>slate/900<small>#161B26</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-primary)"></i><span>slate/50<small>#F2F5F9</small></span></span></td><td><span class="ratio">17.2 / 15.8</span></td></tr><tr><td><b>text/secondary</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-secondary)"></i><span>slate/600<small>#4B566C</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-secondary)"></i><span>slate/300<small>#B2BDCD</small></span></span></td><td><span class="ratio">7.4 / 9.1</span></td></tr><tr><td><b>text/tertiary</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-tertiary)"></i><span>slate/500<small>#5F6B82</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-tertiary)"></i><span>slate/400<small>#8794A8</small></span></span></td><td><span class="ratio">5.4 / 5.6</span></td></tr><tr><td><b>text/inverse</b><small>on bg/inverse</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-inverse)"></i><span>slate/0<small>#FFFFFF</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-inverse)"></i><span>slate/900<small>#161B26</small></span></span></td><td><span class="ratio">17.2 / 14.4</span></td></tr><tr><td><b>text/on-brand</b><small>on brand/default</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-on-brand)"></i><span>slate/0<small>#FFFFFF</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-on-brand)"></i><span>slate/950<small>#0E121A</small></span></span></td><td><span class="ratio">6.6 / 5.7</span></td></tr><tr><td><b>text/link</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-text-link)"></i><span>blue/600<small>#2453CC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-text-link)"></i><span>blue/300<small>#8DB0F8</small></span></span></td><td><span class="ratio">6.6 / 8.0</span></td></tr><tr><td><b>border/default</b><small>Decorative</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-border-default)"></i><span>slate/200<small>#D3DBE6</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-border-default)"></i><span>slate/800<small>#283041</small></span></span></td><td><span class="ratio na">Not for text</span></td></tr><tr><td><b>border/strong</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-border-strong)"></i><span>slate/400<small>#8794A8</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-border-strong)"></i><span>slate/500<small>#5F6B82</small></span></span></td><td><span class="ratio">3.1 / 3.2</span></td></tr><tr><td><b>border/focus</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-border-focus)"></i><span>blue/600<small>#2453CC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-border-focus)"></i><span>blue/300<small>#8DB0F8</small></span></span></td><td><span class="ratio">6.6 / 8.0</span></td></tr><tr><td><b>brand/default</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-brand-default)"></i><span>blue/600<small>#2453CC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-brand-default)"></i><span>blue/400<small>#5B8BF1</small></span></span></td><td><span class="ratio">6.6 / 5.3</span></td></tr><tr><td><b>brand/hover</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-brand-hover)"></i><span>blue/700<small>#1D43A6</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-brand-hover)"></i><span>blue/300<small>#8DB0F8</small></span></span></td><td><span class="ratio">8.7 / 8.0</span></td></tr><tr><td><b>brand/soft</b><small>on-soft on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-brand-soft)"></i><span>blue/50<small>#EEF4FF</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-brand-soft)"></i><span>blue/950<small>#121E3F</small></span></span></td><td><span class="ratio">7.9 / 10.5</span></td></tr><tr><td><b>brand/on-soft</b><small>on brand/soft</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-brand-on-soft)"></i><span>blue/700<small>#1D43A6</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-brand-on-soft)"></i><span>blue/200<small>#BACFFC</small></span></span></td><td><span class="ratio">7.9 / 10.5</span></td></tr></tbody></table></div><div class="tscroll" tabindex="0" role="region" aria-label="Semantic colour tokens"><table class="ttbl"><thead><tr><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">Ratio L / D</th></tr></thead><tbody><tr><td><b>success/fg</b><small>on success/bg</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-success-fg)"></i><span>green/700<small>#0E6A3D</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-success-fg)"></i><span>green/300<small>#6FD9A0</small></span></span></td><td><span class="ratio">6.3 / 7.8</span></td></tr><tr><td><b>success/bg</b><small>fg on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-success-bg)"></i><span>green/50<small>#ECFDF3</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-success-bg)"></i><span>green/900<small>#0F3524</small></span></span></td><td><span class="ratio">6.3 / 7.8</span></td></tr><tr><td><b>success/solid</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-success-solid)"></i><span>green/600<small>#12804A</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-success-solid)"></i><span>green/400<small>#3BC17A</small></span></span></td><td><span class="ratio">5.0 / 7.5</span></td></tr><tr><td><b>warning/fg</b><small>on warning/bg</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-warning-fg)"></i><span>amber/700<small>#924C0A</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-warning-fg)"></i><span>amber/300<small>#F9C46B</small></span></span></td><td><span class="ratio">6.1 / 8.8</span></td></tr><tr><td><b>warning/bg</b><small>fg on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-warning-bg)"></i><span>amber/50<small>#FFF8EB</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-warning-bg)"></i><span>amber/900<small>#3D2709</small></span></span></td><td><span class="ratio">6.1 / 8.8</span></td></tr><tr><td><b>warning/solid</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-warning-solid)"></i><span>amber/600<small>#B25E09</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-warning-solid)"></i><span>amber/400<small>#F2A93B</small></span></span></td><td><span class="ratio">4.7 / 8.6</span></td></tr><tr><td><b>danger/fg</b><small>on danger/bg</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-danger-fg)"></i><span>red/700<small>#A82623</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-danger-fg)"></i><span>red/300<small>#F89A9A</small></span></span></td><td><span class="ratio">6.4 / 7.3</span></td></tr><tr><td><b>danger/bg</b><small>fg on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-danger-bg)"></i><span>red/50<small>#FEF1F1</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-danger-bg)"></i><span>red/900<small>#451715</small></span></span></td><td><span class="ratio">6.4 / 7.3</span></td></tr><tr><td><b>danger/solid</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-danger-solid)"></i><span>red/600<small>#C9302C</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-danger-solid)"></i><span>red/400<small>#F06B6B</small></span></span></td><td><span class="ratio">5.3 / 5.8</span></td></tr><tr><td><b>info/fg</b><small>on info/bg</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-info-fg)"></i><span>blue/700<small>#1D43A6</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-info-fg)"></i><span>blue/300<small>#8DB0F8</small></span></span></td><td><span class="ratio">7.9 / 7.6</span></td></tr><tr><td><b>info/bg</b><small>fg on it</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-info-bg)"></i><span>blue/50<small>#EEF4FF</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-info-bg)"></i><span>blue/950<small>#121E3F</small></span></span></td><td><span class="ratio">7.9 / 7.6</span></td></tr><tr><td><b>info/solid</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-info-solid)"></i><span>blue/600<small>#2453CC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-info-solid)"></i><span>blue/400<small>#5B8BF1</small></span></span></td><td><span class="ratio">6.6 / 5.3</span></td></tr><tr><td><b>data/1</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-data-1)"></i><span>blue/600<small>#2453CC</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-data-1)"></i><span>blue/400<small>#5B8BF1</small></span></span></td><td><span class="ratio">6.6 / 5.3</span></td></tr><tr><td><b>data/2</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-data-2)"></i><span>teal/600<small>#0F7A73</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-data-2)"></i><span>teal/400<small>#2FB3A9</small></span></span></td><td><span class="ratio">5.2 / 6.7</span></td></tr><tr><td><b>data/3</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-data-3)"></i><span>violet/600<small>#6741D9</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-data-3)"></i><span>violet/400<small>#9779F0</small></span></span></td><td><span class="ratio">6.3 / 5.2</span></td></tr><tr><td><b>data/4</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-data-4)"></i><span>amber/600<small>#B25E09</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-data-4)"></i><span>amber/400<small>#F2A93B</small></span></span></td><td><span class="ratio">4.7 / 8.6</span></td></tr><tr><td><b>data/5</b><small>on surface</small></td><td><span class="swc da" data-theme="light"><i style="background:var(--color-data-5)"></i><span>slate/500<small>#5F6B82</small></span></span></td><td><span class="swc da" data-theme="dark"><i style="background:var(--color-data-5)"></i><span>slate/400<small>#8794A8</small></span></span></td><td><span class="ratio">5.4 / 5.6</span></td></tr></tbody></table></div></div>
-        <p class="legal-cap">The Dark column on this page is the same CSS variable inside a dark-mode wrapper. Nothing is redrawn. Data colours never reuse status colours, so red on a chart only ever means a problem.</p>
-        <div class="ramps full"><div><p>blue</p><div><i style="background:#EEF4FF"></i><i style="background:#DCE7FE"></i><i style="background:#BACFFC"></i><i style="background:#8DB0F8"></i><i style="background:#5B8BF1"></i><i style="background:#3569E6"></i><i style="background:#2453CC"></i><i style="background:#1D43A6"></i><i style="background:#1C3A84"></i><i style="background:#1B3168"></i><i style="background:#121E3F"></i></div><small>11 steps</small></div><div><p>slate</p><div><i style="background:#FFFFFF"></i><i style="background:#F8FAFC"></i><i style="background:#F2F5F9"></i><i style="background:#E6EBF2"></i><i style="background:#D3DBE6"></i><i style="background:#B2BDCD"></i><i style="background:#8794A8"></i><i style="background:#5F6B82"></i><i style="background:#4B566C"></i><i style="background:#384255"></i><i style="background:#283041"></i><i style="background:#1E2533"></i><i style="background:#161B26"></i><i style="background:#0E121A"></i></div><small>14 steps</small></div><div><p>green</p><div><i style="background:#ECFDF3"></i><i style="background:#D1F7E0"></i><i style="background:#6FD9A0"></i><i style="background:#3BC17A"></i><i style="background:#12804A"></i><i style="background:#0E6A3D"></i><i style="background:#0F3524"></i></div><small>7 steps</small></div><div><p>amber</p><div><i style="background:#FFF8EB"></i><i style="background:#FEEBC8"></i><i style="background:#F9C46B"></i><i style="background:#F2A93B"></i><i style="background:#B25E09"></i><i style="background:#924C0A"></i><i style="background:#3D2709"></i></div><small>7 steps</small></div><div><p>red</p><div><i style="background:#FEF1F1"></i><i style="background:#FDDCDC"></i><i style="background:#F89A9A"></i><i style="background:#F06B6B"></i><i style="background:#C9302C"></i><i style="background:#A82623"></i><i style="background:#451715"></i></div><small>7 steps</small></div><div><p>violet</p><div><i style="background:#F4F1FE"></i><i style="background:#E7E0FD"></i><i style="background:#B7A3F7"></i><i style="background:#9779F0"></i><i style="background:#6741D9"></i><i style="background:#5533B8"></i><i style="background:#2A1F5C"></i></div><small>7 steps</small></div><div><p>teal</p><div><i style="background:#EBFAF9"></i><i style="background:#CCF1EE"></i><i style="background:#66CFC6"></i><i style="background:#2FB3A9"></i><i style="background:#0F7A73"></i><i style="background:#0C625D"></i><i style="background:#0B3432"></i></div><small>7 steps</small></div></div>
+        <p class="sub-h">A selection of the 129 Theme colours. Each ratio is measured against the surface it is meant for.</p>
+        <div class="ttbl-wrap"><div class="tscroll" tabindex="0" role="region" aria-label="Surface, text, border and action variables"><table class="ttbl"><thead><tr><th scope="col">Variable</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">Ratio L / D</th></tr></thead><tbody><tr><td><b>bg/canvas</b><small>text/primary on it</small></td><td><span class="swc"><i style="background:#F0F2F5"></i><span>neutral/100<small>#F0F2F5</small></span></span></td><td><span class="swc d"><i style="background:#0F131A"></i><span>neutral/950<small>#0F131A</small></span></span></td><td><span class="ratio">14.5 / 17.5</span></td></tr><tr><td><b>bg/surface</b><small>text/primary on it</small></td><td><span class="swc"><i style="background:#FFFFFF"></i><span>neutral/0<small>#FFFFFF</small></span></span></td><td><span class="swc d"><i style="background:#1A202B"></i><span>neutral/900<small>#1A202B</small></span></span></td><td><span class="ratio">16.3 / 15.3</span></td></tr><tr><td><b>bg/subtle</b><small>text/primary on it</small></td><td><span class="swc"><i style="background:#F0F2F5"></i><span>neutral/100<small>#F0F2F5</small></span></span></td><td><span class="swc d"><i style="background:#2B3340"></i><span>neutral/800<small>#2B3340</small></span></span></td><td><span class="ratio">14.5 / 11.9</span></td></tr><tr><td><b>bg/selected</b><small>text/primary on it</small></td><td><span class="swc"><i style="background:#EFF7FF"></i><span>blue/50<small>#EFF7FF</small></span></span></td><td><span class="swc d"><i style="background:#0B2748"></i><span>blue/950<small>#0B2748</small></span></span></td><td><span class="ratio">15.1 / 14.1</span></td></tr><tr><td><b>bg/inverse</b><small>text/inverse on it</small></td><td><span class="swc"><i style="background:#1A202B"></i><span>neutral/900<small>#1A202B</small></span></span></td><td><span class="swc d"><i style="background:#F0F2F5"></i><span>neutral/100<small>#F0F2F5</small></span></span></td><td><span class="ratio">16.3 / 14.5</span></td></tr><tr><td><b>text/primary</b><small>on surface</small></td><td><span class="swc"><i style="background:#1A202B"></i><span>neutral/900<small>#1A202B</small></span></span></td><td><span class="swc d"><i style="background:#F7F8FA"></i><span>neutral/50<small>#F7F8FA</small></span></span></td><td><span class="ratio">16.3 / 15.3</span></td></tr><tr><td><b>text/secondary</b><small>on surface</small></td><td><span class="swc"><i style="background:#434C5B"></i><span>neutral/700<small>#434C5B</small></span></span></td><td><span class="swc d"><i style="background:#E3E6EB"></i><span>neutral/200<small>#E3E6EB</small></span></span></td><td><span class="ratio">8.6 / 13.0</span></td></tr><tr><td><b>text/tertiary</b><small>on surface</small></td><td><span class="swc"><i style="background:#5B6575"></i><span>neutral/600<small>#5B6575</small></span></span></td><td><span class="swc d"><i style="background:#CDD2DA"></i><span>neutral/300<small>#CDD2DA</small></span></span></td><td><span class="ratio">5.8 / 10.7</span></td></tr><tr><td><b>text/brand</b><small>on surface</small></td><td><span class="swc"><i style="background:#0064C8"></i><span>blue/700<small>#0064C8</small></span></span></td><td><span class="swc d"><i style="background:#8CCCFF"></i><span>blue/300<small>#8CCCFF</small></span></span></td><td><span class="ratio">5.7 / 9.4</span></td></tr><tr><td><b>border/default</b><small>Decorative</small></td><td><span class="swc"><i style="background:#CDD2DA"></i><span>neutral/300<small>#CDD2DA</small></span></span></td><td><span class="swc d"><i style="background:#434C5B"></i><span>neutral/700<small>#434C5B</small></span></span></td><td><span class="ratio na">Not for text</span></td></tr><tr><td><b>border/control</b><small>on surface, 3:1</small></td><td><span class="swc"><i style="background:#7A8494"></i><span>neutral/500<small>#7A8494</small></span></span></td><td><span class="swc d"><i style="background:#A3ABB8"></i><span>neutral/400<small>#A3ABB8</small></span></span></td><td><span class="ratio">3.7 / 7.0</span></td></tr><tr><td><b>border/focus</b><small>on surface, 3:1</small></td><td><span class="swc"><i style="background:#1A73D9"></i><span>blue/600<small>#1A73D9</small></span></span></td><td><span class="swc d"><i style="background:#8CCCFF"></i><span>blue/300<small>#8CCCFF</small></span></span></td><td><span class="ratio">4.6 / 9.4</span></td></tr><tr><td><b>action/primary/bg</b><small>primary/fg on it</small></td><td><span class="swc"><i style="background:#1A73D9"></i><span>blue/600<small>#1A73D9</small></span></span></td><td><span class="swc d"><i style="background:#5FAEF5"></i><span>blue/400<small>#5FAEF5</small></span></span></td><td><span class="ratio">4.6 / 7.8</span></td></tr><tr><td><b>action/secondary/fg</b><small>on surface</small></td><td><span class="swc"><i style="background:#0064C8"></i><span>blue/700<small>#0064C8</small></span></span></td><td><span class="swc d"><i style="background:#8CCCFF"></i><span>blue/300<small>#8CCCFF</small></span></span></td><td><span class="ratio">5.7 / 9.4</span></td></tr><tr><td><b>action/danger/bg</b><small>danger/fg on it</small></td><td><span class="swc"><i style="background:#CC3238"></i><span>red/600<small>#CC3238</small></span></span></td><td><span class="swc d"><i style="background:#EF6A64"></i><span>red/400<small>#EF6A64</small></span></span></td><td><span class="ratio">5.1 / 6.1</span></td></tr><tr><td><b>header/bg</b><small>header/fg on it</small></td><td><span class="swc"><i style="background:#0064C8"></i><span>blue/700<small>#0064C8</small></span></span></td><td><span class="swc d"><i style="background:#1A202B"></i><span>neutral/900<small>#1A202B</small></span></span></td><td><span class="ratio">5.7 / 15.3</span></td></tr><tr><td><b>header/fg-muted</b><small>on header/bg</small></td><td><span class="swc"><i style="background:#DCEEFF"></i><span>blue/100<small>#DCEEFF</small></span></span></td><td><span class="swc d"><i style="background:#A3ABB8"></i><span>neutral/400<small>#A3ABB8</small></span></span></td><td><span class="ratio">4.8 / 7.0</span></td></tr></tbody></table></div><div class="tscroll" tabindex="0" role="region" aria-label="Status, exam and data variables"><table class="ttbl"><thead><tr><th scope="col">Variable</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">Ratio L / D</th></tr></thead><tbody><tr><td><b>status/success/fg</b><small>on success/bg</small></td><td><span class="swc"><i style="background:#156539"></i><span>green/700<small>#156539</small></span></span></td><td><span class="swc d"><i style="background:#6FCB8C"></i><span>green/300<small>#6FCB8C</small></span></span></td><td><span class="ratio">6.4 / 8.5</span></td></tr><tr><td><b>status/success/solid</b><small>on surface, 3:1</small></td><td><span class="swc"><i style="background:#1A7D45"></i><span>green/600<small>#1A7D45</small></span></span></td><td><span class="swc d"><i style="background:#3DB466"></i><span>green/400<small>#3DB466</small></span></span></td><td><span class="ratio">5.1 / 6.1</span></td></tr><tr><td><b>status/warning/fg</b><small>on warning/bg</small></td><td><span class="swc"><i style="background:#855208"></i><span>amber/800<small>#855208</small></span></span></td><td><span class="swc d"><i style="background:#FFCB57"></i><span>amber/300<small>#FFCB57</small></span></span></td><td><span class="ratio">6.1 / 9.9</span></td></tr><tr><td><b>status/warning/solid</b><small>on-solid text on it</small></td><td><span class="swc"><i style="background:#C77E00"></i><span>amber/600<small>#C77E00</small></span></span></td><td><span class="swc d"><i style="background:#FFB951"></i><span>amber/400<small>#FFB951</small></span></span></td><td><span class="ratio">5.6 / 10.9</span></td></tr><tr><td><b>status/danger/fg</b><small>on danger/bg</small></td><td><span class="swc"><i style="background:#A8262C"></i><span>red/700<small>#A8262C</small></span></span></td><td><span class="swc d"><i style="background:#F58C86"></i><span>red/300<small>#F58C86</small></span></span></td><td><span class="ratio">6.3 / 7.1</span></td></tr><tr><td><b>status/danger/solid</b><small>on surface, 3:1</small></td><td><span class="swc"><i style="background:#CC3238"></i><span>red/600<small>#CC3238</small></span></span></td><td><span class="swc d"><i style="background:#EF6A64"></i><span>red/400<small>#EF6A64</small></span></span></td><td><span class="ratio">5.1 / 5.3</span></td></tr><tr><td><b>status/info/fg</b><small>on info/bg</small></td><td><span class="swc"><i style="background:#0D5573"></i><span>cyan/800<small>#0D5573</small></span></span></td><td><span class="swc d"><i style="background:#6FD5FA"></i><span>cyan/300<small>#6FD5FA</small></span></span></td><td><span class="ratio">7.6 / 8.7</span></td></tr><tr><td><b>status/info/solid</b><small>on surface, 3:1</small></td><td><span class="swc"><i style="background:#0A6990"></i><span>cyan/700<small>#0A6990</small></span></span></td><td><span class="swc d"><i style="background:#36BEF0"></i><span>cyan/400<small>#36BEF0</small></span></span></td><td><span class="ratio">6.1 / 7.6</span></td></tr><tr><td><b>status/accent/fg</b><small>on accent/bg</small></td><td><span class="swc"><i style="background:#4B33AB"></i><span>violet/700<small>#4B33AB</small></span></span></td><td><span class="swc d"><i style="background:#B09EFF"></i><span>violet/300<small>#B09EFF</small></span></span></td><td><span class="ratio">7.9 / 7.6</span></td></tr><tr><td><b>exam/question/attended-fg</b><small>on attended-bg</small></td><td><span class="swc"><i style="background:#0064C8"></i><span>blue/700<small>#0064C8</small></span></span></td><td><span class="swc d"><i style="background:#8CCCFF"></i><span>blue/300<small>#8CCCFF</small></span></span></td><td><span class="ratio">5.3 / 8.7</span></td></tr><tr><td><b>exam/question/current-bg</b><small>current-fg on it</small></td><td><span class="swc"><i style="background:#1A73D9"></i><span>blue/600<small>#1A73D9</small></span></span></td><td><span class="swc d"><i style="background:#5FAEF5"></i><span>blue/400<small>#5FAEF5</small></span></span></td><td><span class="ratio">4.6 / 7.8</span></td></tr><tr><td><b>exam/question/bookmarked-fg</b><small>on bookmarked-bg</small></td><td><span class="swc"><i style="background:#633E0A"></i><span>amber/900<small>#633E0A</small></span></span></td><td><span class="swc d"><i style="background:#FFEDBF"></i><span>amber/100<small>#FFEDBF</small></span></span></td><td><span class="ratio">8.1 / 8.1</span></td></tr><tr><td><b>exam/question/unattended-border</b><small>on surface, 3:1</small></td><td><span class="swc"><i style="background:#7A8494"></i><span>neutral/500<small>#7A8494</small></span></span></td><td><span class="swc d"><i style="background:#A3ABB8"></i><span>neutral/400<small>#A3ABB8</small></span></span></td><td><span class="ratio">3.7 / 7.0</span></td></tr><tr><td><b>exam/option/border</b><small>on surface, 3:1</small></td><td><span class="swc"><i style="background:#7A8494"></i><span>neutral/500<small>#7A8494</small></span></span></td><td><span class="swc d"><i style="background:#7A8494"></i><span>neutral/500<small>#7A8494</small></span></span></td><td><span class="ratio">3.7 / 4.3</span></td></tr><tr><td><b>exam/option/selected-border</b><small>on surface, 3:1</small></td><td><span class="swc"><i style="background:#3E95EF"></i><span>blue/500<small>#3E95EF</small></span></span></td><td><span class="swc d"><i style="background:#5FAEF5"></i><span>blue/400<small>#5FAEF5</small></span></span></td><td><span class="ratio">3.1 / 6.8</span></td></tr><tr><td><b>data/1</b><small>on surface, 3:1</small></td><td><span class="swc"><i style="background:#1A73D9"></i><span>blue/600<small>#1A73D9</small></span></span></td><td><span class="swc d"><i style="background:#5FAEF5"></i><span>blue/400<small>#5FAEF5</small></span></span></td><td><span class="ratio">4.6 / 6.8</span></td></tr><tr><td><b>data/4</b><small>on surface, 3:1</small></td><td><span class="swc"><i style="background:#AD6B05"></i><span>amber/700<small>#AD6B05</small></span></span></td><td><span class="swc d"><i style="background:#FFB951"></i><span>amber/400<small>#FFB951</small></span></span></td><td><span class="ratio">4.3 / 9.5</span></td></tr></tbody></table></div></div>
+        <p class="legal-cap">Ratios are rounded down, so a 4.5 here is at least 4.5. All eight data colours pass 3:1 on bg/surface in both themes, and data colours never reuse the status reds, so red on a chart only means a problem.</p>
+        <div class="ramps full"><div><p>neutral</p><div><i style="background:#FFFFFF"></i><i style="background:#F7F8FA"></i><i style="background:#F0F2F5"></i><i style="background:#E3E6EB"></i><i style="background:#CDD2DA"></i><i style="background:#A3ABB8"></i><i style="background:#7A8494"></i><i style="background:#5B6575"></i><i style="background:#434C5B"></i><i style="background:#2B3340"></i><i style="background:#1A202B"></i><i style="background:#0F131A"></i><i style="background:#000000"></i></div><small>13 steps</small></div><div><p>blue</p><div><i style="background:#EFF7FF"></i><i style="background:#DCEEFF"></i><i style="background:#B8DCFF"></i><i style="background:#8CCCFF"></i><i style="background:#5FAEF5"></i><i style="background:#3E95EF"></i><i style="background:#1A73D9"></i><i style="background:#0064C8"></i><i style="background:#0A4F9C"></i><i style="background:#0F3F78"></i><i style="background:#0B2748"></i></div><small>11 steps</small></div><div><p>green</p><div><i style="background:#EAF8EE"></i><i style="background:#D0F0D9"></i><i style="background:#A3E0B5"></i><i style="background:#6FCB8C"></i><i style="background:#3DB466"></i><i style="background:#219653"></i><i style="background:#1A7D45"></i><i style="background:#156539"></i><i style="background:#114E2D"></i><i style="background:#0C3A22"></i><i style="background:#06220F"></i></div><small>11 steps</small></div><div><p>red</p><div><i style="background:#FEF0EF"></i><i style="background:#FDDCDA"></i><i style="background:#FAB8B4"></i><i style="background:#F58C86"></i><i style="background:#EF6A64"></i><i style="background:#E5484D"></i><i style="background:#CC3238"></i><i style="background:#A8262C"></i><i style="background:#861F24"></i><i style="background:#66191D"></i><i style="background:#3B0D10"></i></div><small>11 steps</small></div><div><p>amber</p><div><i style="background:#FFF8E6"></i><i style="background:#FFEDBF"></i><i style="background:#FFDD8A"></i><i style="background:#FFCB57"></i><i style="background:#FFB951"></i><i style="background:#F9A616"></i><i style="background:#C77E00"></i><i style="background:#AD6B05"></i><i style="background:#855208"></i><i style="background:#633E0A"></i><i style="background:#382204"></i></div><small>11 steps</small></div><div><p>violet</p><div><i style="background:#F3F1FF"></i><i style="background:#E5E0FF"></i><i style="background:#CDC4FF"></i><i style="background:#B09EFF"></i><i style="background:#9479F5"></i><i style="background:#7658E8"></i><i style="background:#5F43D1"></i><i style="background:#4B33AB"></i><i style="background:#3A2987"></i><i style="background:#2C2066"></i><i style="background:#1A123D"></i></div><small>11 steps</small></div><div><p>teal</p><div><i style="background:#EBF7F4"></i><i style="background:#D0EDE6"></i><i style="background:#A4DBCF"></i><i style="background:#74C4B4"></i><i style="background:#4FA997"></i><i style="background:#3A8F7D"></i><i style="background:#2D7566"></i><i style="background:#245E52"></i><i style="background:#1C4940"></i><i style="background:#15372F"></i><i style="background:#0B201B"></i></div><small>11 steps</small></div><div><p>cyan</p><div><i style="background:#ECFAFF"></i><i style="background:#D1F4FF"></i><i style="background:#A6E7FF"></i><i style="background:#6FD5FA"></i><i style="background:#36BEF0"></i><i style="background:#0FA3DB"></i><i style="background:#0883B5"></i><i style="background:#0A6990"></i><i style="background:#0D5573"></i><i style="background:#0F465E"></i><i style="background:#082C3D"></i></div><small>11 steps</small></div></div>
       </section>
 
       <section id="type">
         <div class="txt">
           <p class="sec-name">Foundation two: type</p>
-          <h2>Inter for the interface. Atkinson Hyperlegible for the question.</h2>
-          <p class="p full">The old file used Roboto at 19 sizes, including 18.4, 19.5 and 24.3. The new ramp has 12 styles on 8 sizes. Exam content gets its own two styles, because a student reads a long stem under a timer and the letter shapes matter most there.</p>
+          <h2>Roboto for everything you read. Roboto Mono for everything that counts down.</h2>
+          <p class="p full">The product already ran on Roboto, so I kept it. The change was structure: 25 text styles, each bound to Typography variables for family, weight, size, line height and letter spacing. The question stem gets its own style with a 30px line height, because a student reads it more than once under a timer. Timers use Roboto Mono so the digits do not shift as they change.</p>
         </div>
-        <div class="spec"><div><div><b>Display</b><small>Inter Semi Bold, 40/48</small></div><div class="s" style="font:600 40px/48px Inter;letter-spacing:-.02em">Session 1 is live</div></div><div><div><b>Heading 1</b><small>Inter Semi Bold, 32/40</small></div><div class="s" style="font:600 32px/40px Inter;letter-spacing:-.015em">Monitor test centre</div></div><div><div><b>Heading 2</b><small>Inter Semi Bold, 24/32</small></div><div class="s" style="font:600 24px/32px Inter;letter-spacing:-.01em">Student status</div></div><div><div><b>Heading 3</b><small>Inter Semi Bold, 20/28</small></div><div class="s" style="font:600 20px/28px Inter">Needs attention</div></div><div><div><b>Title</b><small>Inter Semi Bold, 16/24</small></div><div class="s" style="font:600 16px/24px Inter">Test centre 02, male</div></div><div><div><b>Body</b><small>Inter Regular, 16/24</small></div><div class="s" style="font:400 16px/24px Inter">Mohammed Salman was paused for a misbehaviour report.</div></div><div><div><b>Body small</b><small>Inter Regular, 14/20</small></div><div class="s" style="font:400 14px/20px Inter">Started 10 min late, 09:10</div></div><div><div><b>Label</b><small>Inter Medium, 14/20</small></div><div class="s" style="font:500 14px/20px Inter">Close session</div></div><div><div><b>Caption</b><small>Inter Medium, 12/16</small></div><div class="s" style="font:500 12px/16px Inter;color:var(--ink-2)">Academic number</div></div><div><div><b>Numeric</b><small>Inter Semi Bold, 32/40</small></div><div class="s" style="font:600 32px/40px Inter;letter-spacing:-.015em;font-variant-numeric:tabular-nums">245 / 432</div></div><div><div><b>Reading stem</b><small>Atkinson Hyperlegible Regular, 18/28</small></div><div class="s" style="font:400 18px/28px 'Atkinson Hyperlegible';max-width:62ch">A 4-year-old girl is brought to the clinic with lethargy and an enlarging belly. A CT-guided biopsy shows small blue cells. What is the diagnosis?</div></div><div><div><b>Reading option</b><small>Atkinson Hyperlegible Regular, 16/24</small></div><div class="s" style="font:400 16px/24px 'Atkinson Hyperlegible'">B. Pheochromocytoma</div></div></div>
+        <div class="spec">
+          <div><div><b>Display</b><small>Roboto Medium, 40/48</small></div><div class="s" style="font:500 40px/48px Roboto,sans-serif">Session 1 is live</div></div>
+          <div><div><b>Heading H1</b><small>Roboto Medium, 32/40</small></div><div class="s" style="font:500 32px/40px Roboto,sans-serif">POD 203: Principles of disease</div></div>
+          <div><div><b>Heading H2</b><small>Roboto Medium, 24/32</small></div><div class="s" style="font:500 24px/32px Roboto,sans-serif">Student status</div></div>
+          <div><div><b>Heading H3</b><small>Roboto Medium, 20/28</small></div><div class="s" style="font:500 20px/28px Roboto,sans-serif">Live updates</div></div>
+          <div><div><b>Title medium</b><small>Roboto Medium, 16/24</small></div><div class="s" style="font:500 16px/24px Roboto,sans-serif">Test centre 02, male</div></div>
+          <div><div><b>Body medium</b><small>Roboto Regular, 16/24</small></div><div class="s" style="font:400 16px/24px Roboto,sans-serif">Mohammed Salman was paused after a misbehaviour report.</div></div>
+          <div><div><b>Label medium</b><small>Roboto Medium, 14/20</small></div><div class="s" style="font:500 14px/20px Roboto,sans-serif">Next question</div></div>
+          <div><div><b>Overline</b><small>Roboto Medium, 11/16, +1</small></div><div class="s" style="font:500 11px/16px Roboto,sans-serif;letter-spacing:1px;text-transform:uppercase">Choose one</div></div>
+          <div><div><b>Numeric large</b><small>Roboto Bold, 32/40</small></div><div class="s" style="font:700 32px/40px Roboto,sans-serif;font-variant-numeric:tabular-nums">245 / 432</div></div>
+          <div><div><b>Mono timer</b><small>Roboto Mono Medium, 16/24</small></div><div class="s" style="font:500 16px/24px 'Roboto Mono',ui-monospace,monospace">02 hr : 45 min left</div></div>
+          <div><div><b>Reading stem</b><small>Roboto Regular, 18/30</small></div><div class="s" style="font:400 18px/30px Roboto,sans-serif;max-width:62ch">A 42-year-old woman has repeated episodes of fluctuating hearing loss, vertigo and tinnitus lasting hours over the past few months. What is the most likely diagnosis?</div></div>
+          <div><div><b>Reading option</b><small>Roboto Regular, 16/24</small></div><div class="s" style="font:400 16px/24px Roboto,sans-serif">B. Meniere disease</div></div>
+        </div>
+        <p class="sub-h full">Screen size is a mode too. A mobile frame switches the Typography collection and every style follows.</p>
+        <div class="ssd full" style="grid-template-columns:minmax(0,1fr) minmax(0,2fr)">
+          <div><h3>Typography modes</h3>
+            <table class="dens"><thead><tr><th>Variable</th><th>Desktop</th><th>Mobile</th></tr></thead><tbody>
+            <tr><td>font/size/700</td><td>40/48</td><td>32/40</td></tr><tr><td>font/size/600</td><td>32/40</td><td>28/36</td></tr><tr><td>font/size/500</td><td>24/32</td><td>22/28</td></tr><tr><td>font/size/400</td><td>20/28</td><td>18/26</td></tr><tr><td>font/size/300</td><td>18/28</td><td>17/26</td></tr><tr><td>line-height/reading</td><td>30</td><td>28</td></tr></tbody></table>
+            <p>Sizes from 16px down stay the same on both, so body text never drops below 16px on a phone.</p></div>
+          <div><h3>Why one family</h3><p style="font-size:15px">The exam app and the web product already used Roboto. Swapping the typeface would have touched every screen for little gain. The real wins came from the reading styles: an 18px stem on a 30px line, options at 16/24, and an overline for "Choose one" so the instruction is set apart from the answers without colour.</p></div>
+        </div>
       </section>
 
       <section id="space">
         <div class="txt">
           <p class="sec-name">Foundation three: space, shape and depth</p>
-          <h2>A 4px grid, six radii and three shadows. Density is a mode.</h2>
-          <p class="p full">The old screens had 33 corner radii, from 2 to 103. The new set has six. Density lives in its own collection, so the proctor table can run Compact while the student exam stays Comfortable, with the same components.</p>
+          <h2>Space on a 4px grid with a 2px half step. Density is a mode, so a proctor table and an exam screen share one component.</h2>
+          <p class="p full">The Scale collection holds 14 space steps, 8 radii, border widths, icon and avatar sizes, breakpoints and layout widths. Density lives in its own collection with Comfortable and Compact modes, so a co-ordinator table can drop to 40px rows while the student exam stays at full size.</p>
         </div>
         <div class="ssd">
-          <div><h3>Space</h3><div class="sp"><code>space/2xs</code><i style="width:6px"></i><span>2px</span></div><div class="sp"><code>space/xs</code><i style="width:12px"></i><span>4px</span></div><div class="sp"><code>space/sm</code><i style="width:24px"></i><span>8px</span></div><div class="sp"><code>space/md</code><i style="width:36px"></i><span>12px</span></div><div class="sp"><code>space/lg</code><i style="width:48px"></i><span>16px</span></div><div class="sp"><code>space/xl</code><i style="width:72px"></i><span>24px</span></div><div class="sp"><code>space/2xl</code><i style="width:96px"></i><span>32px</span></div><div class="sp"><code>space/3xl</code><i style="width:144px"></i><span>48px</span></div><div class="sp"><code>space/4xl</code><i style="width:192px"></i><span>64px</span></div></div>
-          <div><h3>Radius</h3><div class="rad"><div><i style="border-radius:4px"></i><code>radius/xs</code>4px, table badges</div><div><i style="border-radius:6px"></i><code>radius/sm</code>6px, tags</div><div><i style="border-radius:8px"></i><code>radius/md</code>8px, buttons</div><div><i style="border-radius:12px"></i><code>radius/lg</code>12px, cards</div><div><i style="border-radius:16px"></i><code>radius/xl</code>16px, panels</div><div><i style="border-radius:28px"></i><code>radius/full</code>999px, chips</div></div><h3 style="margin-top:22px">Elevation</h3>
-            <div class="elev"><div style="box-shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08)"><b>Elevation 1</b>menus, rows</div><div style="box-shadow:0 4px 12px -2px rgba(16,24,40,.12),0 2px 4px -2px rgba(16,24,40,.06)"><b>Elevation 2</b>cards on hover</div><div style="box-shadow:0 16px 32px -8px rgba(16,24,40,.2),0 4px 8px -4px rgba(16,24,40,.08)"><b>Elevation 3</b>dialogs</div></div>
-            <p>In dark mode shadows barely show. Raised surfaces step one shade lighter instead: canvas 950, surface 900, subtle 850.</p></div>
+          <div><h3>Space</h3><div class="sp"><code>space/025</code><i style="width:4px"></i><span>2px</span></div><div class="sp"><code>space/050</code><i style="width:8px"></i><span>4px</span></div><div class="sp"><code>space/075</code><i style="width:12px"></i><span>6px</span></div><div class="sp"><code>space/100</code><i style="width:16px"></i><span>8px</span></div><div class="sp"><code>space/150</code><i style="width:24px"></i><span>12px</span></div><div class="sp"><code>space/200</code><i style="width:32px"></i><span>16px</span></div><div class="sp"><code>space/250</code><i style="width:40px"></i><span>20px</span></div><div class="sp"><code>space/300</code><i style="width:48px"></i><span>24px</span></div><div class="sp"><code>space/400</code><i style="width:64px"></i><span>32px</span></div><div class="sp"><code>space/500</code><i style="width:80px"></i><span>40px</span></div><div class="sp"><code>space/600</code><i style="width:96px"></i><span>48px</span></div><div class="sp"><code>space/800</code><i style="width:128px"></i><span>64px</span></div><div class="sp"><code>space/1000</code><i style="width:160px"></i><span>80px</span></div><div class="sp"><code>space/1200</code><i style="width:192px"></i><span>96px</span></div></div>
+          <div><h3>Radius</h3><div class="rad"><div><i style="border-radius:0px"></i><code>radius/none</code>0px</div><div><i style="border-radius:2px"></i><code>radius/xs</code>2px</div><div><i style="border-radius:4px"></i><code>radius/sm</code>4px</div><div><i style="border-radius:8px"></i><code>radius/md</code>8px</div><div><i style="border-radius:12px"></i><code>radius/lg</code>12px</div><div><i style="border-radius:16px"></i><code>radius/xl</code>16px</div><div><i style="border-radius:24px"></i><code>radius/2xl</code>24px</div><div><i style="border-radius:28px"></i><code>radius/full</code>999px</div></div><h3 style="margin-top:22px">Elevation</h3>
+            <div class="elev"><div style="box-shadow:0 1px 2px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.16)"><b>1 Raised</b>raised</div><div style="box-shadow:0 2px 4px -1px rgba(0,0,0,.08),0 4px 8px rgba(0,0,0,.16)"><b>2 Card</b>cards</div><div style="box-shadow:0 4px 8px -2px rgba(0,0,0,.08),0 8px 20px rgba(0,0,0,.16)"><b>3 Dropdown</b>dropdowns</div><div style="box-shadow:0 8px 16px -4px rgba(0,0,0,.08),0 20px 40px rgba(0,0,0,.16)"><b>4 Dialog</b>dialogs</div></div>
+            <p>Shadow colours are bound to shadow/ambient and shadow/key, which get darker in the Dark theme so cards still lift off a near-black canvas. A fifth effect style is the 3px focus ring.</p></div>
           <div><h3>Density</h3>
-            <table class="dens"><thead><tr><th>Token</th><th>Comfortable</th><th>Compact</th></tr></thead><tbody>
-            <tr><td>control/height</td><td>40</td><td>32</td></tr><tr><td>control/padding-x</td><td>16</td><td>12</td></tr><tr><td>table/row-height</td><td>52</td><td>40</td></tr><tr><td>table/cell-padding-x</td><td>16</td><td>12</td></tr><tr><td>card/padding</td><td>24</td><td>16</td></tr></tbody></table>
-            <p>Comfortable for students, schedulers and anything touch. Compact for proctors and co-ordinators who scan long tables.</p></div>
+            <table class="dens"><thead><tr><th>Variable</th><th>Comfortable</th><th>Compact</th></tr></thead><tbody>
+            <tr><td>control/height-md</td><td>40</td><td>32</td></tr><tr><td>control/padding-x-md</td><td>16</td><td>12</td></tr><tr><td>field/padding-x</td><td>12</td><td>8</td></tr><tr><td>table/row-height</td><td>56</td><td>40</td></tr><tr><td>table/header-height</td><td>48</td><td>36</td></tr><tr><td>list/item-height</td><td>44</td><td>36</td></tr><tr><td>card/padding</td><td>24</td><td>16</td></tr><tr><td>dialog/padding</td><td>24</td><td>16</td></tr></tbody></table>
+            <p>Comfortable for the student exam and anything touch. Compact for co-ordinators and proctors who scan long tables.</p></div>
         </div>
       </section>
 
       <section id="components">
         <div class="txt">
           <p class="sec-name">Components</p>
-          <h2>Nine components cover exam day. Each one still works in greyscale.</h2>
-          <p class="p full">Same markup on both sides. The right panel only switches its theme. Every fill, border, radius and padding is a token, and control heights follow the Density collection.</p>
+          <h2>90 components on 11 boards. Seven of them exist only because this is an exam product.</h2>
+          <p class="p full">Composites nest the atoms, so a Question card is built from Question pill, Timer and Answer option instances, not redrawn shapes. Size is handled by Density modes, not variants, which keeps the variant count to what a state actually needs.</p>
         </div>
-        <div class="csheet"><div class="cpanel da" data-theme="light" aria-label="Components in light mode">
+        <div class="inv full">
+          <div><small>04 Actions</small><b>4 sets</b><p>Button, Icon button, Link, Spinner</p></div>
+          <div><small>05 Forms and selection</small><b>11 sets</b><p>Checkbox, Radio, Switch, Text field, Text area, Select, Search, Chip, Segment, Slider, File upload</p></div>
+          <div><small>06 Feedback and status</small><b>9 sets</b><p>Badge, Counter badge, Status indicator, Alert, Toast, Tooltip, Progress bar and ring, Skeleton</p></div>
+          <div><small>07 Navigation</small><b>9 sets</b><p>Logo, App header, Tab, Breadcrumb, Nav item, Menu item, Pagination, Pager dot, Step</p></div>
+          <div><small>08 Data display</small><b>12 sets</b><p>Avatar, Card, Data pair, Trend, List item, Table cells and rows, Calendar day, Accordion, Timeline</p></div>
+          <div><small>09 Overlays</small><b>2 sets, 5 parts</b><p>Dialog, Confirmation dialog, Drawer, Bottom sheet and their parts</p></div>
+          <div class="acc"><small>10 Exam domain</small><b>7 sets</b><p>Question pill, Answer option, Question card, Timer, Time banner, Assessment card, Live update item</p></div>
+          <div><small>03 Icons</small><b>59 icons</b><p>One stroke weight, sized by size/icon variables from 12 to 48</p></div>
+        </div>
+        <div class="csheet"><div class="cpanel dg" data-theme="light" aria-label="Components in light mode">
   <p>Light mode</p>
-  <div class="cgrp"><h3>Button</h3><div class="crow"><span class="da-btn pri">Close session</span><span class="da-btn sec">Export</span><span class="da-btn ghost">View details</span><span class="da-btn dgr">Withhold exam</span></div></div>
-  <div class="cgrp"><h3>Status badge</h3><div class="crow"><span class="da-badge ok">On time</span><span class="da-badge warn">10 min late</span><span class="da-badge crit">Critical</span><span class="da-badge info">Support asked</span><span class="da-badge none">Not started</span><span class="da-live">Live</span></div></div>
-  <div class="cgrp"><h3>Filter chip and tab</h3><div class="crow"><span class="da-chip">All students <em>35</em></span><span class="da-chip on">Support asked <em>6</em></span><span class="da-tab on">Students</span><span class="da-tab">Proctors</span></div></div>
-  <div class="cgrp"><h3>Question navigator</h3><div class="crow"><span class="da-q att">01</span><span class="da-q att">02</span><span class="da-q bm">03</span><span class="da-q cur">04</span><span class="da-q un">05</span><span class="da-q un">06</span><small>Attended, bookmarked, current, unattended</small></div></div>
-  <div class="cgrp"><h3>Answer option</h3><div class="ccol"><div class="da-opt"><i>A</i>Meniere disease</div><div class="da-opt sel"><i>B</i>Pheochromocytoma</div><div class="da-opt foc"><i>C</i>Neuroblastoma</div></div></div>
-  <div class="cgrp"><h3>Text field</h3><div class="cfields"><div class="da-field"><label>Academic number</label><span>Search by name or number</span><small>9 digits, on the student ID card</small></div><div class="da-field err"><label>Academic number</label><span>23112</span><small>Enter all 9 digits</small></div></div></div>
-  <div class="cgrp"><h3>Stat card</h3><div class="crow"><div class="da-stat"><b>Proctors reported</b><strong>35</strong><span>of 42 expected</span></div></div></div>
-</div><div class="cpanel da" data-theme="dark" aria-label="Components in dark mode">
+  <div class="cgrp"><h3>Button</h3><div class="crow"><span class="dg-btn pri">Next question</span><span class="dg-btn sec">Review answers</span><span class="dg-btn ghost">Skip</span><span class="dg-btn dgr">End exam</span><span class="dg-btn pri fring">Focused</span></div></div>
+  <div class="cgrp"><h3>Badge, subtle tones</h3><div class="crow"><span class="dg-badge ok">Submitted</span><span class="dg-badge warn">10 min late</span><span class="dg-badge crit">Paused</span><span class="dg-badge info">Support asked</span><span class="dg-badge none">Not started</span><span class="dg-live">Live</span></div></div>
+  <div class="cgrp"><h3>Question pill</h3><div class="crow" style="gap:12px"><span class="dg-q att">01<span class="mk"><svg><use href="#i-check"/></svg></span></span><span class="dg-q att">02<span class="mk"><svg><use href="#i-check"/></svg></span></span><span class="dg-q bm">03<span class="mk"><svg><use href="#i-bm"/></svg></span></span><span class="dg-q cur">04</span><span class="dg-q un">05</span><span class="dg-q un">06</span><small>Attended, bookmarked, current, unattended</small></div></div>
+  <div class="cgrp"><h3>Answer option</h3><div class="ccol"><div class="dg-opt"><i>A</i>Acoustic neuroma</div><div class="dg-opt sel"><i>B</i>Meniere disease</div><div class="dg-opt foc"><i>C</i>Vestibular neuritis</div></div></div>
+  <div class="cgrp"><h3>Text field, required</h3><div class="cfields"><div class="dg-field"><label>Academic number <em>*</em></label><span>Enter 9 digits</span><small>On the student ID card</small></div><div class="dg-field err"><label>Academic number <em>*</em></label><span>23112</span><small>Enter all 9 digits</small></div></div></div>
+  <div class="cgrp"><h3>Switch and checkbox</h3><div class="crow" style="gap:22px"><span class="dg-sw on"><i></i>Auto save</span><span class="dg-sw"><i></i>Calculator</span><span class="dg-cb on"><i><svg><use href="#i-check"/></svg></i>I have read the rules</span></div></div>
+  <div class="cgrp"><h3>Timer and toast</h3><div class="crow"><span class="dg-timer"><svg aria-hidden="true"><use href="#i-clock"/></svg>01:12:40</span><span class="dg-timer low"><svg aria-hidden="true"><use href="#i-clock"/></svg>00:04:59</span><span class="dg-toast"><svg aria-hidden="true"><use href="#i-ok"/></svg>Answer saved</span></div></div>
+</div><div class="cpanel dg" data-theme="dark" aria-label="Components in dark mode">
   <p>Dark mode</p>
-  <div class="cgrp"><h3>Button</h3><div class="crow"><span class="da-btn pri">Close session</span><span class="da-btn sec">Export</span><span class="da-btn ghost">View details</span><span class="da-btn dgr">Withhold exam</span></div></div>
-  <div class="cgrp"><h3>Status badge</h3><div class="crow"><span class="da-badge ok">On time</span><span class="da-badge warn">10 min late</span><span class="da-badge crit">Critical</span><span class="da-badge info">Support asked</span><span class="da-badge none">Not started</span><span class="da-live">Live</span></div></div>
-  <div class="cgrp"><h3>Filter chip and tab</h3><div class="crow"><span class="da-chip">All students <em>35</em></span><span class="da-chip on">Support asked <em>6</em></span><span class="da-tab on">Students</span><span class="da-tab">Proctors</span></div></div>
-  <div class="cgrp"><h3>Question navigator</h3><div class="crow"><span class="da-q att">01</span><span class="da-q att">02</span><span class="da-q bm">03</span><span class="da-q cur">04</span><span class="da-q un">05</span><span class="da-q un">06</span><small>Attended, bookmarked, current, unattended</small></div></div>
-  <div class="cgrp"><h3>Answer option</h3><div class="ccol"><div class="da-opt"><i>A</i>Meniere disease</div><div class="da-opt sel"><i>B</i>Pheochromocytoma</div><div class="da-opt foc"><i>C</i>Neuroblastoma</div></div></div>
-  <div class="cgrp"><h3>Text field</h3><div class="cfields"><div class="da-field"><label>Academic number</label><span>Search by name or number</span><small>9 digits, on the student ID card</small></div><div class="da-field err"><label>Academic number</label><span>23112</span><small>Enter all 9 digits</small></div></div></div>
-  <div class="cgrp"><h3>Stat card</h3><div class="crow"><div class="da-stat"><b>Proctors reported</b><strong>35</strong><span>of 42 expected</span></div></div></div>
+  <div class="cgrp"><h3>Button</h3><div class="crow"><span class="dg-btn pri">Next question</span><span class="dg-btn sec">Review answers</span><span class="dg-btn ghost">Skip</span><span class="dg-btn dgr">End exam</span><span class="dg-btn pri fring">Focused</span></div></div>
+  <div class="cgrp"><h3>Badge, subtle tones</h3><div class="crow"><span class="dg-badge ok">Submitted</span><span class="dg-badge warn">10 min late</span><span class="dg-badge crit">Paused</span><span class="dg-badge info">Support asked</span><span class="dg-badge none">Not started</span><span class="dg-live">Live</span></div></div>
+  <div class="cgrp"><h3>Question pill</h3><div class="crow" style="gap:12px"><span class="dg-q att">01<span class="mk"><svg><use href="#i-check"/></svg></span></span><span class="dg-q att">02<span class="mk"><svg><use href="#i-check"/></svg></span></span><span class="dg-q bm">03<span class="mk"><svg><use href="#i-bm"/></svg></span></span><span class="dg-q cur">04</span><span class="dg-q un">05</span><span class="dg-q un">06</span><small>Attended, bookmarked, current, unattended</small></div></div>
+  <div class="cgrp"><h3>Answer option</h3><div class="ccol"><div class="dg-opt"><i>A</i>Acoustic neuroma</div><div class="dg-opt sel"><i>B</i>Meniere disease</div><div class="dg-opt foc"><i>C</i>Vestibular neuritis</div></div></div>
+  <div class="cgrp"><h3>Text field, required</h3><div class="cfields"><div class="dg-field"><label>Academic number <em>*</em></label><span>Enter 9 digits</span><small>On the student ID card</small></div><div class="dg-field err"><label>Academic number <em>*</em></label><span>23112</span><small>Enter all 9 digits</small></div></div></div>
+  <div class="cgrp"><h3>Switch and checkbox</h3><div class="crow" style="gap:22px"><span class="dg-sw on"><i></i>Auto save</span><span class="dg-sw"><i></i>Calculator</span><span class="dg-cb on"><i><svg><use href="#i-check"/></svg></i>I have read the rules</span></div></div>
+  <div class="cgrp"><h3>Timer and toast</h3><div class="crow"><span class="dg-timer"><svg aria-hidden="true"><use href="#i-clock"/></svg>01:12:40</span><span class="dg-timer low"><svg aria-hidden="true"><use href="#i-clock"/></svg>00:04:59</span><span class="dg-toast"><svg aria-hidden="true"><use href="#i-ok"/></svg>Answer saved</span></div></div>
 </div></div>
+        <p class="cap">Same markup on both sides. The right panel only sets data-theme="dark". <a href="https://www.figma.com/design/bkvvKnJoVe699lLecai89C/DXB?node-id=101-903" target="_blank" rel="noopener">See all 90 components in Figma ↗</a></p>
+      </section>
+
+      <section id="a11y">
+        <div class="txt">
+          <p class="sec-name">Accessibility</p>
+          <h2>I audited the finished library against WCAG 2.2 AA, fixed what failed, then measured again.</h2>
+          <p class="p full">The check rendered every non-disabled variant in both themes and measured each piece of text and each icon against the fill behind it. Fixes went into the variables first, so one change reached every component that used them.</p>
+        </div>
+        <div class="a11y">
+          <div><strong>1,758</strong><span>Text checks across all non-disabled variants, both themes</span></div>
+          <div><strong>366</strong><span>Icon checks against the fill behind them</span></div>
+          <div><strong>0</strong><span>Failures after the fixes</span></div>
+          <div><strong>25 of 25</strong><span>Interactive sets with a focused state</span></div>
+        </div>
+        <div class="fixes">
+          <div class="rule"><b>A darker blue for actions</b><span>blue/600 is #1A73D9 and fills primary buttons. Text and links use blue/700. The original #3E95EF stays as blue/500 for the selected answer border.</span></div>
+          <div class="rule"><b>Borders you can find</b><span>A new border/control variable gives Field, Select, Search, Chip, outlined Icon button and Stepper an edge of 3:1 or better.</span></div>
+          <div class="rule"><b>Focus everywhere</b><span>Focused variants added to 19 sets, each a 2px ring bound to border/focus. Button got an offset ring so it reads on blue.</span></div>
+          <div class="rule"><b>Marks, not just fills</b><span>Attended and bookmarked pills carry an icon. Calendar today has an outline. Donut segments have gaps.</span></div>
+          <div class="rule"><b>Room to grow</b><span>Badge, Timer, App header, Exam toolbar and six more use min-height instead of a fixed height, so they grow with their text.</span></div>
+          <div class="rule"><b>Notes for developers</b><span>40 components carry an "Accessibility:" line in their description with role, keyboard behaviour and naming.</span></div>
+        </div>
+        <p class="todo full"><b>Still to verify in code.</b> Keyboard order and focus trapping, screen reader output, live region announcements and reflow at 200% zoom. Figma can measure colour. It cannot test these.</p>
       </section>
 
       <section id="screen">
         <div class="txt">
           <p class="sec-name">Sample screen</p>
-          <h2>The live session, in both themes. Same components, one switch.</h2>
-          <p class="p full">The exam co-ordinator had ring charts, a feed sorted by time and a red pill for Live. The rebuild answers one question first: who needs me right now?</p>
+          <h2>Two screens, both themes. Built only from library instances.</h2>
+          <p class="p full">The Templates board assembles the co-ordinator dashboard, exam delivery and the mobile exam from instances only. Nothing is detached. Each pair is one frame with the Theme collection set to Light or Dark, and the mobile frame also switches Typography to Mobile and Density to Compact.</p>
         </div>
         <div class="scr-bar"><span>Screen theme</span><div class="scr-sw" role="group" aria-label="Screen theme"><button type="button" data-t="light" aria-pressed="true">Light</button><button type="button" data-t="dark" aria-pressed="false">Dark</button></div></div>
+        <p class="sub-h">Exam co-ordinator: the live session</p>
         <figure class="anno" data-anno>
           <div class="anno-stage">
             <div class="anno-col l">
-              <div class="an" tabindex="0" data-for="s-live" data-at="top"><b>Live is a dot and a word</b><p>It reads in greyscale and to a screen reader. The old badge was a red pill with white text.</p></div>
-              <div class="an" tabindex="0" data-for="s-stats"><b>Numbers instead of rings</b><p>245 of 432 is quicker to read than a 64% ring. The rings moved to the detail view.</p></div>
-              <div class="an" tabindex="0" data-for="s-need"><b>Sorted by severity</b><p>Critical first, on time last. Every row has a shape, a word and at most one action.</p></div>
-              <div class="an" tabindex="0" data-for="s-chips"><b>Compact density</b><p>Rows drop from 52 to 40px. Same components. Only the Density mode of this card changed.</p></div>
+              <div class="an" tabindex="0" data-for="d-live" data-at="top"><b>Live is a dot and a word</b><p>The exam/live tokens give a solid red badge with a pulsing dot and the word Live. It reads in greyscale and to a screen reader.</p></div>
+              <div class="an" tabindex="0" data-for="d-stats"><b>Numbers first</b><p>245 of 432 is quicker to read than a ring. Each count uses a Numeric text style, Roboto Bold.</p></div>
+              <div class="an" tabindex="0" data-for="d-need"><b>Sorted by severity</b><p>Critical first, on time last. Every row has a badge with a shape and a word, and at most one action.</p></div>
+              <div class="an" tabindex="0" data-for="d-chips"><b>Compact density</b><p>Rows drop from 56 to 40px. Same components. Only the Density mode of this card changed.</p></div>
             </div>
-            <div class="shot-fit"><div class="shot da" id="live-shot" data-theme="light" role="img" aria-label="DigiAssess live session dashboard for an exam co-ordinator, showing stats, a needs attention list, attendance by test centre and a student status table">
+            <div class="shot-fit"><div class="shot dg" id="dash-shot" data-theme="light" role="img" aria-label="DigiAssess live session dashboard for an exam co-ordinator, showing stats, a needs attention list, attendance by test centre and a student status table">
   <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url">app.digiassess.io/sessions/live</span></div>
-  <div class="s-top"><span class="s-logo"><i>D</i>DigiAssess</span><span class="s-tabs"><span class="on">Dashboard</span><span>Test centres</span><span>Student status</span><span>Proctors</span></span><span class="s-r"><span class="s-pill">TC 11, PC 1</span><span>08:55</span><span class="s-av">RK</span><span class="s-who"><b>Rana Khalid</b><small>Exam co-ordinator</small></span></span></div>
+  <div class="e-hdr"><span class="mid" style="margin:0"><i>D</i>DigiAssess <span>Exam management / Exam co-ordinator</span></span><span class="chip" style="margin-left:auto">Auto save on</span><span class="d-av">RK</span><span class="d-who">Rana Khalid</span></div>
+  <div class="d-tabs"><span class="on">Dashboard</span><span>Test centres</span><span>Student status</span><span>Proctors</span></div>
   <div class="s-body">
-    <div class="s-head"><div class="grow"><div class="s-ttl"><h4>Session 1</h4><span class="da-live" data-a="s-live">Live</span></div><p>08:30 to 10:30. 6 exams across 17 test centres. Auto save on.</p></div><span class="da-btn sec">Export report</span><span class="da-btn pri" data-a="s-pri">Close session</span></div>
-    <div class="s-stats" data-a="s-stats">
-      <div class="da-stat"><b>Students reported</b><strong>245</strong><span>of 432 expected</span></div>
-      <div class="da-stat"><b>Proctors reported</b><strong>35</strong><span>of 42 expected</span></div>
-      <div class="da-stat"><b>Test centres active</b><strong>13</strong><span>of 17 open today</span></div>
-      <div class="da-stat"><b>Answers uploaded</b><strong>220</strong><span>of 220, all received</span></div>
+    <div class="s-head"><div class="grow"><div class="s-ttl"><h4>Session 1</h4><span class="dg-live" data-a="d-live">Live</span></div><p>08:30 to 10:30. 6 exams across 17 test centres.</p></div><span class="dg-btn sec">Export report</span><span class="dg-btn pri" data-a="d-pri">Close session</span></div>
+    <div class="s-stats" data-a="d-stats">
+      <div class="dg-stat"><b>Students reported</b><strong>245</strong><span>of 432 expected</span></div>
+      <div class="dg-stat"><b>Proctors reported</b><strong>35</strong><span>of 42 expected</span></div>
+      <div class="dg-stat"><b>Test centres active</b><strong>13</strong><span>of 17 open today</span></div>
+      <div class="dg-stat"><b>Answers uploaded</b><strong>220</strong><span>of 220, all received</span></div>
     </div>
     <div class="s-mid">
-      <div class="s-card s-need" data-a="s-need"><div class="s-ch" style="border:0"><span><h5>Needs attention</h5><p>4 open, sorted by severity</p></span></div><div><span class="tx"><span class="da-badge crit">Critical</span><b>Mohammed Salman paused for misbehaviour</b><small>Test centre 02, male. Paused at 08:45.</small></span><span class="da-btn sec">Resume</span></div><div><span class="tx"><span class="da-badge info">Support asked</span><b>6 students asked for login help</b><small>Test centre 02. Oldest request 4 min ago.</small></span><span class="da-btn sec">Open</span></div><div><span class="tx"><span class="da-badge warn">10 min late</span><b>Fathima Raoof, secondary proctor, logged in</b><small>Test centre 03, female. 08:40.</small></span></div><div><span class="tx"><span class="da-badge ok">On time</span><b>Abdullah Salman, primary proctor, logged in</b><small>Test centre 01, male. 08:28.</small></span></div></div>
-      <div class="s-card"><div class="s-ch"><span><h5>Attendance by test centre</h5><p>6 of 13 active centres. Reported against expected.</p></span><span class="lg" data-a="s-legend"><span><i style="background:var(--color-data-1)"></i>Students</span><span><i style="background:var(--color-data-2)"></i>Proctors</span></span></div><div class="s-att"><div><b>TC 01, male</b><div class="s-bars"><div class="s-bar"><span><i style="width:89%;background:var(--color-data-1)"></i></span><em>24/27 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--color-data-2)"></i></span><em>3/3 proctors</em></div></div></div><div><b>TC 02, male</b><div class="s-bars"><div class="s-bar"><span><i style="width:84%;background:var(--color-data-1)"></i></span><em>27/32 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--color-data-2)"></i></span><em>3/3 proctors</em></div></div></div><div><b>TC 03, female</b><div class="s-bars"><div class="s-bar met"><span><i style="width:100%;background:var(--color-data-1)"></i></span><em>32/32 students</em></div><div class="s-bar"><span><i style="width:67%;background:var(--color-data-2)"></i></span><em>2/3 proctors</em></div></div></div><div><b>TC 04, female</b><div class="s-bars"><div class="s-bar"><span><i style="width:89%;background:var(--color-data-1)"></i></span><em>24/27 students</em></div><div class="s-bar"><span><i style="width:67%;background:var(--color-data-2)"></i></span><em>2/3 proctors</em></div></div></div><div><b>TC 05, male</b><div class="s-bars"><div class="s-bar"><span><i style="width:88%;background:var(--color-data-1)"></i></span><em>30/34 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--color-data-2)"></i></span><em>3/3 proctors</em></div></div></div><div><b>TC 06, female</b><div class="s-bars"><div class="s-bar"><span><i style="width:93%;background:var(--color-data-1)"></i></span><em>28/30 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--color-data-2)"></i></span><em>3/3 proctors</em></div></div></div></div></div>
+      <div class="s-card s-need" data-a="d-need"><div class="s-ch" style="border:0"><span><h5>Needs attention</h5><p>4 open, sorted by severity</p></span></div><div><span class="tx"><span class="dg-badge crit">Critical</span><b>Mohammed Salman paused for misbehaviour</b><small>Test centre 02, male. Paused at 08:45.</small></span><span class="dg-btn sec">Resume</span></div><div><span class="tx"><span class="dg-badge info">Support asked</span><b>6 students asked for login help</b><small>Test centre 02. Oldest request 4 min ago.</small></span><span class="dg-btn sec">Open</span></div><div><span class="tx"><span class="dg-badge warn">10 min late</span><b>Fathima Raoof, secondary proctor, logged in</b><small>Test centre 03, female. 08:40.</small></span></div><div><span class="tx"><span class="dg-badge ok">On time</span><b>Abdullah Salman, primary proctor, logged in</b><small>Test centre 01, male. 08:28.</small></span></div></div>
+      <div class="s-card"><div class="s-ch"><span><h5>Attendance by test centre</h5><p>6 of 13 active centres. Reported against expected.</p></span><span class="lg" data-a="d-legend"><span><i style="background:var(--digi-data-1)"></i>Students</span><span><i style="background:var(--digi-data-2)"></i>Proctors</span></span></div><div class="s-att"><div><b>TC 01, male</b><div class="s-bars"><div class="s-bar"><span><i style="width:89%;background:var(--digi-data-1)"></i></span><em>24/27 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--digi-data-2)"></i></span><em>3/3 proctors</em></div></div></div><div><b>TC 02, male</b><div class="s-bars"><div class="s-bar"><span><i style="width:84%;background:var(--digi-data-1)"></i></span><em>27/32 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--digi-data-2)"></i></span><em>3/3 proctors</em></div></div></div><div><b>TC 03, female</b><div class="s-bars"><div class="s-bar met"><span><i style="width:100%;background:var(--digi-data-1)"></i></span><em>32/32 students</em></div><div class="s-bar"><span><i style="width:67%;background:var(--digi-data-2)"></i></span><em>2/3 proctors</em></div></div></div><div><b>TC 04, female</b><div class="s-bars"><div class="s-bar"><span><i style="width:89%;background:var(--digi-data-1)"></i></span><em>24/27 students</em></div><div class="s-bar"><span><i style="width:67%;background:var(--digi-data-2)"></i></span><em>2/3 proctors</em></div></div></div><div><b>TC 05, male</b><div class="s-bars"><div class="s-bar"><span><i style="width:88%;background:var(--digi-data-1)"></i></span><em>30/34 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--digi-data-2)"></i></span><em>3/3 proctors</em></div></div></div><div><b>TC 06, female</b><div class="s-bars"><div class="s-bar"><span><i style="width:93%;background:var(--digi-data-1)"></i></span><em>28/30 students</em></div><div class="s-bar met"><span><i style="width:100%;background:var(--digi-data-2)"></i></span><em>3/3 proctors</em></div></div></div></div></div>
     </div>
-    <div class="s-card"><div class="s-ch"><span><h5>Student status, test centre 02</h5><p>32 expected. Compact density.</p></span></div>
-      <div class="s-chips" data-a="s-chips"><span class="da-chip">All students <em>32</em></span><span class="da-chip on">Support asked <em>6</em></span><span class="da-chip">Paused <em>1</em></span><span class="da-chip">Late <em>2</em></span><span class="da-chip">Not started <em>3</em></span></div>
-      <table class="s-tbl" data-a="s-thead"><thead><tr><th>Academic no.</th><th>Student</th><th>System</th><th>Status</th><th>Started</th><th></th></tr></thead><tbody><tr class=""><td>231123231</td><td class="n">Mohammed Salman</td><td>PC 09</td><td><span class="da-badge crit">Paused</span></td><td>08:31</td><td data-a="s-act">Resume</td></tr><tr class="hov"><td>231123245</td><td class="n">Aisha Rahman</td><td>PC 10</td><td><span class="da-badge info">Support asked</span></td><td>Not yet</td><td>Verify</td></tr><tr class=""><td>231123262</td><td class="n">Omar Haddad</td><td>PC 11</td><td><span class="da-badge ok">In exam</span></td><td>08:30</td><td>View</td></tr><tr class=""><td>231123270</td><td class="n">Layla Nasser</td><td>PC 12</td><td><span class="da-badge warn">12 min late</span></td><td>08:42</td><td>View</td></tr><tr class=""><td>231123288</td><td class="n">Yusuf Karim</td><td>PC 13</td><td><span class="da-badge none">Not started</span></td><td>Not yet</td><td>Call</td></tr><tr class=""><td>231123301</td><td class="n">Sara Mansour</td><td>PC 14</td><td><span class="da-badge ok">In exam</span></td><td>08:30</td><td>View</td></tr></tbody></table>
+    <div class="s-card compact"><div class="s-ch"><span><h5>Student status, test centre 02</h5><p>32 expected. Compact density.</p></span></div>
+      <div class="s-chips" data-a="d-chips"><span class="dg-chip">All students <em>32</em></span><span class="dg-chip on">Support asked <em>6</em></span><span class="dg-chip">Paused <em>1</em></span><span class="dg-chip">Late <em>2</em></span><span class="dg-chip">Not started <em>3</em></span></div>
+      <table class="s-tbl"><thead><tr><th>Academic no.</th><th>Student</th><th>System</th><th>Status</th><th>Started</th><th></th></tr></thead><tbody><tr><td>231123231</td><td class="n">Mohammed Salman</td><td>PC 09</td><td><span class="dg-badge crit">Paused</span></td><td>08:31</td><td data-a="d-act">Resume</td></tr><tr class="hov"><td>231123245</td><td class="n">Aisha Rahman</td><td>PC 10</td><td><span class="dg-badge info">Support asked</span></td><td>Not yet</td><td>Verify</td></tr><tr><td>231123262</td><td class="n">Omar Haddad</td><td>PC 11</td><td><span class="dg-badge ok">In exam</span></td><td>08:30</td><td>View</td></tr><tr><td>231123270</td><td class="n">Layla Nasser</td><td>PC 12</td><td><span class="dg-badge warn">12 min late</span></td><td>08:42</td><td>View</td></tr><tr><td>231123288</td><td class="n">Yusuf Karim</td><td>PC 13</td><td><span class="dg-badge none">Not started</span></td><td>Not yet</td><td>Call</td></tr><tr><td>231123301</td><td class="n">Sara Mansour</td><td>PC 14</td><td><span class="dg-badge ok">In exam</span></td><td>08:30</td><td>View</td></tr></tbody></table>
     </div>
   </div>
 </div></div>
             <div class="anno-col r">
-              <div class="an" tabindex="0" data-for="s-pri"><b>One primary per view</b><p>Close session is the only filled button. In dark it moves to blue/400 with near-black text, 5.7:1.</p></div>
-              <div class="an" tabindex="0" data-for="s-legend"><b>Chart colours from data tokens</b><p>Students use data/1, proctors data/2. Red never appears in a chart.</p></div>
-              <div class="an" tabindex="0" data-for="s-act"><b>Actions in words</b><p>Resume, Verify, View, Call. The old row hid four actions behind a kebab icon.</p></div>
+              <div class="an" tabindex="0" data-for="d-pri"><b>One primary per view</b><p>Close session is the only filled button. In Dark it moves to blue/400 with near-black text, 7.8:1.</p></div>
+              <div class="an" tabindex="0" data-for="d-legend"><b>Chart colours from data tokens</b><p>Students use data/1, proctors data/2. Both pass 3:1 in both themes, and red never appears in a chart.</p></div>
+              <div class="an" tabindex="0" data-for="d-act"><b>Actions in words</b><p>Resume, Verify, View, Call. Each row says what the co-ordinator can do, without a menu icon.</p></div>
             </div>
             <svg class="anno-svg" aria-hidden="true"></svg>
           </div>
         </figure>
-        <p class="cap">Switch the screen theme above. Only one attribute changes on the screen.</p>
+        <p class="sub-h">Student: the exam screen</p>
+        <figure class="anno" data-anno>
+          <div class="anno-stage">
+            <div class="anno-col l">
+              <div class="an" tabindex="0" data-for="s-hdr"><b>The header has its own tokens</b><p>header/bg is blue/700 in Light and neutral/900 in Dark, so the header goes quiet at night without a new component.</p></div>
+              <div class="an" tabindex="0" data-for="s-pills"><b>Each state has a mark</b><p>A tick for attended, a flag for bookmarked, a ring for current. The navigator still works in greyscale.</p></div>
+              <div class="an" tabindex="0" data-for="s-stem"><b>A style just for the stem</b><p>Reading/Stem is Roboto 18 on a 30px line. Students reread it, so it gets the most air on the page.</p></div>
+              <div class="an" tabindex="0" data-for="s-foc"><b>Focus you can see</b><p>A 2px ring in border/focus with a gap, so it reads on both the white option and the page.</p></div>
+            </div>
+            <div class="shot-fit"><div class="shot dg" id="live-shot" data-theme="light" role="img" aria-label="DigiAssess exam delivery screen for a student, showing the header, timer, question navigator, a time banner and a question with four answer options, B selected">
+  <div class="bwr"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url">exam.digiassess.io/pod-203/q/27</span></div>
+  <div class="e-hdr" data-a="s-hdr"><span class="chip">TC 11, PC 1</span><span class="chip">Auto save on</span><span class="mid"><i>D</i>DigiAssess <span>Onsite exam portal</span></span><span class="rt">09:46, 12 Jun</span></div>
+  <div class="e-body">
+    <div class="e-card">
+      <div class="e-bar"><h4>POD 203: Principles of disease</h4><span class="dg-timer" data-a="s-timer"><svg aria-hidden="true"><use href="#i-clock"/></svg>02 hr : 45 min left</span><span class="dg-btn icon" aria-label="Previous question"><svg aria-hidden="true"><use href="#i-prev"/></svg></span><span class="dg-btn pri" data-a="s-next">Next question<svg aria-hidden="true"><use href="#i-next"/></svg></span></div>
+      <div class="e-nav">
+        <div class="e-leg"><span class="a"><b>12</b>Attended</span><span class="k"><b>03</b>Bookmarked</span><span class="u"><b>30</b>Unattended</span><span class="sec">Section 2 of 6</span></div>
+        <div class="e-pills" data-a="s-pills"><span class="dg-q att">01<span class="mk"><svg><use href="#i-check"/></svg></span></span><span class="dg-q att">02<span class="mk"><svg><use href="#i-check"/></svg></span></span><span class="dg-q att">03<span class="mk"><svg><use href="#i-check"/></svg></span></span><span class="dg-q cur">04</span><span class="dg-q bm">05<span class="mk"><svg><use href="#i-bm"/></svg></span></span><span class="dg-q un">06</span><span class="dg-q un">07</span><span class="dg-q att">08<span class="mk"><svg><use href="#i-check"/></svg></span></span><span class="dg-q un">09</span><span class="dg-q un">10</span><span class="dg-q un">11</span><span class="dg-q un">12</span></div>
+      </div>
+    </div>
+    <div class="e-time" data-a="s-time"><svg aria-hidden="true"><use href="#i-clock"/></svg>Section 2 closes in <b>14 min 20 s</b>. Unanswered questions in it will lock.</div>
+    <div class="e-card e-q">
+      <div class="e-qh"><h5>Question 27</h5><span class="dg-badge plain">2 marks</span><svg aria-label="Bookmark"><use href="#i-bmo"/></svg></div>
+      <p class="e-stem" data-a="s-stem">A 42-year-old woman has repeated episodes of fluctuating hearing loss, vertigo and tinnitus lasting hours over the past few months. What is the most likely diagnosis?</p>
+      <p class="e-ov">Choose one</p>
+      <div class="e-opts">
+        <div class="dg-opt"><i>A</i>Acoustic neuroma</div>
+        <div class="dg-opt sel" data-a="s-sel"><i>B</i>Meniere disease</div>
+        <div class="dg-opt foc" data-a="s-foc"><i>C</i>Benign paroxysmal positional vertigo</div>
+        <div class="dg-opt"><i>D</i>Vestibular neuritis</div>
+      </div>
+    </div>
+    <div class="e-foot"><span>Answers save as you choose.</span><span>Question 27 of 45</span></div>
+  </div>
+</div></div>
+            <div class="anno-col r">
+              <div class="an" tabindex="0" data-for="s-next"><b>One filled button</b><p>Next question is the only primary action. In Dark it moves to blue/400 with near-black text, 7.8:1.</p></div>
+              <div class="an" tabindex="0" data-for="s-time"><b>Status with words</b><p>Time banner uses the warning tokens and says what will happen, not just when.</p></div>
+              <div class="an" tabindex="0" data-for="s-sel"><b>Selected is more than blue</b><p>A 2px border, a filled letter and a tinted row. Any one of them would tell you the answer is chosen.</p></div>
+            </div>
+            <svg class="anno-svg" aria-hidden="true"></svg>
+          </div>
+        </figure>
+        <p class="cap">Switch the screen theme above. Only one attribute changes on each screen.</p>
         <div class="rules darknotes full">
-          <div class="rule"><b>One switch</b><span>The dark screen sets data-theme on one element. No component is restyled.</span></div>
-          <div class="rule"><b>Brand moves to blue/400</b><span>On-brand text flips to near black so the button keeps 5.7:1.</span></div>
-          <div class="rule"><b>Depth by shade</b><span>Canvas 950, cards 900, table header 850. The layers read without shadows.</span></div>
-          <div class="rule"><b>Status stays readable</b><span>Every status colour measures 7.3:1 or more on its own background in dark.</span></div>
-          <div class="rule"><b>Charts swap together</b><span>All five data colours move to their 400 step and still pass 3:1.</span></div>
+          <div class="rule"><b>One switch</b><span>Each dark screen sets data-theme on one element. No component is restyled.</span></div>
+          <div class="rule"><b>Header steps back</b><span>header/bg moves from blue/700 to neutral/900, so the brand colour is saved for actions.</span></div>
+          <div class="rule"><b>On-brand text flips</b><span>Text on blue fills turns near black in Dark so it keeps 7.8:1 on blue/400.</span></div>
+          <div class="rule"><b>Secondary text gets lighter</b><span>text/secondary is neutral/200 and tertiary neutral/300 in Dark, both above 10:1.</span></div>
+          <div class="rule"><b>Exam states swap together</b><span>All four question pill states have their own Dark values and keep their marks.</span></div>
         </div>
       </section>
 
       <section id="hindsight">
         <div class="txt">
-          <p class="sec-name">What I’d do differently</p>
-          <h2>Start from the student exam screen, not the dashboard.</h2>
+          <p class="sec-name">What I'd do differently</p>
+          <h2>Get it into code sooner. Figma can prove the colours pass, but only a browser can test the rest.</h2>
         </div>
         <div class="hind h4">
-          <div><h3>Start where reading is hardest</h3><p class="full">I built the tokens from the co-ordinator screens first. The student exam has the strictest needs: long stems, a timer and zoom to 200%. Starting there would have settled the type ramp sooner.</p></div>
-          <div><h3>Test dark mode in the room</h3><p class="full">The contrast checks are maths. Glare and fatigue in an exam hall are not. I’d run one live session with proctors before calling the theme done.</p></div>
-          <div><h3>Add a high-contrast mode</h3><p class="full">The colour collection is ready for a third mode. Students who need stronger contrast should get it without a single new component.</p></div>
-          <div><h3>Write the Android rules next</h3><p class="full">The exam app shares the tokens but not the touch targets. Answer rows and question cells need their own density values there.</p></div>
+          <div><h3>Test with a keyboard and a screen reader</h3><p class="full">Focus order, focus trapping in dialogs, live region announcements and reflow at 200% are still unverified. I would build the exam screen in code next to the library, not after it.</p></div>
+          <div><h3>Fix touch targets, not just note them</h3><p class="full">Checkbox, radio, chip remove, pager dot and the Compact density sit under 44px. I wrote that into their descriptions but did not resize them. 44px is AAA in WCAG 2.2, and on a phone during an exam it should be the floor.</p></div>
+          <div><h3>Publish on day one</h3><p class="full">The library is not yet published as a team library and has no Code Connect. Publishing early would have put real teams on it while the names could still change cheaply.</p></div>
+          <div><h3>Finish the data layer</h3><p class="full">The line chart from the outcome analysis screen is still a drawing, not a component. The data colours are ready for it. The chart itself is the next piece.</p></div>
         </div>
       </section>
 
     </div>
     <aside class="toc" aria-label="Case study sections">
       <p>In this case study</p>
-      <ol><li><a href="#problem"><span class="ck"><svg><use href="#i-check"/></svg></span>Problem</a></li><li><a href="#rules"><span class="ck"><svg><use href="#i-check"/></svg></span>Rules I set</a></li><li><a href="#tokens"><span class="ck"><svg><use href="#i-check"/></svg></span>Tokens</a></li><li><a href="#type"><span class="ck"><svg><use href="#i-check"/></svg></span>Type</a></li><li><a href="#space"><span class="ck"><svg><use href="#i-check"/></svg></span>Space and shape</a></li><li><a href="#components"><span class="ck"><svg><use href="#i-check"/></svg></span>Components</a></li><li><a href="#screen"><span class="ck"><svg><use href="#i-check"/></svg></span>Sample screen</a></li><li><a href="#hindsight"><span class="ck"><svg><use href="#i-check"/></svg></span>Hindsight</a></li></ol>
-      <p class="tt">About 3 minutes in Skim</p>
+      <ol><li><a href="#problem"><span class="ck"><svg><use href="#i-check"/></svg></span>Starting point</a></li><li><a href="#rules"><span class="ck"><svg><use href="#i-check"/></svg></span>Rules I set</a></li><li><a href="#tokens"><span class="ck"><svg><use href="#i-check"/></svg></span>Variables</a></li><li><a href="#type"><span class="ck"><svg><use href="#i-check"/></svg></span>Type</a></li><li><a href="#space"><span class="ck"><svg><use href="#i-check"/></svg></span>Space and shape</a></li><li><a href="#components"><span class="ck"><svg><use href="#i-check"/></svg></span>Components</a></li><li><a href="#a11y"><span class="ck"><svg><use href="#i-check"/></svg></span>Accessibility</a></li><li><a href="#screen"><span class="ck"><svg><use href="#i-check"/></svg></span>Sample screen</a></li><li><a href="#hindsight"><span class="ck"><svg><use href="#i-check"/></svg></span>Hindsight</a></li></ol>
+      <p class="tt">About 4 minutes in Skim</p>
     </aside>
-    <div class="next"><span>Next case study</span><a href="loulous-kitchen.html">Loulou’s Kitchen ↗</a></div>
+    <div class="next"><span>Next case study</span><a href="loulous-kitchen.html">Loulou's Kitchen ↗</a></div>
   </div>
 </main>
+
 <script>
 (function(){
   var SVGNS='http://www.w3.org/2000/svg';
@@ -918,10 +1186,10 @@ section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spac
 </script>
 <script>
 (function(){
-  var shot=document.getElementById('live-shot');
+  var shots=document.querySelectorAll('.shot');
   var b=document.querySelectorAll('.scr-sw button');
   b.forEach(function(x){x.addEventListener('click',function(){
-    shot.setAttribute('data-theme',x.dataset.t);
+    shots.forEach(function(s){s.setAttribute('data-theme',x.dataset.t);});
     b.forEach(function(y){y.setAttribute('aria-pressed',String(y===x));});
     window.dispatchEvent(new Event('resize'));
   });});
