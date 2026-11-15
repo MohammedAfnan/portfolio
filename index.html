@@ -789,7 +789,7 @@ h2 .soft{color:var(--ink-2)}
     for(var i=0;i<n;i++)u[i]=bin.charCodeAt(i);
     var url=URL.createObjectURL(new Blob([u],{type:"application/pdf"}));
     document.querySelectorAll('a[href$="Mohammed-Afnan-Senior-UX-Product-Designer-CV.pdf"]').forEach(function(a){
-      a.href=url; a.setAttribute("download","Mohammed-Afnan-Senior-UX-Product-Designer-CV.pdf");
+      a.href=url; a.setAttribute("download","Mohammed-Afnan-Senior-UX-Product-Designer-CV.pdf"); a.setAttribute("type","application/pdf");
     });
   }catch(e){}
 })();
