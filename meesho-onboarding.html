@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html data-theme="dark" lang="en">
 <head>
-   <!-- Google tag (gtag.js) -->
-  <script async src="https://googletagmanager.com"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-QNYZHKHN3D');
-  </script>
-  <!-- Rest of your head content -->
 <meta charset="utf-8">
 <meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -20,7 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20122%20122%22%3E%3Crect%20width%3D%22122%22%20height%3D%22122%22%20rx%3D%2226%22%20fill%3D%22%23111312%22/%3E%3Cg%20transform%3D%22translate%280%209%29%22%20fill%3D%22%2376FBC8%22%3E%3Cpath%20d%3D%22M48.2%2011L53.2%2020L26%2077.2L31%2082.6H15.4Z%22/%3E%3Cpath%20d%3D%22M74%2011L106.4%2082.2H90.4L96.6%2076.8L74%2028L51%2077L56%2082.6H40.6Z%22/%3E%3Ccircle%20cx%3D%2274.6%22%20cy%3D%2263.6%22%20r%3D%226.6%22/%3E%3Crect%20x%3D%2211%22%20y%3D%2290.4%22%20width%3D%22100.4%22%20height%3D%225.2%22/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300;6..72,400&display=swap" media="print" onload="this.media='all'">
 <style>
 
 /* ---------- Portfolio shell tokens ---------- */
@@ -400,6 +390,65 @@ section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spac
 .cs-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 28px;padding:0}
 .cs-tags li{font-size:13.5px;line-height:1;color:var(--ink-2);border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:999px;padding:7px 12px}
 .cs-tags li.win{color:var(--brand);border-color:color-mix(in srgb,var(--brand) 45%,transparent)}
+
+.site{--line-2:color-mix(in srgb,var(--ink) 18%,transparent);--mint:#76FBC8;--mint-ink:#062A1D;--serif:Newsreader,"Iowan Old Style",Georgia,serif;--sans:Geist,ui-sans-serif,system-ui,sans-serif}
+.site.menu-open{--bg:#111312;--surface:#181A19;--sunk:#0C0D0D;--line:rgba(236,240,238,.10);--line-2:rgba(236,240,238,.18);--ink:#ECEFED;--ink-2:#A9AFAC;--ink-3:#7E8581;color:var(--ink);color-scheme:dark}
+.site.menu-open .prog{opacity:0}
+.site .smnav .btn.pri{display:inline-flex;align-items:center;gap:10px;font:500 15px/1 var(--sans);text-decoration:none;border-radius:999px;background:var(--mint);color:var(--mint-ink)}
+
+/* ---------- Menu for tablet and mobile (full-height sheet) ---------- */
+.menu-tg{display:none;position:relative;flex:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:40px;height:40px;padding:0;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+@media (hover:hover){.menu-tg:hover{border-color:var(--mint);color:var(--mint)}}
+.menu-tg:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+.menu-tg i{display:block;width:16px;height:1.5px;border-radius:2px;background:currentColor;transition:transform .25s cubic-bezier(.2,.7,.2,1),opacity .2s}
+.menu-tg[aria-expanded="true"]{border-color:var(--mint);color:var(--mint)}
+.menu-tg[aria-expanded="true"] i:nth-of-type(1){transform:translateY(5.5px) rotate(45deg)}
+.menu-tg[aria-expanded="true"] i:nth-of-type(2){opacity:0}
+.menu-tg[aria-expanded="true"] i:nth-of-type(3){transform:translateY(-5.5px) rotate(-45deg)}
+.mt-l{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html.menu-lock body{overflow:hidden}
+.site.menu-open{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none}
+
+.smnav{position:absolute;top:100%;left:0;right:0;height:calc(100vh - var(--hh,64px));height:calc(100dvh - var(--hh,64px));display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;background:var(--bg);padding:clamp(28px,5vw,48px) clamp(24px,4.2vw,80px) calc(24px + env(safe-area-inset-bottom,0px));animation:smn-in .22s ease-out}
+.smnav[hidden]{display:none}
+.smnav nav{display:block;margin:0}
+.smn-eye{margin:0 0 clamp(12px,2vw,20px);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.smn-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(2px,.6vw,8px)}
+.smn-list li{animation:smn-item .4s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 45ms + 40ms)}
+.site .smn-list a{display:grid;grid-template-columns:2.4em minmax(0,1fr) auto;align-items:baseline;gap:8px;padding:clamp(8px,1.4vw,14px) 0;color:var(--ink);text-decoration:none;border-radius:8px}
+.smn-n{font-size:13px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--mint);letter-spacing:.02em;transform:translateY(-.9em)}
+.smn-t{font-family:var(--serif);font-weight:300;font-size:clamp(36px,6.4vw,60px);line-height:1.05;letter-spacing:-.02em;overflow-wrap:anywhere;transition:color .2s,transform .3s cubic-bezier(.2,.7,.2,1)}
+.smn-ar{width:clamp(18px,2.4vw,24px);height:clamp(18px,2.4vw,24px);align-self:center;color:var(--ink-3);transition:color .2s,transform .3s cubic-bezier(.2,.7,.2,1)}
+html[dir="rtl"] .smn-ar{transform:scaleX(-1)}
+.smn-list a[aria-current="true"] .smn-t,.smn-list a:active .smn-t{color:var(--mint)}
+.smn-list a:active .smn-ar{color:var(--mint)}
+@media (hover:hover){
+.smn-list a:hover .smn-t{color:var(--mint);transform:translateX(4px)}
+.smn-list a:hover .smn-ar{color:var(--mint);transform:translate(3px,-3px)}
+html[dir="rtl"] .smn-list a:hover .smn-t{transform:translateX(-4px)}
+html[dir="rtl"] .smn-list a:hover .smn-ar{transform:scaleX(-1) translate(3px,-3px)}
+}
+html[lang="ar"] .smn-t{font-family:"IBM Plex Sans Arabic",var(--sans);font-weight:400;letter-spacing:0}
+.smn-list a:focus-visible{outline:2px solid var(--mint);outline-offset:4px}
+.smn-list a[aria-current="true"] .smn-n::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--mint);margin-inline-start:6px;vertical-align:middle}
+
+.smn-foot{margin-top:auto;padding-top:clamp(28px,4vw,40px);display:flex;flex-direction:column;gap:18px;animation:smn-item .4s cubic-bezier(.2,.7,.2,1) both;animation-delay:.28s}
+.smn-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;padding-top:20px;border-top:1px solid var(--line)}
+.smn-mail{font-size:15px;color:var(--ink-2);text-decoration:none;overflow-wrap:anywhere}
+@media (hover:hover){.smn-mail:hover{color:var(--mint)}}
+.smn-mail:focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:4px}
+@keyframes smn-in{from{opacity:0}to{opacity:1}}
+@keyframes smn-item{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.smnav,.smn-list li,.smn-foot{animation:none}.menu-tg i,.smn-t,.smn-ar{transition:none}}
+
+@media (min-width:721px){.smnav{display:none!important}}
+@media (max-width:720px){
+  .site-in{gap:12px}
+  .mode button{white-space:nowrap}
+  .menu-tg{display:inline-flex;margin-inline-start:auto}
+}
+@media (max-width:400px){.site .now{display:none}}
+.smn-lang{display:none;align-items:center;gap:12px;font-size:14px;color:var(--ink-2)}
 </style>
 </head>
 <body class="skim">
@@ -442,8 +491,10 @@ section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spac
     </div>
     <span class="now" aria-live="polite"><b id="now-label">Introduction</b></span>
     <nav class="links" aria-label="Site"><a href="index.html#work">Work</a><a href="index.html#approach">About</a><a href="mailto:mails2afnan@gmail.com">Contact</a></nav>
+    <button type="button" class="menu-tg" aria-expanded="false" aria-controls="smnav"><span class="mt-l">Menu</span><i></i><i></i><i></i></button>
   </div>
   <div class="prog" aria-hidden="true"><i id="prog-fill"></i></div>
+  <div class="smnav" id="smnav" hidden><nav aria-label="Site menu"><p class="smn-eye">Menu</p><ol class="smn-list" role="list"><li style="--i:1"><a href="index.html#work"><span class="smn-n" aria-hidden="true">01</span><span class="smn-t">Work</span><svg class="smn-ar" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg></a></li><li style="--i:2"><a href="index.html#approach"><span class="smn-n" aria-hidden="true">02</span><span class="smn-t">About</span><svg class="smn-ar" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg></a></li><li style="--i:3"><a href="mailto:mails2afnan@gmail.com"><span class="smn-n" aria-hidden="true">03</span><span class="smn-t">Contact</span><svg class="smn-ar" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg></a></li></ol></nav><div class="smn-foot"><div class="smn-row"><a class="smn-mail" href="mailto:mails2afnan@gmail.com">mails2afnan@gmail.com</a></div></div></div>
 </header>
 
 <main class="wrap">
@@ -854,6 +905,41 @@ section h2{font-size:clamp(22px,1.25vw + 10px,34px);line-height:1.35;letter-spac
   updateIndex();
 })();
 
+</script>
+<script>
+/* Menu for tablet and mobile */
+(function(){
+  var tg=document.querySelector('.menu-tg'),panel=document.getElementById('smnav');
+  if(!tg||!panel)return;
+  var site=tg.closest('.site'),root=document.documentElement,mq=window.matchMedia('(max-width:720px)');
+  var spy=[].slice.call(panel.querySelectorAll('.smn-list a[href^="#"]'));
+  function current(){
+    var top=site.getBoundingClientRect().bottom+48,cur=null;
+    spy.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s&&s.getBoundingClientRect().top<=top)cur=a;});
+    spy.forEach(function(a){if(a===cur)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
+  }
+  function focusables(){return [tg].concat([].slice.call(panel.querySelectorAll('a,button')).filter(function(e){return e.offsetParent!==null;}));}
+  function set(open,back){
+    if(open){root.style.setProperty('--hh',Math.floor(site.getBoundingClientRect().bottom-1)+'px');current();}
+    tg.setAttribute('aria-expanded',String(open));
+    panel.hidden=!open;
+    site.classList.toggle('menu-open',open);
+    root.classList.toggle('menu-lock',open);
+    if(!open&&back)tg.focus();
+  }
+  tg.addEventListener('click',function(e){var open=tg.getAttribute('aria-expanded')!=='true';set(open);if(open&&e.detail===0){var f=focusables();if(f[1])f[1].focus();}});
+  panel.addEventListener('click',function(e){if(e.target.closest('a'))set(false);});
+  document.addEventListener('keydown',function(e){
+    if(panel.hidden)return;
+    if(e.key==='Escape'){set(false,true);return;}
+    if(e.key==='Tab'){var f=focusables(),i=f.indexOf(document.activeElement);
+      if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus();}
+      else if(!e.shiftKey&&(i===f.length-1||i===-1)){e.preventDefault();f[0].focus();}}
+  });
+  function onBp(){if(!mq.matches&&!panel.hidden)set(false);}
+  if(mq.addEventListener)mq.addEventListener('change',onBp);else mq.addListener(onBp);
+  window.addEventListener('resize',function(){if(!panel.hidden)root.style.setProperty('--hh',Math.floor(site.getBoundingClientRect().bottom-1)+'px');});
+})();
 </script>
 </body>
 </html>
